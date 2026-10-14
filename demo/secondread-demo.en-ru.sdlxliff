@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns:sdl="http://sdl.com/FileTypes/SdlXliff/1.0" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2" sdl:version="1.0">
+  <file original="ecommerce_en_36.txt" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">87628cac-4c60-58cd-9927-b976b485f99d</value>
+        <value key="SDL:OriginalFilePath">ecommerce_en_36.txt</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>Plain Text v 1.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+    </header>
+    <body>
+      <trans-unit id="ef746e5b-429d-5a02-ab78-6b29ecacd787">
+        <source>Description Please scroll to the bottom of the listing for more pictures.</source>
+        <seg-source><mrk mtype="seg" mid="1">Description Please scroll to the bottom of the listing for more pictures.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="1">Описание Пожалуйста, прокрутите к нижней части списка для получения дополнительных фотографий.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="1" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="47edf5ae-ae8b-5e95-80ed-5e90582b98da">
+        <source>Here we have for sale a Genuine Longines used chronograph wristwatch dial.</source>
+        <seg-source><mrk mtype="seg" mid="2">Here we have for sale a Genuine Longines used chronograph wristwatch dial.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="2">Здесь мы имеем для продажи подлинный Longines используется хронограф наручные часы циферблат.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="2" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="d7f73478-c43f-58a0-a3b0-dfd4633165f8">
+        <source>The dial is black in colour with white markers and a date aperature in the bottom sub dial.</source>
+        <seg-source><mrk mtype="seg" mid="3">The dial is black in colour with white markers and a date aperature in the bottom sub dial.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="3">Циферблат чёрного цвета с белыми маркерами и апертурой даты в нижней части циферблата.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="3" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="3a3d8524-f367-52a0-8890-186881029fc4">
+        <source>The dial is in very good, if not new old stock, condition.</source>
+        <seg-source><mrk mtype="seg" mid="4">The dial is in very good, if not new old stock, condition.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="4">Циферблат находится в очень хорошем, если не новом старом запасе, состоянии.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="4" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="da9b34b9-6b0f-5e09-a1ba-fc8d2a493283">
+        <source>The back of the dial is unmarked.</source>
+        <seg-source><mrk mtype="seg" mid="5">The back of the dial is unmarked.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="5">Обратная сторона циферблата не обозначена.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="5" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="9ed0794e-d722-5316-99de-47880a2e8416">
+        <source>The dial measures 37mm in diameter and the dial feet are at approximately 7 and 37.</source>
+        <seg-source><mrk mtype="seg" mid="6">The dial measures 37mm in diameter and the dial feet are at approximately 7 and 37.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="6">Размеры циферблата 37 мм в диаметре и ножки циферблата примерно 7 и 37.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="6" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="6126f85b-fbaf-5532-b43b-06088ef1531e">
+        <source>Please see the pictures for more details.</source>
+        <seg-source><mrk mtype="seg" mid="7">Please see the pictures for more details.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="7">Пожалуйста, смотрите фотографии для получения более подробной информации.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="7" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="86ad6e0d-d79b-59c1-a3ac-a3b77c834dd6">
+        <source>The dial is guaranteed genuine.</source>
+        <seg-source><mrk mtype="seg" mid="8">The dial is guaranteed genuine.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="8">Циферблат гарантированно подлинный.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="8" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b0769ec7-d827-5ec9-804b-04a1a706b7bb">
+        <source>Payment Payment is expected within 5 working days.</source>
+        <seg-source><mrk mtype="seg" mid="9">Payment Payment is expected within 5 working days.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="9">Оплата Оплата ожидается в течение 5 рабочих дней.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="9" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7b99c278-af13-53cc-8cf1-3fc8f4139d0b">
+        <source>We accept payment by Paypal, Bank Transfer or payment on collection.</source>
+        <seg-source><mrk mtype="seg" mid="10">We accept payment by Paypal, Bank Transfer or payment on collection.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="10">Мы принимаем оплату через Paypal, банковский перевод или оплату на инкассо.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="10" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="ecommerce_en_13.txt" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">0ce8d88a-40e0-566d-900e-a862e3d597bc</value>
+        <value key="SDL:OriginalFilePath">ecommerce_en_13.txt</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>Plain Text v 1.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+    </header>
+    <body>
+      <trans-unit id="b4e95baa-dbfc-5343-8ab7-97ab490e9151">
+        <source>Plus Muscle Maintenance to support muscular structure and activity</source>
+        <seg-source><mrk mtype="seg" mid="11">Plus Muscle Maintenance to support muscular structure and activity</mrk></seg-source>
+        <target><mrk mtype="seg" mid="11">Плюс Обслуживание мышц для поддержки мышечной структуры и активности</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="11" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="302fb1e1-7977-5b99-9553-5793896a859b">
+        <source>Joint Aid for Dogs is a high specification joint and muscle supplement with glucosamine for dogs, designed to aid freedom of movement.</source>
+        <seg-source><mrk mtype="seg" mid="12">Joint Aid for Dogs is a high specification joint and muscle supplement with glucosamine for dogs, designed to aid freedom of movement.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="12">Совместная помощь для собак - это суставная и мышечная добавка высокой спецификации с глюкозамином для собак, предназначенная для содействия свободе передвижения.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="12" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="28e23c9a-7cc5-53de-b60b-f7f9d01a5d36">
+        <source>Joint Aid for Dogs can be fed to all dogs from any age at the ‘General Support’ level to maintain freedom of movement and muscle condition throughout their lives.</source>
+        <seg-source><mrk mtype="seg" mid="13">Joint Aid for Dogs can be fed to all dogs from any age at the ‘General Support’ level to maintain freedom of movement and muscle condition throughout their lives.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="13">Совместную помощь собакам можно кормить всем собакам любого возраста на уровне «Общая поддержка», чтобы поддерживать свободу передвижения и мышечное состояние на протяжении всей их жизни.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="13" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="6885c081-8d36-51a6-89d9-b07fdca580c4">
+        <source>For elderly and working dogs or those showing reduced muscle mass, Joint Aid for Dogs is recommended to be fed at the ‘Full Support’ level.</source>
+        <seg-source><mrk mtype="seg" mid="14">For elderly and working dogs or those showing reduced muscle mass, Joint Aid for Dogs is recommended to be fed at the ‘Full Support’ level.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="14">Пожилым и работающим собакам, а также собакам с пониженной мышечной массой рекомендуется кормление на уровне «Полная поддержка».</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="14" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b9874120-9c97-5b4e-b813-ef7d4df24eab">
+        <source>What are the key benefits of using Joint Aid for Dogs?</source>
+        <seg-source><mrk mtype="seg" mid="15">What are the key benefits of using Joint Aid for Dogs?</mrk></seg-source>
+        <target><mrk mtype="seg" mid="15">Каковы основные преимущества использования Совместной Помощи Собакам?</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="15" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="475348ca-1c61-513c-93e8-6f7204cb1de2">
+        <source>-Maintains flexibility of movement in all working and pet dogs regardless of age, size and level of exercise.</source>
+        <seg-source><mrk mtype="seg" mid="16">-Maintains flexibility of movement in all working and pet dogs regardless of age, size and level of exercise.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="16">-Поддерживает гибкость движений у всех рабочих и домашних собак независимо от возраста, размера и уровня физических упражнений.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="16" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="e5da2b98-8e4d-53ff-8304-bcf84c1e6e23">
+        <source>-Supports the formation of cartilage, tendons, ligaments, synovial fluid and muscles.</source>
+        <seg-source><mrk mtype="seg" mid="17">-Supports the formation of cartilage, tendons, ligaments, synovial fluid and muscles.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="17">-Поддерживает образование хряща, сухожилий, связок, синовиальной жидкости и мышц.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="17" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="8b3715e9-180f-5b5f-8643-5ed59529284b">
+        <source>-Helps maintain the natural anti-inflammatory actions of the dog's metabolism.</source>
+        <seg-source><mrk mtype="seg" mid="18">-Helps maintain the natural anti-inflammatory actions of the dog's metabolism.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="18">-Помогает поддерживать естественные противовоспалительные действия метаболизма собаки.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="18" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="f3f03025-3e0e-5628-abc4-c87d278478a8">
+        <source>-Provides a unique combination of 22 active nutraceuticals.</source>
+        <seg-source><mrk mtype="seg" mid="19">-Provides a unique combination of 22 active nutraceuticals.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="19">-Обеспечивает уникальную комбинацию из 22 активных нутрицевтиков.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="19" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="d24c18fd-5ce7-55e6-8bb1-ee14de39b592">
+        <source>-Contains the unique Oatinol™ Delivery System to maintain a high rate of nutrient absorption.</source>
+        <seg-source><mrk mtype="seg" mid="20">-Contains the unique Oatinol™ Delivery System to maintain a high rate of nutrient absorption.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="20">- Содержит уникальную систему доставки OatinolTM для поддержания высокой скорости поглощения питательных веществ.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="20" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="en_fr_CLIENT-02_default_2020-12-20-16_doc06.txt" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">f46a5158-11ea-5c34-a897-73c5121ffe78</value>
+        <value key="SDL:OriginalFilePath">en_fr_CLIENT-02_default_2020-12-20-16_doc06.txt</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>Plain Text v 1.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+    </header>
+    <body>
+      <trans-unit id="a2192034-fa30-5240-ac2a-1ee39e357239">
+        <source>The other thing you can try is to perform a factory reset to your device and then check if it gets detected by your computer</source>
+        <seg-source><mrk mtype="seg" mid="21">The other thing you can try is to perform a factory reset to your device and then check if it gets detected by your computer</mrk></seg-source>
+        <target><mrk mtype="seg" mid="21">Другая вещь, которую вы можете попробовать, это выполнить заводской сброс к вашему устройству, а затем проверить, если он обнаруживается вашим компьютером</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="21" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b0718944-e10b-5a35-bcde-d8c697442120">
+        <source>To do this, please follow these instructions:</source>
+        <seg-source><mrk mtype="seg" mid="22">To do this, please follow these instructions:</mrk></seg-source>
+        <target><mrk mtype="seg" mid="22">Для этого, пожалуйста, следуйте следующим инструкциям:</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="22" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="80d572c7-884b-5017-b82f-74c0420193c0">
+        <source>If possible, back up any books or documents that you added to your eReader using #PRS_ORG#, or that you manually added using your computer.</source>
+        <seg-source><mrk mtype="seg" mid="23">If possible, back up any books or documents that you added to your eReader using #PRS_ORG#, or that you manually added using your computer.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="23">Если это возможно, создайте резервную копию любых книг или документов, которые вы добавили в свой eReader с помощью 'PRS'ORG', или которые вы добавили вручную с помощью вашего компьютера.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="23" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="54d55939-1e49-5511-b479-ff96ba208ae1">
+        <source>You do not need to back up any books you bought from #PRS_ORG#.</source>
+        <seg-source><mrk mtype="seg" mid="24">You do not need to back up any books you bought from #PRS_ORG#.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="24">Вам не нужно делать резервные копии каких-либо книг, которые вы купили в «PRS'ORG».</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="24" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="6f676f7a-8b9d-591d-b384-be45b8fd71bd">
+        <source>Any books you purchased from #PRS_ORG# can be re-downloaded from the #PRS_ORG# #PRS_ORG# after a factory reset.</source>
+        <seg-source><mrk mtype="seg" mid="25">Any books you purchased from #PRS_ORG# can be re-downloaded from the #PRS_ORG# #PRS_ORG# after a factory reset.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="25">Любые книги, которые вы приобрели у «PRS'ORG», могут быть повторно загружены из «PRS'ORG» «PRS'ORG» после сброса заводских настроек.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="25" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="8b4c8f00-c25d-56a1-a09d-590e3d298d82">
+        <source>Go to your Home screen.</source>
+        <seg-source><mrk mtype="seg" mid="26">Go to your Home screen.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="26">Перейдите на домашний экран.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="26" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="619c9dd6-2605-5418-b8d3-eb311450b6ce">
+        <source>Tap Home at the top of the screen.</source>
+        <seg-source><mrk mtype="seg" mid="27">Tap Home at the top of the screen.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="27">Нажмите Домой в верхней части экрана.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="27" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="d31c67ab-d9bb-581d-af0d-4ea70f034dcd">
+        <source>Tap Settings.</source>
+        <seg-source><mrk mtype="seg" mid="28">Tap Settings.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="28">Нажмите Настройки.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="28" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="6ffe5af9-86bd-56cc-8589-ca4285507165">
+        <source>Tap Device information.</source>
+        <seg-source><mrk mtype="seg" mid="29">Tap Device information.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="29">Коснитесь Сведения об устройстве.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="29" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="193f75ff-4767-5cf0-8aa4-512b7be59b1d">
+        <source>Tap Factory reset under Advanced.</source>
+        <seg-source><mrk mtype="seg" mid="30">Tap Factory reset under Advanced.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="30">Сброс настроек Tap Factory в разделе Advanced.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="30" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="8e018bba-4848-555b-b57d-0ada67ea2aee">
+        <source>Tap Reset Now.</source>
+        <seg-source><mrk mtype="seg" mid="31">Tap Reset Now.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="31">Нажмите Сбросить сейчас.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="31" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="brisbanetimes.com.au.47160.txt" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">8b7342ca-701a-5387-8b64-fe1ce6330cb0</value>
+        <value key="SDL:OriginalFilePath">brisbanetimes.com.au.47160.txt</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>Plain Text v 1.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+    </header>
+    <body>
+      <trans-unit id="6acf9662-649b-5d62-a5ef-9cfe631a6d2e">
+        <source>Gabba's double power failure explained and why it could happen again</source>
+        <seg-source><mrk mtype="seg" mid="32">Gabba's double power failure explained and why it could happen again</mrk></seg-source>
+        <target><mrk mtype="seg" mid="32">Двойной сбой питания Gabba объяснил и почему это может произойти снова</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="32" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="0320e66e-792b-58bd-8e7e-3825bd92cbad">
+        <source>Risks of power failure inherent in the Gabba's broadcast compound set-up are unlikely to be improved before the next Ashes series, as cricket authorities await more detail on plans for the stadium's major upgrade to host the 2032 Olympic Games.</source>
+        <seg-source><mrk mtype="seg" mid="33">Risks of power failure inherent in the Gabba's broadcast compound set-up are unlikely to be improved before the next Ashes series, as cricket authorities await more detail on plans for the stadium's major upgrade to host the 2032 Olympic Games.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="33">Риски отключения электроэнергии, присущие комплексу Габба, вряд ли будут улучшены до следующей серии игр Ashes, так как власти крикета ожидают более подробной информации о планах крупной модернизации стадиона для проведения Олимпийских игр 2032 года.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="33" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="761021f5-8436-58aa-98c7-44863f10a8f5">
+        <source>Sources have told The Age and The Sydney Morning Herald that the Gabba is the only major stadium in Australian cricket where the mains power supply at the ground is not sufficient to fire up the vast array of broadcast trucks and devices needed to beam pictures around the world.</source>
+        <seg-source><mrk mtype="seg" mid="34">Sources have told The Age and The Sydney Morning Herald that the Gabba is the only major stadium in Australian cricket where the mains power supply at the ground is not sufficient to fire up the vast array of broadcast trucks and devices needed to beam pictures around the world.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="34">Источники сообщили The Age и The Sydney Morning Herald, что Габба является единственным крупным стадионом в австралийском крикете, где электропитания на земле недостаточно для запуска огромного количества транслируемых грузовиков и устройств, необходимых для лучевого снимка по всему миру.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="34" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="9d8ad22e-90a7-5f87-91d5-e60986286e1d">
+        <source>Primary and backup generators powering the global broadcast of the Gabba Test went down for about 25 minutes on day four.</source>
+        <seg-source><mrk mtype="seg" mid="35">Primary and backup generators powering the global broadcast of the Gabba Test went down for about 25 minutes on day four.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="35">Первичные и резервные генераторы, питающие глобальную трансляцию теста Габба, вышли из строя примерно на 25 минут в четвертый день.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="35" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7085dec3-f6c5-5943-93b5-96a01f68c5c0">
+        <source>That's because the base power in the precinct is required to supply the Gabba's light towers - one of which infamously went down during a Big Bash League match in 2019 - and the ground itself.</source>
+        <seg-source><mrk mtype="seg" mid="36">That's because the base power in the precinct is required to supply the Gabba's light towers - one of which infamously went down during a Big Bash League match in 2019 - and the ground itself.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="36">Это потому, что базовая мощность на участке необходима для снабжения световых башен Габбы - одна из которых позорно упала во время матча Big Bash League в 2019 году - и самой площадки.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="36" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="521945fd-fa27-58dd-bcb1-0e5db8056d60">
+        <source>As a result, broadcasters draw their primary power supply from a huge, diesel-fuelled generator hired for the Test match, with back-up power meant to be derived from a back-up generator.</source>
+        <seg-source><mrk mtype="seg" mid="37">As a result, broadcasters draw their primary power supply from a huge, diesel-fuelled generator hired for the Test match, with back-up power meant to be derived from a back-up generator.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="37">В результате, вещатели получают свое основное энергоснабжение от огромного дизельного генератора, нанятого для тестового матча, с резервным питанием, которое должно быть получено от резервного генератора.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="37" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b8343c60-5a04-5432-b34f-df95e402ac64">
+        <source>However, on day four of the Test match, the failure of the primary generator fused with the back-up generator, causing both to go down simultaneously and resulting in the total or partial loss of broadcast pictures and DRS for nearly 30 minutes.</source>
+        <seg-source><mrk mtype="seg" mid="38">However, on day four of the Test match, the failure of the primary generator fused with the back-up generator, causing both to go down simultaneously and resulting in the total or partial loss of broadcast pictures and DRS for nearly 30 minutes.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="38">Тем не менее, на четвёртый день тестового матча выход из строя основного генератора слился с резервным генератором, в результате чего оба вышли из строя одновременно и привели к полной или частичной потере широковещательных изображений и DRS в течение почти 30 минут.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="38" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="2585f4ff-0e6a-5ede-b6fd-68cfbed113c9">
+        <source>NEP, the company that provides the outside broadcast trucks and other facilities to Fox and Seven, has sought an explanation from the company that provided the generators.</source>
+        <seg-source><mrk mtype="seg" mid="39">NEP, the company that provides the outside broadcast trucks and other facilities to Fox and Seven, has sought an explanation from the company that provided the generators.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="39">NEP, компания, которая предоставляет внешние вещательные грузовики и другие объекты Fox и Seven, запросила объяснения у компании, которая предоставила генераторы.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="39" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="210e3c46-c67d-5dbe-8fd1-69f0acb0a59a">
+        <source>All other grounds to be used for the Ashes - Adelaide Oval, the MCG, the SCG and Bellerive Oval in Hobart - will provide mains power as the primary supply for broadcasters, leaving a diesel-powered generator as the back-up.</source>
+        <seg-source><mrk mtype="seg" mid="40">All other grounds to be used for the Ashes - Adelaide Oval, the MCG, the SCG and Bellerive Oval in Hobart - will provide mains power as the primary supply for broadcasters, leaving a diesel-powered generator as the back-up.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="40">Все другие площадки, которые будут использоваться для пепла - Adelaide Oval, MCG, SCG и Bellerive Oval в Хобарте - обеспечат электропитание в качестве основного источника питания для вещателей, оставив дизельный генератор в качестве резервного.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="40" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="2ac73d6e-c966-5efa-89c5-c042b51fe97f">
+        <source>This difference, which has caused considerable anxiety for the host broadcaster Fox Cricket in the past, was exacerbated during the Ashes Test by the vastly reduced crew of production and technical staff able to keep tabs on the myriad metaphorical balls being kept in the air throughout the match.</source>
+        <seg-source><mrk mtype="seg" mid="41">This difference, which has caused considerable anxiety for the host broadcaster Fox Cricket in the past, was exacerbated during the Ashes Test by the vastly reduced crew of production and technical staff able to keep tabs on the myriad metaphorical balls being kept in the air throughout the match.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="41">Эта разница, которая вызывала значительное беспокойство у ведущего Fox Cricket в прошлом, была усугублена во время теста пепла значительно сокращенной командой продюсеров и технического персонала, способных следить за мириадами метафорических шаров, держащихся в воздухе на протяжении всего матча.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="41" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="guardian.44758.txt" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">e80c7146-17c4-5139-b189-2b1e6171627a</value>
+        <value key="SDL:OriginalFilePath">guardian.44758.txt</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>Plain Text v 1.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+    </header>
+    <body>
+      <trans-unit id="9547ecc5-f875-5d73-bb43-b746a5409963">
+        <source>Libya: plan for presidential election on 24 December close to collapse</source>
+        <seg-source><mrk mtype="seg" mid="42">Libya: plan for presidential election on 24 December close to collapse</mrk></seg-source>
+        <target><mrk mtype="seg" mid="42">Ливия: план президентских выборов 24 декабря близок к краху</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="42" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="fe05963a-ea10-5b5d-b5ed-ac57b54a9d8d">
+        <source>The chances of Libya staging its first presidential elections on the long planned date of 24 December appeared close to collapse on Sunday after the body overseeing the vote said it was unable to announce the the approved candidates because of continued legal doubts.</source>
+        <seg-source><mrk mtype="seg" mid="43">The chances of Libya staging its first presidential elections on the long planned date of 24 December appeared close to collapse on Sunday after the body overseeing the vote said it was unable to announce the the approved candidates because of continued legal doubts.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="43">Шансы Ливии провести свои первые президентские выборы в давно запланированную дату 24 декабря казались близкими к краху в воскресенье после того, как орган, наблюдающий за голосованием, заявил, что он не может объявить утвержденных кандидатов из-за продолжающихся юридических сомнений.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="43" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="63588128-73b8-58c8-a661-bf7c948b3fe4">
+        <source>With the elections less than a fortnight away and virtually no time for campaigning, a postponement would represent a bitter blow to the international community's hopes of reuniting the deeply divided country.</source>
+        <seg-source><mrk mtype="seg" mid="44">With the elections less than a fortnight away and virtually no time for campaigning, a postponement would represent a bitter blow to the international community's hopes of reuniting the deeply divided country.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="44">Поскольку до выборов осталось менее двух недель и практически нет времени для проведения предвыборной кампании, отсрочка нанесла бы тяжелый удар по надеждам международного сообщества на воссоединение глубоко разделенной страны.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="44" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="51bc5837-0089-548f-bb0f-3795172b1d9a">
+        <source>Foreign powers will also fear the overall momentum towards democracy could dissipate.</source>
+        <seg-source><mrk mtype="seg" mid="45">Foreign powers will also fear the overall momentum towards democracy could dissipate.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="45">Иностранные державы также будут опасаться, что общий импульс к демократии может рассеяться.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="45" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="3f70c140-f3b4-5b95-baa6-028eb90b0236">
+        <source>In the short term they will have to agree whether or not the interim government continues in order to fill the political vacuum and prevent a return to civil war.</source>
+        <seg-source><mrk mtype="seg" mid="46">In the short term they will have to agree whether or not the interim government continues in order to fill the political vacuum and prevent a return to civil war.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="46">В краткосрочной перспективе им придется договориться о том, продолжит ли временное правительство свою работу, чтобы заполнить политический вакуум и не допустить возобновления гражданской войны.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="46" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="fb2d42cb-22b3-5e9d-b1e0-e5d5636fcd5e">
+        <source>A series of court rulings have overturned the Libyan electoral commission's decisions to block high-profile figures including Saif al-Islam Gaddafi, the son of the former dictator, from standing for the presidency.</source>
+        <seg-source><mrk mtype="seg" mid="47">A series of court rulings have overturned the Libyan electoral commission's decisions to block high-profile figures including Saif al-Islam Gaddafi, the son of the former dictator, from standing for the presidency.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="47">Ряд судебных решений отменил решения ливийской избирательной комиссии о блокировании выдвижения на пост президента высокопоставленных лиц, включая Саифа аль-Ислама Каддафи, сына бывшего диктатора.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="47" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="c3f0530f-aaed-5c62-afe1-2e3ebc64ef61">
+        <source>The interim prime minister, Abdul Hamid Dbeibah and warlord Khalifa Haftar, the head of the self-styled Libyan National Army, have meanwhile been approved by the commission but subsequently appealed by other parties.</source>
+        <seg-source><mrk mtype="seg" mid="48">The interim prime minister, Abdul Hamid Dbeibah and warlord Khalifa Haftar, the head of the self-styled Libyan National Army, have meanwhile been approved by the commission but subsequently appealed by other parties.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="48">Временный премьер-министр Абдул Хамид Дбейба и глава самопровозглашенной Ливийской национальной армии Халифа Хафтар были тем временем одобрены комиссией, но впоследствии обжалованы другими сторонами.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="48" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="bb32f2c6-c580-5ef6-811e-08009ca326f5">
+        <source>It said in a statement on Saturday it said could not announce the names of the approved candidates out of the nearly who 100 have applied because it was "keen to exhaust all means of litigation to ensure its decisions comply with issued judgements."</source>
+        <seg-source><mrk mtype="seg" mid="49">It said in a statement on Saturday it said could not announce the names of the approved candidates out of the nearly who 100 have applied because it was "keen to exhaust all means of litigation to ensure its decisions comply with issued judgements."</mrk></seg-source>
+        <target><mrk mtype="seg" mid="49">В заявлении, сделанном в субботу, говорится, что он не может объявить имена утвержденных кандидатов из почти тех 100, которые подали заявления, потому что он «стремился исчерпать все средства судебного разбирательства, чтобы гарантировать, что его решения соответствуют вынесенным решениям».</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="49" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7c2317f5-6a72-5d87-9fb0-3b6befe45092">
+        <source>Rival factions have accused each other of intimidating or bribing judicial officials to secure their reinstatement of their candidates, and the commission is looking to see if the decisions were valid.</source>
+        <seg-source><mrk mtype="seg" mid="50">Rival factions have accused each other of intimidating or bribing judicial officials to secure their reinstatement of their candidates, and the commission is looking to see if the decisions were valid.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="50">Сопернические фракции обвиняли друг друга в запугивании или подкупе судебных чиновников, чтобы добиться восстановления своих кандидатов в должности, и комиссия стремится проверить, были ли эти решения действительными.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="50" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="88d79ef6-a262-551f-a215-20bdc41f09d1">
+        <source>In the case of Dbeibah, he had pledged as a condition of becoming interim PM that he would not stand for election but has since argued in court that this was a moral pledge with no legal force.</source>
+        <seg-source><mrk mtype="seg" mid="51">In the case of Dbeibah, he had pledged as a condition of becoming interim PM that he would not stand for election but has since argued in court that this was a moral pledge with no legal force.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="51">В случае с Дбейбой он пообещал в качестве условия, чтобы стать временным премьер-министром, что он не будет баллотироваться на выборах, но с тех пор утверждал в суде, что это было моральное обещание, не имеющее юридической силы.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="51" conf="Draft" origin="mt" origin-system="eTranslation (WMT22)"/>
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

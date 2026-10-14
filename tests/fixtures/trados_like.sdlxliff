@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns:sdl="http://sdl.com/FileTypes/SdlXliff/1.0" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2" sdl:version="1.0">
+  <doc-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+    <rev-defs>
+      <rev-def id="7d1c0a77-3c8e-4b9e-9a51-0b6c1f8e2a10" type="Delete" author="REVIEWER\anna" date="10/02/2026 09:14:05" />
+      <rev-def id="8e2d1b88-4d9f-4cad-8b62-1c7d2a9f3b21" author="REVIEWER\anna" date="10/02/2026 09:14:05" />
+    </rev-defs>
+    <cmt-defs>
+      <cmt-def id="3f6b8f1e-5a2c-4d47-9f0e-2c8a1b7d6e54">
+        <Comments xmlns="">
+          <Comment severity="Low" user="REVIEWER\anna" date="2026-10-02T09:15:11.4410000+02:00" version="1.0">Check the verb with the client glossary.</Comment>
+        </Comments>
+      </cmt-def>
+    </cmt-defs>
+  </doc-info>
+  <file original="C:\Projects\ACME\en-US\manual.html" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">0b6f0d2e-1f43-4c55-a1c7-9d2b6f3e8a01</value>
+        <value key="SDL:CreationDate">10/01/2026 16:02:44</value>
+        <value key="SDL:OriginalFilePath">C:\Projects\ACME\en-US\manual.html</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+        <value key="ParagraphTextDirections" />
+        <sniff-info>
+          <detected-encoding detection-level="Certain" encoding="utf-8" />
+          <detected-source-lang detection-level="Guess" lang="en-US" />
+        </sniff-info>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>HTML 5 2.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+      <fmt-defs xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <fmt-def id="1">
+          <value key="Bold">True</value>
+        </fmt-def>
+      </fmt-defs>
+      <cxt-defs xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <cxt-def id="1" type="p" code="P" name="Paragraph" color="#FFFFFF" />
+      </cxt-defs>
+      <tag-defs xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <tag id="pt1">
+          <bpt name="b" word-end="false" can-hide="true">&lt;b&gt;</bpt>
+          <ept name="b" word-end="false" can-hide="true">&lt;/b&gt;</ept>
+          <fmt id="1" />
+        </tag>
+        <tag id="pt2">
+          <ph name="br" word-end="false">&lt;br/&gt;</ph>
+        </tag>
+        <tag id="0">
+          <st name="p">&lt;p&gt;</st>
+        </tag>
+        <tag id="1">
+          <st name="/p">&lt;/p&gt;</st>
+        </tag>
+      </tag-defs>
+    </header>
+    <body>
+      <trans-unit translate="no" id="5c6b9a33-0000-4000-8000-000000000001">
+        <source><x id="0" /></source>
+      </trans-unit>
+      <group>
+        <sdl:cxts>
+          <sdl:cxt id="1" />
+        </sdl:cxts>
+        <trans-unit id="a1d3c6e0-8f8b-4f0e-9a8e-1b2c3d4e5f60">
+          <source>Do <g id="pt1">not</g> remove the battery while the device is on. Wait 10 seconds.</source>
+          <seg-source><mrk mtype="seg" mid="1">Do <g id="pt1">not</g> remove the battery while the device is on.</mrk> <mrk mtype="seg" mid="2">Wait 10 seconds.</mrk></seg-source>
+          <target><mrk mtype="seg" mid="1"><mrk mtype="x-sdl-comment" sdl:cid="3f6b8f1e-5a2c-4d47-9f0e-2c8a1b7d6e54">Извлеките</mrk> <g id="pt1">аккумулятор</g>, пока устройство включено.</mrk> <mrk mtype="seg" mid="2">Подождите <mrk mtype="x-sdl-deleted" sdl:revid="7d1c0a77-3c8e-4b9e-9a51-0b6c1f8e2a10">1</mrk><mrk mtype="x-sdl-added" sdl:revid="8e2d1b88-4d9f-4cad-8b62-1c7d2a9f3b21">10</mrk> секунд.</mrk></target>
+          <sdl:seg-defs>
+            <sdl:seg id="1" conf="Draft" origin="mt" origin-system="Language Weaver" />
+            <sdl:seg id="2" conf="Translated" origin="interactive">
+              <sdl:value key="created_by">ACME\translator</sdl:value>
+              <sdl:value key="created_on">10/02/2026 09:10:00</sdl:value>
+              <sdl:value key="last_modified_by">REVIEWER\anna</sdl:value>
+              <sdl:value key="modified_on">10/02/2026 09:14:05</sdl:value>
+            </sdl:seg>
+          </sdl:seg-defs>
+        </trans-unit>
+      </group>
+      <group>
+        <sdl:cxts>
+          <sdl:cxt id="1" />
+        </sdl:cxts>
+        <trans-unit id="b2e4d7f1-9a9c-4a1f-8b9f-2c3d4e5f6a71">
+          <source><g id="pt1">Warning:</g> keep away from children under 3.<x id="pt2" />Made in EU.</source>
+          <seg-source><g id="pt1"><mrk mtype="seg" mid="3">Warning:</mrk></g> <mrk mtype="seg" mid="4">keep away from children under 3.</mrk><x id="pt2" /><mrk mtype="seg" mid="5">Made in EU.</mrk></seg-source>
+          <target><g id="pt1"><mrk mtype="seg" mid="3">Внимание:</mrk></g> <mrk mtype="seg" mid="4">хранить в местах, доступных для детей до 3 лет.</mrk><x id="pt2" /><mrk mtype="seg" mid="5"></mrk></target>
+          <sdl:seg-defs>
+            <sdl:seg id="3" locked="true" conf="ApprovedSignOff" origin="tm" percent="100" />
+            <sdl:seg id="4" conf="Draft" origin="mt" origin-system="Language Weaver" />
+            <sdl:seg id="5" />
+          </sdl:seg-defs>
+        </trans-unit>
+      </group>
+      <trans-unit id="c3f5e802-ab0d-4b20-9ca0-3d4e5f6a7b82">
+        <source>Contact support. Visit the help page.</source>
+        <seg-source><mrk mtype="seg" mid="6">Contact support.</mrk> <mrk mtype="seg" mid="7">Visit the help page.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="6">Обратитесь в службу поддержки.</mrk> </target>
+        <sdl:seg-defs>
+          <sdl:seg id="6" conf="Translated" origin="tm" percent="87" />
+          <sdl:seg id="7" />
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit translate="no" id="5c6b9a33-0000-4000-8000-000000000002">
+        <source><x id="1" /></source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="C:\Projects\ACME\en-US\faq.html" datatype="x-sdlfilterframework2" source-language="en-US" target-language="ru-RU">
+    <header>
+      <sdl:filetype-info>
+        <sdl:filetype-id>HTML 5 2.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+    </header>
+    <body>
+      <trans-unit id="d4a6f913-bc1e-4c31-8db1-4e5f6a7b8c93">
+        <source>The warranty covers 24 months.</source>
+        <seg-source><mrk mtype="seg" mid="1">The warranty covers 24 months.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="1">Гарантия действует 12 месяцев.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="1" conf="Draft" origin="mt" origin-system="Language Weaver" />
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

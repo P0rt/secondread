@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="ecommerce_en_36.txt" datatype="plaintext" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>WMT22 General MT test set, document ecommerce_en_36 (ecommerce), MT by eTranslation. Research use only, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="347">
+        <source>Description Please scroll to the bottom of the listing for more pictures.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Описание Пожалуйста, прокрутите к нижней части списка для получения дополнительных фотографий.</target>
+      </trans-unit>
+      <trans-unit id="348">
+        <source>Here we have for sale a Genuine Longines used chronograph wristwatch dial.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Здесь мы имеем для продажи подлинный Longines используется хронограф наручные часы циферблат.</target>
+      </trans-unit>
+      <trans-unit id="349">
+        <source>The dial is black in colour with white markers and a date aperature in the bottom sub dial.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Циферблат чёрного цвета с белыми маркерами и апертурой даты в нижней части циферблата.</target>
+      </trans-unit>
+      <trans-unit id="350">
+        <source>The dial is in very good, if not new old stock, condition.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Циферблат находится в очень хорошем, если не новом старом запасе, состоянии.</target>
+      </trans-unit>
+      <trans-unit id="351">
+        <source>The back of the dial is unmarked.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Обратная сторона циферблата не обозначена.</target>
+      </trans-unit>
+      <trans-unit id="352">
+        <source>The dial measures 37mm in diameter and the dial feet are at approximately 7 and 37.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Размеры циферблата 37 мм в диаметре и ножки циферблата примерно 7 и 37.</target>
+      </trans-unit>
+      <trans-unit id="353">
+        <source>Please see the pictures for more details.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Пожалуйста, смотрите фотографии для получения более подробной информации.</target>
+      </trans-unit>
+      <trans-unit id="354">
+        <source>The dial is guaranteed genuine.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Циферблат гарантированно подлинный.</target>
+      </trans-unit>
+      <trans-unit id="355">
+        <source>Payment Payment is expected within 5 working days.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Оплата Оплата ожидается в течение 5 рабочих дней.</target>
+      </trans-unit>
+      <trans-unit id="356">
+        <source>We accept payment by Paypal, Bank Transfer or payment on collection.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Мы принимаем оплату через Paypal, банковский перевод или оплату на инкассо.</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="ecommerce_en_13.txt" datatype="plaintext" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>WMT22 General MT test set, document ecommerce_en_13 (ecommerce), MT by eTranslation. Research use only, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="1982">
+        <source>Plus Muscle Maintenance to support muscular structure and activity</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Плюс Обслуживание мышц для поддержки мышечной структуры и активности</target>
+      </trans-unit>
+      <trans-unit id="1983">
+        <source>Joint Aid for Dogs is a high specification joint and muscle supplement with glucosamine for dogs, designed to aid freedom of movement.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Совместная помощь для собак - это суставная и мышечная добавка высокой спецификации с глюкозамином для собак, предназначенная для содействия свободе передвижения.</target>
+      </trans-unit>
+      <trans-unit id="1984">
+        <source>Joint Aid for Dogs can be fed to all dogs from any age at the ‘General Support’ level to maintain freedom of movement and muscle condition throughout their lives.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Совместную помощь собакам можно кормить всем собакам любого возраста на уровне «Общая поддержка», чтобы поддерживать свободу передвижения и мышечное состояние на протяжении всей их жизни.</target>
+      </trans-unit>
+      <trans-unit id="1985">
+        <source>For elderly and working dogs or those showing reduced muscle mass, Joint Aid for Dogs is recommended to be fed at the ‘Full Support’ level.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Пожилым и работающим собакам, а также собакам с пониженной мышечной массой рекомендуется кормление на уровне «Полная поддержка».</target>
+      </trans-unit>
+      <trans-unit id="1986">
+        <source>What are the key benefits of using Joint Aid for Dogs?</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Каковы основные преимущества использования Совместной Помощи Собакам?</target>
+      </trans-unit>
+      <trans-unit id="1987">
+        <source>-Maintains flexibility of movement in all working and pet dogs regardless of age, size and level of exercise.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">-Поддерживает гибкость движений у всех рабочих и домашних собак независимо от возраста, размера и уровня физических упражнений.</target>
+      </trans-unit>
+      <trans-unit id="1988">
+        <source>-Supports the formation of cartilage, tendons, ligaments, synovial fluid and muscles.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">-Поддерживает образование хряща, сухожилий, связок, синовиальной жидкости и мышц.</target>
+      </trans-unit>
+      <trans-unit id="1989">
+        <source>-Helps maintain the natural anti-inflammatory actions of the dog's metabolism.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">-Помогает поддерживать естественные противовоспалительные действия метаболизма собаки.</target>
+      </trans-unit>
+      <trans-unit id="1990">
+        <source>-Provides a unique combination of 22 active nutraceuticals.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">-Обеспечивает уникальную комбинацию из 22 активных нутрицевтиков.</target>
+      </trans-unit>
+      <trans-unit id="1991">
+        <source>-Contains the unique Oatinol™ Delivery System to maintain a high rate of nutrient absorption.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- Содержит уникальную систему доставки OatinolTM для поддержания высокой скорости поглощения питательных веществ.</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="en_fr_CLIENT-02_default_2020-12-20-16_doc06.txt" datatype="plaintext" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>WMT22 General MT test set, document en_fr_CLIENT-02_default_2020-12-20-16_doc06 (conversation), MT by eTranslation. Research use only, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="1866">
+        <source>The other thing you can try is to perform a factory reset to your device and then check if it gets detected by your computer</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Другая вещь, которую вы можете попробовать, это выполнить заводской сброс к вашему устройству, а затем проверить, если он обнаруживается вашим компьютером</target>
+      </trans-unit>
+      <trans-unit id="1867">
+        <source>To do this, please follow these instructions:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Для этого, пожалуйста, следуйте следующим инструкциям:</target>
+      </trans-unit>
+      <trans-unit id="1868">
+        <source>If possible, back up any books or documents that you added to your eReader using #PRS_ORG#, or that you manually added using your computer.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Если это возможно, создайте резервную копию любых книг или документов, которые вы добавили в свой eReader с помощью 'PRS'ORG', или которые вы добавили вручную с помощью вашего компьютера.</target>
+      </trans-unit>
+      <trans-unit id="1869">
+        <source>You do not need to back up any books you bought from #PRS_ORG#.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Вам не нужно делать резервные копии каких-либо книг, которые вы купили в «PRS'ORG».</target>
+      </trans-unit>
+      <trans-unit id="1870">
+        <source>Any books you purchased from #PRS_ORG# can be re-downloaded from the #PRS_ORG# #PRS_ORG# after a factory reset.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Любые книги, которые вы приобрели у «PRS'ORG», могут быть повторно загружены из «PRS'ORG» «PRS'ORG» после сброса заводских настроек.</target>
+      </trans-unit>
+      <trans-unit id="1871">
+        <source>Go to your Home screen.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Перейдите на домашний экран.</target>
+      </trans-unit>
+      <trans-unit id="1872">
+        <source>Tap Home at the top of the screen.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Нажмите Домой в верхней части экрана.</target>
+      </trans-unit>
+      <trans-unit id="1873">
+        <source>Tap Settings.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Нажмите Настройки.</target>
+      </trans-unit>
+      <trans-unit id="1874">
+        <source>Tap Device information.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Коснитесь Сведения об устройстве.</target>
+      </trans-unit>
+      <trans-unit id="1875">
+        <source>Tap Factory reset under Advanced.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Сброс настроек Tap Factory в разделе Advanced.</target>
+      </trans-unit>
+      <trans-unit id="1876">
+        <source>Tap Reset Now.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Нажмите Сбросить сейчас.</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="brisbanetimes.com.au.47160.txt" datatype="plaintext" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>WMT22 General MT test set, document brisbanetimes.com.au.47160 (news), MT by eTranslation. Research use only, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="1518">
+        <source>Gabba's double power failure explained and why it could happen again</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Двойной сбой питания Gabba объяснил и почему это может произойти снова</target>
+      </trans-unit>
+      <trans-unit id="1519">
+        <source>Risks of power failure inherent in the Gabba's broadcast compound set-up are unlikely to be improved before the next Ashes series, as cricket authorities await more detail on plans for the stadium's major upgrade to host the 2032 Olympic Games.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Риски отключения электроэнергии, присущие комплексу Габба, вряд ли будут улучшены до следующей серии игр Ashes, так как власти крикета ожидают более подробной информации о планах крупной модернизации стадиона для проведения Олимпийских игр 2032 года.</target>
+      </trans-unit>
+      <trans-unit id="1520">
+        <source>Sources have told The Age and The Sydney Morning Herald that the Gabba is the only major stadium in Australian cricket where the mains power supply at the ground is not sufficient to fire up the vast array of broadcast trucks and devices needed to beam pictures around the world.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Источники сообщили The Age и The Sydney Morning Herald, что Габба является единственным крупным стадионом в австралийском крикете, где электропитания на земле недостаточно для запуска огромного количества транслируемых грузовиков и устройств, необходимых для лучевого снимка по всему миру.</target>
+      </trans-unit>
+      <trans-unit id="1521">
+        <source>Primary and backup generators powering the global broadcast of the Gabba Test went down for about 25 minutes on day four.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Первичные и резервные генераторы, питающие глобальную трансляцию теста Габба, вышли из строя примерно на 25 минут в четвертый день.</target>
+      </trans-unit>
+      <trans-unit id="1522">
+        <source>That's because the base power in the precinct is required to supply the Gabba's light towers - one of which infamously went down during a Big Bash League match in 2019 - and the ground itself.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Это потому, что базовая мощность на участке необходима для снабжения световых башен Габбы - одна из которых позорно упала во время матча Big Bash League в 2019 году - и самой площадки.</target>
+      </trans-unit>
+      <trans-unit id="1523">
+        <source>As a result, broadcasters draw their primary power supply from a huge, diesel-fuelled generator hired for the Test match, with back-up power meant to be derived from a back-up generator.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">В результате, вещатели получают свое основное энергоснабжение от огромного дизельного генератора, нанятого для тестового матча, с резервным питанием, которое должно быть получено от резервного генератора.</target>
+      </trans-unit>
+      <trans-unit id="1524">
+        <source>However, on day four of the Test match, the failure of the primary generator fused with the back-up generator, causing both to go down simultaneously and resulting in the total or partial loss of broadcast pictures and DRS for nearly 30 minutes.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Тем не менее, на четвёртый день тестового матча выход из строя основного генератора слился с резервным генератором, в результате чего оба вышли из строя одновременно и привели к полной или частичной потере широковещательных изображений и DRS в течение почти 30 минут.</target>
+      </trans-unit>
+      <trans-unit id="1525">
+        <source>NEP, the company that provides the outside broadcast trucks and other facilities to Fox and Seven, has sought an explanation from the company that provided the generators.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">NEP, компания, которая предоставляет внешние вещательные грузовики и другие объекты Fox и Seven, запросила объяснения у компании, которая предоставила генераторы.</target>
+      </trans-unit>
+      <trans-unit id="1526">
+        <source>All other grounds to be used for the Ashes - Adelaide Oval, the MCG, the SCG and Bellerive Oval in Hobart - will provide mains power as the primary supply for broadcasters, leaving a diesel-powered generator as the back-up.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Все другие площадки, которые будут использоваться для пепла - Adelaide Oval, MCG, SCG и Bellerive Oval в Хобарте - обеспечат электропитание в качестве основного источника питания для вещателей, оставив дизельный генератор в качестве резервного.</target>
+      </trans-unit>
+      <trans-unit id="1527">
+        <source>This difference, which has caused considerable anxiety for the host broadcaster Fox Cricket in the past, was exacerbated during the Ashes Test by the vastly reduced crew of production and technical staff able to keep tabs on the myriad metaphorical balls being kept in the air throughout the match.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Эта разница, которая вызывала значительное беспокойство у ведущего Fox Cricket в прошлом, была усугублена во время теста пепла значительно сокращенной командой продюсеров и технического персонала, способных следить за мириадами метафорических шаров, держащихся в воздухе на протяжении всего матча.</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="guardian.44758.txt" datatype="plaintext" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>WMT22 General MT test set, document guardian.44758 (news), MT by eTranslation. Research use only, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="803">
+        <source>Libya: plan for presidential election on 24 December close to collapse</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Ливия: план президентских выборов 24 декабря близок к краху</target>
+      </trans-unit>
+      <trans-unit id="804">
+        <source>The chances of Libya staging its first presidential elections on the long planned date of 24 December appeared close to collapse on Sunday after the body overseeing the vote said it was unable to announce the the approved candidates because of continued legal doubts.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Шансы Ливии провести свои первые президентские выборы в давно запланированную дату 24 декабря казались близкими к краху в воскресенье после того, как орган, наблюдающий за голосованием, заявил, что он не может объявить утвержденных кандидатов из-за продолжающихся юридических сомнений.</target>
+      </trans-unit>
+      <trans-unit id="805">
+        <source>With the elections less than a fortnight away and virtually no time for campaigning, a postponement would represent a bitter blow to the international community's hopes of reuniting the deeply divided country.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Поскольку до выборов осталось менее двух недель и практически нет времени для проведения предвыборной кампании, отсрочка нанесла бы тяжелый удар по надеждам международного сообщества на воссоединение глубоко разделенной страны.</target>
+      </trans-unit>
+      <trans-unit id="806">
+        <source>Foreign powers will also fear the overall momentum towards democracy could dissipate.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Иностранные державы также будут опасаться, что общий импульс к демократии может рассеяться.</target>
+      </trans-unit>
+      <trans-unit id="807">
+        <source>In the short term they will have to agree whether or not the interim government continues in order to fill the political vacuum and prevent a return to civil war.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">В краткосрочной перспективе им придется договориться о том, продолжит ли временное правительство свою работу, чтобы заполнить политический вакуум и не допустить возобновления гражданской войны.</target>
+      </trans-unit>
+      <trans-unit id="808">
+        <source>A series of court rulings have overturned the Libyan electoral commission's decisions to block high-profile figures including Saif al-Islam Gaddafi, the son of the former dictator, from standing for the presidency.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Ряд судебных решений отменил решения ливийской избирательной комиссии о блокировании выдвижения на пост президента высокопоставленных лиц, включая Саифа аль-Ислама Каддафи, сына бывшего диктатора.</target>
+      </trans-unit>
+      <trans-unit id="809">
+        <source>The interim prime minister, Abdul Hamid Dbeibah and warlord Khalifa Haftar, the head of the self-styled Libyan National Army, have meanwhile been approved by the commission but subsequently appealed by other parties.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Временный премьер-министр Абдул Хамид Дбейба и глава самопровозглашенной Ливийской национальной армии Халифа Хафтар были тем временем одобрены комиссией, но впоследствии обжалованы другими сторонами.</target>
+      </trans-unit>
+      <trans-unit id="810">
+        <source>It said in a statement on Saturday it said could not announce the names of the approved candidates out of the nearly who 100 have applied because it was "keen to exhaust all means of litigation to ensure its decisions comply with issued judgements."</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">В заявлении, сделанном в субботу, говорится, что он не может объявить имена утвержденных кандидатов из почти тех 100, которые подали заявления, потому что он «стремился исчерпать все средства судебного разбирательства, чтобы гарантировать, что его решения соответствуют вынесенным решениям».</target>
+      </trans-unit>
+      <trans-unit id="811">
+        <source>Rival factions have accused each other of intimidating or bribing judicial officials to secure their reinstatement of their candidates, and the commission is looking to see if the decisions were valid.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Сопернические фракции обвиняли друг друга в запугивании или подкупе судебных чиновников, чтобы добиться восстановления своих кандидатов в должности, и комиссия стремится проверить, были ли эти решения действительными.</target>
+      </trans-unit>
+      <trans-unit id="812">
+        <source>In the case of Dbeibah, he had pledged as a condition of becoming interim PM that he would not stand for election but has since argued in court that this was a moral pledge with no legal force.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">В случае с Дбейбой он пообещал в качестве условия, чтобы стать временным премьер-министром, что он не будет баллотироваться на выборах, но с тех пор утверждал в суде, что это было моральное обещание, не имеющее юридической силы.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

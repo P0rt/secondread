@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-US" trgLang="ru-RU">
+  <file id="f1" original="app/strings.json">
+    <notes>
+      <note id="n1">File-level note from the agency.</note>
+    </notes>
+    <unit id="u1">
+      <originalData>
+        <data id="d1">&lt;b&gt;</data>
+        <data id="d2">&lt;/b&gt;</data>
+        <data id="d3">&lt;br/&gt;</data>
+      </originalData>
+      <segment id="s1" state="translated">
+        <source>Do <pc id="1" dataRefStart="d1" dataRefEnd="d2">not</pc> touch.</source>
+        <target>Не <pc id="1" dataRefStart="d1" dataRefEnd="d2">трогайте</pc>.</target>
+      </segment>
+      <ignorable>
+        <source> </source>
+        <target> </target>
+      </ignorable>
+      <segment id="s2" state="initial">
+        <source>Line one<ph id="2" dataRef="d3"/>line two.</source>
+        <target>Строка один<ph id="2" dataRef="d3"/>строка два.</target>
+      </segment>
+    </unit>
+    <group id="g1">
+      <unit id="u2">
+        <segment>
+          <source><sc id="3"/>Save<ec startRef="3"/> <mrk id="m1" type="term">changes</mrk>?</source>
+          <target><sc id="3"/>Сохранить<ec startRef="3"/> <mrk id="m1" type="term">изменения</mrk>?</target>
+        </segment>
+      </unit>
+      <unit id="u3" translate="no">
+        <segment>
+          <source>v2.0.1</source>
+        </segment>
+      </unit>
+    </group>
+    <unit id="u4">
+      <segment id="s1">
+        <source>Untranslated<cp hex="000B"/>text.</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

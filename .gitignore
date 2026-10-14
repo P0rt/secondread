@@ -1,0 +1,30 @@
+# secrets: keys live only in .env (TINKER_API_KEY, DO_MODEL_KEY, SENTRY_DSN)
+.env
+/.env.*
+
+# environments, caches, build output
+.venv/
+__pycache__/
+node_modules/
+ui/dist/
+.DS_Store
+
+# large or derived artifacts: llama.cpp clone, GGUFs, base stub, Tinker checkpoints, PEFT, runs
+tools/
+models/
+base35/
+ckpt/
+peft/
+runs/
+*.gguf
+
+# data: WMT/MQM text, WMT25, synthetic data and any NC-licensed eval sets (ACES CC BY-NC-SA,
+# HalOmi CC BY-NC) are never committed; only the doc -> split manifests are.
+# The demo slice in demo/ and ui/public/ is committed on purpose, with attribution.
+data/*
+!data/splits/
+data/splits/*
+!data/splits/*.docs.json
+
+# internal notes (kept outside the public history)
+docs/prep/

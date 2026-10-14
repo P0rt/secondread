@@ -1,0 +1,1651 @@
+{
+ "description": "Gold labels for the SecondRead demo job. 'Major' = at least one major or critical MQM error in the meaning family (accuracy/terminology: mistranslation, omission, addition, untranslated, wrong named entity, number/date/unit formats ...), the same rule as training (scripts/convert.py). One MQM annotator per segment, so expect label noise.",
+ "source": "WMT22 General MT test set (en-ru) with MQM annotations from google/wmt-mqm-human-evaluation. Research use only; see demo/README.md.",
+ "lp": "en-ru",
+ "system": "eTranslation",
+ "documents": [
+  {
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "segments": 10,
+   "major": 6
+  },
+  {
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "segments": 10,
+   "major": 4
+  },
+  {
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "segments": 11,
+   "major": 1
+  },
+  {
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "segments": 10,
+   "major": 3
+  },
+  {
+   "doc": "guardian.44758",
+   "domain": "news",
+   "segments": 10,
+   "major": 0
+  }
+ ],
+ "files": {
+  "xliff12": "secondread-demo.en-ru.xliff12.xlf",
+  "xliff20": "secondread-demo.en-ru.xliff20.xlf",
+  "sdlxliff": "secondread-demo.en-ru.sdlxliff"
+ },
+ "counts": {
+  "segments": 51,
+  "Major": 14,
+  "OK": 37
+ },
+ "segments": [
+  {
+   "n": 1,
+   "keys": {
+    "xliff12": "0:347:1",
+    "xliff20": "0:347:1",
+    "sdlxliff": "0:ef746e5b-429d-5a02-ab78-6b29ecacd787:1"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 347,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Description Please scroll to the bottom of the listing for more pictures.",
+   "mt": "Описание Пожалуйста, прокрутите к нижней части списка для получения дополнительных фотографий.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 8,
+     "text": "Описание",
+     "category": "addition",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 8,
+     "text": "Описание",
+     "category": "source_issue",
+     "family": "source",
+     "severity": "neutral"
+    },
+    {
+     "side": "mt",
+     "start": 21,
+     "end": 31,
+     "text": "прокрутите",
+     "category": "agreement",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 32,
+     "end": 33,
+     "text": "к",
+     "category": "agreement",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 47,
+     "end": 53,
+     "text": "списка",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "keys": {
+    "xliff12": "0:348:1",
+    "xliff20": "0:348:1",
+    "sdlxliff": "0:47edf5ae-ae8b-5e95-80ed-5e90582b98da:2"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 348,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Here we have for sale a Genuine Longines used chronograph wristwatch dial.",
+   "mt": "Здесь мы имеем для продажи подлинный Longines используется хронограф наручные часы циферблат.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 26,
+     "text": "Здесь мы имеем для продажи",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 27,
+     "end": 36,
+     "text": "подлинный",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 83,
+     "end": 92,
+     "text": "циферблат",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 69,
+     "end": 82,
+     "text": "наручные часы",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 37,
+     "end": 45,
+     "text": "Longines",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 59,
+     "end": 68,
+     "text": "хронограф",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 46,
+     "end": 58,
+     "text": "используется",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "keys": {
+    "xliff12": "0:349:1",
+    "xliff20": "0:349:1",
+    "sdlxliff": "0:d7f73478-c43f-58a0-a3b0-dfd4633165f8:3"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 349,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "The dial is black in colour with white markers and a date aperature in the bottom sub dial.",
+   "mt": "Циферблат чёрного цвета с белыми маркерами и апертурой даты в нижней части циферблата.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 33,
+     "end": 42,
+     "text": "маркерами",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 74,
+     "end": 75,
+     "text": " ",
+     "category": "omission",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "keys": {
+    "xliff12": "0:350:1",
+    "xliff20": "0:350:1",
+    "sdlxliff": "0:3a3d8524-f367-52a0-8890-186881029fc4:4"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 350,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "The dial is in very good, if not new old stock, condition.",
+   "mt": "Циферблат находится в очень хорошем, если не новом старом запасе, состоянии.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 45,
+     "end": 65,
+     "text": "новом старом запасе,",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "keys": {
+    "xliff12": "0:351:1",
+    "xliff20": "0:351:1",
+    "sdlxliff": "0:da9b34b9-6b0f-5e09-a1ba-fc8d2a493283:5"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 351,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "The back of the dial is unmarked.",
+   "mt": "Обратная сторона циферблата не обозначена.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 28,
+     "end": 41,
+     "text": "не обозначена",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "keys": {
+    "xliff12": "0:352:1",
+    "xliff20": "0:352:1",
+    "sdlxliff": "0:9ed0794e-d722-5316-99de-47880a2e8416:6"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 352,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "The dial measures 37mm in diameter and the dial feet are at approximately 7 and 37.",
+   "mt": "Размеры циферблата 37 мм в диаметре и ножки циферблата примерно 7 и 37.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 63,
+     "end": 64,
+     "text": " ",
+     "category": "omission",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "keys": {
+    "xliff12": "0:353:1",
+    "xliff20": "0:353:1",
+    "sdlxliff": "0:6126f85b-fbaf-5532-b43b-06088ef1531e:7"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 353,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Please see the pictures for more details.",
+   "mt": "Пожалуйста, смотрите фотографии для получения более подробной информации.",
+   "errors": []
+  },
+  {
+   "n": 8,
+   "keys": {
+    "xliff12": "0:354:1",
+    "xliff20": "0:354:1",
+    "sdlxliff": "0:86ad6e0d-d79b-59c1-a3ac-a3b77c834dd6:8"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 354,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "The dial is guaranteed genuine.",
+   "mt": "Циферблат гарантированно подлинный.",
+   "errors": []
+  },
+  {
+   "n": 9,
+   "keys": {
+    "xliff12": "0:355:1",
+    "xliff20": "0:355:1",
+    "sdlxliff": "0:b0769ec7-d827-5ec9-804b-04a1a706b7bb:9"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 355,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Payment Payment is expected within 5 working days.",
+   "mt": "Оплата Оплата ожидается в течение 5 рабочих дней.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 6,
+     "text": "Оплата",
+     "category": "addition",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 6,
+     "text": "Оплата",
+     "category": "source_issue",
+     "family": "source",
+     "severity": "neutral"
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "keys": {
+    "xliff12": "0:356:1",
+    "xliff20": "0:356:1",
+    "sdlxliff": "0:7b99c278-af13-53cc-8cf1-3fc8f4139d0b:10"
+   },
+   "doc": "ecommerce_en_36",
+   "domain": "ecommerce",
+   "wmt_segment": 356,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "We accept payment by Paypal, Bank Transfer or payment on collection.",
+   "mt": "Мы принимаем оплату через Paypal, банковский перевод или оплату на инкассо.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 64,
+     "end": 74,
+     "text": "на инкассо",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "keys": {
+    "xliff12": "1:1982:1",
+    "xliff20": "1:1982:1",
+    "sdlxliff": "1:b4e95baa-dbfc-5343-8ab7-97ab490e9151:11"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1982,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Plus Muscle Maintenance to support muscular structure and activity",
+   "mt": "Плюс Обслуживание мышц для поддержки мышечной структуры и активности",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 22,
+     "text": "Плюс Обслуживание мышц",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 27,
+     "end": 36,
+     "text": "поддержки",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "keys": {
+    "xliff12": "1:1983:1",
+    "xliff20": "1:1983:1",
+    "sdlxliff": "1:302fb1e1-7977-5b99-9553-5793896a859b:12"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1983,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Joint Aid for Dogs is a high specification joint and muscle supplement with glucosamine for dogs, designed to aid freedom of movement.",
+   "mt": "Совместная помощь для собак - это суставная и мышечная добавка высокой спецификации с глюкозамином для собак, предназначенная для содействия свободе передвижения.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 27,
+     "text": "Совместная помощь для собак",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 34,
+     "end": 62,
+     "text": "суставная и мышечная добавка",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 130,
+     "end": 161,
+     "text": "содействия свободе передвижения",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "keys": {
+    "xliff12": "1:1984:1",
+    "xliff20": "1:1984:1",
+    "sdlxliff": "1:28e23c9a-7cc5-53de-b60b-f7f9d01a5d36:13"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1984,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Joint Aid for Dogs can be fed to all dogs from any age at the ‘General Support’ level to maintain freedom of movement and muscle condition throughout their lives.",
+   "mt": "Совместную помощь собакам можно кормить всем собакам любого возраста на уровне «Общая поддержка», чтобы поддерживать свободу передвижения и мышечное состояние на протяжении всей их жизни.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 25,
+     "text": "Совместную помощь собакам",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 32,
+     "end": 39,
+     "text": "кормить",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 140,
+     "end": 158,
+     "text": "мышечное состояние",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "keys": {
+    "xliff12": "1:1985:1",
+    "xliff20": "1:1985:1",
+    "sdlxliff": "1:6885c081-8d36-51a6-89d9-b07fdca580c4:14"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1985,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "For elderly and working dogs or those showing reduced muscle mass, Joint Aid for Dogs is recommended to be fed at the ‘Full Support’ level.",
+   "mt": "Пожилым и работающим собакам, а также собакам с пониженной мышечной массой рекомендуется кормление на уровне «Полная поддержка».",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 46,
+     "end": 74,
+     "text": "с пониженной мышечной массой",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "keys": {
+    "xliff12": "1:1986:1",
+    "xliff20": "1:1986:1",
+    "sdlxliff": "1:b9874120-9c97-5b4e-b813-ef7d4df24eab:15"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1986,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "What are the key benefits of using Joint Aid for Dogs?",
+   "mt": "Каковы основные преимущества использования Совместной Помощи Собакам?",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 43,
+     "end": 68,
+     "text": "Совместной Помощи Собакам",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 16,
+   "keys": {
+    "xliff12": "1:1987:1",
+    "xliff20": "1:1987:1",
+    "sdlxliff": "1:475348ca-1c61-513c-93e8-6f7204cb1de2:16"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1987,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "-Maintains flexibility of movement in all working and pet dogs regardless of age, size and level of exercise.",
+   "mt": "-Поддерживает гибкость движений у всех рабочих и домашних собак независимо от возраста, размера и уровня физических упражнений.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 13,
+     "text": "-Поддерживает",
+     "category": "whitespace",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 105,
+     "end": 126,
+     "text": "физических упражнений",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 17,
+   "keys": {
+    "xliff12": "1:1988:1",
+    "xliff20": "1:1988:1",
+    "sdlxliff": "1:e5da2b98-8e4d-53ff-8304-bcf84c1e6e23:17"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1988,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "-Supports the formation of cartilage, tendons, ligaments, synovial fluid and muscles.",
+   "mt": "-Поддерживает образование хряща, сухожилий, связок, синовиальной жидкости и мышц.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 13,
+     "text": "-Поддерживает",
+     "category": "whitespace",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 26,
+     "end": 31,
+     "text": "хряща",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 18,
+   "keys": {
+    "xliff12": "1:1989:1",
+    "xliff20": "1:1989:1",
+    "sdlxliff": "1:8b3715e9-180f-5b5f-8643-5ed59529284b:18"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1989,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "-Helps maintain the natural anti-inflammatory actions of the dog's metabolism.",
+   "mt": "-Помогает поддерживать естественные противовоспалительные действия метаболизма собаки.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 9,
+     "text": "-Помогает",
+     "category": "whitespace",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 23,
+     "end": 78,
+     "text": "естественные противовоспалительные действия метаболизма",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 19,
+   "keys": {
+    "xliff12": "1:1990:1",
+    "xliff20": "1:1990:1",
+    "sdlxliff": "1:f3f03025-3e0e-5628-abc4-c87d278478a8:19"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1990,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "-Provides a unique combination of 22 active nutraceuticals.",
+   "mt": "-Обеспечивает уникальную комбинацию из 22 активных нутрицевтиков.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 13,
+     "text": "-Обеспечивает",
+     "category": "whitespace",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 20,
+   "keys": {
+    "xliff12": "1:1991:1",
+    "xliff20": "1:1991:1",
+    "sdlxliff": "1:d24c18fd-5ce7-55e6-8bb1-ee14de39b592:20"
+   },
+   "doc": "ecommerce_en_13",
+   "domain": "ecommerce",
+   "wmt_segment": 1991,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "-Contains the unique Oatinol™ Delivery System to maintain a high rate of nutrient absorption.",
+   "mt": "- Содержит уникальную систему доставки OatinolTM для поддержания высокой скорости поглощения питательных веществ.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 39,
+     "end": 48,
+     "text": "OatinolTM",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 82,
+     "end": 92,
+     "text": "поглощения",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 1,
+     "text": "-",
+     "category": "punctuation",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 21,
+   "keys": {
+    "xliff12": "2:1866:1",
+    "xliff20": "2:1866:1",
+    "sdlxliff": "2:a2192034-fa30-5240-ac2a-1ee39e357239:21"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1866,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "The other thing you can try is to perform a factory reset to your device and then check if it gets detected by your computer",
+   "mt": "Другая вещь, которую вы можете попробовать, это выполнить заводской сброс к вашему устройству, а затем проверить, если он обнаруживается вашим компьютером",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 7,
+     "end": 11,
+     "text": "вещь",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 58,
+     "end": 93,
+     "text": "заводской сброс к вашему устройству",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 22,
+   "keys": {
+    "xliff12": "2:1867:1",
+    "xliff20": "2:1867:1",
+    "sdlxliff": "2:b0718944-e10b-5a35-bcde-d8c697442120:22"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1867,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "To do this, please follow these instructions:",
+   "mt": "Для этого, пожалуйста, следуйте следующим инструкциям:",
+   "errors": []
+  },
+  {
+   "n": 23,
+   "keys": {
+    "xliff12": "2:1868:1",
+    "xliff20": "2:1868:1",
+    "sdlxliff": "2:80d572c7-884b-5017-b82f-74c0420193c0:23"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1868,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "If possible, back up any books or documents that you added to your eReader using #PRS_ORG#, or that you manually added using your computer.",
+   "mt": "Если это возможно, создайте резервную копию любых книг или документов, которые вы добавили в свой eReader с помощью 'PRS'ORG', или которые вы добавили вручную с помощью вашего компьютера.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 116,
+     "end": 125,
+     "text": "'PRS'ORG'",
+     "category": "markup_tag",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 24,
+   "keys": {
+    "xliff12": "2:1869:1",
+    "xliff20": "2:1869:1",
+    "sdlxliff": "2:54d55939-1e49-5511-b479-ff96ba208ae1:24"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1869,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "You do not need to back up any books you bought from #PRS_ORG#.",
+   "mt": "Вам не нужно делать резервные копии каких-либо книг, которые вы купили в «PRS'ORG».",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 73,
+     "end": 82,
+     "text": "«PRS'ORG»",
+     "category": "markup_tag",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 25,
+   "keys": {
+    "xliff12": "2:1870:1",
+    "xliff20": "2:1870:1",
+    "sdlxliff": "2:6f676f7a-8b9d-591d-b384-be45b8fd71bd:25"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1870,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Any books you purchased from #PRS_ORG# can be re-downloaded from the #PRS_ORG# #PRS_ORG# after a factory reset.",
+   "mt": "Любые книги, которые вы приобрели у «PRS'ORG», могут быть повторно загружены из «PRS'ORG» «PRS'ORG» после сброса заводских настроек.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 36,
+     "end": 45,
+     "text": "«PRS'ORG»",
+     "category": "markup_tag",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 34,
+     "end": 35,
+     "text": "у",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 80,
+     "end": 89,
+     "text": "«PRS'ORG»",
+     "category": "markup_tag",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 90,
+     "end": 99,
+     "text": "«PRS'ORG»",
+     "category": "markup_tag",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 26,
+   "keys": {
+    "xliff12": "2:1871:1",
+    "xliff20": "2:1871:1",
+    "sdlxliff": "2:8b4c8f00-c25d-56a1-a09d-590e3d298d82:26"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1871,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Go to your Home screen.",
+   "mt": "Перейдите на домашний экран.",
+   "errors": []
+  },
+  {
+   "n": 27,
+   "keys": {
+    "xliff12": "2:1872:1",
+    "xliff20": "2:1872:1",
+    "sdlxliff": "2:619c9dd6-2605-5418-b8d3-eb311450b6ce:27"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1872,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Tap Home at the top of the screen.",
+   "mt": "Нажмите Домой в верхней части экрана.",
+   "errors": []
+  },
+  {
+   "n": 28,
+   "keys": {
+    "xliff12": "2:1873:1",
+    "xliff20": "2:1873:1",
+    "sdlxliff": "2:d31c67ab-d9bb-581d-af0d-4ea70f034dcd:28"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1873,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Tap Settings.",
+   "mt": "Нажмите Настройки.",
+   "errors": []
+  },
+  {
+   "n": 29,
+   "keys": {
+    "xliff12": "2:1874:1",
+    "xliff20": "2:1874:1",
+    "sdlxliff": "2:6ffe5af9-86bd-56cc-8589-ca4285507165:29"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1874,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Tap Device information.",
+   "mt": "Коснитесь Сведения об устройстве.",
+   "errors": []
+  },
+  {
+   "n": 30,
+   "keys": {
+    "xliff12": "2:1875:1",
+    "xliff20": "2:1875:1",
+    "sdlxliff": "2:193f75ff-4767-5cf0-8aa4-512b7be59b1d:30"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1875,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Tap Factory reset under Advanced.",
+   "mt": "Сброс настроек Tap Factory в разделе Advanced.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 15,
+     "end": 26,
+     "text": "Tap Factory",
+     "category": "untranslated",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 37,
+     "end": 45,
+     "text": "Advanced",
+     "category": "untranslated",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 15,
+     "end": 26,
+     "text": "Tap Factory",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 0,
+     "text": "",
+     "category": "word_order",
+     "family": "fluency_style",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 15,
+     "end": 26,
+     "text": "Tap Factory",
+     "category": "untranslated",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 37,
+     "end": 45,
+     "text": "Advanced",
+     "category": "untranslated",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 31,
+   "keys": {
+    "xliff12": "2:1876:1",
+    "xliff20": "2:1876:1",
+    "sdlxliff": "2:8e018bba-4848-555b-b57d-0ada67ea2aee:31"
+   },
+   "doc": "en_fr_CLIENT-02_default_2020-12-20-16_doc06",
+   "domain": "conversation",
+   "wmt_segment": 1876,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Tap Reset Now.",
+   "mt": "Нажмите Сбросить сейчас.",
+   "errors": []
+  },
+  {
+   "n": 32,
+   "keys": {
+    "xliff12": "3:1518:1",
+    "xliff20": "3:1518:1",
+    "sdlxliff": "3:6acf9662-649b-5d62-a5ef-9cfe631a6d2e:32"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1518,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Gabba's double power failure explained and why it could happen again",
+   "mt": "Двойной сбой питания Gabba объяснил и почему это может произойти снова",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 27,
+     "end": 35,
+     "text": "объяснил",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 21,
+     "end": 26,
+     "text": "Gabba",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 33,
+   "keys": {
+    "xliff12": "3:1519:1",
+    "xliff20": "3:1519:1",
+    "sdlxliff": "3:0320e66e-792b-58bd-8e7e-3825bd92cbad:33"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1519,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Risks of power failure inherent in the Gabba's broadcast compound set-up are unlikely to be improved before the next Ashes series, as cricket authorities await more detail on plans for the stadium's major upgrade to host the 2032 Olympic Games.",
+   "mt": "Риски отключения электроэнергии, присущие комплексу Габба, вряд ли будут улучшены до следующей серии игр Ashes, так как власти крикета ожидают более подробной информации о планах крупной модернизации стадиона для проведения Олимпийских игр 2032 года.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 33,
+     "end": 41,
+     "text": "присущие",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 120,
+     "end": 134,
+     "text": "власти крикета",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 34,
+   "keys": {
+    "xliff12": "3:1520:1",
+    "xliff20": "3:1520:1",
+    "sdlxliff": "3:761021f5-8436-58aa-98c7-44863f10a8f5:34"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1520,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "Sources have told The Age and The Sydney Morning Herald that the Gabba is the only major stadium in Australian cricket where the mains power supply at the ground is not sufficient to fire up the vast array of broadcast trucks and devices needed to beam pictures around the world.",
+   "mt": "Источники сообщили The Age и The Sydney Morning Herald, что Габба является единственным крупным стадионом в австралийском крикете, где электропитания на земле недостаточно для запуска огромного количества транслируемых грузовиков и устройств, необходимых для лучевого снимка по всему миру.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 153,
+     "end": 158,
+     "text": "земле",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 205,
+     "end": 218,
+     "text": "транслируемых",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 259,
+     "end": 274,
+     "text": "лучевого снимка",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 35,
+   "keys": {
+    "xliff12": "3:1521:1",
+    "xliff20": "3:1521:1",
+    "sdlxliff": "3:9d8ad22e-90a7-5f87-91d5-e60986286e1d:35"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1521,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Primary and backup generators powering the global broadcast of the Gabba Test went down for about 25 minutes on day four.",
+   "mt": "Первичные и резервные генераторы, питающие глобальную трансляцию теста Габба, вышли из строя примерно на 25 минут в четвертый день.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 0,
+     "end": 9,
+     "text": "Первичные",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 36,
+   "keys": {
+    "xliff12": "3:1522:1",
+    "xliff20": "3:1522:1",
+    "sdlxliff": "3:7085dec3-f6c5-5943-93b5-96a01f68c5c0:36"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1522,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "That's because the base power in the precinct is required to supply the Gabba's light towers - one of which infamously went down during a Big Bash League match in 2019 - and the ground itself.",
+   "mt": "Это потому, что базовая мощность на участке необходима для снабжения световых башен Габбы - одна из которых позорно упала во время матча Big Bash League в 2019 году - и самой площадки.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 90,
+     "end": 91,
+     "text": "-",
+     "category": "punctuation",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 165,
+     "end": 166,
+     "text": "-",
+     "category": "punctuation",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 37,
+   "keys": {
+    "xliff12": "3:1523:1",
+    "xliff20": "3:1523:1",
+    "sdlxliff": "3:521945fd-fa27-58dd-bcb1-0e5db8056d60:37"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1523,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "As a result, broadcasters draw their primary power supply from a huge, diesel-fuelled generator hired for the Test match, with back-up power meant to be derived from a back-up generator.",
+   "mt": "В результате, вещатели получают свое основное энергоснабжение от огромного дизельного генератора, нанятого для тестового матча, с резервным питанием, которое должно быть получено от резервного генератора.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 32,
+     "end": 36,
+     "text": "свое",
+     "category": "addition",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 38,
+   "keys": {
+    "xliff12": "3:1524:1",
+    "xliff20": "3:1524:1",
+    "sdlxliff": "3:b8343c60-5a04-5432-b34f-df95e402ac64:38"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1524,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "However, on day four of the Test match, the failure of the primary generator fused with the back-up generator, causing both to go down simultaneously and resulting in the total or partial loss of broadcast pictures and DRS for nearly 30 minutes.",
+   "mt": "Тем не менее, на четвёртый день тестового матча выход из строя основного генератора слился с резервным генератором, в результате чего оба вышли из строя одновременно и привели к полной или частичной потере широковещательных изображений и DRS в течение почти 30 минут.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 84,
+     "end": 90,
+     "text": "слился",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 238,
+     "end": 241,
+     "text": "DRS",
+     "category": "untranslated",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 39,
+   "keys": {
+    "xliff12": "3:1525:1",
+    "xliff20": "3:1525:1",
+    "sdlxliff": "3:2585f4ff-0e6a-5ede-b6fd-68cfbed113c9:39"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1525,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "NEP, the company that provides the outside broadcast trucks and other facilities to Fox and Seven, has sought an explanation from the company that provided the generators.",
+   "mt": "NEP, компания, которая предоставляет внешние вещательные грузовики и другие объекты Fox и Seven, запросила объяснения у компании, которая предоставила генераторы.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 37,
+     "end": 44,
+     "text": "внешние",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 45,
+     "end": 56,
+     "text": "вещательные",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 40,
+   "keys": {
+    "xliff12": "3:1526:1",
+    "xliff20": "3:1526:1",
+    "sdlxliff": "3:210e3c46-c67d-5dbe-8fd1-69f0acb0a59a:40"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1526,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "All other grounds to be used for the Ashes - Adelaide Oval, the MCG, the SCG and Bellerive Oval in Hobart - will provide mains power as the primary supply for broadcasters, leaving a diesel-powered generator as the back-up.",
+   "mt": "Все другие площадки, которые будут использоваться для пепла - Adelaide Oval, MCG, SCG и Bellerive Oval в Хобарте - обеспечат электропитание в качестве основного источника питания для вещателей, оставив дизельный генератор в качестве резервного.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 60,
+     "end": 61,
+     "text": "-",
+     "category": "punctuation",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 113,
+     "end": 114,
+     "text": "-",
+     "category": "punctuation",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 125,
+     "end": 178,
+     "text": "электропитание в качестве основного источника питания",
+     "category": "unnatural_flow",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 54,
+     "end": 59,
+     "text": "пепла",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "major"
+    }
+   ]
+  },
+  {
+   "n": 41,
+   "keys": {
+    "xliff12": "3:1527:1",
+    "xliff20": "3:1527:1",
+    "sdlxliff": "3:2ac73d6e-c966-5efa-89c5-c042b51fe97f:41"
+   },
+   "doc": "brisbanetimes.com.au.47160",
+   "domain": "news",
+   "wmt_segment": 1527,
+   "label": "Major",
+   "label_any_major": true,
+   "src": "This difference, which has caused considerable anxiety for the host broadcaster Fox Cricket in the past, was exacerbated during the Ashes Test by the vastly reduced crew of production and technical staff able to keep tabs on the myriad metaphorical balls being kept in the air throughout the match.",
+   "mt": "Эта разница, которая вызывала значительное беспокойство у ведущего Fox Cricket в прошлом, была усугублена во время теста пепла значительно сокращенной командой продюсеров и технического персонала, способных следить за мириадами метафорических шаров, держащихся в воздухе на протяжении всего матча.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 58,
+     "end": 66,
+     "text": "ведущего",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 121,
+     "end": 126,
+     "text": "пепла",
+     "category": "wrong_named_entity",
+     "family": "meaning",
+     "severity": "major"
+    },
+    {
+     "side": "mt",
+     "start": 66,
+     "end": 67,
+     "text": " ",
+     "category": "omission",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 42,
+   "keys": {
+    "xliff12": "4:803:1",
+    "xliff20": "4:803:1",
+    "sdlxliff": "4:9547ecc5-f875-5d73-bb43-b746a5409963:42"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 803,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Libya: plan for presidential election on 24 December close to collapse",
+   "mt": "Ливия: план президентских выборов 24 декабря близок к краху",
+   "errors": []
+  },
+  {
+   "n": 43,
+   "keys": {
+    "xliff12": "4:804:1",
+    "xliff20": "4:804:1",
+    "sdlxliff": "4:fe05963a-ea10-5b5d-b5ed-ac57b54a9d8d:43"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 804,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "The chances of Libya staging its first presidential elections on the long planned date of 24 December appeared close to collapse on Sunday after the body overseeing the vote said it was unable to announce the the approved candidates because of continued legal doubts.",
+   "mt": "Шансы Ливии провести свои первые президентские выборы в давно запланированную дату 24 декабря казались близкими к краху в воскресенье после того, как орган, наблюдающий за голосованием, заявил, что он не может объявить утвержденных кандидатов из-за продолжающихся юридических сомнений.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 94,
+     "end": 102,
+     "text": "казались",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 44,
+   "keys": {
+    "xliff12": "4:805:1",
+    "xliff20": "4:805:1",
+    "sdlxliff": "4:63588128-73b8-58c8-a661-bf7c948b3fe4:44"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 805,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "With the elections less than a fortnight away and virtually no time for campaigning, a postponement would represent a bitter blow to the international community's hopes of reuniting the deeply divided country.",
+   "mt": "Поскольку до выборов осталось менее двух недель и практически нет времени для проведения предвыборной кампании, отсрочка нанесла бы тяжелый удар по надеждам международного сообщества на воссоединение глубоко разделенной страны.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 200,
+     "end": 207,
+     "text": "глубоко",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 45,
+   "keys": {
+    "xliff12": "4:806:1",
+    "xliff20": "4:806:1",
+    "sdlxliff": "4:51bc5837-0089-548f-bb0f-3795172b1d9a:45"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 806,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Foreign powers will also fear the overall momentum towards democracy could dissipate.",
+   "mt": "Иностранные державы также будут опасаться, что общий импульс к демократии может рассеяться.",
+   "errors": []
+  },
+  {
+   "n": 46,
+   "keys": {
+    "xliff12": "4:807:1",
+    "xliff20": "4:807:1",
+    "sdlxliff": "4:3f70c140-f3b4-5b95-baa6-028eb90b0236:46"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 807,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "In the short term they will have to agree whether or not the interim government continues in order to fill the political vacuum and prevent a return to civil war.",
+   "mt": "В краткосрочной перспективе им придется договориться о том, продолжит ли временное правительство свою работу, чтобы заполнить политический вакуум и не допустить возобновления гражданской войны.",
+   "errors": []
+  },
+  {
+   "n": 47,
+   "keys": {
+    "xliff12": "4:808:1",
+    "xliff20": "4:808:1",
+    "sdlxliff": "4:fb2d42cb-22b3-5e9d-b1e0-e5d5636fcd5e:47"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 808,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "A series of court rulings have overturned the Libyan electoral commission's decisions to block high-profile figures including Saif al-Islam Gaddafi, the son of the former dictator, from standing for the presidency.",
+   "mt": "Ряд судебных решений отменил решения ливийской избирательной комиссии о блокировании выдвижения на пост президента высокопоставленных лиц, включая Саифа аль-Ислама Каддафи, сына бывшего диктатора.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 72,
+     "end": 84,
+     "text": "блокировании",
+     "category": "mistranslation",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 48,
+   "keys": {
+    "xliff12": "4:809:1",
+    "xliff20": "4:809:1",
+    "sdlxliff": "4:c3f0530f-aaed-5c62-afe1-2e3ebc64ef61:48"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 809,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "The interim prime minister, Abdul Hamid Dbeibah and warlord Khalifa Haftar, the head of the self-styled Libyan National Army, have meanwhile been approved by the commission but subsequently appealed by other parties.",
+   "mt": "Временный премьер-министр Абдул Хамид Дбейба и глава самопровозглашенной Ливийской национальной армии Халифа Хафтар были тем временем одобрены комиссией, но впоследствии обжалованы другими сторонами.",
+   "errors": []
+  },
+  {
+   "n": 49,
+   "keys": {
+    "xliff12": "4:810:1",
+    "xliff20": "4:810:1",
+    "sdlxliff": "4:bb32f2c6-c580-5ef6-811e-08009ca326f5:49"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 810,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "It said in a statement on Saturday it said could not announce the names of the approved candidates out of the nearly who 100 have applied because it was \"keen to exhaust all means of litigation to ensure its decisions comply with issued judgements.\"",
+   "mt": "В заявлении, сделанном в субботу, говорится, что он не может объявить имена утвержденных кандидатов из почти тех 100, которые подали заявления, потому что он «стремился исчерпать все средства судебного разбирательства, чтобы гарантировать, что его решения соответствуют вынесенным решениям».",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 49,
+     "end": 51,
+     "text": "он",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 155,
+     "end": 157,
+     "text": "он",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    },
+    {
+     "side": "mt",
+     "start": 244,
+     "end": 247,
+     "text": "его",
+     "category": "grammar",
+     "family": "fluency_style",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 50,
+   "keys": {
+    "xliff12": "4:811:1",
+    "xliff20": "4:811:1",
+    "sdlxliff": "4:7c2317f5-6a72-5d87-9fb0-3b6befe45092:50"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 811,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "Rival factions have accused each other of intimidating or bribing judicial officials to secure their reinstatement of their candidates, and the commission is looking to see if the decisions were valid.",
+   "mt": "Сопернические фракции обвиняли друг друга в запугивании или подкупе судебных чиновников, чтобы добиться восстановления своих кандидатов в должности, и комиссия стремится проверить, были ли эти решения действительными.",
+   "errors": [
+    {
+     "side": "mt",
+     "start": 136,
+     "end": 147,
+     "text": "в должности",
+     "category": "addition",
+     "family": "meaning",
+     "severity": "minor"
+    }
+   ]
+  },
+  {
+   "n": 51,
+   "keys": {
+    "xliff12": "4:812:1",
+    "xliff20": "4:812:1",
+    "sdlxliff": "4:88d79ef6-a262-551f-a215-20bdc41f09d1:51"
+   },
+   "doc": "guardian.44758",
+   "domain": "news",
+   "wmt_segment": 812,
+   "label": "OK",
+   "label_any_major": false,
+   "src": "In the case of Dbeibah, he had pledged as a condition of becoming interim PM that he would not stand for election but has since argued in court that this was a moral pledge with no legal force.",
+   "mt": "В случае с Дбейбой он пообещал в качестве условия, чтобы стать временным премьер-министром, что он не будет баллотироваться на выборах, но с тех пор утверждал в суде, что это было моральное обещание, не имеющее юридической силы.",
+   "errors": []
+  }
+ ]
+}

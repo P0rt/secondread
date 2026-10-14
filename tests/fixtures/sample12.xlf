@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-made XLIFF 1.2 sample in the style of Okapi Rainbow output (synthetic text). -->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:okp="okapi-framework:xliff-extensions" xmlns:its="http://www.w3.org/2005/11/its" its:version="2.0">
+  <file original="manual.html" source-language="en-US" target-language="ru-RU" datatype="html">
+    <header>
+      <tool tool-id="okapi" tool-name="okapi-framework:xliff-filter" tool-version="1.47.0"/>
+    </header>
+    <body>
+      <trans-unit id="tu1" resname="title" okp:engine="mt">
+        <source xml:lang="en-US">Do <g id="1" ctype="bold">not</g> remove the battery.</source>
+        <target xml:lang="ru-RU" state="translated" state-qualifier="leveraged-mt">Извлеките <g id="1" ctype="bold">аккумулятор</g>.</target>
+        <note from="reviewer">Client term list v3 applies.</note>
+      </trans-unit>
+      <group id="g1" restype="x-paragraph">
+        <trans-unit id="tu2">
+          <source>Press <bpt id="1">&lt;b&gt;</bpt>Start<ept id="1">&lt;/b&gt;</ept> and wait 5&#160;seconds.<x id="2" ctype="lb"/>Then release.</source>
+          <target state="needs-review-translation">Нажмите <bpt id="1">&lt;b&gt;</bpt>Пуск<ept id="1">&lt;/b&gt;</ept> и подождите 15&#160;секунд.<x id="2" ctype="lb"/>Затем отпустите.</target>
+          <alt-trans match-quality="85" origin="tm">
+            <source>Press Start and wait.</source>
+            <target>Нажмите Пуск и подождите.</target>
+          </alt-trans>
+        </trans-unit>
+        <trans-unit id="tu3" translate="no">
+          <source>ACME-3000</source>
+        </trans-unit>
+      </group>
+      <!-- a unit nobody has translated yet -->
+      <trans-unit id="tu4">
+        <source>Price: <ph id="1">{price}</ph> per unit.</source>
+      </trans-unit>
+      <trans-unit id="tu5">
+        <source>Two sentences. Second one.</source>
+        <seg-source><mrk mtype="seg" mid="0">Two sentences.</mrk> <mrk mtype="seg" mid="1">Second one.</mrk></seg-source>
+        <target state="translated"><mrk mtype="seg" mid="0">Два предложения.</mrk> <mrk mtype="seg" mid="1">Второе.</mrk></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

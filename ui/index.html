@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="SecondRead flags major meaning errors in machine-translated segments, offline, for translators post-editing MT." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>SecondRead</title>
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-inner wrap">
+        <a class="brand" href="./">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="1" y="1" width="30" height="30" rx="8" class="brand-bg" />
+            <path d="M8 11h16M8 16h10M8 21h7" class="brand-ink" stroke-width="2.4" stroke-linecap="round" />
+            <circle cx="21.5" cy="21" r="3.4" class="brand-ink" fill="none" stroke-width="2.2" />
+          </svg>
+          <span class="brand-text">
+            <span class="brand-name">SecondRead</span>
+            <span class="brand-tag">Meaning-error check for MT post-editing</span>
+          </span>
+        </a>
+        <div id="status" class="status status-checking" role="status" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="status-text">Looking for the local checker…</span>
+          <span class="status-detail"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="card input" aria-labelledby="input-title">
+        <div class="input-head">
+          <h1 id="input-title">Check a machine translation</h1>
+          <label class="lp">
+            <span class="lp-label">Language pair</span>
+            <select id="lp">
+              <option value="en-ru">English → Russian</option>
+              <option value="en-es">English → Spanish</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="live-input">
+          <div class="tabs" role="tablist" aria-label="Input">
+            <button type="button" class="tab" role="tab" id="tab-file" aria-selected="true" aria-controls="panel-file">XLIFF file</button>
+            <button type="button" class="tab" role="tab" id="tab-paste" aria-selected="false" aria-controls="panel-paste" tabindex="-1">Paste pairs</button>
+          </div>
+
+          <div class="panel" id="panel-file" role="tabpanel" aria-labelledby="tab-file">
+            <label class="drop" id="drop">
+              <input type="file" id="file" class="visually-hidden" />
+              <svg class="drop-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                <path d="M14 3v5h5M12 17.5v-6M9.5 14 12 11.5l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="drop-main">Drop an XLIFF file here or <span class="drop-link">choose a file</span></span>
+              <span class="drop-sub">.xlf, .xliff, .sdlxliff · checked on this Mac, the file never leaves it</span>
+            </label>
+          </div>
+
+          <div class="panel" id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" hidden>
+            <label class="visually-hidden" for="paste">Source and machine translation, one pair per line</label>
+            <textarea id="paste" rows="7" spellcheck="false" autocomplete="off"
+              placeholder="Paste two columns from a spreadsheet: source ⇥ machine translation, one pair per line.&#10;&#10;We will not be able to deliver before Friday. ⇥ Мы сможем доставить до пятницы."></textarea>
+            <div class="paste-foot">
+              <span id="paste-info" class="hint">One pair per line: source, Tab, machine translation.</span>
+              <button type="button" id="check-paste" class="btn btn-primary" disabled>Check pairs</button>
+            </div>
+          </div>
+        </div>
+
+        <p id="demo-only-note" class="demo-only-note" hidden>
+          This hosted page shows precomputed results for a public sample. SecondRead itself runs
+          on your own computer, so client files never leave it.
+        </p>
+
+        <p id="demo-line" class="demo-line">
+          No file at hand? <button type="button" id="demo-btn" class="link-btn">Open the demo</button>,
+          10 segments of public WMT22 English → Russian.
+        </p>
+      </section>
+
+      <section id="results" class="results" aria-live="polite" aria-busy="false"></section>
+    </main>
+
+    <footer class="foot wrap">
+      <p>
+        SecondRead points you to the segments most likely to hold a <em>major</em> meaning error:
+        dropped negation, wrong numbers, omissions, mistranslation. It ranks what to read first;
+        it does not replace reading the rest.
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

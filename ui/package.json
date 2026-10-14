@@ -1,0 +1,20 @@
+{
+  "name": "secondread-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build:demo": "tsc && vite build --mode demo",
+    "preview": "vite preview",
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "dependencies": {
+    "@sentry/browser": "11.7.0"
+  }
+}
