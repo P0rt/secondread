@@ -49,6 +49,7 @@ import sentry_sdk
 
 from secondread import checks
 from secondread.prompt import LABEL_IDS, LANG, generation_prompt_ids
+from secondread.rulecal import RuleCalibration
 from secondread.telemetry import SafeError
 
 log = logging.getLogger("secondread.agent")
@@ -341,27 +342,43 @@ def parse_xliff_bytes(data: bytes, default_lp: str | None, filename: str | None 
 _FAMILY = {"number_check": "number_mismatch", "negation_check": "negation_mismatch"}
 
 
+# Weights of the rule findings in the combined risk, measured on the train splits
+# (scripts/calibrate_rules.py -> secondread/rule_calibration.json; see secondread/rulecal.py).
+RULES = RuleCalibration()
+
+
 def _reason(code: str, issue: str, message: str, confidence: float | None,
-            spans: Iterable[tuple[str, int, int]] = ()) -> dict[str, Any]:
-    return {"code": code, "issue": issue, "message": message, "confidence": confidence,
-            "spans": [{"side": side, "start": a, "end": b} for side, a, b in spans]}
+            spans: Iterable[tuple[str, int, int]] = (), weight: float | None = None) -> dict[str, Any]:
+    out = {"code": code, "issue": issue, "message": message, "confidence": confidence,
+           "spans": [{"side": side, "start": a, "end": b} for side, a, b in spans]}
+    if weight is not None:
+        out["weight"] = weight
+    return out
+
+
+def _rule_confidence(rules: RuleCalibration, lp: str, issue: checks.Issue) -> float:
+    """Train P(Major | this finding) for the pair; the hand-set prior if it was never measured."""
+    p = rules.p_major(lp, issue.code)
+    return round(p if p is not None else issue.confidence, 4)
 
 
 def aggregate(model: ModelScore | None, results: list[checks.CheckResult], threshold: float,
-              model_label: str) -> tuple[float, bool, list[dict[str, Any]], list[str]]:
+              model_label: str, lp: str, rules: RuleCalibration | None = None
+              ) -> tuple[float, bool, list[dict[str, Any]], list[str]]:
     """Merge model and rule signals into (risk, flagged, reasons, issue codes).
 
-    Noisy-OR: each signal is an independent chance that the segment has a major
-    error, risk = 1 - prod(1 - p). One strong signal flags on its own; two
-    medium ones together can. Each rule contributes only its strongest finding,
-    so three weak "extra number" hits do not add up to a flag.
+    logit(risk) = logit(model risk) + for each rule check, the largest train-calibrated weight
+    among its findings (secondread.rulecal). A segment without findings keeps the model risk; a
+    finding raises it by its measured evidence and never lowers it. Without a model score the
+    risk is the largest train P(Major | finding). Every finding is returned as a reason, with its
+    train P(Major | finding) as `confidence` and its log-odds `weight`, however small.
     """
-    probs = [c.risk for c in results if c.issues]
-    reasons = [_reason(_FAMILY.get(c.name, c.name), i.code, i.reason, i.confidence, i.spans)
+    rules = rules or RULES
+    reasons = [_reason(_FAMILY.get(c.name, c.name), i.code, i.reason, _rule_confidence(rules, lp, i), i.spans,
+                       round(rules.weight(lp, i.code), 4))
                for c in results for i in c.issues]
     codes = [code for c in results for code in c.codes]
     if model is not None and model.risk is not None:
-        probs.append(model.risk)
         if model.risk >= threshold:
             codes.append("model_high")
         reasons.append(_reason("model_risk", "model_high" if model.risk >= threshold else "model_score",
@@ -371,13 +388,17 @@ def aggregate(model: ModelScore | None, results: list[checks.CheckResult], thres
         reasons.append(_reason("model_unavailable", model.error or "error",
                                f"Model unavailable ({model.error}): rule checks only", None))
     reasons.sort(key=lambda r: -(r["confidence"] or 0.0))
-    risk = 1.0 - math.prod(1.0 - p for p in probs)
+    risk = rules.risk(model.risk if model is not None else None, results, lp)
     return risk, risk >= threshold, reasons, codes
 
 
-def _signals(results: list[checks.CheckResult], model: ModelScore | None) -> dict[str, Any]:
-    out: dict[str, Any] = {r.name: {"flagged": bool(r.issues), "risk": r.risk, "issues": r.codes,
-                                    "skipped": r.skipped, **r.stats} for r in results}
+def _signals(results: list[checks.CheckResult], model: ModelScore | None, lp: str,
+             rules: RuleCalibration | None = None) -> dict[str, Any]:
+    rules = rules or RULES
+    out: dict[str, Any] = {r.name: {"flagged": bool(r.issues),
+                                    "risk": max((_rule_confidence(rules, lp, i) for i in r.issues), default=0.0),
+                                    "weight": max((round(rules.weight(lp, i.code), 4) for i in r.issues), default=0.0),
+                                    "issues": r.codes, "skipped": r.skipped, **r.stats} for r in results}
     out["lora_score"] = model.risk if model is not None else None
     return out
 
@@ -575,11 +596,11 @@ class ReviewAgent:
             with sentry_sdk.start_span(op="secondread.aggregate", name="aggregate signals") as span:
                 out = []
                 for seg, rules, score in zip(segs, rule_results, scores, strict=True):
-                    risk, flagged, reasons, codes = aggregate(score, rules, thresholds[seg.lp], scorer.label)
+                    risk, flagged, reasons, codes = aggregate(score, rules, thresholds[seg.lp], scorer.label, seg.lp)
                     out.append(SegmentResult(
                         index=seg.index, id=seg.id, lp=seg.lp, src=seg.src, mt=seg.mt,
                         risk=round(risk, 4), flagged=flagged, reasons=reasons, issues=codes,
-                        signals=_signals(rules, score), model=asdict(score), meta=seg.meta))
+                        signals=_signals(rules, score, seg.lp), model=asdict(score), meta=seg.meta))
                 n_flagged = sum(r.flagged for r in out)
                 span.set_data("secondread.flagged", n_flagged)
             t_end = time.perf_counter()

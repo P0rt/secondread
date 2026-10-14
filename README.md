@@ -14,6 +14,8 @@ reading every segment twice.
 >   synthetic errors, not on human-labelled ones.
 > - Scores against the base model, v2 and two Gemma 4 31B baselines are in
 >   [docs/RESULTS.md](docs/RESULTS.md).
+> - The rule checks' weights in the app's score are measured on the train split. They no longer
+>   pull the ranking below the model's (AUROC −0.002 against the model alone, was −0.010).
 > - Done, in-flight and next items are in [docs/STATUS.md](docs/STATUS.md).
 
 ## Why offline and open
@@ -36,9 +38,9 @@ reading every segment twice.
 
 ```
 XLIFF 1.2 / 2.0 / SDLXLIFF ─► parse_xliff ─► number_check ─► negation_check ─► lora_score ─► aggregate
-                               (lxml)        (rules: numbers, units,   (llama-server,      (noisy-OR of
-                                              dates, times; negation    first-token        all signals)
-                                              counts for en→ru/en→es)   P(Major) vs P(OK))
+                               (lxml)        (rules: numbers, units,   (llama-server,      (model log-odds
+                                              dates, times; negation    first-token        + train-measured
+                                              counts for en→ru/en→es)   P(Major) vs P(OK))  rule weights)
 ```
 
 - **Model:** `Qwen/Qwen3.5-4B` with an MLP-only LoRA (rank 16), trained on
@@ -47,7 +49,11 @@ XLIFF 1.2 / 2.0 / SDLXLIFF ─► parse_xliff ─► number_check ─► negatio
   gives `risk = p(Major) / (p(Major) + p(OK))`.
 - **Prompt:** `secondread/prompt.py` is the only definition, used for training, Tinker evaluation
   and local inference.
-- **Rule checks:** they add reasons and highlight spans for the UI.
+- **Rule checks:** they add reasons and highlight spans for the UI. Each finding also adds a
+  small weight to the model's log-odds, measured on the train split
+  (`scripts/calibrate_rules.py` → `secondread/rule_calibration.json`). A finding is a real Major
+  error in only 10–50% of hits, so the weights are small. The ranking is close to the model
+  alone, but every finding is still shown (RESULTS.md, "Rule calibration").
 - **Flag thresholds:** one per adapter and language pair in `secondread/thresholds.json`, each
   F1-optimal on the fused dev risk (`scripts/pick_thresholds.py`). The backend identifies the
   loaded adapter by its sha256 and reports the version in `/api/health`.
@@ -149,6 +155,7 @@ py scripts/probe_local.py data/splits/en-ru.test.jsonl 100000 --workers 4 --lora
    --out results/local_v1_enru_test.jsonl
 py scripts/report.py base=results/local_base_enru_test.jsonl,results/local_base_enru_dev.jsonl \
    v1=results/local_v1_enru_test.jsonl,results/local_v1_enru_dev.jsonl --n-boot 1000
+py scripts/calibrate_rules.py                # rule weights from the train split -> secondread/rule_calibration.json
 py scripts/pick_thresholds.py                # dev-calibrated flag thresholds -> secondread/thresholds.json
 ```
 

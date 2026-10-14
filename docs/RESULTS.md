@@ -554,8 +554,8 @@ better on the synthetic error types.
 ### Flag thresholds per adapter and language pair
 
 The backend flags a segment when its **fused** risk reaches the threshold of the active adapter
-for the segment's language pair. The fused risk is the noisy-OR of the model risk and the two
-rule checks. `scripts/pick_thresholds.py` picks each threshold this way:
+for the segment's language pair. At ship time the fused risk was the noisy-OR of the model risk
+and the two rule checks (replaced since; see "Rule calibration"). `scripts/pick_thresholds.py` picks each threshold this way:
 1. it runs `number_check` and `negation_check` on every unit of the **full** dev split;
 2. it fuses them with that adapter's local dev scores, using `secondread.agent.aggregate`;
 3. it takes the F1-optimal threshold (`metrics.best_f1_threshold`) and rounds it to 4 decimals.
@@ -591,6 +591,10 @@ columns below are for information only and played no part in the choice.
   - The model reason reads "Model (LoRA v1): P(Major) …".
 
 ### The app's fused score vs the model alone
+
+> **Superseded (2026-10-14, later that evening):** the rule weights are now measured on the train
+> split, and the app's score no longer uses the hand-set noisy-OR described here. See
+> "Rule calibration" below. This subsection is kept as the record of why.
 
 Every table above scores the model alone. The app ranks by the fused score. Paired, with 1,000
 document replicates, on the same rows (`runs/ship/fused_*`, git-ignored):
@@ -646,3 +650,246 @@ afterwards.
 - **`ui/public/demo-results.json`,** rebuilt with `make_demo_results.py --api`:
   - `placeholder` is now false, with the note "fine-tuned LoRA v1 active";
   - 7 of 10 segments flagged at 0.1609, which include 3 of the 4 gold Major ones.
+
+---
+
+## Rule calibration (2026-10-14, night)
+
+**Verdict: the rule checks now cost the ranking almost nothing, and they still do not improve
+it.** The app's score now adds each finding's weight, measured on the train split, to the model's
+log-odds. The hand-set noisy-OR is gone.
+- **Against the hand-set version (test):** en-ru AUROC +0.009 [+0.003, +0.016] and PR-AUC +0.022
+  [+0.007, +0.043]; en-es AUROC +0.009 and PR-AUC +0.028 (both CIs include 0).
+- **Against the model alone (test):** −0.002 AUROC on both pairs. On en-ru that is just
+  significant ([−0.004, −0.000]). recall@10% is unchanged.
+- **Reasons:** every finding is still returned as a reason and highlighted, however small its
+  weight.
+
+### What was measured on train
+
+`scripts/calibrate_rules.py` runs `number_check` and `negation_check` on every unit of
+`data/splits/{en-ru,en-es}.train.jsonl`, exactly as the server does. The rules were never fit to
+any split, so train is a fair place to measure them. Dev and test played no part in any number
+below.
+
+- **Clustering:** one source sentence is translated by up to 16 MT systems, and a finding usually
+  fires on several of them. In the fit, each hit of a code is weighted by (distinct source
+  sentences of the code) / (hits of the code). The code keeps its row-level Major rate but counts
+  as only as many observations as it has distinct sources.
+- **Weight:** a weighted logistic regression per pair, intercept plus one 0/1 feature per code,
+  with a N(0, 1) prior on each code's coefficient (Newton's method, deterministic). The weight is
+  the coefficient, clamped at 0. It is the log odds ratio of Major with vs without the finding,
+  i.e. its likelihood ratio, shrunk towards "no evidence" when a code has few sources.
+- **P(Major | finding):** the smoothed probability, sigmoid(intercept + coefficient).
+- **CI:** a document-level bootstrap on train (1,000 replicates) of the raw rate.
+
+P(Major | no finding): en-ru 0.218, en-es 0.083 (Major rates of the splits: 0.219 and 0.087).
+
+| Pair | Code | Hits | Major | Sources | Raw P(Major \| hit) [95% CI] | Smoothed | Coefficient | **Weight shipped** | Coefficient given v1 ¹ | Hand-set (old) |
+|---|---|---:|---:|---:|---|---:|---:|---:|---:|---:|
+| en-ru | `negation_added` | 136 | 23 | 35 | 0.17 [0.04, 0.35] | 0.18 | −0.26 | **0.00** | −0.14 | 0.35 |
+| | `negation_dropped` | 22 | 7 | 14 | 0.32 [0.07, 0.57] | 0.29 | +0.39 | **0.39** | −0.31 | 0.75 |
+| | `negation_fewer` | 78 | 38 | 12 | 0.49 [0.16, 0.76] | 0.41 | +0.92 | **0.92** | +0.17 | 0.40 |
+| | `number_changed` | 4 | 2 | 3 | 0.50 [0.00, 1.00] | 0.32 | +0.53 | **0.53** | +0.32 | 0.75 |
+| | `number_extra` | 4 | 3 | 4 | 0.75 [0.00, 1.00] | 0.47 | +1.14 | **1.14** | +0.48 | 0.25 |
+| | `number_missing` | 23 | 9 | 18 | 0.39 [0.18, 0.64] | 0.35 | +0.68 | **0.68** | +0.48 | 0.55 |
+| en-es | `negation_added` | 90 | 11 | 23 | 0.12 [0.07, 0.20] | 0.11 | +0.29 | **0.29** | +0.21 | 0.35 |
+| | `negation_dropped` | 29 | 8 | 12 | 0.28 [0.14, 0.71] | 0.19 | +0.96 | **0.96** | +0.55 | 0.75 |
+| | `negation_fewer` | 23 | 12 | 10 | 0.52 [0.37, 0.78] | 0.34 | +1.75 | **1.75** | +1.28 | 0.40 |
+| | `number_changed` | 29 | 3 | 12 | 0.10 [0.00, 0.17] | 0.09 | +0.12 | **0.12** | −0.10 | 0.75 |
+| | `number_extra` | 29 | 4 | 8 | 0.14 [0.04, 0.38] | 0.11 | +0.25 | **0.25** | +0.23 | 0.25 |
+| | `number_missing` | 25 | 4 | 14 | 0.16 [0.04, 0.36] | 0.11 | +0.27 | **0.27** | −0.08 | 0.55 |
+| | `unit_changed` | 1 | 1 | 1 | 1.00 | 0.17 | +0.83 | **0.83** | +0.51 | 0.70 |
+
+1. Fitted with logit(v1 risk on the same train rows) as an offset (candidate `logodds_offset`
+   below). Not shipped.
+
+- **Hit rates:** a finding is Major in 10–52% of hits, against hand-set confidences of 0.25–0.75.
+- **Numbers:** the number codes are weak in en-es, where `number_changed` is Major only 10% of
+  the time. In en-ru they have very few hits (4 for `number_changed`).
+- **Negation:** `negation_fewer` is the strongest code in both pairs. `negation_added` is
+  evidence *against* Major in en-ru (17% vs 22%), so its weight is clamped to 0.
+- **Read with care:** the weight is the odds multiplier e^w. For example, en-es `negation_fewer`
+  multiplies the model's odds by 5.7, and en-ru `negation_dropped` by 1.5.
+- **Other pairs:** a "*" entry, the same fit on both pairs pooled, serves any pair without its
+  own entry (for example en-de).
+
+**v1's train scores are memorised, so they are a poor base for a fit.** v1 was trained on these
+rows for one epoch:
+- en-ru train AUROC is 0.971, against 0.739 on dev and 0.801 on test.
+- en-es train AUROC is 0.906, against 0.869 on dev. It is lower there because 3,821 of the
+  5,354 en-es OK rows were not in `sft_v1` (en-es OK was subsampled 3:1). Those rows have mean
+  risk 0.171, against 0.158 for the OK rows trained on.
+
+A fit that conditions on these scores sees a model that nearly knows the labels. It therefore
+under-weights the rules: compare the "given v1" column with the shipped one. Scoring train cost
+nothing: about 70 min of local GPU on `:9950` with `probe_local.py --workers 4`. The output is
+`results/local_v1_{enru,enes}_train.jsonl`, with ids, labels and scores only.
+
+### Candidates, and the choice on dev
+
+All candidates are fitted on train only.
+
+| Candidate | Combined risk | Needs model scores on train |
+|---|---|---|
+| `logodds_rules` (**shipped**) | logit(risk) = logit(model) + Σ over checks of the strongest finding's weight (table above) | no |
+| `noisy_or_train` | the old noisy-OR, each confidence set to the smoothed train P(Major \| finding) | no |
+| `logodds_offset` | as `logodds_rules`, with weights fitted using logit(v1) as an offset | yes |
+| `logreg` | sigmoid(a + b·logit(v1) + Σ weights), all fitted per pair | yes |
+| reference: `model` | v1 alone | |
+| reference: `handset` | the noisy-OR with the hand-set 0.25–0.75 the app used until now | |
+
+**The selection rule was fixed before the dev run:**
+1. Measure ΔAUROC, ΔPR-AUC and Δrecall@10% against `model` on the full en-ru dev split (2,972
+   rows) and on en-es dev (1,650 rows): 6 deltas in all. Use a paired document bootstrap with
+   1,000 replicates.
+2. A candidate is admissible when no delta has a 95% CI entirely below 0.
+3. Pick the admissible candidate with the highest mean of the 6 point deltas.
+4. Prefer the simpler candidate when it is within 0.002 of the best. The order from simplest is
+   `logodds_rules`, `noisy_or_train`, `logodds_offset`, `logreg`.
+5. With no admissible candidate, ship weight 0, so the rules only give reasons.
+
+Dev results, paired against v1 alone:
+
+| Candidate | en-ru ΔAUROC | en-ru ΔPR-AUC | en-ru Δrecall@10% | en-es ΔAUROC | en-es ΔPR-AUC | en-es Δrecall@10% | mean of 6 |
+|---|---|---|---|---|---|---|---:|
+| handset (reference) | −0.0008 [−0.0021, +0.0005] | −0.0014 [−0.0045, +0.0023] | +0.0012 [−0.0041, +0.0084] | +0.0069 [−0.0145, +0.0190] | −0.0221 [−0.0746, +0.0099] | −0.0526 [−0.0899, +0.0513] | −0.0115 |
+| **logodds_rules** | −0.0000 [−0.0001, +0.0000] | −0.0001 [−0.0005, +0.0003] | +0.0000 [−0.0023, +0.0025] | +0.0032 [−0.0034, +0.0069] | −0.0027 [−0.0168, +0.0021] | −0.0105 [−0.0367, +0.0282] | −0.0017 |
+| noisy_or_train | −0.0005 [−0.0012, +0.0003] | −0.0002 [−0.0012, +0.0012] | +0.0012 [−0.0038, +0.0047] | +0.0059 [−0.0037, +0.0118] | +0.0015 [−0.0053, +0.0052] | −0.0105 [−0.0299, +0.0357] | −0.0004 |
+| logodds_offset | 0 ² | 0 ² | 0 ² | +0.0019 [−0.0019, +0.0046] | −0.0019 [−0.0128, +0.0009] | −0.0211 [−0.0257, +0.0186] | −0.0035 |
+| logreg | 0 ² | 0 ² | 0 ² | +0.0016 [−0.0005, +0.0038] | −0.0004 [−0.0034, +0.0009] | −0.0211 [−0.0241, +0.0179] | −0.0033 |
+
+2. No en-ru dev row moves: the only codes that fire on en-ru dev (`negation_added` 13 rows,
+   `negation_dropped` 3) get weight 0 in this fit.
+
+**Choice: `logodds_rules`.**
+- All four candidates are admissible.
+- `noisy_or_train` has the best mean (−0.0004). `logodds_rules` is 0.0013 behind it, within the
+  0.002 margin, and is simpler. The log-odds form also does not count the base rate twice, as a
+  noisy-OR of P(Major | finding) does.
+- **Dev cannot separate the candidates.** It has only 16 en-ru and 33 en-es rows with a finding.
+  One en-es Major unit is worth 0.0105 of recall@10%.
+- The choice rests on the pre-set rule and on the train evidence, not on dev precision. Its
+  weights are model-free, so they apply unchanged to base and v2 as well.
+
+### Test, run once after the choice
+
+Same `report.py` settings: 1,000 document replicates shared by all rows of a block, and F1 at
+each system's own F1-optimal dev threshold.
+
+| Pair, split | System | AUROC [95% CI] | PR-AUC [95% CI] | recall@10% [95% CI] | dev thr | F1 at dev thr [95% CI] |
+|---|---|---|---|---|---:|---|
+| **en-ru test** (3,573 rows, 33 docs, Major 0.202) | v1 alone | 0.801 [0.743, 0.851] | 0.537 [0.407, 0.635] | 0.303 [0.246, 0.380] | 0.161 | 0.504 [0.419, 0.573] |
+| | app, hand-set noisy-OR (old) | 0.790 [0.735, 0.839] | 0.512 [0.376, 0.615] | 0.275 [0.225, 0.353] | 0.161 | 0.498 [0.413, 0.569] |
+| | **app, calibrated (new)** | 0.799 [0.742, 0.848] | 0.533 [0.404, 0.633] | 0.303 [0.246, 0.379] | 0.161 | 0.502 [0.415, 0.572] |
+| **en-es test** (1,815 rows, 25 docs, Major 0.093) | v1 alone | 0.815 [0.776, 0.853] | 0.517 [0.442, 0.591] | 0.518 [0.437, 0.602] | 0.702 | 0.429 [0.355, 0.498] |
+| | app, hand-set noisy-OR (old) | 0.804 [0.767, 0.846] | 0.486 [0.427, 0.560] | 0.500 [0.392, 0.590] | 0.702 | 0.432 [0.340, 0.508] |
+| | **app, calibrated (new)** | 0.813 [0.775, 0.851] | 0.514 [0.439, 0.590] | 0.524 [0.425, 0.596] | 0.702 | 0.436 [0.355, 0.508] |
+
+| Block | A − B | ΔAUROC | ΔPR-AUC | Δrecall@10% | ΔF1 |
+|---|---|---|---|---|---|
+| en-ru test | **calibrated − v1 alone** | −0.002 [−0.004, −0.000] | −0.004 [−0.008, −0.000] | +0.000 [−0.006, +0.004] | −0.002 [−0.006, +0.000] |
+| en-ru test | **calibrated − hand-set** | **+0.009** [+0.003, +0.016] | **+0.022** [+0.007, +0.043] | **+0.028** [+0.002, +0.058] | +0.004 [+0.000, +0.012] |
+| en-ru test | hand-set − v1 alone | **−0.010** [−0.020, −0.003] | **−0.026** [−0.048, −0.009] | **−0.028** [−0.063, −0.001] | |
+| en-es test | **calibrated − v1 alone** | −0.002 [−0.004, +0.001] | −0.003 [−0.013, +0.006] | +0.006 [−0.030, +0.016] | +0.007 [+0.000, +0.017] |
+| en-es test | **calibrated − hand-set** | +0.009 [−0.000, +0.017] | +0.028 [−0.002, +0.048] | +0.024 [−0.018, +0.070] | +0.004 [−0.005, +0.028] |
+| en-es test | hand-set − v1 alone | **−0.011** [−0.019, −0.001] | −0.031 [−0.056, +0.003] | −0.018 [−0.076, +0.019] | |
+
+**What this shows:**
+- **The fix removes most of the damage.**
+  - On en-ru test the old fused score lost 0.010 AUROC, 0.026 PR-AUC and 0.028 recall@10%
+    against the model alone. The calibrated score loses 0.002, 0.004 and 0.000.
+  - en-es is the same: −0.011 / −0.031 / −0.018 before, −0.002 / −0.003 / +0.006 now.
+- **It does not make the rules useful for ranking.** The calibrated score is still a little
+  below the model alone, and on en-ru that is just significant. The train evidence, a rule hit
+  being Major in 10–50% of hits, is real. But v1 already sees most of the same evidence: it gave
+  the hit rows a higher mean risk than the rest (0.32 vs 0.24 on en-ru train). And test findings
+  are rarely Major: 4 of 66 en-ru hits, 6 of 71 en-es hits.
+- **Why the old score hurt, in one number.**
+  - The riskiest 10% of en-ru test is 357 rows. The hand-set noisy-OR put 53 of the 66 hit rows
+    there, and only 4 of them were Major. The model alone put 4 there, the calibrated score 7,
+    with all 4 Major hits among those 7.
+  - On en-es test the counts were 43, 6 and 13 hit rows in the riskiest 182.
+- **The threshold does not move.** The v1 thresholds stay at en-ru 0.1609 and en-es 0.7019.
+  - en-es test F1 rises from 0.429 to 0.436 (+0.007 [+0.000, +0.017]).
+  - en-ru F1 falls 0.002, within noise.
+
+**The other candidates on the same test run, recorded for completeness; they do not change the
+choice:**
+
+| Candidate | en-ru ΔAUROC vs v1 alone | en-ru ΔPR-AUC | en-es ΔAUROC | en-es ΔPR-AUC |
+|---|---|---|---|---|
+| noisy_or_train | −0.005 [−0.010, −0.002] | −0.007 [−0.015, −0.002] | −0.004 [−0.006, +0.001] | −0.003 [−0.009, +0.004] |
+| logodds_offset | −0.001 [−0.003, −0.000] | −0.002 [−0.004, −0.000] | −0.001 [−0.003, +0.001] | −0.002 [−0.007, +0.004] |
+| logreg | −0.000 [−0.001, +0.000] | −0.001 [−0.002, +0.000] | −0.001 [−0.002, +0.001] | −0.001 [−0.005, +0.004] |
+
+- The fits conditioned on v1's memorised train scores come out closest to the model alone,
+  because they give the rules the smallest weights.
+- No candidate beats the model alone on test.
+- Switching to one of them now would be a choice made on test. If the rules should not move the
+  ranking at all, weight 0 is the honest version of that.
+
+### In the app
+
+- **Score:** `secondread/rulecal.py` computes logit(risk) = logit(model risk) + Σ over checks of
+  the strongest finding's weight (`secondread/rule_calibration.json`).
+  - A segment with no finding keeps exactly the model risk. A finding never lowers it.
+- **Reasons:** every finding is returned as a reason with its spans, whatever its weight.
+  - `confidence` is now the train P(Major | finding) for the pair. The new `weight` field is the
+    log-odds it adds. The UI ignores both and shows chips, notes and highlights as before (`ui/API.md`).
+  - `signals.<check>.risk` is that P(Major | finding), no longer the hand-set prior.
+- **Rule checks only (llama-server down):** the risk is the largest train P(Major | finding) of
+  the segment, at most 0.47.
+  - This is a behaviour change. At the 0.5 fallback threshold, nothing is flagged in this mode
+    any more. The findings are still listed and sort first. Before, a single `number_changed`
+    (0.75) was flagged.
+- **`/api/health`** has a new `rule_calibration` field: method, fit, date and pairs.
+  - `secondread/thresholds.json` records the sha256 of the calibration file that its thresholds
+    were picked with.
+- **Thresholds** (`scripts/pick_thresholds.py`, re-run on the new fused score; F1-optimal on
+  full dev):
+  - v1 unchanged: en-ru 0.1609 (dev F1 0.537, 37% flagged) and en-es 0.7019 (dev F1 0.449, 3%
+    flagged). For information, on test: en-ru P 0.372, R 0.769, F1 0.502; en-es P 0.773, R
+    0.304, F1 0.436.
+  - base en-es moves from 0.7506 to 0.7345. The other base and v2 thresholds are unchanged.
+- **Demo** (`ui/public/demo-results.json`, rebuilt through the backend):
+  - Segment 10, a dropped negated clause and gold Major, goes from 0.896 to 0.675 (model 0.586
+    plus `negation_dropped`, weight 0.39). It is still flagged and still shows its negation
+    reason and highlight.
+  - The other 9 segments are unchanged, and 7 of 10 are flagged as before.
+  - The 51-segment demo job has no rule findings, so its scores are unchanged: 23 flagged,
+    9.1 s.
+- **Checks:** `tests/test_xliff.py` 20/20. `scripts/canary_check.py` PASS: the canary is in 0 of
+  12 envelopes, and in 4 with the scrubbers off.
+
+### Reproduce
+
+```sh
+py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }
+# v1 scores of the train rows (only the two candidates that condition on the model need them)
+llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 \
+  --host 127.0.0.1 --port 9950 &
+py scripts/probe_local.py data/splits/en-es.train.jsonl 100000 --workers 4 --lora-scale 1 --port 9950 --out results/local_v1_enes_train.jsonl
+py scripts/probe_local.py data/splits/en-ru.train.jsonl 100000 --workers 4 --lora-scale 1 --port 9950 --out results/local_v1_enru_train.jsonl
+kill %1
+# fit on train, write secondread/rule_calibration.json and every candidate's combined dev scores
+py scripts/calibrate_rules.py --candidates-dir runs/rulecal --splits dev
+R=runs/rulecal; for t in enru enes; do
+  py scripts/report.py model=$R/model_${t}_dev.jsonl handset=$R/handset_${t}_dev.jsonl \
+     logodds_rules=$R/logodds_rules_${t}_dev.jsonl noisy_or_train=$R/noisy_or_train_${t}_dev.jsonl \
+     logodds_offset=$R/logodds_offset_${t}_dev.jsonl logreg=$R/logreg_${t}_dev.jsonl --n-boot 1000; done
+# after the choice: the test run (the calibration file comes out byte-identical)
+py scripts/calibrate_rules.py --candidates-dir runs/rulecal --splits dev test
+for t in enru enes; do
+  py scripts/report.py model=$R/model_${t}_test.jsonl,$R/model_${t}_dev.jsonl \
+     handset=$R/handset_${t}_test.jsonl,$R/handset_${t}_dev.jsonl \
+     logodds_rules=$R/logodds_rules_${t}_test.jsonl,$R/logodds_rules_${t}_dev.jsonl \
+     noisy_or_train=$R/noisy_or_train_${t}_test.jsonl,$R/noisy_or_train_${t}_dev.jsonl \
+     logodds_offset=$R/logodds_offset_${t}_test.jsonl,$R/logodds_offset_${t}_dev.jsonl \
+     logreg=$R/logreg_${t}_test.jsonl,$R/logreg_${t}_dev.jsonl \
+     --n-boot 1000 --diff logodds_rules:model --diff logodds_rules:handset; done
+py scripts/pick_thresholds.py --fused-dir runs/rulecal/app   # app fusion == runs/rulecal/logodds_rules_* (max diff 0.0)
+```
+
+`runs/rulecal/` is git-ignored. Without the train score files, `calibrate_rules.py` still fits
+and writes the shipped `logodds_rules` weights; it skips the two candidates that need them.

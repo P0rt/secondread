@@ -1,4 +1,4 @@
-# SecondRead status, 2026-10-14 (evening, after the Ship phase)
+# SecondRead status, 2026-10-14 (night, after the rule calibration)
 
 Commands use `py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }`. Keys are
 in `.env`; set them with `set -a && . ./.env && set +a`.
@@ -22,6 +22,11 @@ All scores come from local Q4 runs; Gemma runs on DigitalOcean.
 - **The backend uses per-pair thresholds calibrated on dev:** en-ru 0.1609, en-es 0.7019.
 - **`/api/health` names the adapter version (v1).** The backend finds it from the adapter file's
   sha256.
+- **The rule checks are calibrated on train** (RESULTS.md, "Rule calibration").
+  - The app's score is the model log-odds plus each finding's train-measured weight
+    (`secondread/rule_calibration.json`).
+  - On test, AUROC is now −0.002 against v1 alone on both pairs; it was −0.010 and −0.011.
+  - The findings are still shown as reasons. The thresholds are unchanged.
 
 ## Spend (budgets: Tinker about $18 available, DigitalOcean $5 credit)
 
@@ -52,8 +57,9 @@ their logs.
   ```sh
   llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931
   ```
-- **No backend is running.** The Ship phase ran one on `:8787` for the demo rebuild and the checks,
-  then stopped it. Ports 9940–9944 are free.
+- **No backend is running.** The Ship phase and the rule-calibration pass each ran one on `:8787`
+  for the demo rebuild and the checks, then stopped it. The calibration pass scored train on its
+  own llama-server on `:9950` and stopped it. Ports 9940–9944 and 9950 are free.
 
 ## Done and verified this afternoon
 
@@ -79,16 +85,20 @@ their logs.
 
 ## Needs you
 
+- **Review and commit the rule-calibration changes** (list in "Changed in the rule-calibration
+  pass" below). Nothing is committed or pushed.
+- **Rule-only mode no longer flags.** With llama-server down, a segment's risk is now the largest
+  train P(Major | finding), at most 0.47, so nothing reaches the 0.5 fallback threshold. The
+  findings are still listed and sort first. Decide whether that mode should flag every finding,
+  for example with a lower rules-only threshold.
 - **Rotate `DO_MODEL_KEY`** if any agent transcript from today will be shared. Part of the
   key appeared in a process listing in one track's tool output. No file holds it.
-- **Review and commit the Ship-phase changes** (list in "Changed in the Ship phase" below).
-  Nothing is committed or pushed.
 - **Checkpoint cleanup.** Decide whether to delete the G3, G4 and LR-probe checkpoints on
   Tinker. The 22 checkpoints from before v2 cost $0.28 a month, v2 added 7, and `final`
   checkpoints never expire.
-- **Rule confidences.** In the app's fused score the rule checks lower test AUROC by about 0.01
-  (RESULTS.md, "The app's fused score vs the model alone"). Decide whether to recalibrate them from
-  the train split before the post, or to say so in it.
+- **Rule confidences: done** (RESULTS.md, "Rule calibration"). The post can say this: the rules
+  are explanations, and with measured weights they cost the ranking about 0.002 AUROC instead of
+  0.010.
 - **The post:** `docs/POST_DRAFT.md` has the v2, synthetic, spend and status placeholders filled.
   Still open: the title, video, live demo URL, screenshots, the first user and the optional
   agent session. Re-check the Tinker total against the bill first.
@@ -101,13 +111,10 @@ their logs.
 
 - **Annotated-file download:** `/api/review` returns XLIFF keys as `id`, and
   `xliff.annotate()` works. But no endpoint returns the annotated file yet.
-- **Rule confidences:** the values from 0.25 to 0.75 are still set by hand.
-  - A rule hit is a Major unit far less often than that: 31% of the time on en-ru train, 19% on
-    en-es train, and 6–8% on test.
-  - Dev has too few hits to tune on: 16 rows in en-ru, 33 in en-es.
-  - Calibrate the confidences on the train split. The rules are not fit to it.
-  - Known false alarms (found on test): "£" vs «фунтов», "whether or not", "no doubt", "24/7"
-    vs «круглосуточно», ordinal words («втором»).
+- **Rule false alarms (found on test, not fixed):** "£" vs «фунтов», "whether or not", "no
+  doubt", "24/7" vs «круглосуточно», ordinal words («втором»). The calibrated weights make them
+  cheap, but they still show up as reasons. Fixing them in `checks.py` would be test-informed;
+  report it that way (RESULTS.md, "Rule calibration").
 - **Other eval sets:**
   - WMT25 en-ru OOD conversion (only `scripts/wmt25_count.py` exists);
   - ACES and HalOmi loaders (eval only, NC licenses).
@@ -124,7 +131,7 @@ their logs.
 Done in the Ship phase: v1 served, full en-ru dev scored, per-pair thresholds, v2 trained and
 evaluated, demo results rebuilt. What is left:
 
-1. **Rule confidences** from the train split, then check on dev (free; see "Not built yet").
+1. ~~Rule confidences from the train split~~: done (RESULTS.md, "Rule calibration").
 2. **G8:** the Sentry screenshot and the debugging story, the `-cram 0` latency hunt. Run the
    backend with `.env` loaded so `SENTRY_DSN` is set.
 3. **Static demo on DO App Platform.** `ui/dist` holds the demo build from the Ship phase; both
@@ -138,7 +145,35 @@ evaluated, demo results rebuilt. What is left:
 7. **Optional, about $0.10:** Tinker exact eval of v1 on en-ru test. G5 already shows local
    tracks Tinker.
 
-## Changed in the Ship phase (not committed)
+## Changed in the rule-calibration pass (not committed)
+
+- **New:**
+  - `secondread/rulecal.py`: the combination, logit(risk) = logit(model) + the strongest weight
+    of each check;
+  - `secondread/rule_calibration.json`: weights and train statistics, numbers only, no text;
+  - `scripts/calibrate_rules.py`: the train fit, plus each candidate's combined scores for dev
+    and test;
+  - `results/local_v1_{enru,enes}_train.jsonl`: v1 scores of the train rows (ids, labels and
+    scores only).
+- **Backend:**
+  - `secondread/agent.py`: `aggregate` uses the calibration. Reasons carry the train
+    P(Major | finding) as `confidence` plus a `weight`, and `signals.*.risk` is that probability;
+  - `secondread/server.py`: `/api/health` has `rule_calibration`;
+  - `secondread/checks.py`: the docstrings now say the hand-set confidences are a fallback only.
+- **Thresholds:**
+  - `scripts/pick_thresholds.py` fuses with the new `aggregate` and records the sha256 of the
+    calibration file;
+  - `secondread/thresholds.json` re-picked: v1 is unchanged, base en-es goes 0.7506 → 0.7345.
+- **UI and contract:**
+  - `ui/public/demo-results.json`, rebuilt through the backend: only segment 10 changes, 0.896 →
+    0.675, still flagged;
+  - `ui/API.md`: `confidence`, `weight` and `rule_calibration` documented;
+  - `ui/dist`, rebuilt with `build:demo` last.
+- **Docs:** `docs/RESULTS.md` (new section "Rule calibration", plus pointers in "Ship decision"),
+  this file, `README.md` and `docs/RUNBOOK.md`.
+- **Git-ignored:** `runs/rulecal/`, the candidates' combined scores and the app's fused scores.
+
+## Changed in the Ship phase (committed in 00b756d)
 
 - **New:**
   - `scripts/pick_thresholds.py`;

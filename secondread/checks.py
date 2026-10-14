@@ -7,7 +7,10 @@ ambiguous, the checks lean towards "matched" and stay silent.
 
 Every finding is an ``Issue`` with:
   code        a stable machine code, safe for telemetry ("number_changed");
-  confidence  a hand-set prior P(major error | issue), used by the aggregator;
+  confidence  a hand-set prior P(major error | issue). The app no longer combines it with the
+              model: the aggregator uses weights measured on the train splits
+              (secondread/rule_calibration.json, secondread/rulecal.py) and falls back to
+              this prior only for a code that was never measured, with no model score;
   reason      human-readable text for the translator. It may quote numbers or
               words from the segment, so it is returned to the local client only
               and must never be logged or attached to telemetry;
@@ -57,10 +60,10 @@ def split_lp(lp: str) -> tuple[str, str]:
     return src, tgt
 
 
-# Prior confidences that a finding is a real major error. Hand-set "worth a
-# second look" priors, not measured precision: on natural WMT22/24 data these
-# errors are rare and labels are single-annotator, so measured precision is
-# lower (0.1-0.5). Re-tune on synthetic + dev data together with the threshold.
+# Hand-set prior confidences that a finding is a real major error ("worth a second look"),
+# not measured precision. On the train splits a finding is Major in 10-50% of hits depending
+# on code and pair (scripts/calibrate_rules.py, RESULTS.md "Rule calibration"); the measured
+# values in secondread/rule_calibration.json replace these in the app's risk.
 CONF_NUMBER_CHANGED = 0.75
 CONF_NUMBER_MISSING = 0.55
 CONF_NUMBER_EXTRA = 0.25

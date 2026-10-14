@@ -23,6 +23,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -31,6 +32,7 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
@@ -44,7 +46,7 @@
     "p_ok": 0.957952498647292,
     "labels_in_top": true,
     "prompt_tokens": 45,
-    "latency_ms": 444.6047500241548,
+    "latency_ms": 534.8366659600288,
     "error": null
    },
    "meta": {},
@@ -78,6 +80,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -86,6 +89,7 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
@@ -99,7 +103,7 @@
     "p_ok": 0.3848482778026559,
     "labels_in_top": true,
     "prompt_tokens": 50,
-    "latency_ms": 492.88083298597485,
+    "latency_ms": 609.7317499807104,
     "error": null
    },
    "meta": {},
@@ -142,6 +146,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -150,6 +155,7 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
@@ -163,7 +169,7 @@
     "p_ok": 0.7878785759482936,
     "labels_in_top": true,
     "prompt_tokens": 80,
-    "latency_ms": 493.4689580113627,
+    "latency_ms": 610.5444999993779,
     "error": null
    },
    "meta": {},
@@ -195,6 +201,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -203,6 +210,7 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
@@ -216,7 +224,7 @@
     "p_ok": 0.9841513641111878,
     "labels_in_top": true,
     "prompt_tokens": 49,
-    "latency_ms": 491.69879202963784,
+    "latency_ms": 611.5612499997951,
     "error": null
    },
    "meta": {},
@@ -259,6 +267,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -267,6 +276,7 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
@@ -280,7 +290,7 @@
     "p_ok": 0.4790241081984521,
     "labels_in_top": true,
     "prompt_tokens": 57,
-    "latency_ms": 445.79795899335295,
+    "latency_ms": 492.2508749878034,
     "error": null
    },
    "meta": {},
@@ -321,6 +331,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -329,6 +340,7 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
@@ -342,7 +354,7 @@
     "p_ok": 0.9875640270973186,
     "labels_in_top": true,
     "prompt_tokens": 44,
-    "latency_ms": 399.0413750289008,
+    "latency_ms": 419.2681669956073,
     "error": null
    },
    "meta": {},
@@ -358,14 +370,14 @@
    "lp": "en-ru",
    "src": "We were working till past 1am.",
    "mt": "Мы работали до часу ночи.",
-   "risk": 0.4826,
+   "risk": 0.481,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
      "message": "Model (LoRA v1): P(Major) 48%",
-     "confidence": 0.4825872295724044,
+     "confidence": 0.4810253055796599,
      "spans": []
     }
    ],
@@ -376,6 +388,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -384,20 +397,21 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.4825872295724044
+    "lora_score": 0.4810253055796599
    },
    "model": {
-    "risk": 0.4825872295724044,
-    "p_major": 0.4815221950136177,
-    "p_ok": 0.5162708784588602,
+    "risk": 0.4810253055796599,
+    "p_major": 0.47996470736544755,
+    "p_ok": 0.517830422741202,
     "labels_in_top": true,
     "prompt_tokens": 54,
-    "latency_ms": 433.2683749962598,
+    "latency_ms": 420.4587080166675,
     "error": null
    },
    "meta": {},
@@ -420,7 +434,7 @@
      "code": "model_risk",
      "issue": "model_high",
      "message": "Model (LoRA v1): P(Major) 20%",
-     "confidence": 0.1987892357766493,
+     "confidence": 0.19878771209748472,
      "spans": []
     }
    ],
@@ -431,6 +445,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -439,20 +454,21 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.1987892357766493
+    "lora_score": 0.19878771209748472
    },
    "model": {
-    "risk": 0.1987892357766493,
-    "p_major": 0.19854788613841934,
-    "p_ok": 0.8002380157375698,
+    "risk": 0.19878771209748472,
+    "p_major": 0.19854637134404113,
+    "p_ok": 0.8002395659209078,
     "labels_in_top": true,
     "prompt_tokens": 53,
-    "latency_ms": 433.1760830245912,
+    "latency_ms": 595.5791249871254,
     "error": null
    },
    "meta": {},
@@ -475,7 +491,7 @@
      "code": "model_risk",
      "issue": "model_high",
      "message": "Model (LoRA v1): P(Major) 17%",
-     "confidence": 0.16777239751128756,
+     "confidence": 0.16777214160109333,
      "spans": []
     }
    ],
@@ -486,6 +502,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -494,20 +511,21 @@
     "negation_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.16777239751128756
+    "lora_score": 0.16777214160109333
    },
    "model": {
-    "risk": 0.16777239751128756,
-    "p_major": 0.1675749607372689,
-    "p_ok": 0.8312482260506212,
+    "risk": 0.16777214160109333,
+    "p_major": 0.16757470104307393,
+    "p_ok": 0.8312484613953669,
     "labels_in_top": true,
     "prompt_tokens": 69,
-    "latency_ms": 400.659832987003,
+    "latency_ms": 407.0298749720678,
     "error": null
    },
    "meta": {},
@@ -523,28 +541,29 @@
    "lp": "en-ru",
    "src": "Same happened to my friend after I had been working with Pizza Hut for a couple years (didn't make me close until months after I started working and trained up), got him a job there on the spot.",
    "mt": "Тоже самое произошло с моим другом, когда я проработал пару лет в Pizza Hut (прошло несколько месяцев после того, как я начал работать и прошел обучение), и сразу же нашел ему там работу.",
-   "risk": 0.8964,
+   "risk": 0.6752,
    "flagged": true,
    "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_high",
+     "message": "Model (LoRA v1): P(Major) 59%",
+     "confidence": 0.5855863203960704,
+     "spans": []
+    },
     {
      "code": "negation_mismatch",
      "issue": "negation_dropped",
      "message": "The source has a negation ('n't') but the MT has none",
-     "confidence": 0.75,
+     "confidence": 0.2906,
      "spans": [
       {
        "side": "src",
        "start": 90,
        "end": 93
       }
-     ]
-    },
-    {
-     "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 59%",
-     "confidence": 0.5856909097414214,
-     "spans": []
+     ],
+     "weight": 0.386
     }
    ],
    "issues": [
@@ -555,6 +574,7 @@
     "number_check": {
      "flagged": false,
      "risk": 0.0,
+     "weight": 0.0,
      "issues": [],
      "skipped": null,
      "src_only": [],
@@ -562,7 +582,8 @@
     },
     "negation_check": {
      "flagged": true,
-     "risk": 0.75,
+     "risk": 0.2906,
+     "weight": 0.386,
      "issues": [
       "negation_dropped"
      ],
@@ -570,15 +591,15 @@
      "src_count": 1,
      "mt_count": 0
     },
-    "lora_score": 0.5856909097414214
+    "lora_score": 0.5855863203960704
    },
    "model": {
-    "risk": 0.5856909097414214,
-    "p_major": 0.584389320063944,
-    "p_ok": 0.4133883649644064,
+    "risk": 0.5855863203960704,
+    "p_major": 0.584283752844855,
+    "p_ok": 0.4134918653589063,
     "labels_in_top": true,
     "prompt_tokens": 125,
-    "latency_ms": 400.5491249845363,
+    "latency_ms": 438.96816595224664,
     "error": null
    },
    "meta": {},
@@ -621,23 +642,23 @@
   },
   "cost_usd": 0.0,
   "timing_ms": {
-   "total": 1295.3,
-   "per_segment": 129.5,
-   "parse": 0.0,
-   "checks": 0.4,
-   "model": 1294.8,
-   "model_call_p50": 438.9,
-   "model_call_p95": 493.5
+   "total": 1473.4,
+   "per_segment": 147.3,
+   "parse": 0.1,
+   "checks": 0.5,
+   "model": 1472.5,
+   "model_call_p50": 513.5,
+   "model_call_p95": 611.6
   }
  },
  "timing_ms": {
-  "total": 1295.3,
-  "per_segment": 129.5,
-  "parse": 0.0,
-  "checks": 0.4,
-  "model": 1294.8,
-  "model_call_p50": 438.9,
-  "model_call_p95": 493.5
+  "total": 1473.4,
+  "per_segment": 147.3,
+  "parse": 0.1,
+  "checks": 0.5,
+  "model": 1472.5,
+  "model_call_p50": 513.5,
+  "model_call_p95": 611.6
  },
  "meta": {
   "placeholder": false,

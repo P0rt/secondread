@@ -4,9 +4,10 @@ usage: PYTHONPATH=. uv run python scripts/pick_thresholds.py [--out secondread/t
            [--fused-dir runs/ship]
 
 The server flags a segment when its fused risk is at or above the threshold for the loaded
-adapter and the segment's language pair. The fused risk is the noisy-OR of the model risk and
-the two rule checks (`secondread.agent.aggregate`). So the threshold is picked on fused risk,
-not on the model risk alone:
+adapter and the segment's language pair. The fused risk is the model risk with the
+train-calibrated log-odds weights of the two rule checks added (`secondread.agent.aggregate`,
+`secondread/rule_calibration.json`). So the threshold is picked on fused risk, not on the
+model risk alone:
 
   1. for every unit of the full dev split, run `number_check` and `negation_check`, exactly as
      the server does;
@@ -58,7 +59,7 @@ def fuse(split: dict[str, dict], scored: list[dict]) -> list[dict]:
     for r in scored:
         u = split[r["id"]]
         rules = [checks.number_check(u["src"], u["mt"], u["lp"]), checks.negation_check(u["src"], u["mt"], u["lp"])]
-        risk, _, _, _ = aggregate(ModelScore(risk=r["risk"]), rules, 1.0, "model")
+        risk, _, _, _ = aggregate(ModelScore(risk=r["risk"]), rules, 1.0, "model", u["lp"])
         out.append({"id": r["id"], "label": r["label"], "risk": risk, "model_risk": r["risk"],
                     "rule_hit": any(c.issues for c in rules), "doc": u["doc"], "lp": u["lp"]})
     return out
@@ -84,11 +85,14 @@ def main() -> None:
     splits = {(lp, part): {r["id"]: r for r in M.load_scored(ROOT / f"data/splits/{lp}.{part}.jsonl")}
               for lp in LPS for part in ("dev", "test")}
     out = {
-        "method": "F1-optimal threshold on the fused risk (noisy-OR of the model risk and the "
-                  "number/negation rule checks, as secondread.agent.aggregate) over the full dev split "
-                  "of each language pair, rounded to 4 decimals; scripts/pick_thresholds.py",
+        "method": "F1-optimal threshold on the fused risk (the model risk plus the train-calibrated "
+                  "log-odds weights of the number/negation rule checks in secondread/rule_calibration.json, "
+                  "as secondread.agent.aggregate) over the full dev split of each language pair, rounded to "
+                  "4 decimals; scripts/pick_thresholds.py",
         "generated": time.strftime("%Y-%m-%d"),
         "fallback": 0.5,
+        "rule_calibration": {"file": "secondread/rule_calibration.json",
+                             "sha256": sha256(ROOT / "secondread/rule_calibration.json")},
         "adapters": {},
     }
     old = json.loads((ROOT / a.out).read_text()) if (ROOT / a.out).exists() else {"adapters": {}}

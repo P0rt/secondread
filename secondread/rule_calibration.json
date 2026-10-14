@@ -1,0 +1,482 @@
+{
+ "method_id": "logodds",
+ "fitted_as": "logodds_rules",
+ "method": "logit(risk) = logit(model risk) + for each rule check, the largest weight among its findings (secondread/rulecal.py). Weights come from a weighted logistic regression on the train split only (prior N(0, 1) per code; each hit of a code weighs its distinct source sentences / its hits, since one source is translated by up to 16 MT systems), clamped at 0 so a finding never lowers the risk. p_major is the smoothed train P(Major | finding), used alone when no model score is available; scripts/calibrate_rules.py",
+ "generated": "2026-10-14",
+ "data": {
+  "en-ru": "data/splits/en-ru.train.jsonl",
+  "en-es": "data/splits/en-es.train.jsonl",
+  "model_scores_for_candidates": [
+   "results/local_v1_enru_train.jsonl",
+   "results/local_v1_enes_train.jsonl"
+  ]
+ },
+ "pairs": {
+  "en-ru": {
+   "codes": {
+    "negation_added": {
+     "weight": 0.0,
+     "p_major": 0.1766
+    },
+    "negation_dropped": {
+     "weight": 0.386,
+     "p_major": 0.2906
+    },
+    "negation_fewer": {
+     "weight": 0.9174,
+     "p_major": 0.4107
+    },
+    "number_changed": {
+     "weight": 0.5339,
+     "p_major": 0.322
+    },
+    "number_extra": {
+     "weight": 1.1391,
+     "p_major": 0.4652
+    },
+    "number_missing": {
+     "weight": 0.6759,
+     "p_major": 0.3538
+    }
+   }
+  },
+  "en-es": {
+   "codes": {
+    "negation_added": {
+     "weight": 0.2911,
+     "p_major": 0.1093
+    },
+    "negation_dropped": {
+     "weight": 0.9579,
+     "p_major": 0.1929
+    },
+    "negation_fewer": {
+     "weight": 1.7456,
+     "p_major": 0.3444
+    },
+    "number_changed": {
+     "weight": 0.1217,
+     "p_major": 0.0938
+    },
+    "number_extra": {
+     "weight": 0.251,
+     "p_major": 0.1054
+    },
+    "number_missing": {
+     "weight": 0.2712,
+     "p_major": 0.1073
+    },
+    "unit_changed": {
+     "weight": 0.8267,
+     "p_major": 0.1733
+    }
+   }
+  },
+  "*": {
+   "codes": {
+    "negation_added": {
+     "weight": 0.0,
+     "p_major": 0.1266
+    },
+    "negation_dropped": {
+     "weight": 0.7923,
+     "p_major": 0.2607
+    },
+    "negation_fewer": {
+     "weight": 1.2553,
+     "p_major": 0.3591
+    },
+    "number_changed": {
+     "weight": 0.3034,
+     "p_major": 0.1778
+    },
+    "number_extra": {
+     "weight": 0.5809,
+     "p_major": 0.222
+    },
+    "number_missing": {
+     "weight": 0.5768,
+     "p_major": 0.2213
+    },
+    "unit_changed": {
+     "weight": 0.8267,
+     "p_major": 0.2674
+    }
+   }
+  }
+ },
+ "candidates": {
+  "logodds_rules": {
+   "en-ru": {
+    "negation_added": 0.0,
+    "negation_dropped": 0.386,
+    "negation_fewer": 0.9174,
+    "number_changed": 0.5339,
+    "number_extra": 1.1391,
+    "number_missing": 0.6759
+   },
+   "en-es": {
+    "negation_added": 0.2911,
+    "negation_dropped": 0.9579,
+    "negation_fewer": 1.7456,
+    "number_changed": 0.1217,
+    "number_extra": 0.251,
+    "number_missing": 0.2712,
+    "unit_changed": 0.8267
+   },
+   "*": {
+    "negation_added": 0.0,
+    "negation_dropped": 0.7923,
+    "negation_fewer": 1.2553,
+    "number_changed": 0.3034,
+    "number_extra": 0.5809,
+    "number_missing": 0.5768,
+    "unit_changed": 0.8267
+   }
+  },
+  "logodds_offset": {
+   "en-ru": {
+    "negation_added": 0.0,
+    "negation_dropped": 0.0,
+    "negation_fewer": 0.1718,
+    "number_changed": 0.3209,
+    "number_extra": 0.4835,
+    "number_missing": 0.4822
+   },
+   "en-es": {
+    "negation_added": 0.2109,
+    "negation_dropped": 0.5517,
+    "negation_fewer": 1.2828,
+    "number_changed": 0.0,
+    "number_extra": 0.2317,
+    "number_missing": 0.0,
+    "unit_changed": 0.5079
+   },
+   "*": {
+    "negation_added": 0.032,
+    "negation_dropped": 0.1917,
+    "negation_fewer": 0.5917,
+    "number_changed": 0.0189,
+    "number_extra": 0.3683,
+    "number_missing": 0.2542,
+    "unit_changed": 0.5077
+   }
+  }
+ },
+ "train_stats": {
+  "en-ru": {
+   "n": 12747,
+   "docs": 114,
+   "sources": 802,
+   "major_rate": 0.2194,
+   "rows_with_hit": 267,
+   "p_major_hit_any": 0.3071,
+   "p_major_no_hit": 0.2175,
+   "v1_train_auroc": 0.9712,
+   "v1_mean_risk_hit": 0.3246,
+   "v1_mean_risk_no_hit": 0.2394,
+   "codes": {
+    "negation_added": {
+     "hits": 136,
+     "major": 23,
+     "sources": 35,
+     "docs": 32,
+     "p_major_raw": 0.1691,
+     "p_major_raw_ci": [
+      0.0385,
+      0.3452
+     ],
+     "p_major": 0.1766,
+     "coef_rules": -0.2613,
+     "coef_offset": -0.1369
+    },
+    "negation_dropped": {
+     "hits": 22,
+     "major": 7,
+     "sources": 14,
+     "docs": 12,
+     "p_major_raw": 0.3182,
+     "p_major_raw_ci": [
+      0.0713,
+      0.5714
+     ],
+     "p_major": 0.2906,
+     "coef_rules": 0.386,
+     "coef_offset": -0.3121
+    },
+    "negation_fewer": {
+     "hits": 78,
+     "major": 38,
+     "sources": 12,
+     "docs": 11,
+     "p_major_raw": 0.4872,
+     "p_major_raw_ci": [
+      0.1635,
+      0.7587
+     ],
+     "p_major": 0.4107,
+     "coef_rules": 0.9174,
+     "coef_offset": 0.1718
+    },
+    "number_changed": {
+     "hits": 4,
+     "major": 2,
+     "sources": 3,
+     "docs": 3,
+     "p_major_raw": 0.5,
+     "p_major_raw_ci": [
+      0.0,
+      1.0
+     ],
+     "p_major": 0.322,
+     "coef_rules": 0.5339,
+     "coef_offset": 0.3209
+    },
+    "number_extra": {
+     "hits": 4,
+     "major": 3,
+     "sources": 4,
+     "docs": 4,
+     "p_major_raw": 0.75,
+     "p_major_raw_ci": [
+      0.0,
+      1.0
+     ],
+     "p_major": 0.4652,
+     "coef_rules": 1.1391,
+     "coef_offset": 0.4835
+    },
+    "number_missing": {
+     "hits": 23,
+     "major": 9,
+     "sources": 18,
+     "docs": 10,
+     "p_major_raw": 0.3913,
+     "p_major_raw_ci": [
+      0.1765,
+      0.643
+     ],
+     "p_major": 0.3538,
+     "coef_rules": 0.6759,
+     "coef_offset": 0.4822
+    }
+   }
+  },
+  "en-es": {
+   "n": 5865,
+   "docs": 109,
+   "sources": 391,
+   "major_rate": 0.0871,
+   "rows_with_hit": 221,
+   "p_major_hit_any": 0.1855,
+   "p_major_no_hit": 0.0833,
+   "v1_train_auroc": 0.9063,
+   "v1_mean_risk_hit": 0.2888,
+   "v1_mean_risk_no_hit": 0.1987,
+   "codes": {
+    "negation_added": {
+     "hits": 90,
+     "major": 11,
+     "sources": 23,
+     "docs": 15,
+     "p_major_raw": 0.1222,
+     "p_major_raw_ci": [
+      0.0694,
+      0.2
+     ],
+     "p_major": 0.1093,
+     "coef_rules": 0.2911,
+     "coef_offset": 0.2109
+    },
+    "negation_dropped": {
+     "hits": 29,
+     "major": 8,
+     "sources": 12,
+     "docs": 12,
+     "p_major_raw": 0.2759,
+     "p_major_raw_ci": [
+      0.1429,
+      0.7146
+     ],
+     "p_major": 0.1929,
+     "coef_rules": 0.9579,
+     "coef_offset": 0.5517
+    },
+    "negation_fewer": {
+     "hits": 23,
+     "major": 12,
+     "sources": 10,
+     "docs": 10,
+     "p_major_raw": 0.5217,
+     "p_major_raw_ci": [
+      0.3667,
+      0.7827
+     ],
+     "p_major": 0.3444,
+     "coef_rules": 1.7456,
+     "coef_offset": 1.2828
+    },
+    "number_changed": {
+     "hits": 29,
+     "major": 3,
+     "sources": 12,
+     "docs": 10,
+     "p_major_raw": 0.1034,
+     "p_major_raw_ci": [
+      0.0,
+      0.1707
+     ],
+     "p_major": 0.0938,
+     "coef_rules": 0.1217,
+     "coef_offset": -0.1012
+    },
+    "number_extra": {
+     "hits": 29,
+     "major": 4,
+     "sources": 8,
+     "docs": 6,
+     "p_major_raw": 0.1379,
+     "p_major_raw_ci": [
+      0.0417,
+      0.375
+     ],
+     "p_major": 0.1054,
+     "coef_rules": 0.251,
+     "coef_offset": 0.2317
+    },
+    "number_missing": {
+     "hits": 25,
+     "major": 4,
+     "sources": 14,
+     "docs": 11,
+     "p_major_raw": 0.16,
+     "p_major_raw_ci": [
+      0.04,
+      0.3574
+     ],
+     "p_major": 0.1073,
+     "coef_rules": 0.2712,
+     "coef_offset": -0.0783
+    },
+    "unit_changed": {
+     "hits": 1,
+     "major": 1,
+     "sources": 1,
+     "docs": 1,
+     "p_major_raw": 1.0,
+     "p_major_raw_ci": [
+      1.0,
+      1.0
+     ],
+     "p_major": 0.1733,
+     "coef_rules": 0.8267,
+     "coef_offset": 0.5079
+    }
+   }
+  },
+  "*": {
+   "n": 18612,
+   "note": "both pairs pooled, one intercept per pair",
+   "codes": {
+    "negation_added": {
+     "hits": 226,
+     "major": 34,
+     "sources": 58,
+     "docs": 47,
+     "p_major_raw": 0.1504,
+     "p_major_raw_ci": [
+      0.0682,
+      0.2637
+     ],
+     "p_major": 0.1266,
+     "coef_rules": -0.0967,
+     "coef_offset": 0.032
+    },
+    "negation_dropped": {
+     "hits": 51,
+     "major": 15,
+     "sources": 26,
+     "docs": 24,
+     "p_major_raw": 0.2941,
+     "p_major_raw_ci": [
+      0.1697,
+      0.5002
+     ],
+     "p_major": 0.2607,
+     "coef_rules": 0.7923,
+     "coef_offset": 0.1917
+    },
+    "negation_fewer": {
+     "hits": 101,
+     "major": 50,
+     "sources": 22,
+     "docs": 21,
+     "p_major_raw": 0.495,
+     "p_major_raw_ci": [
+      0.2672,
+      0.7245
+     ],
+     "p_major": 0.3591,
+     "coef_rules": 1.2553,
+     "coef_offset": 0.5917
+    },
+    "number_changed": {
+     "hits": 33,
+     "major": 5,
+     "sources": 15,
+     "docs": 13,
+     "p_major_raw": 0.1515,
+     "p_major_raw_ci": [
+      0.0556,
+      0.2609
+     ],
+     "p_major": 0.1778,
+     "coef_rules": 0.3034,
+     "coef_offset": 0.0189
+    },
+    "number_extra": {
+     "hits": 33,
+     "major": 7,
+     "sources": 12,
+     "docs": 10,
+     "p_major_raw": 0.2121,
+     "p_major_raw_ci": [
+      0.0926,
+      0.5
+     ],
+     "p_major": 0.222,
+     "coef_rules": 0.5809,
+     "coef_offset": 0.3683
+    },
+    "number_missing": {
+     "hits": 48,
+     "major": 13,
+     "sources": 32,
+     "docs": 21,
+     "p_major_raw": 0.2708,
+     "p_major_raw_ci": [
+      0.1578,
+      0.44
+     ],
+     "p_major": 0.2213,
+     "coef_rules": 0.5768,
+     "coef_offset": 0.2542
+    },
+    "unit_changed": {
+     "hits": 1,
+     "major": 1,
+     "sources": 1,
+     "docs": 1,
+     "p_major_raw": 1.0,
+     "p_major_raw_ci": [
+      1.0,
+      1.0
+     ],
+     "p_major": 0.2674,
+     "coef_rules": 0.8267,
+     "coef_offset": 0.5077
+    }
+   }
+  }
+ }
+}

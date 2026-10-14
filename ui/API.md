@@ -29,6 +29,7 @@ Called on page load, every 8 s while the backend is down and every 30 s while it
 | `adapter`        | string \| null         | optional; `null` means the base model runs without the LoRA. The backend sends the file name plus its version, e.g. `secondread-lora v1` |
 | `adapter_version`| string \| null         | not read by the UI. Found by the adapter file's sha256 in `secondread/thresholds.json`, so a renamed file keeps its version; `unknown` for a file not listed there |
 | `thresholds`     | object                 | not read by the UI. `{lp: threshold}` used when a request sends none; `threshold_source` says where they come from (`dev_f1`, `env`, `fallback`) |
+| `rule_calibration` | object               | not read by the UI. `{method, fitted_as, generated, pairs}` of `secondread/rule_calibration.json`, the train-measured weights of the rule findings in `risk` |
 | `llama`          | object                 | optional; `base_model` / `lora_adapters[].name` are used if `model` / `adapter` are missing |
 | `sentry.enabled` | boolean                | optional; `true` adds "Sentry on, no text sent" to the header   |
 
@@ -96,13 +97,15 @@ never in the URL, so it stays out of access logs and trace URLs.
 | field                       | type                  | notes |
 |-----------------------------|-----------------------|-------|
 | `segments`                  | array                 | **in document order**; the UI numbers them #1…#N in this order |
-| `segments[].risk`           | number in [0, 1]      | the final fused score; the UI sorts by it and never recomputes it |
+| `segments[].risk`           | number in [0, 1]      | the final fused score; the UI sorts by it and never recomputes it. logit(risk) = logit(`lora_score`) + the train-calibrated `weight` of the strongest finding of each rule check (`secondread/rulecal.py`); without findings it equals `lora_score` |
 | `signals.lora_score`        | number \| null        | `p(Major) / (p(Major) + p(OK))` from the first generated token; `null` if not run |
 | `signals.number_check`      | object \| bool \| null | `flagged` drives nothing by itself; reasons do. `src_only` / `mt_only` are numbers as strings |
 | `signals.negation_check`    | object \| bool \| null | `src_count` / `mt_count` = negation markers found on each side |
 | `reasons[].code`            | string                | known: `number_mismatch`, `negation_mismatch`, `model_risk`; others shown as-is |
 | `reasons[].message`         | string                | optional, short, shown under the segment |
 | `reasons[].spans`           | array                 | optional; `side` is `"src"` or `"mt"` |
+| `reasons[].confidence`      | number \| null        | not read by the UI. Rule findings: the train P(Major \| this finding) for the pair (`secondread/rule_calibration.json`); `model_risk`: the model risk |
+| `reasons[].weight`          | number                | rule findings only, not read by the UI: the log-odds the finding adds to the model risk (≥ 0; often small). The finding is listed and highlighted whatever its weight |
 | `spans[].start` / `.end`    | int                   | **Unicode code-point offsets** (Python `str` indices), end exclusive |
 | `timing_ms`                 | number \| object      | total wall time; an object like `{ "total": 1840, … }` is also accepted |
 | `segments[].flagged`        | boolean               | optional; the backend's verdict (`risk ≥ threshold`) |
@@ -112,10 +115,11 @@ never in the URL, so it stays out of access logs and trace URLs.
 | `summary.threshold_source`  | string                | `request`, `env` (`SECONDREAD_THRESHOLD`), `dev_f1` (the calibration file), `fallback` (0.5: unknown adapter, a LoRA scale other than 0 or 1, or no model) or `dev_f1+fallback` |
 | `summary.adapter_version`   | string \| null        | e.g. `v1` when the LoRA is active, else `null` |
 
-`reasons` is what gets highlighted. A segment with no reasons can still rank high on `risk`.
+`reasons` is what gets highlighted. A segment with no reasons can still rank high on `risk`, and
+every rule finding is listed, even when its calibrated weight barely moves `risk`.
 A `model_risk` reason only gets a chip and a note when `lora_score ≥ summary.threshold`
 (0.5 when the summary has none), because the risk bar already shows lower scores. Extra fields (`issue`,
-`confidence`, `model`, `meta`, `index`) are ignored.
+`confidence`, `weight`, `model`, `meta`, `index`) are ignored.
 
 ### Errors
 

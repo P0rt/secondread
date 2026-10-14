@@ -38,7 +38,7 @@ from fastapi import FastAPI, Query, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-from secondread.agent import MAX_SEGMENTS, ReviewAgent, ReviewError
+from secondread.agent import MAX_SEGMENTS, RULES, ReviewAgent, ReviewError
 
 log = logging.getLogger("secondread.server")
 
@@ -131,6 +131,7 @@ async def health(request: Request) -> dict[str, Any]:
             "adapter_version": "+".join(a.get("version") or "unknown" for a in adapters) or None,
             "scoring": llama.get("model_label"), "thresholds": llama.get("thresholds"),
             "threshold_source": llama.get("threshold_source"),
+            "rule_calibration": RULES.describe(),
             "llama": llama, "sentry": {"enabled": sentry_enabled()}, "xliff": _xliff_available()}
 
 

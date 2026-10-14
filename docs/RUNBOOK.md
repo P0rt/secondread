@@ -227,15 +227,17 @@ kill $SRV
   therefore come from the 300-row dev files. About 10 min: same loop with `s=en-ru.dev`.
 - **Report commands** are in `docs/RESULTS.md`.
 
-## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done)
+## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done; rule calibration added at night)
 
 ```sh
 # serve the shipped adapter on the app port (stop the old server first)
 nohup llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 \
   --host 127.0.0.1 --port 9931 > /tmp/claude-501/llama-9931.log 2>&1 < /dev/null &
 curl -s http://127.0.0.1:9931/health; curl -s http://127.0.0.1:9931/lora-adapters
+# rule weights from the train splits (RESULTS.md, "Rule calibration"); needs no server
+py scripts/calibrate_rules.py                                # -> secondread/rule_calibration.json
 # thresholds per adapter and pair from the full dev splits (fused risk, F1-optimal)
-py scripts/pick_thresholds.py --fused-dir runs/ship          # -> secondread/thresholds.json
+py scripts/pick_thresholds.py --fused-dir runs/rulecal/app   # -> secondread/thresholds.json
 # backend (no keys needed; without .env Sentry stays off), demo results, UI builds
 py -m secondread.server &                                    # 127.0.0.1:8787
 curl -s http://127.0.0.1:8787/api/health                     # adapter "secondread-lora v1", thresholds
