@@ -28,3 +28,4 @@ data/splits/*
 
 # internal notes (kept outside the public history)
 docs/prep/
+!.env.example
