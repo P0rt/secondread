@@ -31,13 +31,13 @@ stops submitting once actual spend plus in-flight worst case reaches --max-cost.
 --dry-run prints the plan and prompts and needs no key.
 
 Only public WMT text is sent to the API (never user XLIFF): DO has no EU data residency
-(docs/prep/03-verification-reports.md, DigitalOcean section 3).
+(private prep notes, 03-verification-reports.md, DigitalOcean section 3).
 
-TODO(DO terms, docs/prep/02-corrections.md #27): DO says serverless models are covered by
-its "AI Model Terms" and Service Terms (VERIFIED), but whether those terms allow using model
-OUTPUTS to train another model is UNVERIFIED. Gemma 4 itself is Apache-2.0 (no output
-restrictions). Read the DO AI Model Terms before generating training data with this script
-and record the answer here; until then, treat llm.train.jsonl as eval-only.
+Terms (checked 2026-10-14, docs/LICENSES-NOTES.md): Gemma 4 is Apache-2.0 and is not covered
+by the Gemma Terms of Use, and DO's Service Terms, TOS and AUP do not restrict training on
+outputs. So llm.train.jsonl may be used for training. Keep the synthetic/synth_* provenance
+fields. Re-check before switching to a different generator (Gemma <= 3 would make the LoRA a
+"Model Derivative" with pass-through obligations).
 """
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ from secondread.synth import (SYNTH_DIR, assert_hygiene, digit_string, error_spa
                               negation_count, read_jsonl, rng_for, segment_key, shift_spans, source_pool,
                               target_lang, write_jsonl)
 
-# Endpoint and model id: docs/prep/03-verification-reports.md, DigitalOcean sections 1 and 3 (VERIFIED).
+# Endpoint and model id: private prep notes, 03-verification-reports.md, DigitalOcean sections 1 and 3 (VERIFIED).
 DO_BASE_URL = "https://inference.do-ai.run/v1"
 DO_MODEL = "gemma-4-31B-it"
 PRICE_IN, PRICE_OUT = 0.18, 0.50  # USD per 1M tokens (DO pricing page; cached input is cheaper)

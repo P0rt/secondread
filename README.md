@@ -8,9 +8,10 @@ Style, grammar and word order are out of scope; other QA tools handle those.
 The goal is a shorter re-read: the reviewer starts with the riskiest 10% of the job instead of
 reading every segment twice.
 
-> **Status:** the pipeline runs end to end on the base model. The fine-tuned LoRA is not
-> trained yet (that needs `TINKER_API_KEY`), so today's scores come from base Qwen3.5-4B.
-> Done, measured and blocked items are in [docs/STATUS.md](docs/STATUS.md).
+> **Status (2026-10-14):** LoRA v1, trained on Tinker on human labels only, is exported to a
+> 36 MB GGUF and matches the Tinker sampler locally. Scores against the base model and two
+> Gemma 4 31B baselines are in [docs/RESULTS.md](docs/RESULTS.md). Done, in-flight and next
+> items are in [docs/STATUS.md](docs/STATUS.md).
 
 ## Why offline and open
 
@@ -65,8 +66,11 @@ uv run python -c "from huggingface_hub import snapshot_download as d; d('Qwen/Qw
   allow_patterns=['tokenizer.json', 'tokenizer_config.json', 'chat_template.jinja', 'config.json'])"
 
 # 3. Run the checker: three terminals
-llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf -c 16384 -np 4 --host 127.0.0.1 --port 9931 \
-  # add  --lora models/secondread-lora.gguf  once the adapter exists
+#    -cram 0 turns off llama-server's RAM prompt cache. Every prompt here is unique, and the cache
+#    grows the server to 5-8 GB, which macOS swaps out between jobs: the first job after a few idle
+#    minutes then takes 16-33 s instead of ~9 s for the 51-segment demo
+llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931 \
+  # add  --lora models/secondread-lora.gguf  for LoRA v1 (build it with scripts/export_adapter.sh)
 HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python -m secondread.server      # API on 127.0.0.1:8787
 cd ui && npm install && npm run dev                                   # UI on http://127.0.0.1:5173
 ```
@@ -104,9 +108,18 @@ py scripts/synth_llm.py --per-type 20        # Gemma 4 negation/omission/paraphr
 py scripts/build_sft.py                      # v1, human labels only -> data/sft_v1.jsonl
 py scripts/build_sft.py --synthetic data/synth/rules.train.jsonl --out data/sft_v2.jsonl
 py scripts/train_tinker.py --data data/sft_v1.jsonl --log-path runs/v1 --dry-run  # checks batches, no key
-py scripts/train_tinker.py --data data/sft_v1.jsonl --log-path runs/v1            # TINKER_API_KEY
-tinker checkpoint download tinker://<run-id>/sampler_weights/final --output ./ckpt
+py scripts/train_tinker.py --data data/sft_v1.jsonl --log-path runs/v1 --lr 2e-4  # TINKER_API_KEY; see docs/RUNBOOK.md
+py scripts/fetch_adapter.py tinker://<run-id>/weights/final --out ckpt           # adapter files, see below
+
+# Gemma 4 31B baselines on DigitalOcean (DO_MODEL_KEY; cached, budget-capped)
+py scripts/baseline_gemma.py --method direct data/splits/en-ru.test.jsonl --out results/gemma_direct_enru_test.jsonl
+py scripts/baseline_gemma.py --method gemba data/splits/en-ru.test.jsonl --sample 500 --seed 0 \
+   --out results/gemma_gemba_enru_test500.jsonl
 ```
+
+`tinker checkpoint download` uses a checkpoint-archive endpoint that tinker 0.33.1 marks
+deprecated, and it hung for over 10 minutes on 2026-10-14. `fetch_adapter.py` uses
+`save_weights_external` instead.
 
 Export the adapter to GGUF. This never downloads the base weights: it converts against
 `base35/`, a 172 KB stub of the HF checkpoint that holds only the safetensors headers
@@ -124,8 +137,11 @@ git -C tools/llama.cpp sparse-checkout set conversion gguf-py requirements
 
 scripts/export_adapter.sh ckpt               # -> models/secondread-lora.gguf, checked in a real llama-server
 py scripts/eval_tinker.py data/splits/en-ru.test.jsonl --model-path tinker://... --out results/lora_enru_test.jsonl
-py scripts/probe_local.py data/splits/en-ru.dev.jsonl 300 --lora-scale 1 --out results/local_enru_dev300.jsonl
-py scripts/report.py base=results/base_enru_dev300.jsonl lora=results/local_enru_dev300.jsonl --n-boot 1000
+# local scoring: N larger than the split scores every row; the LoRA server must be started with --lora
+py scripts/probe_local.py data/splits/en-ru.test.jsonl 100000 --workers 4 --lora-scale 1 --port 9936 \
+   --out results/local_v1_enru_test.jsonl
+py scripts/report.py base=results/local_base_enru_test.jsonl,results/local_base_enru_dev.jsonl \
+   v1=results/local_v1_enru_test.jsonl,results/local_v1_enru_dev.jsonl --n-boot 1000
 ```
 
 Tests and checks that need no API keys (using the `py` helper above):
@@ -142,8 +158,8 @@ All keys go in `.env`, which is git-ignored. The checker itself needs none.
 
 | Key | Used by | Needed for |
 |---|---|---|
-| `TINKER_API_KEY` | `train_tinker.py`, `eval_tinker.py`, `tinker checkpoint download` | Training the LoRA, exact-logprob evaluation on Tinker, the base-model baseline on Tinker |
-| `DO_MODEL_KEY` | `synth_llm.py` | Gemma 4 31B (`gemma-4-31B-it`, DigitalOcean serverless inference) for negation, omission and paraphrase synthetic data. Use a model-access key limited to that model |
+| `TINKER_API_KEY` | `train_tinker.py`, `eval_tinker.py`, `fetch_adapter.py` | Training the LoRA, exact-logprob evaluation on Tinker, the base-model baseline on Tinker, downloading the adapter |
+| `DO_MODEL_KEY` | `synth_llm.py`, `baseline_gemma.py` | Gemma 4 31B (`gemma-4-31B-it`, DigitalOcean serverless inference) for negation, omission and paraphrase synthetic data and for the two Gemma baselines. Use a model-access key limited to that model |
 | `SENTRY_DSN` | backend (`secondread/telemetry.py`) | Optional error and agent tracing. Off by default |
 | `VITE_SENTRY_DSN` | UI build | Optional browser error reporting. Off by default, and the SDK is not even bundled |
 
@@ -166,11 +182,16 @@ No WMT or MQM data is committed except the small demo slice in `demo/` and
   (accuracy and terminology categories). Each unit has one annotator, so expect label noise.
 - **Synthetic data:** derived from the train-split documents only; `build_sft.py` refuses dev or
   test documents.
-- **GEMBA-MQM:** not used yet. The planned Gemma baseline will use the GEMBA-MQM prompt
-  (Kocmi & Federmann, 2023,
-  [MicrosoftTranslator/GEMBA](https://github.com/MicrosoftTranslator/GEMBA)), which is
-  **CC BY-SA 4.0**. It will live in its own file with that license and attribution, separate
-  from the code license.
+- **GEMBA-MQM:** the Gemma baseline uses the GEMBA-MQM prompt (Kocmi & Federmann, 2023,
+  [MicrosoftTranslator/GEMBA](https://github.com/MicrosoftTranslator/GEMBA), commit
+  `ea90068f`), which is **CC BY-SA 4.0**. The adapted prompt is
+  [`prompts/gemba_mqm.txt`](prompts/gemba_mqm.txt); its header carries the attribution, the
+  license and the list of changes. That file is not under the code license.
+- **Gemma 4 outputs:** Gemma 4 is Apache-2.0, and neither Google's nor DigitalOcean's terms
+  restrict training on its outputs (reading of 2026-10-14 in
+  [docs/LICENSES-NOTES.md](docs/LICENSES-NOTES.md)). Synthetic rows keep their
+  `synth_generator`/`synth_model` provenance fields; if the data is ever released, label it as
+  AI-generated.
 - **Evaluation-only sets with non-commercial licenses:** ACES (CC BY-NC-SA 4.0) and HalOmi
   (CC BY-NC 4.0). If used, they stay out of training and out of git.
 - **Base model:** Qwen3.5-4B by the Qwen team. The GGUF is the `unsloth/Qwen3.5-4B-GGUF`

@@ -10,7 +10,7 @@ and nothing is sent. When it is on, three layers keep translation text out:
    (no frame locals in stack traces), ``max_request_body_size="never"``
    (no request bodies), and no OpenAI/httpx auto-instrumentation, so model
    calls are traced only by our manual ``gen_ai.chat`` spans (no duplicates,
-   docs/prep/02-corrections.md item 22).
+   private prep notes, 02-corrections.md item 22).
 3. ``before_send`` / ``before_send_transaction`` / ``before_breadcrumb``
    scrub what integrations add on their own: exception messages, log
    messages and params, query strings, request headers and unknown span data

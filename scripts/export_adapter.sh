@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 # Export a downloaded Tinker LoRA checkpoint to a llama.cpp LoRA GGUF for SecondRead.
 #
+#   uv run python scripts/fetch_adapter.py tinker://<run-id>/weights/final --out ckpt
+#   scripts/export_adapter.sh ckpt/<new-run-id>_external_weights_final    # or just: ckpt
+#
+# fetch_adapter.py uses save_weights_external + get_external_weights_urls. The older
 #   tinker checkpoint download tinker://<run-id>/sampler_weights/final --output ./ckpt
-#   scripts/export_adapter.sh ckpt/<run-id>_sampler_weights_final    # or just: ckpt
+# (documented to extract into ckpt/<run-id>_sampler_weights_final/) is still accepted, but
+# its archive endpoint is deprecated in tinker 0.33.1 and hung for >10 min on 2026-10-14,
+# so that layout was never seen with a real checkpoint.
 #
 # Pipeline (no base weights are ever downloaded; HF_HUB_OFFLINE=1 throughout):
 #   1. validate the Tinker checkpoint and convert it to PEFT with
@@ -100,7 +106,7 @@ done
 # Locate the adapter. `tinker checkpoint download` extracts into
 # ./ckpt/<run-id>_sampler_weights_final/ and deletes the tar, so accept that dir or its parent.
 [[ "$CKPT" == tinker://* ]] && die "$CKPT is a Tinker path; download it first:
-  tinker checkpoint download $CKPT --output ./ckpt"
+  uv run python scripts/fetch_adapter.py tinker://<run-id>/weights/<name> --out ./ckpt"
 [[ -d "$CKPT" ]] || die "checkpoint dir $CKPT does not exist"
 if [[ -f "$CKPT/adapter_model.safetensors" ]]; then
   ADAPTER="$CKPT"
@@ -113,9 +119,9 @@ else
     [[ -n "$tars" ]] && die "no extracted adapter under $CKPT, only archive(s):
 $tars
   extract with: tar -xf <archive> -C $CKPT"
-    die "no adapter_model.safetensors under $CKPT (expected ckpt/<run-id>_sampler_weights_final/).
-  Was this a save_weights_for_sampler checkpoint? Download with:
-  tinker checkpoint download tinker://<run-id>/sampler_weights/final --output ./ckpt"
+    die "no adapter_model.safetensors under $CKPT (expected ckpt/<run-id>_external_weights_final/ or ckpt/<run-id>_sampler_weights_final/).
+  Download the adapter files with:
+  uv run python scripts/fetch_adapter.py tinker://<run-id>/weights/final --out ./ckpt"
   fi
   ((${#found[@]} == 1)) || die "$CKPT holds ${#found[@]} adapters, pass one of them:
 $(printf '  %s\n' "${found[@]}")"
@@ -185,5 +191,5 @@ fi
 
 mv -f "$TMP/lora.gguf" "$OUT"
 step "done: $OUT ($(du -h "$OUT" | cut -f1))"
-echo "run: llama-server -m $BASE_GGUF --lora $OUT -c 16384 -np 4 --host 127.0.0.1 --port 9931"
+echo "run: llama-server -m $BASE_GGUF --lora $OUT -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931"
 echo "per-request scale: {\"lora\":[{\"id\":0,\"scale\":0}]} gives the base model for comparison"

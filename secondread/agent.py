@@ -2,7 +2,7 @@
 
     parse_xliff -> number_check -> negation_check -> lora_score -> aggregate
 
-Trace shape (docs/prep/02-corrections.md items 22-24):
+Trace shape (private prep notes, 02-corrections.md items 22-24):
 
     gen_ai.invoke_agent   "invoke_agent SecondRead"        one per review
       gen_ai.execute_tool "execute_tool parse_xliff"       one per tool run, over all segments

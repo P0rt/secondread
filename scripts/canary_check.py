@@ -4,7 +4,7 @@ Initialises Sentry with a fake DSN and an in-memory transport, runs real reviews
 FastAPI app in-process (llama-server must be up on 127.0.0.1:9931), then searches every
 captured envelope for the canary "SR-CANARY-<uuid>" and for the segment texts.
 
-Leak paths exercised (docs/prep/02-corrections.md item 23):
+Leak paths exercised (private prep notes, 02-corrections.md item 23):
   json      review of JSON segments: request transaction, invoke_agent/execute_tool/chat spans
   xliff     review of an XLIFF body; canary also in unit ids, file name and query string
   invalid   a 422 request whose body contains the canary

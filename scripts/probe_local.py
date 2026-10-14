@@ -1,6 +1,7 @@
 """Score units with a local llama-server and report P(Major), quality and latency.
 
-usage: uv run python scripts/probe_local.py SPLIT.jsonl N [--lora-scale S] [--port 9931] [--out FILE]
+usage: uv run python scripts/probe_local.py SPLIT.jsonl N [--lora-scale S] [--port 9931] [--workers 4] [--out FILE]
+N larger than the split scores every row.
 Sends renderer-built token ids to /completion and reads the first-token
 distribution. Risk = p(Major) / (p(Major) + p(OK)).
 """
@@ -13,6 +14,8 @@ ap.add_argument("split"); ap.add_argument("n", type=int)
 ap.add_argument("--lora-scale", type=float, default=None)
 ap.add_argument("--port", type=int, default=9931)
 ap.add_argument("--n-probs", type=int, default=200)
+ap.add_argument("--workers", type=int, default=1,
+                help="requests in flight (match llama-server -np); >1 shifts risks by ~1e-3 via batching")
 ap.add_argument("--out")
 a = ap.parse_args()
 
@@ -45,9 +48,16 @@ def label_logprobs(res):
     return lp
 
 
+prompts = [generation_prompt_ids(r["src"], r["mt"], r["lp"]) for r in rows]
+if a.workers > 1:
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(a.workers) as ex:
+        results = list(ex.map(call, prompts))  # keeps input order
+else:
+    results = map(call, prompts)
+
 scored, lat, missing = [], [], 0
-for r in rows:
-    res, dt = call(generation_prompt_ids(r["src"], r["mt"], r["lp"]))
+for r, (res, dt) in zip(rows, results):
     lat.append(dt)
     lp = label_logprobs(res)
     if len(lp) < 2:

@@ -16,7 +16,7 @@ from the last checkpoint in --log-path. Differences, all deliberate:
   * The LoRA client is MLP-only: rank=16, train_mlp=True, train_attn=False,
     train_unembed=False. Attention LoRA breaks convert_lora_to_gguf on Qwen3.5 and
     unembed LoRA with tied embeddings gives a wrongly shaped tensor
-    (docs/prep/01-checklist.md section 1, rows 3-4). Resume re-creates the client with
+    (private prep notes, 01-checklist.md section 1, rows 3-4). Resume re-creates the client with
     the same flags instead of trusting checkpoint metadata, whose missing flags the SDK
     would default to True.
   * Checkpoints are taken on the submit side, right after optim_step N is queued and
@@ -64,7 +64,7 @@ from secondread.prompt import BASE_MODEL, LABEL_IDS, LABELS, RENDERER, messages,
 
 logger = logging.getLogger("train_tinker")
 
-TRAIN_PRICE_PER_M = 0.737  # USD / 1M training tokens for Qwen/Qwen3.5-4B (docs/prep/03 section 3)
+TRAIN_PRICE_PER_M = 0.737  # USD / 1M training tokens for Qwen/Qwen3.5-4B (private prep notes, 03 section 3)
 LORA = dict(train_mlp=True, train_attn=False, train_unembed=False)  # never change: see docstring
 
 

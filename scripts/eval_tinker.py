@@ -14,7 +14,7 @@ position becomes a *prompt* position and the server can score any token there:
                              prompt + OK), each scoring only its last token.
 
 Both are exact; neither depends on the labels making a top-k cut, which matters for
-the base-model baseline (docs/prep/02-corrections.md #15). With --topk K > 0 the same
+the base-model baseline (private prep notes, 02-corrections.md #15). With --topk K > 0 the same
 request also returns the top-K tokens at the label position ("top" in the output) and
 the logprob of the appended token, which must equal the target logprob (checked).
 
@@ -38,7 +38,7 @@ import time
 from secondread import metrics
 from secondread.prompt import BASE_MODEL, LABEL_IDS, generation_prompt_ids, renderer
 
-PREFILL_PRICE_PER_M = 0.33  # USD / 1M prompt tokens, Qwen/Qwen3.5-4B (docs/prep/03 section 3)
+PREFILL_PRICE_PER_M = 0.33  # USD / 1M prompt tokens, Qwen/Qwen3.5-4B (private prep notes, 03 section 3)
 SAMPLE_PRICE_PER_M = 1.005  # every request still samples max_tokens=1 token
 PROBE = LABEL_IDS["OK"]  # token appended to the prompt; any id works, its own logprob is a free cross-check
 IDS = (LABEL_IDS["Major"], LABEL_IDS["OK"])

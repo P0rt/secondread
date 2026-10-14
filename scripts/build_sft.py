@@ -10,7 +10,7 @@ Mix (v1):
   * synthetic: every row of each --synthetic file (secondread/synth.py schema; needs
     src, mt, lp, label and should carry its parent's `doc`). A row whose doc is a
     dev/test doc, or whose source sentence occurs in dev/test, aborts the build
-    (docs/prep/02-corrections.md #4).
+    (private prep notes, 02-corrections.md #4).
 
 Each conversation is rendered with the training renderer (secondread.prompt). Rows
 longer than --max-tokens are dropped, because Tinker's max_length truncates from the
@@ -33,7 +33,7 @@ import sys
 
 from secondread.prompt import LABEL_IDS, LABELS, messages, renderer
 
-TRAIN_PRICE_PER_M = 0.737  # USD per 1M training tokens, Qwen/Qwen3.5-4B on Tinker (docs/prep/03 section 3)
+TRAIN_PRICE_PER_M = 0.737  # USD per 1M training tokens, Qwen/Qwen3.5-4B on Tinker (private prep notes, 03 section 3)
 # Tolerate the converter's old spelling but never let a 2-token label through (corrections #14).
 LABEL_ALIASES = {"Major": "Major", "MAJOR": "Major", "major": "Major", "OK": "OK", "ok": "OK", "Ok": "OK"}
 

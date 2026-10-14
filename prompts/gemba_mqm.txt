@@ -1,0 +1,84 @@
+# GEMBA-MQM few-shot prompt, adapted for the SecondRead Gemma 4 baseline (scripts/baseline_gemma.py).
+#
+# Original work: Tom Kocmi and Christian Federmann. 2023. "GEMBA-MQM: Detecting Translation
+#   Quality Error Spans with GPT-4". In Proceedings of the Eighth Conference on Machine
+#   Translation (WMT 2023). https://arxiv.org/abs/2310.13988
+# Source: https://github.com/MicrosoftTranslator/GEMBA, file gemba/gemba_mqm_utils.py
+#   (mqm_fewshot() and few_shots["ende"], ["encs"], ["zhen"]),
+#   commit ea90068f9bd0816adf21011f198049ee1c72cb45 (2023-10-25), (c) Microsoft.
+#
+# License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0),
+#   https://creativecommons.org/licenses/by-sa/4.0/ . This file is an adaptation of the work above
+#   and is distributed under CC BY-SA 4.0 only. It is NOT covered by the license of the SecondRead
+#   code, and the code that reads it is not covered by this license.
+#
+# Changes made (2026-10-14):
+#   - Converted from Python code to this plain-text list of chat turns. Each turn starts with a
+#     line "@@@ system", "@@@ user" or "@@@ assistant"; its content runs to the next "@@@" line,
+#     with trailing newlines removed (the original answers end in one newline).
+#   - The system text, the user template, the three examples and their answers are verbatim.
+#   - The last user turn keeps the placeholders {source_lang}, {source_seg}, {target_lang} and
+#     {target_seg}; baseline_gemma.py fills them with "English" and "Russian" or "Spanish" and the
+#     raw segment text, in one pass, so braces inside a segment are left alone.
+#   - How the system turn is sent and how answers are scored is documented in
+#     scripts/baseline_gemma.py; that scoring code is SecondRead's own implementation.
+#
+# Lines starting with "#" before the first "@@@" line form this header and are never sent.
+@@@ system
+You are an annotator for the quality of machine translation. Your task is to identify errors and assess the quality of the translation.
+@@@ user
+English source:
+```I do apologise about this, we must gain permission from the account holder to discuss an order with another person, I apologise if this was done previously, however, I would not be able to discuss this with yourself without the account holders permission.```
+German translation:
+```Ich entschuldige mich dafür, wir müssen die Erlaubnis einholen, um eine Bestellung mit einer anderen Person zu besprechen. Ich entschuldige mich, falls dies zuvor geschehen wäre, aber ohne die Erlaubnis des Kontoinhabers wäre ich nicht in der Lage, dies mit dir involvement.```
+
+Based on the source segment and machine translation surrounded with triple backticks, identify error types in the translation and classify them. The categories of errors are: accuracy (addition, mistranslation, omission, untranslated text), fluency (character encoding, grammar, inconsistency, punctuation, register, spelling), style (awkward), terminology (inappropriate for context, inconsistent use), non-translation, other, or no-error.
+Each error is classified as one of three categories: critical, major, and minor. Critical errors inhibit comprehension of the text. Major errors disrupt the flow, but what the text is trying to say is still understandable. Minor errors are technically errors, but do not disrupt the flow or hinder comprehension.
+@@@ assistant
+Critical:
+no-error
+Major:
+accuracy/mistranslation - "involvement"
+accuracy/omission - "the account holder"
+Minor:
+fluency/grammar - "wäre"
+fluency/register - "dir"
+@@@ user
+English source:
+```Talks have resumed in Vienna to try to revive the nuclear pact, with both sides trying to gauge the prospects of success after the latest exchanges in the stop-start negotiations.```
+Czech translation:
+```Ve Vídni se ve Vídni obnovily rozhovory o oživení jaderného paktu, přičemž obě partaje se snaží posoudit vyhlídky na úspěch po posledních výměnách v jednáních.```
+
+Based on the source segment and machine translation surrounded with triple backticks, identify error types in the translation and classify them. The categories of errors are: accuracy (addition, mistranslation, omission, untranslated text), fluency (character encoding, grammar, inconsistency, punctuation, register, spelling), style (awkward), terminology (inappropriate for context, inconsistent use), non-translation, other, or no-error.
+Each error is classified as one of three categories: critical, major, and minor. Critical errors inhibit comprehension of the text. Major errors disrupt the flow, but what the text is trying to say is still understandable. Minor errors are technically errors, but do not disrupt the flow or hinder comprehension.
+@@@ assistant
+Critical:
+no-error
+Major:
+accuracy/addition - "ve Vídni"
+accuracy/omission - "the stop-start"
+Minor:
+terminology/inappropriate for context - "partaje"
+@@@ user
+Chinese source:
+```大众点评乌鲁木齐家居卖场频道为您提供高铁居然之家地址，电话，营业时间等最新商户信息，找装修公司，就上大众点评```
+English translation:
+```Urumqi Home Furnishing Store Channel provides you with the latest business information such as the address, telephone number, business hours, etc., of high-speed rail, and find a decoration company, and go to the reviews.```
+
+Based on the source segment and machine translation surrounded with triple backticks, identify error types in the translation and classify them. The categories of errors are: accuracy (addition, mistranslation, omission, untranslated text), fluency (character encoding, grammar, inconsistency, punctuation, register, spelling), style (awkward), terminology (inappropriate for context, inconsistent use), non-translation, other, or no-error.
+Each error is classified as one of three categories: critical, major, and minor. Critical errors inhibit comprehension of the text. Major errors disrupt the flow, but what the text is trying to say is still understandable. Minor errors are technically errors, but do not disrupt the flow or hinder comprehension.
+@@@ assistant
+Critical:
+accuracy/addition - "of high-speed rail"
+Major:
+accuracy/mistranslation - "go to the reviews"
+Minor:
+style/awkward - "etc.,"
+@@@ user
+{source_lang} source:
+```{source_seg}```
+{target_lang} translation:
+```{target_seg}```
+
+Based on the source segment and machine translation surrounded with triple backticks, identify error types in the translation and classify them. The categories of errors are: accuracy (addition, mistranslation, omission, untranslated text), fluency (character encoding, grammar, inconsistency, punctuation, register, spelling), style (awkward), terminology (inappropriate for context, inconsistent use), non-translation, other, or no-error.
+Each error is classified as one of three categories: critical, major, and minor. Critical errors inhibit comprehension of the text. Major errors disrupt the flow, but what the text is trying to say is still understandable. Minor errors are technically errors, but do not disrupt the flow or hinder comprehension.
