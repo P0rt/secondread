@@ -8,7 +8,7 @@ Style, grammar and word order are out of scope; other QA tools handle those.
 The goal is a shorter re-read: the reviewer starts with the riskiest 10% of the job instead of
 reading every segment twice.
 
-> **Status (2026-10-14, night):** the app serves LoRA v1, trained on Tinker on human labels
+> **Status (2026-10-15):** the app serves LoRA v1, trained on Tinker on human labels
 > only, as a 36 MB GGUF. By default it flags at the `review` line: per language pair, the highest
 > threshold that finds 60% of the dev Majors.
 > - **On test, measured once:** the review line finds 74% of the en-ru Majors (precision 0.39,
@@ -18,9 +18,15 @@ reading every segment twice.
 >   better on its own kind of synthetic error, not on human-labelled ones. v3a and v3b lose about
 >   0.035 PR-AUC on en-ru dev, so the selection rule, fixed before their scores existed, kept v1.
 > - Scores against the base model, v2, v3 and two Gemma 4 31B baselines are in
->   [docs/RESULTS.md](docs/RESULTS.md). On real public documents (IRS, FDA, EU 261/2004, in
->   [docs/REALDOCS.md](docs/REALDOCS.md)) the review line catches 3 of 9 verified majors and
->   flags 2.9% of the segments.
+>   [docs/RESULTS.md](docs/RESULTS.md).
+> - **Real public documents** ([docs/REALDOCS_GOLD.md](docs/REALDOCS_GOLD.md)): a gold set of 10
+>   documents with an official Spanish version (IRS, FDA, EU 261/2004, CDC, USCIS, SSA and
+>   others), 720 segments machine-translated by OPUS-MT and DeepSeek-V3.1, 1,440 units labelled
+>   blind by a three-lens AI panel and frozen before scoring, with 84 Majors (80 of them
+>   OPUS-MT's). v1 ranks well there (AUROC 0.910; 62% of the Majors in its riskiest 10%), but its
+>   en-es review line finds only 20% of them (precision 0.77, 1.5% of units flagged). Gemma 4 31B
+>   ranks better (AUROC 0.940) and finds 82% at its line, flagging 12%. The earlier 3-document
+>   pass, [docs/REALDOCS.md](docs/REALDOCS.md), is superseded.
 > - The rule checks' weights in the app's score are measured on the train split. They no longer
 >   pull the ranking below the model's (AUROC −0.002 against the model alone, was −0.010).
 > - Done, in-flight and next items are in [docs/STATUS.md](docs/STATUS.md).

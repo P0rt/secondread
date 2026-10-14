@@ -1281,9 +1281,10 @@ splits nor the real documents.
   - Ranking is tied on en-ru. On en-es, v1 is ahead on PR-AUC by +0.203.
   - At the review lines on en-es, v1 flags 8% of the segments and Gemma 32%. v1's recall is
     0.27 lower and its precision 0.33 higher.
-- **Real documents, review line:** v1 catches 3 of the 9 verified majors in the three public
-  OPUS-MT documents (2 at the F1 line). It raises 3 false flags, all on minor errors (1 at the F1
-  line), and flags 2.9% of the segments.
+- **Real documents, review line (first pass, superseded by the gold set in `docs/REALDOCS_GOLD.md`,
+  section 8):** v1 catches 3 of the 9 verified majors in the three public OPUS-MT documents (2 at
+  the F1 line). It raises 3 false flags, all on minor errors (1 at the F1 line), and flags 2.9%
+  of the segments.
   - **Official Spanish (control):** 0 flags on the same three pages. Over all five documents it
     raises 2 flags in 348 segments, both on correct translations. The F1 line raised none.
   - **Wrong-sense misses:** tax "return", "flush" → "lavar" and "paperless" → "impresa" stay well
@@ -1396,6 +1397,12 @@ Paired differences (95% CI excluding 0 in bold). At the lines, each system uses 
   on dev only. On en-es test it is 48%.
 
 ### Real documents (evaluation only)
+
+> **Superseded as the main real-document result** by `docs/REALDOCS_GOLD.md`, section 8: 10
+> public documents, 1,440 units (OPUS-MT and DeepSeek-V3.1), 84 Majors, labelled blind and scored
+> once on 2026-10-15. There v1 gets AUROC 0.910, and its review line finds 20% of the Majors at
+> precision 0.77. Gemma 4 31B direct gets AUROC 0.940 and finds 82% at its review line. The
+> counts below are the first pass of `docs/REALDOCS.md`.
 
 Per-document counts are in `docs/REALDOCS.md`, which this pass updated. `scripts/realdocs_eval.py`
 applies both v1 lines from `secondread/thresholds.json` to the fused risks. The labels are those of

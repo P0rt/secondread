@@ -1,4 +1,4 @@
-# SecondRead status, 2026-10-14 (night, after the v3 selection and the Ship phase)
+# SecondRead status, 2026-10-15 (after the real-document gold-set scoring)
 
 Commands use `py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }`. Keys are
 in `.env`; set them with `set -a && . ./.env && set +a`.
@@ -41,9 +41,26 @@ they were not final candidates.
 
   - **en-es misses its dev target:** the whole recall CI is below 0.60. The line was not moved,
     because moving it now would be a choice made on test. en-ru overshoots (0.744).
-  - **Real documents** (REALDOCS.md): at the review line v1 catches 3 of the 9 verified majors in
-    the IRS, FDA and EU 261 pages (2 at the F1 line), with 3 false flags, all on minor errors, and
-    2.9% of segments flagged. The official Spanish of the same pages gets no flag.
+  - **Real documents: the gold set** (REALDOCS_GOLD.md, section 8; scored once on 2026-10-15).
+    10 public documents, 720 segments, OPUS-MT and DeepSeek-V3.1 outputs, 1,440 units, 84 Majors
+    (80 OPUS-MT, 4 DeepSeek), labelled blind before any detector was scored. 2,000
+    document-bootstrap replicates:
+
+    | System | AUROC [95% CI] | PR-AUC | recall@10% | Review line: flags (Major) | Recall [95% CI] | Precision | Flag rate |
+    |---|---|---|---|---|---|---|---|
+    | v1, app score | 0.910 [0.884, 0.928] | 0.520 | 0.619 | 0.4984: 22 (17) | **0.202** [0.139, 0.296] | 0.773 | 1.5% |
+    | base, app score | 0.839 [0.770, 0.885] | 0.400 | 0.571 | 0.6183: 113 (41) | 0.488 [0.350, 0.640] | 0.363 | 7.8% |
+    | Gemma 4 31B direct | 0.940 [0.911, 0.957] | 0.627 | 0.750 | 0.1212 (en-ru dev): 175 (69) | 0.821 [0.712, 0.894] | 0.394 | 12.2% |
+
+    - **v1 − Gemma:** AUROC −0.030 [−0.051, −0.009], PR-AUC −0.107, recall@10% −0.131, all three
+      CIs excluding 0. On the OPUS-MT outputs alone the AUROC gap is within noise (−0.013
+      [−0.051, +0.017]). **v1 − base:** AUROC +0.071 [+0.036, +0.119].
+    - **v1's review line is far too quiet here:** recall 0.20 against its dev target of 0.60 and
+      0.48 on WMT en-es test. The F1 line flags 4 units, all Major. The line was not moved.
+    - **False flags:** v1's 5 are all on minor errors. On DeepSeek's 716 OK units: v1 2, Gemma 16,
+      base 25. The official Spanish scored as MT (720 segments): v1 3 flags, Gemma 79.
+    - The first pass (REALDOCS.md: 3 documents, 9 majors, 3 caught) is superseded and its labels
+      do not carry over.
 - **The static demo is at the review line:** the FDA page, 39 segments, 3 flagged (2 verified
   majors and 1 minor error), rebuilt through the backend.
 - **`/api/health` names the adapter version (v1) and the active operating point.** The backend
@@ -60,9 +77,10 @@ they were not final candidates.
 |---|---|---|---|
 | **Tinker** | **$3.424 billed** through the 20:00–21:00 UTC bucket, read at 23:55 CEST: v1 and everything before it, v2 ($1.716), and $0.043 of DeepSeek-V3.1 sampling for the real-document gold set. **About $6.27** once v3 lands: v3a ≈ $1.36 and v3b ≈ $1.48, not in the bill yet | `tinker -f json billing usage`; v3 is estimated from its token counts at $0.737/M (RESULTS.md, "The candidates") | **about $11.7** of ~$18 |
 | Tinker storage | 22 checkpoints before v2 (2.83 GB, $0.28/month), plus those of v2, v3a and v3b (periodic ones expire after 7 days, `final` never) and their external-weights exports | `tinker billing checkpoint-storage` | ongoing |
-| **DigitalOcean** | **at most $1.60** at list price | token counts in the caches: baseline $0.372 (10,236 calls), synthetic data $0.418 (5,626 calls), wrong-sense data for v3 $0.807 (7,101 calls, `data/synth/sense.report.json`) | **at least $3.40** of $5 |
+| **DigitalOcean** | **at most $1.64** at list price | token counts in the caches: baseline track $0.413 (WMT $0.372 for 10,236 calls; 696 calls for REALDOCS.md, $0.012, `data/realdocs/scored_summary.json`; 1,739 calls for the gold set, $0.029, `runs/gold_eval/meta_gemma*.json`), synthetic data $0.418 (5,626 calls), wrong-sense data for v3 $0.807 (7,101 calls, `data/synth/sense.report.json`) | **at least $3.36** of $5 |
 | Sentry | $0 | Developer plan | |
 | Ship phases | $0 | local only; one `tinker billing usage` read each | |
+| Gold-set scoring (15 Oct) | $0.029 DigitalOcean, $0 Tinker | 1,059 Gemma calls for the gold units and 680 for the official-Spanish control, under a $0.15 cap; 421 byte-identical requests came from the cache | |
 
 **Tinker bills every token of the datum, including weight-0 prompt tokens.** This answers the
 G3 question. G3 was billed for 62,820 tokens and G4 for 31,353, exactly the `num_tokens` in
@@ -78,9 +96,10 @@ their logs.
 ## In flight
 
 - **Nothing on Tinker or DigitalOcean.**
-- **`:9931` serves LoRA v1 with `-cram 0`** (PID 39580, restarted 23:45 CEST with `nohup` from the repo root,
-  log `/tmp/claude-501/llama-9931.log`; `/lora-adapters` lists `models/secondread-lora.gguf` at
-  scale 1.0):
+- **`:9931` serves LoRA v1 with `-cram 0`** (PID 39580, restarted 14 Oct 23:45 CEST with `nohup`
+  from the repo root; log `/tmp/claude-501/llama-9931.log`; `/lora-adapters` lists
+  `models/secondread-lora.gguf` at scale 1.0). The gold-set scoring used it without a restart and
+  ran the base model on its own server on `:9980`, stopped afterwards:
   ```sh
   llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931
   ```
@@ -115,12 +134,15 @@ their logs.
 | **v3 track** (night) | `synth_sense.py` (7,101 Gemma calls), `train_tinker.py` for v3a and v3b, export, full dev splits and the synthetic sense set scored locally, `select_v3.py` | RESULTS.md, "v3 (wrong-sense synthetic) — dev selection". Neither candidate is eligible; **v1 kept** |
 | **Test and real documents** (night) | `final_test.py`, `realdocs_score.py --no-gemma` on `:9973`, `realdocs_eval.py` | RESULTS.md, "v3 — test and real documents"; REALDOCS.md rewritten for both lines. en-es review-line recall 0.482 on test |
 | **Ship phase** (night) | `:9931` restarted with v1; 40 en-ru dev rows; backend on `:8787`; `make_demo_results.py --api … --doc fda-medicine-disposal --n 0`; `npm run build` and `build:demo`; `tests/test_xliff.py`, `tests/test_thresholds.py`, `canary_check.py` | Max difference 0.00044 against `results/local_v1_enru_dev.jsonl`. `/api/health`: `adapter_version: v1`, `operating_point: review`. Demo: 3 of 39 flagged at 0.4984 (was 1 at the F1 line). Tests 20/20 and 7/7; the canary is in 0 of 12 envelopes (4 with the scrubbers off). RESULTS.md, "v3 — test and real documents", "Ship" |
+| **Gold-set scoring** (15 Oct, 00:18–00:40) | `gold_score.py --export-inputs`; `gold_predict.py` v1 (`:9931`), base (`:9980`, LoRA scale 0), gemma, control and freeze; `gold_score.py` for both labellings; `gold_analyze.py`; an independent re-derivation | REALDOCS_GOLD.md, section 8. v1 AUROC 0.910, review-line recall 0.202 at precision 0.773; Gemma 0.940 and 0.821. The backend's flags equal `risk >= t` on every unit, and v1 risks match the earlier real-document snapshot within 0.0011. The re-derivation matched every headline number and fixed one rounding slip |
 
 ## Needs you
 
-- **en-es review line on test:** it finds 48% of the Majors, not 60%. Decide how to present it
-  (README and RESULTS.md say it plainly). Any new line must be picked on new dev data or
-  reported as test-informed.
+- **en-es review line:** it finds 48% of the Majors on WMT test, not 60%, and only 20% on the
+  real-document gold set, where v1's risks run low (median 0.26 on the Majors) while its ranking
+  holds (AUROC 0.910). Decide how to present it (README, RESULTS.md and REALDOCS_GOLD.md say it
+  plainly). Any new line must be picked on new dev data, for example held-out real public
+  documents, or reported as informed by these results.
 - **Rule-only mode no longer flags.** With llama-server down, a segment's risk is now the largest
   train P(Major | finding), at most 0.47, so nothing reaches the 0.5 fallback threshold. The
   findings are still listed and sort first. Decide whether that mode should flag every finding,
@@ -129,9 +151,10 @@ their logs.
   key appeared in a process listing in one track's tool output. No file holds it.
 - **Checkpoint cleanup.** Decide whether to delete the G3, G4, LR-probe and v3 checkpoints on
   Tinker. `final` checkpoints never expire.
-- **The post:** `docs/POST_DRAFT.md` still needs the title, video, live demo URL, screenshots,
-  the first user and the optional agent session, and its numbers should now describe the review
-  line. Re-check the Tinker total against the bill first (v3 is not billed yet).
+- **The post:** the draft (kept outside the repo) now reports the gold set in its real-documents
+  section. It still needs the title, the video upload, screenshots, the first user and the
+  optional agent session. Re-check the Tinker total against the bill first (v3 is not billed
+  yet).
 - **G8:** check that the review traces are in Sentry's Agents dashboard and take the
   screenshot. `SENTRY_DSN` is set, and the latency track sent about 22 traces with metadata
   only.
@@ -153,8 +176,8 @@ their logs.
   - `pytest` is absent.
 - **Licence:** MIT in `LICENSE`, third-party notes in `NOTICE`. `prompts/gemba_mqm.txt` is
   CC BY-SA 4.0 and stays outside the code licence; its header says so.
-- **The real-document gold set** (`docs/REALDOCS_GOLD.md`, 1,440 units) has not been scored. It
-  has its own scoring protocol and script (`scripts/gold_score.py`).
+- **A real-document dev set.** The gold set (`docs/REALDOCS_GOLD.md`) is test only. A new en-es
+  line for documents like these needs held-out real documents, labelled the same way.
 - **Sentry span limit:** Sentry keeps about 1,000 spans per transaction, so jobs over about
   990 segments lose some `chat` spans.
 
@@ -162,18 +185,39 @@ their logs.
 
 Done: v1 served and calibrated at two operating points, v2 and v3 trained and rejected on dev,
 the review line measured once on test and on the real documents, the static demo rebuilt at the
-review line and redeployed. What is left:
+review line and redeployed, and the real-document gold set scored once (REALDOCS_GOLD.md,
+section 8). What is left:
 
 1. **G8:** the Sentry screenshot and the debugging story, the `-cram 0` latency hunt. Run the
    backend with `.env` loaded so `SENTRY_DSN` is set.
-2. **Score the real-document gold set** (1,440 units, `docs/REALDOCS_GOLD.md`, section 6) with
-   v1 at both lines, once, with its own scorer.
-3. **Annotated-XLIFF download** endpoint and button, the tester session, and the post's remaining
+2. **Annotated-XLIFF download** endpoint and button, the tester session, and the post's remaining
    placeholders.
-4. **Optional, free:** evaluate the one-pass v1+v2 blend, with both adapters loaded at scale 0.5,
+3. **Optional, free:** evaluate the one-pass v1+v2 blend, with both adapters loaded at scale 0.5,
    on dev first (RESULTS.md, "Next experiments").
-5. **Optional, about $0.10:** Tinker exact eval of v1 on en-ru test. G5 already shows local
+4. **Optional, about $0.10:** Tinker exact eval of v1 on en-ru test. G5 already shows local
    tracks Tinker.
+5. **Later:** a held-out real-document dev set, if the en-es line is to be re-picked for documents
+   like the gold set's.
+
+## Changed in the gold-set scoring pass (2026-10-15)
+
+- **Scores:** `docs/REALDOCS_GOLD.md` section 8, computed once under the rules of its section 6.
+  The prediction files were frozen (sha256 in `runs/gold_eval/PREDICTIONS_MANIFEST.json`, 00:37
+  CEST) before `scripts/gold_score.py` first read `labels.jsonl`. No label, threshold, prompt,
+  rule weight or model was changed or chosen on the set. A separate skeptic pass rebuilt the
+  headline numbers with its own code and found one rounding slip in a table cell (fixed).
+- **New scripts:** `scripts/gold_predict.py` (predictions from the blind inputs only; it refuses
+  to run with `SECONDREAD_THRESHOLD` or `SECONDREAD_OPERATING_POINT` set) and
+  `scripts/gold_analyze.py` (error analysis; it refuses prediction files that changed after the
+  freeze).
+- **Committed results:** `results/gold_eval/report_primary.json`, `report_preregistered.json` and
+  `PREDICTIONS_MANIFEST.json`: metrics, counts and sha256 only, no text and no labels. The
+  predictions, the analysis (it quotes MT spans) and the labels stay in the git-ignored
+  `runs/gold_eval/` and `data/realdocs/gold/`.
+- **Docs:** `docs/REALDOCS.md` is now the superseded first pass and points to REALDOCS_GOLD.md;
+  `docs/RESULTS.md` (pointers in "v3 — test and real documents"), `README.md` and this file.
+- **Servers and spend:** v1 on `:9931` (not restarted), base on `:9980` at LoRA scale 0 (stopped
+  afterwards); $0.029 DigitalOcean.
 
 ## Changed in the v3 and Ship passes (committed together with the review operating point pass)
 
@@ -185,8 +229,8 @@ review line and redeployed. What is left:
   their `review` blocks. v1's blocks and the default point are unchanged.
 - **Scores** (`results/`, ids, labels and scores only): `local_{v3a,v3b}_{enru,enes}_dev.jsonl`,
   `local_{v1,v3a,v3b}_synth_sense_{test,parents}.jsonl`.
-- **Real-document gold set (separate track, not scored yet):** `docs/REALDOCS_GOLD.md`,
-  `docs/ANNOTATION_PROTOCOL.md`, `scripts/gold_*.py`.
+- **Real-document gold set (separate track, scored on 15 Oct; see the next section):**
+  `docs/REALDOCS_GOLD.md`, `docs/ANNOTATION_PROTOCOL.md`, `scripts/gold_*.py`.
 - **Demo:** `ui/public/demo-results.json`, the FDA page through the backend at the review line.
 - **Small fixes:** `scripts/export_adapter.sh` starts its check server with `-cram 0`.
 - **Docs:** `README.md`, `docs/RESULTS.md` (v3 sections and "Ship"), `docs/REALDOCS.md`,

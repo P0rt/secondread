@@ -1,4 +1,24 @@
-# Real documents, English to Spanish (2026-10-14)
+# Real documents, English to Spanish: first pass (2026-10-14, superseded)
+
+> **Superseded by [REALDOCS_GOLD.md](REALDOCS_GOLD.md), the main real-document evaluation.** The
+> gold set has 10 public documents (the five here plus five more), 720 segments and two MT
+> systems (OPUS-MT and DeepSeek-V3.1), so 1,440 units. A blind three-lens AI panel, calibrated
+> first on WMT24 human MQM, labelled every unit Major or OK and found 84 Majors. The labels, the
+> scorer and the thresholds were frozen before any detector was scored, and the set was scored
+> once on 2026-10-15 (section 8 there).
+>
+> - **v1 on the gold set:** AUROC 0.910 [0.884, 0.928], and 62% of the Majors in its riskiest
+>   10%. Its review line (0.4984) flags 1.5% of the units and finds 20% of the Majors
+>   [0.14, 0.30], at precision 0.77.
+> - **Gemma 4 31B direct:** AUROC 0.940, and 82% of the Majors at its review line, which flags
+>   12.2% of the units.
+> - **This page is the first pass:** 3 chosen documents, 204 OPUS-MT segments and 9 majors,
+>   labelled by our own passes A–C (see "Limitations"). Those labels are stricter than the
+>   gold's: on the 238 OPUS-MT units both label, every earlier major is a gold Major, and the
+>   gold has 24 more (REALDOCS_GOLD.md, section 4.4). So the counts below do not carry over to
+>   the gold set, and the gold set's numbers replace them wherever results are quoted.
+> - **Why the page stays:** the demo jobs and `demo/answer_key.en-es.json` are built from it, and
+>   the static demo's answer-key labels are these first-pass labels.
 
 The WMT test sets tell us how SecondRead ranks errors in news, social and literary text. A
 post-editor works on other things, such as tax rules, medicine leaflets and regulations. So we
@@ -7,11 +27,11 @@ English, and checked every MT segment against the publisher's own Spanish. The d
 from them are in [`demo/`](../demo/README.md) (`secondread-demo.en-es.*`,
 `answer_key.en-es.json`).
 
-**Short version.** The three public documents give 204 segments with 9 major errors. SecondRead
-v1 is scored at two flag lines, both picked on WMT dev (`secondread/thresholds.json`): the app's
-default `review` line (en-es 0.4984) and the older F1 line (0.7019). The v3 dev selection kept
-v1, so v1 at the review line is also the selected model. v3a and v3b were not scored on these
-documents.
+**Short version of the first pass.** The three public documents give 204 segments with 9 major
+errors. SecondRead v1 is scored at two flag lines, both picked on WMT dev
+(`secondread/thresholds.json`): the app's default `review` line (en-es 0.4984) and the older F1
+line (0.7019). The v3 dev selection kept v1, so v1 at the review line is also the selected model.
+v3a and v3b were not scored on these documents.
 
 - **At the review line:** SecondRead raises 6 flags, 3 on major errors and 3 on minor ones. It
   misses 6 of the 9 majors, including the most instructive ones: tax "return" rendered as "refund"

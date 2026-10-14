@@ -1,0 +1,37 @@
+{
+ "frozen_at": "2026-10-15T00:37:34+0200",
+ "note": "prediction files frozen before any scoring against labels.jsonl",
+ "files": {
+  "preds_base_app.jsonl": {
+   "sha256": "c60e60d8e8b7c534b883ee87f336d5889587d9167185b6343e3874730c3c33d2",
+   "lines": 1440
+  },
+  "preds_control_ref_es_gemma.jsonl": {
+   "sha256": "81268cd1ef6cf7b836282b1cab349071383e8ef97f5593f1ac68a69c2b2b8acc",
+   "lines": 720
+  },
+  "preds_control_ref_es_v1_app.jsonl": {
+   "sha256": "f28f1bf060c4ce6418e7b03b75d6ae315d4c26f6ebb37fb01fb48d40d9cd5b43",
+   "lines": 720
+  },
+  "preds_gemma_direct.jsonl": {
+   "sha256": "ae075a3ec970b70fb01e1d0200d4e34bb850820421036e1927c57a2a693c53d6",
+   "lines": 1440
+  },
+  "preds_v1_app.jsonl": {
+   "sha256": "1c018375fbfbb69a8c8f869723e6c1aaa0c8168c697f78b2badf0e32955bd639",
+   "lines": 1440
+  },
+  "preds_v1_model.jsonl": {
+   "sha256": "c80f9cba03d8c8e771a2c2d6e6228c77c0dfe6ce169a0385d336c1db741a140b",
+   "lines": 1440
+  }
+ },
+ "inputs": {
+  "secondread/thresholds.json": "dd03044aa4aa6fa05f355a93a61450d2344c1ca2817470487500043862e58467",
+  "secondread/rule_calibration.json": "fbc71fcd6a51f05692005e96a222c50683c5faebc0157dece7593c5e5c45f5d7",
+  "models/secondread-lora.gguf": "5337b2b7b17a3b603c300d8cd07503091127b53f075dfc6a680457fb7105073a",
+  "runs/gold_eval/gold_inputs.jsonl": "4b2ebd8d241b38757009ec1347e2617e5a184594a5d0ed91042823681ca0df17",
+  "runs/gold_eval/gold_inputs_with_ref.jsonl": "5752a04f1eda481bc1840ecb1b49229746d9375243b53b83cda01fbfff5ce26f"
+ }
+}
