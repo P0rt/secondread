@@ -6,6 +6,9 @@ usage:
   # real: send the same segments to the backend and store its answer (placeholder stays true
   # until the backend reports the LoRA as active)
   PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8787
+  # en-es real document: a whole document of demo/answer_key.en-es.json (see docs/REALDOCS.md)
+  PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8787 \
+      --answer-key demo/answer_key.en-es.json --doc fda-medicine-disposal --n 0
 
 The output follows the response shape in ui/API.md, plus two demo-only extras the UI understands:
   meta  - provenance, attribution and a `placeholder` flag shown as a banner
@@ -30,19 +33,40 @@ ap.add_argument("--n", type=int, default=10)
 ap.add_argument("--port", type=int, default=9931, help="llama-server for the placeholder model score")
 ap.add_argument("--api", help="SecondRead backend base URL; if set, use its real /api/review output")
 ap.add_argument("--out", default="ui/public/demo-results.json")
+ap.add_argument("--answer-key", help="take the segments from a demo answer key (e.g. "
+                "demo/answer_key.en-es.json) instead of a WMT split: --doc is then its doc_id, "
+                "--n 0 keeps the whole document, and the key's labels and attribution are used")
 a = ap.parse_args()
 
-rows = [json.loads(line) for line in open(a.split, encoding="utf-8")]
-unit = lambda r: int(r["id"].split("|")[2])  # segment index inside the WMT test set
-rows = sorted((r for r in rows if r["doc"] == a.doc and r["system"] == a.system), key=unit)[: a.n]
-assert len(rows) == a.n, f"only {len(rows)} rows for {a.doc}/{a.system}"
-assert unit(rows[-1]) - unit(rows[0]) == a.n - 1, "segments are not consecutive"
-lp = rows[0]["lp"]
+kdoc = None
+if a.answer_key:
+    key = json.load(open(a.answer_key, encoding="utf-8"))
+    kdoc = next((d for d in key["documents"] if d["doc_id"] == a.doc), None)
+    assert kdoc, f"{a.doc} is not a document of {a.answer_key}"
+    rows = [s for s in key["segments"] if s["doc_id"] == a.doc]
+    rows = rows[: a.n] if a.n else rows
+    lp = key["lp"]
+else:
+    rows = [json.loads(line) for line in open(a.split, encoding="utf-8")]
+    unit = lambda r: int(r["id"].split("|")[2])  # segment index inside the WMT test set
+    rows = sorted((r for r in rows if r["doc"] == a.doc and r["system"] == a.system), key=unit)[: a.n]
+    assert len(rows) == a.n, f"only {len(rows)} rows for {a.doc}/{a.system}"
+    assert unit(rows[-1]) - unit(rows[0]) == a.n - 1, "segments are not consecutive"
+    lp = rows[0]["lp"]
 
 
 def gold(r):
-    """Human annotation, kept separate from the model output; demo-only field."""
-    return {"label": r["label"], "source": "WMT22 MQM",
+    """Reference annotation, kept separate from the model output; demo-only field."""
+    if kdoc is not None:
+        if "mqm" in r:  # a WMT document inside the answer key: the human MQM major spans
+            return {"label": r["label"], "source": "WMT24 MQM", "kind": "human",
+                    "spans": [{"side": "mt", **s} for s in r["mqm"]["major_spans"]]}
+        # our adjudication against the publisher's official Spanish (not a human MQM rater)
+        spans = [{"side": "mt", "text": r["span_mt"] or "", "category": r["error_type"] or "error",
+                  "severity": "major"}] if r["label"] == "Major" else []
+        return {"label": r["label"], "source": "checked against the official Spanish", "kind": "answer_key",
+                "spans": spans, "explanation": r["explanation"]}
+    return {"label": r["label"], "source": "WMT22 MQM", "kind": "human",
             "spans": [{k: s[k] for k in ("side", "start", "end", "text", "category", "severity")}
                       for s in r["spans"]
                       if s["severity"].lower() in ("major", "critical") and s["family"] == "meaning"]}
@@ -62,6 +86,10 @@ meta = {
     "system": a.system,
     "generated": time.strftime("%Y-%m-%d"),
 }
+if kdoc is not None:
+    meta.update(title=kdoc["title"], system=kdoc["mt_system"]["model_id"],
+                attribution=f"{kdoc['attribution']} {kdoc['mt_system']['attribution']} "
+                            f"Labels: {kdoc['labels']}.")
 
 if a.api:
     # Real path: whatever the backend says is the demo. Only the gold labels are added.

@@ -94,7 +94,7 @@ async function run(label: string, pending: string, job: (signal: AbortSignal) =>
     const result = await job(ctrl.signal);
     if (ctrl.signal.aborted) return;
     state.result = result;
-    state.label = label;
+    state.label = result.origin === 'demo' && result.meta?.title ? `Demo: ${result.meta.title}` : label;
     state.view = 'document';
     setSensitiveTexts(result.segments.flatMap((s) => [s.src, s.mt]));
     renderResults();
@@ -291,7 +291,7 @@ async function handleFile(file: File | undefined): Promise<void> {
     const card = h('div', 'card error');
     card.setAttribute('role', 'alert');
     card.append(
-      h('p', 'error-title', `This file is ${sniffed}. SecondRead checks English → Russian and English → Spanish.`),
+      h('p', 'error-title', `This file is ${sniffed}. SecondRead checks English → Spanish and English → Russian.`),
       h('p', 'error-hint', 'Other language pairs are not supported by the model yet.'),
     );
     ui.results.replaceChildren(card);
@@ -327,7 +327,7 @@ function submitPaste(): void {
 }
 
 function openDemo(): void {
-  void run('Demo: restaurant job thread', 'Loading demo results…', () => loadDemo());
+  void run('Demo', 'Loading demo results…', () => loadDemo());
 }
 
 function wireInput(): void {

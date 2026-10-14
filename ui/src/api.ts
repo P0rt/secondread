@@ -51,6 +51,9 @@ export interface NegationCheck {
 export interface GoldLabel {
   label: string;
   source?: string;
+  /** "human": professional MQM raters; "answer_key": our check against the publisher's official translation. */
+  kind?: 'human' | 'answer_key';
+  explanation?: string;
   spans: { side?: string; text: string; category?: string; severity?: string }[];
 }
 
@@ -372,6 +375,8 @@ function normalizeGold(v: unknown): GoldLabel | undefined {
   return {
     label: o.label,
     source: str(o.source),
+    kind: o.kind === 'answer_key' ? 'answer_key' : o.kind === 'human' ? 'human' : undefined,
+    explanation: str(o.explanation),
     spans: (Array.isArray(o.spans) ? o.spans : []).map((sp) => {
       const x = asRecord(sp);
       return { side: str(x.side), text: str(x.text) ?? '', category: str(x.category), severity: str(x.severity) };

@@ -1,198 +1,134 @@
 {
- "lp": "en-ru",
+ "lp": "en-es",
  "segments": [
   {
    "index": 0,
    "id": "1",
-   "lp": "en-ru",
-   "src": "Amazing.",
-   "mt": "Удивительно.",
-   "risk": 0.0415,
-   "flagged": false,
-   "reasons": [
-    {
-     "code": "model_risk",
-     "issue": "model_score",
-     "message": "Model (LoRA v1): P(Major) 4%",
-     "confidence": 0.04151832886464157,
-     "spans": []
-    }
-   ],
-   "issues": [],
-   "signals": {
-    "number_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_only": [],
-     "mt_only": []
-    },
-    "negation_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_count": 0,
-     "mt_count": 0
-    },
-    "lora_score": 0.04151832886464157
-   },
-   "model": {
-    "risk": 0.04151832886464157,
-    "p_major": 0.04149540682236648,
-    "p_ok": 0.957952498647292,
-    "labels_in_top": true,
-    "prompt_tokens": 45,
-    "latency_ms": 534.8366659600288,
-    "error": null
-   },
-   "meta": {},
-   "gold": {
-    "label": "OK",
-    "source": "WMT22 MQM",
-    "spans": []
-   }
-  },
-  {
-   "index": 1,
-   "id": "2",
-   "lp": "en-ru",
-   "src": "But good on you.",
-   "mt": "Но у тебя всё хорошо.",
-   "risk": 0.6144,
-   "flagged": true,
-   "reasons": [
-    {
-     "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 61%",
-     "confidence": 0.6144242657668278,
-     "spans": []
-    }
-   ],
-   "issues": [
-    "model_high"
-   ],
-   "signals": {
-    "number_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_only": [],
-     "mt_only": []
-    },
-    "negation_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_count": 0,
-     "mt_count": 0
-    },
-    "lora_score": 0.6144242657668278
-   },
-   "model": {
-    "risk": 0.6144242657668278,
-    "p_major": 0.6132650463359522,
-    "p_ok": 0.3848482778026559,
-    "labels_in_top": true,
-    "prompt_tokens": 50,
-    "latency_ms": 609.7317499807104,
-    "error": null
-   },
-   "meta": {},
-   "gold": {
-    "label": "Major",
-    "source": "WMT22 MQM",
-    "spans": [
-     {
-      "side": "mt",
-      "start": 3,
-      "end": 20,
-      "text": "у тебя всё хорошо",
-      "category": "mistranslation",
-      "severity": "major"
-     }
-    ]
-   }
-  },
-  {
-   "index": 2,
-   "id": "3",
-   "lp": "en-ru",
-   "src": "Yeah, when I was 16 I applied and got offered a job at a restaurant.",
-   "mt": "Когда мне было 16 лет, я подала заявление и мне предложили работу в ресторане.",
-   "risk": 0.2112,
-   "flagged": true,
-   "reasons": [
-    {
-     "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 21%",
-     "confidence": 0.2111984403533456,
-     "spans": []
-    }
-   ],
-   "issues": [
-    "model_high"
-   ],
-   "signals": {
-    "number_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_only": [],
-     "mt_only": []
-    },
-    "negation_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_count": 0,
-     "mt_count": 0
-    },
-    "lora_score": 0.2111984403533456
-   },
-   "model": {
-    "risk": 0.2111984403533456,
-    "p_major": 0.21095131518582858,
-    "p_ok": 0.7878785759482936,
-    "labels_in_top": true,
-    "prompt_tokens": 80,
-    "latency_ms": 610.5444999993779,
-    "error": null
-   },
-   "meta": {},
-   "gold": {
-    "label": "OK",
-    "source": "WMT22 MQM",
-    "spans": []
-   }
-  },
-  {
-   "index": 3,
-   "id": "4",
-   "lp": "en-ru",
-   "src": "Dishwasher.",
-   "mt": "Посудомоечная машина.",
-   "risk": 0.0157,
+   "lp": "en-es",
+   "src": "Is your medicine cabinet full of expired drugs or medications you no longer use?",
+   "mt": "¿Su botiquín está lleno de medicamentos caducados o medicamentos que ya no usa?",
+   "risk": 0.0165,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 2%",
-     "confidence": 0.015704255586001685,
+     "confidence": 0.01650344021014243,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.01650344021014243
+   },
+   "model": {
+    "risk": 0.01650344021014243,
+    "p_major": 0.016500849504055514,
+    "p_ok": 0.9833421707357292,
+    "labels_in_top": true,
+    "prompt_tokens": 73,
+    "latency_ms": 772.025374986697,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 1,
+   "id": "2",
+   "lp": "en-es",
+   "src": "The best way to dispose of most types of expired, unwanted or unused medicines is through a drug take-back program.",
+   "mt": "La mejor manera de deshacerse de la mayoría de los tipos de medicamentos caducados, no deseados o no utilizados es a través de un programa de devolución de medicamentos.",
+   "risk": 0.018,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 2%",
+     "confidence": 0.018043573068220572,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 2
+    },
+    "lora_score": 0.018043573068220572
+   },
+   "model": {
+    "risk": 0.018043573068220572,
+    "p_major": 0.018041150304213986,
+    "p_ok": 0.9818245767334728,
+    "labels_in_top": true,
+    "prompt_tokens": 99,
+    "latency_ms": 846.2629169807769,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 2,
+   "id": "3",
+   "lp": "en-es",
+   "src": "To discard of your prescription or over-the-counter medicines, you can:",
+   "mt": "Para descartar sus medicamentos recetados o de venta libre, puede:",
+   "risk": 0.0391,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 4%",
+     "confidence": 0.03908201888507117,
      "spans": []
     }
    ],
@@ -216,47 +152,268 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.015704255586001685
+    "lora_score": 0.03908201888507117
    },
    "model": {
-    "risk": 0.015704255586001685,
-    "p_major": 0.015701952025115855,
-    "p_ok": 0.9841513641111878,
+    "risk": 0.03908201888507117,
+    "p_major": 0.039068582663783734,
+    "p_ok": 0.96058762186017,
     "labels_in_top": true,
-    "prompt_tokens": 49,
-    "latency_ms": 611.5612499997951,
+    "prompt_tokens": 68,
+    "latency_ms": 848.0169579852372,
     "error": null
    },
    "meta": {},
    "gold": {
-    "label": "Major",
-    "source": "WMT22 MQM",
-    "spans": [
-     {
-      "side": "mt",
-      "start": 0,
-      "end": 20,
-      "text": "Посудомоечная машина",
-      "category": "mistranslation",
-      "severity": "major"
-     }
-    ]
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'descartar sus medicamentos recetados o de venta libre' matches official 'desechar sus medicamentos con o sin receta'."
+   }
+  },
+  {
+   "index": 3,
+   "id": "4",
+   "lp": "en-es",
+   "src": "Drop off them at a drug take-back location.",
+   "mt": "Déjalos en un lugar de recogida de drogas.",
+   "risk": 0.1928,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 19%",
+     "confidence": 0.19283249914515488,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.19283249914515488
+   },
+   "model": {
+    "risk": 0.19283249914515488,
+    "p_major": 0.19261414214847902,
+    "p_ok": 0.8062534916910249,
+    "labels_in_top": true,
+    "prompt_tokens": 60,
+    "latency_ms": 846.7111249919981,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'drogas' (narcotics) for medicines versus official 'punto de recolecta de medicamentos'; the drop-off instruction is intact."
    }
   },
   {
    "index": 4,
    "id": "5",
-   "lp": "en-ru",
-   "src": "First shift they had me close.",
-   "mt": "В первую же смену они были рядом со мной.",
-   "risk": 0.52,
+   "lp": "en-es",
+   "src": "Mail them using a prepaid drug mail-back envelope.",
+   "mt": "Mándalos por correo con un sobre de devolución por correo de drogas prepagado.",
+   "risk": 0.555,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 55%",
+     "confidence": 0.554967503097515,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.554967503097515
+   },
+   "model": {
+    "risk": 0.554967503097515,
+    "p_major": 0.554048606808607,
+    "p_ok": 0.4442956272523439,
+    "labels_in_top": true,
+    "prompt_tokens": 67,
+    "latency_ms": 612.077874946408,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'drogas' for medicines and clumsy word order, but mailing in a prepaid return envelope matches the official."
+   }
+  },
+  {
+   "index": 5,
+   "id": "6",
+   "lp": "en-es",
+   "src": "If you cannot use those options, follow these guidelines:",
+   "mt": "Si no puede usar esas opciones, siga estas pautas:",
+   "risk": 0.0302,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 3%",
+     "confidence": 0.03019441670127908,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.03019441670127908
+   },
+   "model": {
+    "risk": 0.03019441670127908,
+    "p_major": 0.030179289007852456,
+    "p_ok": 0.9693197013658882,
+    "labels_in_top": true,
+    "prompt_tokens": 63,
+    "latency_ms": 535.7306249788962,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 6,
+   "id": "7",
+   "lp": "en-es",
+   "src": "If your medicine is not on the flush list, follow the instructions below to discard it at home.",
+   "mt": "Si su medicamento no está en la lista, siga las siguientes instrucciones para desecharlo en casa.",
+   "risk": 0.0333,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 3%",
+     "confidence": 0.03331058390568043,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.03331058390568043
+   },
+   "model": {
+    "risk": 0.03331058390568043,
+    "p_major": 0.033301343246061384,
+    "p_ok": 0.9664212476384091,
+    "labels_in_top": true,
+    "prompt_tokens": 79,
+    "latency_ms": 535.7485000276938,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'flush list' shortened to 'la lista'; the list is identifiable in context (official 'lista de desechos')."
+   }
+  },
+  {
+   "index": 7,
+   "id": "8",
+   "lp": "en-es",
+   "src": "The U.S. Drug Enforcement Administration sponsors National Prescription Drug Take Back Day in communities nationwide.",
+   "mt": "La Administración Antidrogas de los Estados Unidos patrocina el Día Nacional de Retraso de las Drogas Recluidas en comunidades de todo el país.",
+   "risk": 0.7999,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 52%",
-     "confidence": 0.5199517110717421,
+     "message": "Model (LoRA v1): P(Major) 80%",
+     "confidence": 0.799874379279432,
      "spans": []
     }
    ],
@@ -282,47 +439,332 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.5199517110717421
+    "lora_score": 0.799874379279432
    },
    "model": {
-    "risk": 0.5199517110717421,
-    "p_major": 0.5188423965815308,
-    "p_ok": 0.4790241081984521,
+    "risk": 0.799874379279432,
+    "p_major": 0.7990958705885746,
+    "p_ok": 0.19993084071631975,
     "labels_in_top": true,
-    "prompt_tokens": 57,
-    "latency_ms": 492.2508749878034,
+    "prompt_tokens": 93,
+    "latency_ms": 664.384291972965,
     "error": null
    },
    "meta": {},
    "gold": {
     "label": "Major",
-    "source": "WMT22 MQM",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
     "spans": [
      {
       "side": "mt",
-      "start": 18,
-      "end": 40,
-      "text": "они были рядом со мной",
+      "text": "Día Nacional de Retraso de las Drogas Recluidas",
       "category": "mistranslation",
       "severity": "major"
      }
-    ]
+    ],
+    "explanation": "'Take Back Day' became 'Día Nacional de Retraso de las Drogas Recluidas' (day of delay of confined drugs), so the reader cannot recognise the official 'Día Nacional de Recolección de Medicamentos de Prescripción Médica'."
    }
   },
   {
-   "index": 5,
-   "id": "6",
-   "lp": "en-ru",
-   "src": "Saturday.",
-   "mt": "Суббота.",
-   "risk": 0.0123,
+   "index": 8,
+   "id": "9",
+   "lp": "en-es",
+   "src": "Many communities also have their own drug take-back events.",
+   "mt": "Muchas comunidades también tienen sus propios eventos de recuperación de drogas.",
+   "risk": 0.2227,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 22%",
+     "confidence": 0.22270147498965803,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.22270147498965803
+   },
+   "model": {
+    "risk": 0.22270147498965803,
+    "p_major": 0.2224127124001864,
+    "p_ok": 0.7762906523194005,
+    "labels_in_top": true,
+    "prompt_tokens": 62,
+    "latency_ms": 468.324167013634,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'take-back events' as 'recuperación de drogas' is loose versus official 'programas de recolección de medicamentos'."
+   }
+  },
+  {
+   "index": 9,
+   "id": "10",
+   "lp": "en-es",
+   "src": "Check with your local law enforcement officials to find a location near you or with the DEA to find a DEA-authorized collector in your community.",
+   "mt": "Consulte con los agentes de la ley locales para encontrar una ubicación cerca de usted o con la DEA para encontrar un coleccionista autorizado por la DEA en su comunidad.",
+   "risk": 0.152,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 15%",
+     "confidence": 0.15199191389453032,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.15199191389453032
+   },
+   "model": {
+    "risk": 0.15199191389453032,
+    "p_major": 0.15184835610050598,
+    "p_ok": 0.8472071344822104,
+    "labels_in_top": true,
+    "prompt_tokens": 100,
+    "latency_ms": 615.863166982308,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'collector' as 'coleccionista' (hobby collector) versus official 'recolector autorizado'; the instruction is intact."
+   }
+  },
+  {
+   "index": 10,
+   "id": "11",
+   "lp": "en-es",
+   "src": "A prepaid drug mail-back envelope is a convenient and secure disposal option.",
+   "mt": "Un sobre de devolución por correo de medicamentos de prepago es una opción de eliminación conveniente y segura.",
+   "risk": 0.1175,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 12%",
+     "confidence": 0.11752841874555323,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.11752841874555323
+   },
+   "model": {
+    "risk": 0.11752841874555323,
+    "p_major": 0.11744054736045388,
+    "p_ok": 0.8818117918947046,
+    "labels_in_top": true,
+    "prompt_tokens": 73,
+    "latency_ms": 615.6590419705026,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Matches official 'Un sobre prepagado para devolución de medicamentos por correo es una opción práctica y segura'."
+   }
+  },
+  {
+   "index": 11,
+   "id": "12",
+   "lp": "en-es",
+   "src": "These envelopes are sold at various places, including retail pharmacies and online.",
+   "mt": "Estos sobres se venden en varios lugares, incluyendo farmacias minoristas y en línea.",
+   "risk": 0.0195,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 2%",
+     "confidence": 0.019530104899918323,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.019530104899918323
+   },
+   "model": {
+    "risk": 0.019530104899918323,
+    "p_major": 0.01952738102767586,
+    "p_ok": 0.9803331485364807,
+    "labels_in_top": true,
+    "prompt_tokens": 71,
+    "latency_ms": 614.3935829750262,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 12,
+   "id": "13",
+   "lp": "en-es",
+   "src": "Some pharmacies offer them at no cost.",
+   "mt": "Algunas farmacias las ofrecen sin costo alguno.",
+   "risk": 0.0141,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 1%",
-     "confidence": 0.012302748559040386,
+     "confidence": 0.014106799810434771,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.014106799810434771
+   },
+   "model": {
+    "risk": 0.014106799810434771,
+    "p_major": 0.014105164722558985,
+    "p_ok": 0.9857789274955374,
+    "labels_in_top": true,
+    "prompt_tokens": 56,
+    "latency_ms": 535.8643750078045,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 13,
+   "id": "14",
+   "lp": "en-es",
+   "src": "To use prepaid drug mail-back envelopes:",
+   "mt": "Para usar sobres de devolución de medicamentos prepagados:",
+   "risk": 0.0424,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 4%",
+     "confidence": 0.0423733987701717,
      "spans": []
     }
    ],
@@ -346,44 +788,101 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.012302748559040386
+    "lora_score": 0.0423733987701717
    },
    "model": {
-    "risk": 0.012302748559040386,
-    "p_major": 0.01230108911774968,
-    "p_ok": 0.9875640270973186,
+    "risk": 0.0423733987701717,
+    "p_major": 0.0423584042375413,
+    "p_ok": 0.9572877291134385,
     "labels_in_top": true,
-    "prompt_tokens": 44,
-    "latency_ms": 419.2681669956073,
+    "prompt_tokens": 58,
+    "latency_ms": 533.8816249859519,
     "error": null
    },
    "meta": {},
    "gold": {
     "label": "OK",
-    "source": "WMT22 MQM",
-    "spans": []
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
    }
   },
   {
-   "index": 6,
-   "id": "7",
-   "lp": "en-ru",
-   "src": "We were working till past 1am.",
-   "mt": "Мы работали до часу ночи.",
-   "risk": 0.481,
-   "flagged": true,
+   "index": 14,
+   "id": "15",
+   "lp": "en-es",
+   "src": "Fill the envelope with your unused or expired medicines and seal it.",
+   "mt": "Llene el sobre con sus medicamentos no utilizados o caducados y selle.",
+   "risk": 0.018,
+   "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 48%",
-     "confidence": 0.4810253055796599,
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 2%",
+     "confidence": 0.018018649279176752,
      "spans": []
     }
    ],
-   "issues": [
-    "model_high"
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 1
+    },
+    "lora_score": 0.018018649279176752
+   },
+   "model": {
+    "risk": 0.018018649279176752,
+    "p_major": 0.01801621115128125,
+    "p_ok": 0.981848477491151,
+    "labels_in_top": true,
+    "prompt_tokens": 68,
+    "latency_ms": 534.0620420174673,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 15,
+   "id": "16",
+   "lp": "en-es",
+   "src": "Mail the envelope using the U.S. Postal Service.",
+   "mt": "Envíe el sobre por correo con el Servicio Postal de los EE.UU.",
+   "risk": 0.0229,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 2%",
+     "confidence": 0.022888088219726942,
+     "spans": []
+    }
    ],
+   "issues": [],
    "signals": {
     "number_check": {
      "flagged": false,
@@ -403,44 +902,44 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.4810253055796599
+    "lora_score": 0.022888088219726942
    },
    "model": {
-    "risk": 0.4810253055796599,
-    "p_major": 0.47996470736544755,
-    "p_ok": 0.517830422741202,
+    "risk": 0.022888088219726942,
+    "p_major": 0.022884164069611763,
+    "p_ok": 0.9769443864813339,
     "labels_in_top": true,
-    "prompt_tokens": 54,
-    "latency_ms": 420.4587080166675,
+    "prompt_tokens": 67,
+    "latency_ms": 581.935791997239,
     "error": null
    },
    "meta": {},
    "gold": {
     "label": "OK",
-    "source": "WMT22 MQM",
-    "spans": []
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
    }
   },
   {
-   "index": 7,
-   "id": "8",
-   "lp": "en-ru",
-   "src": "I quit the next day.",
-   "mt": "Я уволилась на следующий день.",
-   "risk": 0.1988,
-   "flagged": true,
+   "index": 16,
+   "id": "17",
+   "lp": "en-es",
+   "src": "When a take-back option is not easily available, there are two ways to dispose of medicines at home, depending on the drug.",
+   "mt": "Cuando una opción de devolución no está fácilmente disponible, hay dos maneras de deshacerse de los medicamentos en casa, dependiendo del medicamento.",
+   "risk": 0.2089,
+   "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 20%",
-     "confidence": 0.19878771209748472,
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 21%",
+     "confidence": 0.20886264441275995,
      "spans": []
     }
    ],
-   "issues": [
-    "model_high"
-   ],
+   "issues": [],
    "signals": {
     "number_check": {
      "flagged": false,
@@ -456,175 +955,1305 @@
      "risk": 0.0,
      "weight": 0.0,
      "issues": [],
-     "skipped": null,
-     "src_count": 0,
-     "mt_count": 0
-    },
-    "lora_score": 0.19878771209748472
-   },
-   "model": {
-    "risk": 0.19878771209748472,
-    "p_major": 0.19854637134404113,
-    "p_ok": 0.8002395659209078,
-    "labels_in_top": true,
-    "prompt_tokens": 53,
-    "latency_ms": 595.5791249871254,
-    "error": null
-   },
-   "meta": {},
-   "gold": {
-    "label": "OK",
-    "source": "WMT22 MQM",
-    "spans": []
-   }
-  },
-  {
-   "index": 8,
-   "id": "9",
-   "lp": "en-ru",
-   "src": "Best way to lose a new young worker, by shocking them with that.",
-   "mt": "Лучший способ потерять нового молодого работника — шокировать его этим.",
-   "risk": 0.1678,
-   "flagged": true,
-   "reasons": [
-    {
-     "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 17%",
-     "confidence": 0.16777214160109333,
-     "spans": []
-    }
-   ],
-   "issues": [
-    "model_high"
-   ],
-   "signals": {
-    "number_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_only": [],
-     "mt_only": []
-    },
-    "negation_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_count": 0,
-     "mt_count": 0
-    },
-    "lora_score": 0.16777214160109333
-   },
-   "model": {
-    "risk": 0.16777214160109333,
-    "p_major": 0.16757470104307393,
-    "p_ok": 0.8312484613953669,
-    "labels_in_top": true,
-    "prompt_tokens": 69,
-    "latency_ms": 407.0298749720678,
-    "error": null
-   },
-   "meta": {},
-   "gold": {
-    "label": "OK",
-    "source": "WMT22 MQM",
-    "spans": []
-   }
-  },
-  {
-   "index": 9,
-   "id": "10",
-   "lp": "en-ru",
-   "src": "Same happened to my friend after I had been working with Pizza Hut for a couple years (didn't make me close until months after I started working and trained up), got him a job there on the spot.",
-   "mt": "Тоже самое произошло с моим другом, когда я проработал пару лет в Pizza Hut (прошло несколько месяцев после того, как я начал работать и прошел обучение), и сразу же нашел ему там работу.",
-   "risk": 0.6752,
-   "flagged": true,
-   "reasons": [
-    {
-     "code": "model_risk",
-     "issue": "model_high",
-     "message": "Model (LoRA v1): P(Major) 59%",
-     "confidence": 0.5855863203960704,
-     "spans": []
-    },
-    {
-     "code": "negation_mismatch",
-     "issue": "negation_dropped",
-     "message": "The source has a negation ('n't') but the MT has none",
-     "confidence": 0.2906,
-     "spans": [
-      {
-       "side": "src",
-       "start": 90,
-       "end": 93
-      }
-     ],
-     "weight": 0.386
-    }
-   ],
-   "issues": [
-    "negation_dropped",
-    "model_high"
-   ],
-   "signals": {
-    "number_check": {
-     "flagged": false,
-     "risk": 0.0,
-     "weight": 0.0,
-     "issues": [],
-     "skipped": null,
-     "src_only": [],
-     "mt_only": []
-    },
-    "negation_check": {
-     "flagged": true,
-     "risk": 0.2906,
-     "weight": 0.386,
-     "issues": [
-      "negation_dropped"
-     ],
      "skipped": null,
      "src_count": 1,
-     "mt_count": 0
+     "mt_count": 1
     },
-    "lora_score": 0.5855863203960704
+    "lora_score": 0.20886264441275995
    },
    "model": {
-    "risk": 0.5855863203960704,
-    "p_major": 0.584283752844855,
-    "p_ok": 0.4134918653589063,
+    "risk": 0.20886264441275995,
+    "p_major": 0.2085934472797974,
+    "p_ok": 0.7901176811092957,
     "labels_in_top": true,
-    "prompt_tokens": 125,
-    "latency_ms": 438.96816595224664,
+    "prompt_tokens": 92,
+    "latency_ms": 659.764832991641,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'opción de devolución' for take-back and 'dos maneras' match the official meaning."
+   }
+  },
+  {
+   "index": 17,
+   "id": "18",
+   "lp": "en-es",
+   "src": "Flushing medicines: Because some medicines could be especially harmful to others, they have specific directions to immediately flush them down the sink or toilet when they are no longer needed, and a take-back option is not readily available.",
+   "mt": "Flushing medications: Debido a que algunos medicamentos pueden ser especialmente dañinos para otros, tienen instrucciones específicas para tirarlos inmediatamente por el fregadero o el inodoro cuando ya no son necesarios, y una opción de devolución no está fácilmente disponible.",
+   "risk": 0.1708,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 17%",
+     "confidence": 0.1708303399341435,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 2,
+     "mt_count": 2
+    },
+    "lora_score": 0.1708303399341435
+   },
+   "model": {
+    "risk": 0.1708303399341435,
+    "p_major": 0.1706306225552563,
+    "p_ok": 0.8282002796195903,
+    "labels_in_top": true,
+    "prompt_tokens": 132,
+    "latency_ms": 661.1370409955271,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "The label is left in English, but the sentence spells out flushing down the sink or toilet, as in the official."
+   }
+  },
+  {
+   "index": 18,
+   "id": "19",
+   "lp": "en-es",
+   "src": "How will you know?",
+   "mt": "¿Cómo lo sabrás?",
+   "risk": 0.0121,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 1%",
+     "confidence": 0.01205382286963211,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.01205382286963211
+   },
+   "model": {
+    "risk": 0.01205382286963211,
+    "p_major": 0.01205196450166566,
+    "p_ok": 0.9877938630016461,
+    "labels_in_top": true,
+    "prompt_tokens": 50,
+    "latency_ms": 661.2808330100961,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 19,
+   "id": "20",
+   "lp": "en-es",
+   "src": "Check the label or the patient information leaflet with your medicine.",
+   "mt": "Compruebe la etiqueta o el prospecto de información para el paciente con su medicamento.",
+   "risk": 0.0122,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 1%",
+     "confidence": 0.012214070328418472,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.012214070328418472
+   },
+   "model": {
+    "risk": 0.012214070328418472,
+    "p_major": 0.01221281894151171,
+    "p_ok": 0.9876847265226035,
+    "labels_in_top": true,
+    "prompt_tokens": 70,
+    "latency_ms": 660.8513329993002,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Matches official 'Lea la etiqueta o el folleto de información para el paciente'."
+   }
+  },
+  {
+   "index": 20,
+   "id": "21",
+   "lp": "en-es",
+   "src": "Or consult the list of medicines recommended for disposal by flushing when a take-back option is not readily available.",
+   "mt": "O consulte la lista de medicamentos recomendados para su eliminación mediante el lavado cuando no se disponga de una opción de devolución.",
+   "risk": 0.205,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 21%",
+     "confidence": 0.20501067829050104,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.20501067829050104
+   },
+   "model": {
+    "risk": 0.20501067829050104,
+    "p_major": 0.20474773867199408,
+    "p_ok": 0.7939696958504441,
+    "labels_in_top": true,
+    "prompt_tokens": 85,
+    "latency_ms": 619.48274995666,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'disposal by flushing' became 'mediante el lavado' (by washing) versus official 'por el inodoro'; the list is still identifiable. Borderline."
+   }
+  },
+  {
+   "index": 21,
+   "id": "22",
+   "lp": "en-es",
+   "src": "Remember, don’t flush your medicine unless it is on the flush list.",
+   "mt": "Recuerde, no tire su medicamento a menos que esté en la lista de color.",
+   "risk": 0.6342,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 63%",
+     "confidence": 0.6341827553847048,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.6341827553847048
+   },
+   "model": {
+    "risk": 0.6341827553847048,
+    "p_major": 0.6330218955769515,
+    "p_ok": 0.36514762291295266,
+    "labels_in_top": true,
+    "prompt_tokens": 71,
+    "latency_ms": 698.4023749828339,
     "error": null
    },
    "meta": {},
    "gold": {
     "label": "Major",
-    "source": "WMT22 MQM",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
     "spans": [
      {
       "side": "mt",
-      "start": 76,
-      "end": 77,
-      "text": "(",
-      "category": "omission",
+      "text": "la lista de color",
+      "category": "mistranslation",
       "severity": "major"
      }
-    ]
+    ],
+    "explanation": "'flush list' became 'la lista de color' (a colour list), so the rule's only exception points to a non-existent list instead of the official 'la lista de eliminación'."
+   }
+  },
+  {
+   "index": 22,
+   "id": "23",
+   "lp": "en-es",
+   "src": "Remove the drugs from their original containers and mix them with something undesirable, such as used coffee grounds, dirt or cat litter.",
+   "mt": "Retire los medicamentos de sus envases originales y mézclelos con algo indeseable, como granos de café usados, suciedad o arena para gatos.",
+   "risk": 0.1372,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 14%",
+     "confidence": 0.13723996574916192,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.13723996574916192
+   },
+   "model": {
+    "risk": 0.13723996574916192,
+    "p_major": 0.13713412972218633,
+    "p_ok": 0.8620946953041255,
+    "labels_in_top": true,
+    "prompt_tokens": 98,
+    "latency_ms": 698.6600829986855,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'used coffee grounds' became 'granos de café usados' (used coffee beans), official 'café molido usado'; it is one example of an undesirable substance and the mixing instruction is intact."
+   }
+  },
+  {
+   "index": 23,
+   "id": "24",
+   "lp": "en-es",
+   "src": "This makes the medicine less appealing to children and pets – and unrecognizable to someone who might intentionally go through the trash looking for drugs.",
+   "mt": "Esto hace que el medicamento sea menos atractivo para los niños y las mascotas – e irreconocible para alguien que intencionalmente podría ir a través de la basura en busca de drogas.",
+   "risk": 0.2026,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 20%",
+     "confidence": 0.20256671718290328,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.20256671718290328
+   },
+   "model": {
+    "risk": 0.20256671718290328,
+    "p_major": 0.20231891355321152,
+    "p_ok": 0.7964577678624821,
+    "labels_in_top": true,
+    "prompt_tokens": 105,
+    "latency_ms": 737.1464170282707,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'go through the trash' calqued; matches official 'escarbar en la basura' in meaning."
+   }
+  },
+  {
+   "index": 24,
+   "id": "25",
+   "lp": "en-es",
+   "src": "Put the mixture in something you can close (a resealable zipper storage bag, empty can or other container) to prevent the drug from leaking or spilling out.",
+   "mt": "Ponga la mezcla en algo que pueda cerrar (una bolsa de almacenamiento con cremallera resellable, lata vacía u otro recipiente) para evitar que el medicamento se escape o se derrame.",
+   "risk": 0.0371,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 4%",
+     "confidence": 0.03714657412892803,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.03714657412892803
+   },
+   "model": {
+    "risk": 0.03714657412892803,
+    "p_major": 0.03713763372722573,
+    "p_ok": 0.9626216872354215,
+    "labels_in_top": true,
+    "prompt_tokens": 114,
+    "latency_ms": 764.5618750248104,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 25,
+   "id": "26",
+   "lp": "en-es",
+   "src": "Throw the container in the trash at home.",
+   "mt": "Tira el contenedor a la basura en casa.",
+   "risk": 0.0327,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 3%",
+     "confidence": 0.03272012198608196,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.03272012198608196
+   },
+   "model": {
+    "risk": 0.03272012198608196,
+    "p_major": 0.032711582335874206,
+    "p_ok": 0.967027426882631,
+    "labels_in_top": true,
+    "prompt_tokens": 59,
+    "latency_ms": 685.2818339830264,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Matches official 'Tire el recipiente a la basura'; Gemma's flag is a false alarm."
+   }
+  },
+  {
+   "index": 26,
+   "id": "27",
+   "lp": "en-es",
+   "src": "The fentanyl patch is an example of a product that contains a powerful opioid medicine that can be dangerous to people it’s not prescribed for.",
+   "mt": "El parche de fentanilo es un ejemplo de un producto que contiene un potente medicamento opiáceo que puede ser peligroso para las personas para las que no se prescribe.",
+   "risk": 0.0247,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 2%",
+     "confidence": 0.02467057481686646,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.02467057481686646
+   },
+   "model": {
+    "risk": 0.02467057481686646,
+    "p_major": 0.02466599081930774,
+    "p_ok": 0.9751482008810175,
+    "labels_in_top": true,
+    "prompt_tokens": 103,
+    "latency_ms": 684.5329999923706,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 27,
+   "id": "28",
+   "lp": "en-es",
+   "src": "This adhesive patch delivers a strong pain medicine through the skin.",
+   "mt": "Este parche adhesivo proporciona un fuerte analgésico a través de la piel.",
+   "risk": 0.0078,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 1%",
+     "confidence": 0.007811511808673413,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.007811511808673413
+   },
+   "model": {
+    "risk": 0.007811511808673413,
+    "p_major": 0.007811013646419874,
+    "p_ok": 0.9921252135185975,
+    "labels_in_top": true,
+    "prompt_tokens": 69,
+    "latency_ms": 600.8060420281254,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Matches official 'administra un analgésico potente a través de la piel'."
+   }
+  },
+  {
+   "index": 28,
+   "id": "29",
+   "lp": "en-es",
+   "src": "Even after a patch is used, a lot of the medicine remains.",
+   "mt": "Incluso después de usar un parche, queda mucho del medicamento.",
+   "risk": 0.0348,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 3%",
+     "confidence": 0.03477746864736134,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.03477746864736134
+   },
+   "model": {
+    "risk": 0.03477746864736134,
+    "p_major": 0.03476753413757429,
+    "p_ok": 0.9649468064923381,
+    "labels_in_top": true,
+    "prompt_tokens": 66,
+    "latency_ms": 612.3445419943891,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Matches official 'Incluso después de usar un parche, queda mucho medicamento'."
+   }
+  },
+  {
+   "index": 29,
+   "id": "30",
+   "lp": "en-es",
+   "src": "That’s why the drug comes with instructions to flush used or leftover patches.",
+   "mt": "Es por eso que el medicamento viene con instrucciones para lavar los parches usados o sobrantes.",
+   "risk": 0.1588,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 16%",
+     "confidence": 0.158770582644114,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.158770582644114
+   },
+   "model": {
+    "risk": 0.158770582644114,
+    "p_major": 0.15861746799712795,
+    "p_ok": 0.8404181553253028,
+    "labels_in_top": true,
+    "prompt_tokens": 73,
+    "latency_ms": 613.1617089849897,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "Major",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [
+     {
+      "side": "mt",
+      "text": "instrucciones para lavar los parches",
+      "category": "mistranslation",
+      "severity": "major"
+     }
+    ],
+    "explanation": "'instructions to flush used or leftover patches' became 'lavar los parches' (wash the patches), a different and unsafe action from the official 'eliminar los parches usados o sobrantes'."
+   }
+  },
+  {
+   "index": 30,
+   "id": "31",
+   "lp": "en-es",
+   "src": "One environmental concern involves inhalers used by people who have asthma or other breathing problems, such as chronic obstructive pulmonary disease.",
+   "mt": "Una preocupación ambiental implica inhaladores utilizados por personas que tienen asma u otros problemas respiratorios, como la enfermedad pulmonar obstructiva crónica.",
+   "risk": 0.0129,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 1%",
+     "confidence": 0.012871717106101417,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.012871717106101417
+   },
+   "model": {
+    "risk": 0.012871717106101417,
+    "p_major": 0.012870222193479492,
+    "p_ok": 0.9870136384748678,
+    "labels_in_top": true,
+    "prompt_tokens": 92,
+    "latency_ms": 613.3997919969261,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 31,
+   "id": "32",
+   "lp": "en-es",
+   "src": "Read handling instructions on the labeling of inhalers and aerosol products.",
+   "mt": "Lea las instrucciones de manejo sobre el etiquetado de inhaladores y productos aerosoles.",
+   "risk": 0.043,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 4%",
+     "confidence": 0.04295698345505316,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.04295698345505316
+   },
+   "model": {
+    "risk": 0.04295698345505316,
+    "p_major": 0.04294333261909164,
+    "p_ok": 0.956738888178004,
+    "labels_in_top": true,
+    "prompt_tokens": 71,
+    "latency_ms": 655.438958958257,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'instrucciones de manejo sobre el etiquetado' matches official 'instrucciones de uso de la etiqueta'; Gemma's flag is a false alarm."
+   }
+  },
+  {
+   "index": 32,
+   "id": "33",
+   "lp": "en-es",
+   "src": "These products could be dangerous if punctured or thrown into a fire or incinerator.",
+   "mt": "Estos productos podrían ser peligrosos si se pinchan o se lanzan a un incendio o incinerador.",
+   "risk": 0.0306,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 3%",
+     "confidence": 0.030557713787976684,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.030557713787976684
+   },
+   "model": {
+    "risk": 0.030557713787976684,
+    "p_major": 0.030551621532547188,
+    "p_ok": 0.9692490096445178,
+    "labels_in_top": true,
+    "prompt_tokens": 79,
+    "latency_ms": 666.3628329988569,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 33,
+   "id": "34",
+   "lp": "en-es",
+   "src": "To properly dispose of these products and follow local regulations and laws, contact your trash and recycling facility.",
+   "mt": "Para disponer adecuadamente de estos productos y seguir las regulaciones y leyes locales, póngase en contacto con su instalación de reciclaje y basura.",
+   "risk": 0.0589,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 6%",
+     "confidence": 0.058902242631064104,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.058902242631064104
+   },
+   "model": {
+    "risk": 0.058902242631064104,
+    "p_major": 0.05887988013575096,
+    "p_ok": 0.9407404654688603,
+    "labels_in_top": true,
+    "prompt_tokens": 89,
+    "latency_ms": 707.2797080036253,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'disponer de' is a calque of 'dispose of' (official 'deshacerse de'); the instruction to contact the trash/recycling facility is intact."
+   }
+  },
+  {
+   "index": 34,
+   "id": "35",
+   "lp": "en-es",
+   "src": "Visit the FDA’s Medication Disposal Q&A page for more information on how to dispose of needles, syringes and other products.",
+   "mt": "Visite la página de preguntas y respuestas sobre la eliminación de medicamentos de la FDA para obtener más información sobre cómo deshacerse de las agujas, jeringas y otros productos.",
+   "risk": 0.0802,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 8%",
+     "confidence": 0.0801680905544964,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.0801680905544964
+   },
+   "model": {
+    "risk": 0.0801680905544964,
+    "p_major": 0.08012724028180317,
+    "p_ok": 0.9193632019576129,
+    "labels_in_top": true,
+    "prompt_tokens": 103,
+    "latency_ms": 707.5447500101291,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 35,
+   "id": "36",
+   "lp": "en-es",
+   "src": "Some drugs with uncommon dosage forms – for example sprays and lozenges – have specific disposal instructions.",
+   "mt": "Algunos medicamentos con formas de dosificación poco comunes – por ejemplo aerosoles y pastillas – tienen instrucciones específicas de eliminación.",
+   "risk": 0.3792,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 38%",
+     "confidence": 0.37921448148259795,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.37921448148259795
+   },
+   "model": {
+    "risk": 0.37921448148259795,
+    "p_major": 0.3784820674959389,
+    "p_ok": 0.6195865347794921,
+    "labels_in_top": true,
+    "prompt_tokens": 84,
+    "latency_ms": 712.9502920433879,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'aerosoles y pastillas' and specific disposal instructions match the official."
+   }
+  },
+  {
+   "index": 36,
+   "id": "37",
+   "lp": "en-es",
+   "src": "Review the instructions that came with your prescription or contact your health care professional to learn how to properly dispose of those medicines.",
+   "mt": "Revise las instrucciones que vienen con su receta o póngase en contacto con su profesional de la salud para aprender a deshacerse adecuadamente de esos medicamentos.",
+   "risk": 0.0512,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 5%",
+     "confidence": 0.05123875082003859,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.05123875082003859
+   },
+   "model": {
+    "risk": 0.05123875082003859,
+    "p_major": 0.051219480455969614,
+    "p_ok": 0.9484044298899976,
+    "labels_in_top": true,
+    "prompt_tokens": 96,
+    "latency_ms": 717.0977920177393,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "Faithful to the source; differences from the official Spanish are wording only."
+   }
+  },
+  {
+   "index": 37,
+   "id": "38",
+   "lp": "en-es",
+   "src": "The main way drug residues enter water systems is by people taking medicines and then naturally passing them through their bodies.",
+   "mt": "La principal forma en que los residuos de drogas entran en los sistemas de agua es por personas que toman medicamentos y luego los pasan naturalmente a través de sus cuerpos.",
+   "risk": 0.0429,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 4%",
+     "confidence": 0.0428614219683958,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 0,
+     "mt_count": 0
+    },
+    "lora_score": 0.0428614219683958
+   },
+   "model": {
+    "risk": 0.0428614219683958,
+    "p_major": 0.04284807714140708,
+    "p_ok": 0.9568405746490408,
+    "labels_in_top": true,
+    "prompt_tokens": 95,
+    "latency_ms": 561.7613749927841,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'drogas' for drug residues versus official 'residuos de medicamentos'; the excretion pathway matches."
+   }
+  },
+  {
+   "index": 38,
+   "id": "39",
+   "lp": "en-es",
+   "src": "Many drugs are not completely absorbed or metabolized (broken down) by the body and can enter the environment after passing through wastewater treatment plants.",
+   "mt": "Muchas drogas no son completamente absorbidas o metabolizadas (descompuestas) por el cuerpo y pueden entrar en el medio ambiente después de pasar a través de plantas de tratamiento de aguas residuales.",
+   "risk": 0.0841,
+   "flagged": false,
+   "reasons": [
+    {
+     "code": "model_risk",
+     "issue": "model_score",
+     "message": "Model (LoRA v1): P(Major) 8%",
+     "confidence": 0.08412258050203285,
+     "spans": []
+    }
+   ],
+   "issues": [],
+   "signals": {
+    "number_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_only": [],
+     "mt_only": []
+    },
+    "negation_check": {
+     "flagged": false,
+     "risk": 0.0,
+     "weight": 0.0,
+     "issues": [],
+     "skipped": null,
+     "src_count": 1,
+     "mt_count": 1
+    },
+    "lora_score": 0.08412258050203285
+   },
+   "model": {
+    "risk": 0.08412258050203285,
+    "p_major": 0.08407192778374449,
+    "p_ok": 0.9153259423483168,
+    "labels_in_top": true,
+    "prompt_tokens": 106,
+    "latency_ms": 561.5342499804683,
+    "error": null
+   },
+   "meta": {},
+   "gold": {
+    "label": "OK",
+    "source": "checked against the official Spanish",
+    "kind": "answer_key",
+    "spans": [],
+    "explanation": "'drogas' for medicines versus official 'Muchos de los medicamentos'; meaning intact."
    }
   }
  ],
  "summary": {
-  "segments": 10,
-  "flagged": 7,
-  "threshold": 0.1609,
+  "segments": 39,
+  "flagged": 1,
+  "threshold": 0.7019,
   "thresholds": {
-   "en-ru": 0.1609
+   "en-es": 0.7019
   },
   "threshold_source": "dev_f1",
   "input": "segments",
@@ -637,37 +2266,37 @@
   "adapter_version": "v1",
   "model_errors": {},
   "tokens": {
-   "input": 626,
-   "output": 10
+   "input": 3159,
+   "output": 39
   },
   "cost_usd": 0.0,
   "timing_ms": {
-   "total": 1473.4,
-   "per_segment": 147.3,
+   "total": 6469.1,
+   "per_segment": 165.9,
    "parse": 0.1,
-   "checks": 0.5,
-   "model": 1472.5,
-   "model_call_p50": 513.5,
-   "model_call_p95": 611.6
+   "checks": 2.1,
+   "model": 6466.7,
+   "model_call_p50": 659.8,
+   "model_call_p95": 846.7
   }
  },
  "timing_ms": {
-  "total": 1473.4,
-  "per_segment": 147.3,
+  "total": 6469.1,
+  "per_segment": 165.9,
   "parse": 0.1,
-  "checks": 0.5,
-  "model": 1472.5,
-  "model_call_p50": 513.5,
-  "model_call_p95": 611.6
+  "checks": 2.1,
+  "model": 6466.7,
+  "model_call_p50": 659.8,
+  "model_call_p95": 846.7
  },
  "meta": {
   "placeholder": false,
-  "title": "Restaurant job thread (WMT22 en-ru, social domain)",
+  "title": "Where and How to Dispose of Unused Medicines",
   "note": "Precomputed with the SecondRead backend, fine-tuned LoRA v1 active.",
-  "attribution": "Source text and MT output: WMT22 General MT test set, en-ru, system comet_bestmbr. Human MQM labels: Unbabel raters, released by Google in google/wmt-mqm-human-evaluation (Apache-2.0). WMT data is provided for research purposes.",
-  "lp": "en-ru",
-  "doc": "t1_hkc5no1",
-  "system": "comet_bestmbr",
+  "attribution": "Source: U.S. Food and Drug Administration, \"Where and How to Dispose of Unused Medicines\" / \"Cómo y dónde deshacerse de los medicamentos sin utilizar\" (retrieved 2026-10-14). Segmented and aligned by SecondRead; no FDA logo is reused and no endorsement is implied. Machine translation: Helsinki-NLP OPUS-MT en-es (Tiedemann & Thottingal, 2020, OPUS-MT, EAMT), Apache-2.0, run locally with beam 4, one sentence per input (scripts/realdocs_mt.py). Labels: our adjudication against the official Spanish translation.",
+  "lp": "en-es",
+  "doc": "fda-medicine-disposal",
+  "system": "Helsinki-NLP/opus-mt-en-es",
   "generated": "2026-10-14"
  }
 }

@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns:sdl="http://sdl.com/FileTypes/SdlXliff/1.0" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2" sdl:version="1.0">
+  <file original="irs-failure-to-file-penalty.html" datatype="x-sdlfilterframework2" source-language="en-US" target-language="es-US">
+    <header>
+      <file-info xmlns="http://sdl.com/FileTypes/SdlXliff/1.0">
+        <value key="SDL:FileId">1356b4a3-a033-56dd-94b2-51ff7e3f70d5</value>
+        <value key="SDL:OriginalFilePath">irs-failure-to-file-penalty.html</value>
+        <value key="SDL:OriginalEncoding">utf-8</value>
+        <value key="SDL:AutoClonedFlagSupported">True</value>
+      </file-info>
+      <sdl:filetype-info>
+        <sdl:filetype-id>HTML 5 2.0.0.0</sdl:filetype-id>
+      </sdl:filetype-info>
+      <note>Failure to File Penalty. Source: Internal Revenue Service, "Failure to File Penalty" / "Multa por incumplimiento de presentar la declaración de impuestos", IRS.gov (retrieved 2026-10-14). U.S. government work. Segmented and aligned by SecondRead; no IRS seal or logo is reused and no endorsement is implied. MT: OPUS-MT en-es (MarianMT) (Helsinki-NLP/opus-mt-en-es), Apache-2.0 (model card front matter at the pinned revision). The Spanish targets are this machine translation, not the publisher's official Spanish (that is in demo/answer_key.en-es.json). SecondRead demo job, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="bd968a0d-a6a3-518a-9d4e-c7a8cfbdd4cc">
+        <source>The failure to file penalty applies if you don't file your tax return by the due date (including extensions).</source>
+        <seg-source><mrk mtype="seg" mid="1">The failure to file penalty applies if you don't file your tax return by the due date (including extensions).</mrk></seg-source>
+        <target><mrk mtype="seg" mid="1">La falta de presentación de la sanción se aplica si usted no presenta su declaración de impuestos para la fecha de vencimiento (incluyendo extensiones).</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="1" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="51a6e30c-142b-517c-9e46-b3b5c94f8245">
+        <source>We send you a notice or letter if you owe the failure to file penalty.</source>
+        <seg-source><mrk mtype="seg" mid="2">We send you a notice or letter if you owe the failure to file penalty.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="2">Le enviamos un aviso o una carta si usted debe la falta de presentar la sanción.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="2" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="368c0078-3dcf-5888-aaf7-6e36654e5239">
+        <source>The failure to file penalty amount depends on the type of tax return you file.</source>
+        <seg-source><mrk mtype="seg" mid="3">The failure to file penalty amount depends on the type of tax return you file.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="3">El hecho de no presentar la cantidad de penalización depende del tipo de declaración de impuestos que usted presente.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="3" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="14943dee-0151-560c-8a7f-3e96cae590b8">
+        <source>The penalty applies to individuals and businesses that fail to file forms including, but not limited to Form 1040, U.S. Individual Income Tax Return and Form 1120, U.S. Corporation Income Tax Return.</source>
+        <seg-source><mrk mtype="seg" mid="4">The penalty applies to individuals and businesses that fail to file forms including, but not limited to Form 1040, U.S. Individual Income Tax Return and Form 1120, U.S. Corporation Income Tax Return.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="4">La sanción se aplica a las personas físicas y comerciales que no presenten formularios incluyendo, pero no limitado al Formulario 1040, la declaración del impuesto individual sobre la renta de los EE.UU. y el Formulario 1120, declaración del impuesto sobre la renta de las corporaciones de los EE.UU.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="4" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="d5ad21c3-f935-595e-add1-e5572deff8e7">
+        <source>The penalty doesn’t apply if you can show the failure was due to reasonable cause.</source>
+        <seg-source><mrk mtype="seg" mid="5">The penalty doesn’t apply if you can show the failure was due to reasonable cause.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="5">La pena no se aplica si se puede demostrar que el fracaso se debió a una causa razonable.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="5" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="278b19fd-d036-5154-a3b7-17b5573a2d30">
+        <source>The penalty is 5% of the tax due (less any tax paid on time and available credits) for each month or partial month the return is late.</source>
+        <seg-source><mrk mtype="seg" mid="6">The penalty is 5% of the tax due (less any tax paid on time and available credits) for each month or partial month the return is late.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="6">La sanción es del 5% del impuesto adeudado (menos cualquier impuesto pagado a tiempo y créditos disponibles) por cada mes o mes parcial la devolución es tardía.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="6" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="1e0c295e-5d15-581c-a41a-f85af8261969">
+        <source>The penalty accrues up to a maximum of 25%.</source>
+        <seg-source><mrk mtype="seg" mid="7">The penalty accrues up to a maximum of 25%.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="7">La sanción se acumula hasta un máximo del 25%.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="7" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="770dce02-5795-569f-8944-ab565c11eb13">
+        <source>We calculate the failure to file penalty in this way:</source>
+        <seg-source><mrk mtype="seg" mid="8">We calculate the failure to file penalty in this way:</mrk></seg-source>
+        <target><mrk mtype="seg" mid="8">Calculamos la falta de presentación de la sanción de esta manera:</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="8" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="fce0d721-3cd0-5db0-94f2-4328e84fc711">
+        <source>Tax required to be shown on the return,</source>
+        <seg-source><mrk mtype="seg" mid="9">Tax required to be shown on the return,</mrk></seg-source>
+        <target><mrk mtype="seg" mid="9">Impuesto que debe consignarse en la declaración,</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="9" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b480b9d9-2e68-5b77-bc68-465d4c9caec1">
+        <source>Less any tax paid on time (example: withholding credits or estimated tax payments),</source>
+        <seg-source><mrk mtype="seg" mid="10">Less any tax paid on time (example: withholding credits or estimated tax payments),</mrk></seg-source>
+        <target><mrk mtype="seg" mid="10">Menos cualquier impuesto pagado a tiempo (ejemplo: retención de créditos o pago estimado de impuestos),</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="10" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="4b9ed0ec-6d68-5aa6-86cb-96a4e778e12d">
+        <source>Less available refundable credits, then</source>
+        <seg-source><mrk mtype="seg" mid="11">Less available refundable credits, then</mrk></seg-source>
+        <target><mrk mtype="seg" mid="11">Menos créditos reembolsables disponibles, entonces</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="11" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="279757a5-e834-5032-9210-aae0b9d70976">
+        <source>Multiplied by 5% per month (up to 25%).</source>
+        <seg-source><mrk mtype="seg" mid="12">Multiplied by 5% per month (up to 25%).</mrk></seg-source>
+        <target><mrk mtype="seg" mid="12">Se multiplica por 5% al mes (hasta 25%).</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="12" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="4c379f9f-fd95-50d3-92e3-681fa3129daa">
+        <source>If the return is more than 60 days late, the minimum penalty is the amount listed below or 100% of the underpayment, whichever is less.</source>
+        <seg-source><mrk mtype="seg" mid="13">If the return is more than 60 days late, the minimum penalty is the amount listed below or 100% of the underpayment, whichever is less.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="13">Si la devolución es de más de 60 días de retraso, la sanción mínima es la cantidad indicada a continuación o 100% del pago insuficiente, lo que sea menor.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="13" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="4b3d2eec-771a-59a4-a761-ae982d22959a">
+        <source>Forms 1040 and 1120 minimum failure to file penalty</source>
+        <seg-source><mrk mtype="seg" mid="14">Forms 1040 and 1120 minimum failure to file penalty</mrk></seg-source>
+        <target><mrk mtype="seg" mid="14">Formularios 1040 y 1120 mínimo de incumplimiento de la pena</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="14" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="a8f4dfaa-90c8-58da-869a-1f2fe4ae183b">
+        <source>After 5 months the failure to file penalty will max out, but the failure to pay penalty continues.</source>
+        <seg-source><mrk mtype="seg" mid="15">After 5 months the failure to file penalty will max out, but the failure to pay penalty continues.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="15">Después de 5 meses la falta de presentación de la pena será máximo, pero la falta de pago de la pena continúa.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="15" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7b9f9502-f95f-53d9-bb42-b051085fa829">
+        <source>The penalty applies to partnerships that fail to file a timely or complete return:</source>
+        <seg-source><mrk mtype="seg" mid="16">The penalty applies to partnerships that fail to file a timely or complete return:</mrk></seg-source>
+        <target><mrk mtype="seg" mid="16">La sanción se aplica a las sociedades que no presenten una declaración oportuna o completa:</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="16" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="5cf895d3-aa35-5fd3-9ab5-7609f997ac4e">
+        <source>Form 8985, Pass-Through —Statement Transmittal/Partnership Adjustment Tracking Report (Required under Sections 6226 and 6227)</source>
+        <seg-source><mrk mtype="seg" mid="17">Form 8985, Pass-Through —Statement Transmittal/Partnership Adjustment Tracking Report (Required under Sections 6226 and 6227)</mrk></seg-source>
+        <target><mrk mtype="seg" mid="17">Formulario 8985, Pase a través —Informe de seguimiento de la transmisión de declaraciones/ajuste de la asociación (requerido en las secciones 6226 y 6227)</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="17" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="27689bea-d6d7-5057-b0ce-844dff7133c2">
+        <source>The penalty doesn’t apply if the partnership can show the failure was due to reasonable cause.</source>
+        <seg-source><mrk mtype="seg" mid="18">The penalty doesn’t apply if the partnership can show the failure was due to reasonable cause.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="18">La pena no se aplica si la asociación puede demostrar que el fracaso se debió a una causa razonable.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="18" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="17bd96a2-dad0-52e6-ad94-536e06c2284f">
+        <source>The penalty calculation and amount depend on the return:</source>
+        <seg-source><mrk mtype="seg" mid="19">The penalty calculation and amount depend on the return:</mrk></seg-source>
+        <target><mrk mtype="seg" mid="19">El cálculo de la penalización y la cantidad dependen de la devolución:</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="19" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="6bc20fdf-43d2-59fc-984f-0adfd625cb57">
+        <source>Forms 1065, 1066 and 8985 failure to file base penalty rates</source>
+        <seg-source><mrk mtype="seg" mid="20">Forms 1065, 1066 and 8985 failure to file base penalty rates</mrk></seg-source>
+        <target><mrk mtype="seg" mid="20">Formularios 1065, 1066 y 8985</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="20" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="3448298b-e9ec-56e0-aadf-be0d6b0a2265">
+        <source>The partnership must consist of 10 or fewer partners.</source>
+        <seg-source><mrk mtype="seg" mid="21">The partnership must consist of 10 or fewer partners.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="21">La asociación debe estar compuesta por diez o menos socios.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="21" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="4243bf84-d8cd-5081-bf90-c016a00eedad">
+        <source>Each partner is either an individual (excluding nonresident aliens), or the estate of a deceased partner.</source>
+        <seg-source><mrk mtype="seg" mid="22">Each partner is either an individual (excluding nonresident aliens), or the estate of a deceased partner.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="22">Cada pareja es una persona (excluidos los extranjeros no residentes) o la herencia de una pareja fallecida.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="22" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="2d901da6-a068-5d88-a12c-e161cea8c82a">
+        <source>Each partner's items of income, deductions and credits are allocated in the same proportion as all other items of income, deductions, and credits.</source>
+        <seg-source><mrk mtype="seg" mid="23">Each partner's items of income, deductions and credits are allocated in the same proportion as all other items of income, deductions, and credits.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="23">Las partidas de ingresos, deducciones y créditos de cada socio se asignan en la misma proporción que todas las demás partidas de ingresos, deducciones y créditos.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="23" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="ec853f54-66b3-54fc-a8d9-b1688f5a1fdc">
+        <source>Each partner reported the partner’s share of partnership income on the partner’s timely filed income tax return.</source>
+        <seg-source><mrk mtype="seg" mid="24">Each partner reported the partner’s share of partnership income on the partner’s timely filed income tax return.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="24">Cada socio informó de la participación del socio en los ingresos de la asociación en la declaración de impuestos presentada oportunamente por el socio.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="24" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="a36efbe6-b9f2-5265-94bf-4f8f7e358d7c">
+        <source>The penalty applies to S corporations that fail to file a timely or complete Form 1120-S, U.S. Income Tax Return for an S Corporation.</source>
+        <seg-source><mrk mtype="seg" mid="25">The penalty applies to S corporations that fail to file a timely or complete Form 1120-S, U.S. Income Tax Return for an S Corporation.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="25">La sanción se aplica a las corporaciones S que no presenten un formulario 1120-S o una declaración del impuesto sobre la renta para una corporación S.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="25" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7739687f-92de-5d25-aaff-8168c51d669b">
+        <source>The penalty doesn’t apply if the S corporation can show the failure was due to reasonable cause.</source>
+        <seg-source><mrk mtype="seg" mid="26">The penalty doesn’t apply if the S corporation can show the failure was due to reasonable cause.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="26">La sanción no se aplica si la corporación S puede demostrar que el fracaso se debió a una causa razonable.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="26" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="777a49d5-02fb-59bb-b7c5-7c370901545d">
+        <source>The penalty is charged for each month (or partial month) the failure continues, for up to 12 months.</source>
+        <seg-source><mrk mtype="seg" mid="27">The penalty is charged for each month (or partial month) the failure continues, for up to 12 months.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="27">La pena se cobra por cada mes (o mes parcial) el fracaso continúa, por un máximo de 12 meses.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="27" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="3f2ae0b3-5895-5258-9f7e-5390579dc10f">
+        <source>We charge interest on penalties.</source>
+        <seg-source><mrk mtype="seg" mid="28">We charge interest on penalties.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="28">Cobramos intereses por las sanciones.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="28" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="85c02577-7124-5521-a17a-2f3476e38f51">
+        <source>The date from which we begin to charge interest varies by the type of penalty.</source>
+        <seg-source><mrk mtype="seg" mid="29">The date from which we begin to charge interest varies by the type of penalty.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="29">La fecha a partir de la cual empezamos a cobrar intereses varía según el tipo de penalización.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="29" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="8b3a248f-0a49-509f-955e-e0ddb3505083">
+        <source>Interest increases the amount you owe until you pay your balance in full.</source>
+        <seg-source><mrk mtype="seg" mid="30">Interest increases the amount you owe until you pay your balance in full.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="30">El interés aumenta la cantidad que debe hasta que pague su saldo en su totalidad.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="30" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="71317af2-6244-5fd1-9c6c-d4cb6d2f1025">
+        <source>For more information about the interest we charge on penalties, see Interest.</source>
+        <seg-source><mrk mtype="seg" mid="31">For more information about the interest we charge on penalties, see Interest.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="31">Para obtener más información sobre el interés que cobramos por las sanciones, consulte Intereses.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="31" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="851cdf36-7a01-5f85-a559-7252d97a2158">
+        <source>Send us a payment or pay your taxes in full to stop future penalties and interest from adding up.</source>
+        <seg-source><mrk mtype="seg" mid="32">Send us a payment or pay your taxes in full to stop future penalties and interest from adding up.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="32">Envíenos un pago o pague sus impuestos en su totalidad para detener futuras penalidades e intereses de suma.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="32" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b6469054-5493-5832-9f67-bc8d35309a9a">
+        <source>We may be able to remove or reduce some penalties if you acted in good faith and can show reasonable cause for why you weren't able to meet your tax obligations.</source>
+        <seg-source><mrk mtype="seg" mid="33">We may be able to remove or reduce some penalties if you acted in good faith and can show reasonable cause for why you weren't able to meet your tax obligations.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="33">Podemos eliminar o reducir algunas sanciones si usted actuó de buena fe y puede mostrar una causa razonable de por qué no fue capaz de cumplir con sus obligaciones tributarias.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="33" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="0deb7473-1c6b-5589-863d-79fe8caec31b">
+        <source>By law we cannot remove or reduce interest unless the penalty is removed or reduced.</source>
+        <seg-source><mrk mtype="seg" mid="34">By law we cannot remove or reduce interest unless the penalty is removed or reduced.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="34">Por ley no podemos eliminar o reducir los intereses a menos que la pena sea eliminada o reducida.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="34" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="d6835492-afed-5c7a-bf0a-aaea10e4fc2e">
+        <source>For more information, see Penalty relief.</source>
+        <seg-source><mrk mtype="seg" mid="35">For more information, see Penalty relief.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="35">Para obtener más información, consulte Alivio de la pena.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="35" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="dbb19522-51b3-5792-9785-eb4bfe30eb29">
+        <source>If you disagree with the amount you owe, you may dispute the penalty.</source>
+        <seg-source><mrk mtype="seg" mid="36">If you disagree with the amount you owe, you may dispute the penalty.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="36">Si no está de acuerdo con la cantidad que debe, puede impugnar la pena.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="36" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7b20c7c8-566d-50ee-9fc8-b2bb04fb6cf8">
+        <source>Call us at the telephone number on your notice or letter or write us a letter stating why we should reconsider the penalty.</source>
+        <seg-source><mrk mtype="seg" mid="37">Call us at the telephone number on your notice or letter or write us a letter stating why we should reconsider the penalty.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="37">Llámenos al número de teléfono en su aviso o carta o escríbanos una carta indicando por qué debemos reconsiderar la sanción.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="37" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="88e71464-8665-5483-bd9c-c1d6cc98d388">
+        <source>Sign and send the letter along with any supporting documents to the address on your notice or letter.</source>
+        <seg-source><mrk mtype="seg" mid="38">Sign and send the letter along with any supporting documents to the address on your notice or letter.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="38">Firme y envíe la carta junto con cualquier documento de apoyo a la dirección en su aviso o carta.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="38" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="54a48278-330d-53ee-a54a-c9f6ff6d3e87">
+        <source>Have this information when you call or send your letter:</source>
+        <seg-source><mrk mtype="seg" mid="39">Have this information when you call or send your letter:</mrk></seg-source>
+        <target><mrk mtype="seg" mid="39">Tenga esta información cuando llame o envíe su carta:</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="39" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="b1556e04-4021-50c4-88f9-230455f3246a">
+        <source>The notice or letter we sent you</source>
+        <seg-source><mrk mtype="seg" mid="40">The notice or letter we sent you</mrk></seg-source>
+        <target><mrk mtype="seg" mid="40">El aviso o la carta que le enviamos</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="40" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="44367ceb-6ca4-52e9-bcab-ff63228bbc9a">
+        <source>The penalty you want us to reconsider</source>
+        <seg-source><mrk mtype="seg" mid="41">The penalty you want us to reconsider</mrk></seg-source>
+        <target><mrk mtype="seg" mid="41">La pena que quieres que reconsideremos.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="41" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="fce86610-8fdb-5b3a-a94c-dc0a3f4e7aac">
+        <source>For each penalty, an explanation of why you think we should remove it</source>
+        <seg-source><mrk mtype="seg" mid="42">For each penalty, an explanation of why you think we should remove it</mrk></seg-source>
+        <target><mrk mtype="seg" mid="42">Por cada pena, una explicación de por qué crees que deberíamos eliminarla</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="42" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="7a4df413-0fc3-5da8-b620-6720f34f3b0c">
+        <source>If you didn’t receive a notice, get telephone assistance.</source>
+        <seg-source><mrk mtype="seg" mid="43">If you didn’t receive a notice, get telephone assistance.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="43">Si no recibió un aviso, obtenga asistencia telefónica.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="43" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="3fec2482-7e8d-5de2-8b47-596155306cea">
+        <source>You can avoid a penalty by filing and paying your tax by the due date.</source>
+        <seg-source><mrk mtype="seg" mid="44">You can avoid a penalty by filing and paying your tax by the due date.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="44">Usted puede evitar una penalización al presentar y pagar su impuesto en la fecha de vencimiento.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="44" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="6ac13f3a-c5a9-5ee2-b2b7-4123a3c3194e">
+        <source>If you can't do so, you can apply for an extension of time to file or a payment plan.</source>
+        <seg-source><mrk mtype="seg" mid="45">If you can't do so, you can apply for an extension of time to file or a payment plan.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="45">Si no puede hacerlo, puede solicitar una extensión de tiempo para presentar o un plan de pago.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="45" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="82506c84-7f91-5f41-9187-411d7747c92b">
+        <source>If you need more time to prepare your tax return, apply for an extension of time to file.</source>
+        <seg-source><mrk mtype="seg" mid="46">If you need more time to prepare your tax return, apply for an extension of time to file.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="46">Si necesita más tiempo para preparar su declaración de impuestos, solicite una extensión de tiempo para presentar.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="46" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="4da08501-c210-50f0-8ddc-a2dc828e507b">
+        <source>This does not grant you an extension of time to pay.</source>
+        <seg-source><mrk mtype="seg" mid="47">This does not grant you an extension of time to pay.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="47">Esto no le concede una extensión de tiempo para pagar.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="47" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="216ab178-0665-593f-8aeb-e5bc0dc64421">
+        <source>A payment plan can help you pay over time.</source>
+        <seg-source><mrk mtype="seg" mid="48">A payment plan can help you pay over time.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="48">Un plan de pago puede ayudarle a pagar con el tiempo.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="48" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="76b8538c-1313-5e1b-9d92-3e6a61f4642c">
+        <source>If you can't pay the full amount of your taxes or penalty on time, pay what you can now and apply for a payment plan.</source>
+        <seg-source><mrk mtype="seg" mid="49">If you can't pay the full amount of your taxes or penalty on time, pay what you can now and apply for a payment plan.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="49">Si no puedes pagar la cantidad completa de tus impuestos o penalidades a tiempo, paga lo que puedas ahora y solicita un plan de pago.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="49" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="1343c5fe-1451-537b-aece-efd705f3d7c9">
+        <source>You may reduce future penalties when you set up a payment plan.</source>
+        <seg-source><mrk mtype="seg" mid="50">You may reduce future penalties when you set up a payment plan.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="50">Puede reducir las sanciones futuras cuando establezca un plan de pago.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="50" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="c1182152-9495-5f78-b3a1-b2aa4afef239">
+        <source>For help with a penalty, call the phone number on your notice.</source>
+        <seg-source><mrk mtype="seg" mid="51">For help with a penalty, call the phone number on your notice.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="51">Para obtener ayuda con una penalización, llame al número de teléfono en su aviso.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="51" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+      <trans-unit id="2bb98596-1bbd-507f-9855-b5b082acd19b">
+        <source>If you didn’t receive a notice, use telephone assistance.</source>
+        <seg-source><mrk mtype="seg" mid="52">If you didn’t receive a notice, use telephone assistance.</mrk></seg-source>
+        <target><mrk mtype="seg" mid="52">Si no recibió un aviso, utilice la asistencia telefónica.</mrk></target>
+        <sdl:seg-defs>
+          <sdl:seg id="52" conf="Draft" origin="mt" origin-system="Helsinki-NLP/opus-mt-en-es"/>
+        </sdl:seg-defs>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

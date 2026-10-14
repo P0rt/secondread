@@ -37,8 +37,8 @@
           <label class="lp">
             <span class="lp-label">Language pair</span>
             <select id="lp">
+              <option value="en-es" selected>English → Spanish</option>
               <option value="en-ru">English → Russian</option>
-              <option value="en-es">English → Spanish</option>
             </select>
           </label>
         </div>
@@ -64,7 +64,7 @@
           <div class="panel" id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" hidden>
             <label class="visually-hidden" for="paste">Source and machine translation, one pair per line</label>
             <textarea id="paste" rows="7" spellcheck="false" autocomplete="off"
-              placeholder="Paste two columns from a spreadsheet: source ⇥ machine translation, one pair per line.&#10;&#10;We will not be able to deliver before Friday. ⇥ Мы сможем доставить до пятницы."></textarea>
+              placeholder="Paste two columns from a spreadsheet: source ⇥ machine translation, one pair per line.&#10;&#10;Do not flush this medicine. ⇥ Tire este medicamento por el inodoro."></textarea>
             <div class="paste-foot">
               <span id="paste-info" class="hint">One pair per line: source, Tab, machine translation.</span>
               <button type="button" id="check-paste" class="btn btn-primary" disabled>Check pairs</button>
@@ -79,7 +79,7 @@
 
         <p id="demo-line" class="demo-line">
           No file at hand? <button type="button" id="demo-btn" class="link-btn">Open the demo</button>,
-          10 segments of public WMT22 English → Russian.
+          a real public document, machine-translated into Spanish, with an answer key.
         </p>
       </section>
 

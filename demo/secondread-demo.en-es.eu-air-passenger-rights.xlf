@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="eu-air-passenger-rights.html" datatype="html" source-language="en-GB" target-language="es-ES">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>Regulation (EC) No 261/2004 (air passenger rights), Articles 1-19. Source: EUR-Lex, Regulation (EC) No 261/2004, OJ L 46, 17.2.2004, p. 1. © European Union, https://eur-lex.europa.eu, 1998-2026. Segmented and aligned by SecondRead; only European Union documents published in the Official Journal are deemed authentic. MT: OPUS-MT en-es (MarianMT) (Helsinki-NLP/opus-mt-en-es), Apache-2.0 (model card front matter at the pinned revision). The Spanish targets are this machine translation, not the publisher's official Spanish (that is in demo/answer_key.en-es.json). SecondRead demo job, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="eu-air-passenger-rights-001">
+        <source>1. This Regulation establishes, under the conditions specified herein, minimum rights for passengers when:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1) El presente Reglamento establece, en las condiciones especificadas en él, derechos mínimos para los pasajeros cuando:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 1 (Subject)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-002">
+        <source>(a) they are denied boarding against their will;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) se les deniegue el embarque contra su voluntad;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 1 (Subject)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-003">
+        <source>(b) their flight is cancelled;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) se cancele su vuelo;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 1 (Subject)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-004">
+        <source>(c) their flight is delayed.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) se retrase su vuelo.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 1 (Subject)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-005">
+        <source>For the purposes of this Regulation:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">A efectos del presente Reglamento, se entenderá por:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-006">
+        <source>(a) "air carrier" means an air transport undertaking with a valid operating licence;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) "compañía aérea": una empresa de transporte aéreo con una licencia de explotación válida;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-007">
+        <source>(b) "operating air carrier" means an air carrier that performs or intends to perform a flight under a contract with a passenger or on behalf of another person, legal or natural, having a contract with that passenger;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) "compañía aérea operadora": una compañía aérea que realice o se proponga realizar un vuelo en virtud de un contrato con un pasajero o en nombre de otra persona, jurídica o natural, que tenga un contrato con ese pasajero;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-008">
+        <source>(c) "Community carrier" means an air carrier with a valid operating licence granted by a Member State in accordance with the provisions of Council Regulation (EEC) No 2407/92 of 23 July 1992 on licensing of air carriers;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) "compañía comunitaria": una compañía aérea con una licencia de explotación válida concedida por un Estado miembro de conformidad con las disposiciones del Reglamento (CEE) no 2407/92 del Consejo, de 23 de julio de 1992, relativo a la concesión de licencias a las compañías aéreas;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-009">
+        <source>(d) "tour operator" means, with the exception of an air carrier, an organiser within the meaning of Article 2, point 2, of Council Directive 90/314/EEC of 13 June 1990 on package travel, package holidays and package tours;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">d) "operador turístico": a excepción de una compañía aérea, un organizador en el sentido del apartado 2 del artículo 2 de la Directiva 90/314/CEE del Consejo, de 13 de junio de 1990, relativa a los viajes combinados, las vacaciones combinadas y los viajes combinados;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-010">
+        <source>(e) "package" means those services defined in Article 2, point 1, of Directive 90/314/EEC;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">e) "paquete": los servicios definidos en el apartado 1 del artículo 2 de la Directiva 90/314/CEE;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-011">
+        <source>(f) "ticket" means a valid document giving entitlement to transport, or something equivalent in paperless form, including electronic form, issued or authorised by the air carrier or its authorised agent;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">f) "billete": un documento válido que da derecho al transporte, o algo equivalente en forma impresa, incluida la forma electrónica, expedido o autorizado por la compañía aérea o su agente autorizado;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-012">
+        <source>(g) "reservation" means the fact that the passenger has a ticket, or other proof, which indicates that the reservation has been accepted and registered by the air carrier or tour operator;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">g) "reserva": el hecho de que el pasajero tenga un billete u otra prueba que indique que la reserva ha sido aceptada y registrada por la compañía aérea o el operador turístico;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-013">
+        <source>(h) "final destination" means the destination on the ticket presented at the check-in counter or, in the case of directly connecting flights, the destination of the last flight; alternative connecting flights available shall not be taken into account if the original planned arrival time is respected;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">h) "destino final": el destino del billete presentado en el mostrador de facturación o, en el caso de vuelos de conexión directa, el destino del último vuelo; no se tendrán en cuenta los vuelos de conexión alternativos disponibles si se respeta la hora de llegada prevista original;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-014">
+        <source>(i) "person with reduced mobility" means any person whose mobility is reduced when using transport because of any physical disability (sensory or locomotory, permanent or temporary), intellectual impairment, age or any other cause of disability, and whose situation needs special attention and adaptation to the person's needs of the services made available to all passengers;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">i) "persona con movilidad reducida": toda persona cuya movilidad se vea reducida al utilizar el transporte por alguna discapacidad física (sensorial o locomotaria, permanente o temporal), discapacidad intelectual, edad o cualquier otra causa de discapacidad, y cuya situación requiera una atención especial y una adaptación a las necesidades de la persona de los servicios puestos a disposición de todos los pasajeros;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-015">
+        <source>(j) "denied boarding" means a refusal to carry passengers on a flight, although they have presented themselves for boarding under the conditions laid down in Article 3(2), except where there are reasonable grounds to deny them boarding, such as reasons of health, safety or security, or inadequate travel documentation;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">j) "abordo denegado": la negativa a transportar pasajeros en un vuelo, aunque se hayan presentado para el embarque en las condiciones establecidas en el apartado 2 del artículo 3, salvo que existan motivos razonables para denegarles el embarque, como motivos de salud, seguridad o documentación de viaje inadecuada;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-016">
+        <source>(k) "volunteer" means a person who has presented himself for boarding under the conditions laid down in Article 3(2) and responds positively to the air carrier's call for passengers prepared to surrender their reservation in exchange for benefits.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">k) "voluntario": toda persona que se haya presentado para el embarque en las condiciones establecidas en el apartado 2 del artículo 3 y responda positivamente a la solicitud de la compañía aérea de que los pasajeros estén dispuestos a renunciar a su reserva a cambio de prestaciones.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-017">
+        <source>(l) "cancellation" means the non-operation of a flight which was previously planned and on which at least one place was reserved.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">l) "cancelación": la inoperancia de un vuelo planificado previamente y en el que se haya reservado al menos un lugar.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 2 (Definitions)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-018">
+        <source>1. This Regulation shall apply:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1) El presente Reglamento se aplicará:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-019">
+        <source>(a) to passengers departing from an airport located in the territory of a Member State to which the Treaty applies;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) a los pasajeros que salgan de un aeropuerto situado en el territorio de un Estado miembro al que se aplique el Tratado;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-020">
+        <source>(b) to passengers departing from an airport located in a third country to an airport situated in the territory of a Member State to which the Treaty applies, unless they received benefits or compensation and were given assistance in that third country, if the operating air carrier of the flight concerned is a Community carrier.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) a los pasajeros que salgan de un aeropuerto situado en un tercer país a un aeropuerto situado en el territorio de un Estado miembro al que se aplique el Tratado, salvo que hayan recibido beneficios o compensación y hayan recibido asistencia en dicho tercer país, si la compañía aérea operadora del vuelo de que se trate es una compañía comunitaria.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-021">
+        <source>2. Paragraph 1 shall apply on the condition that passengers:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. El apartado 1 se aplicará a condición de que los pasajeros:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-022">
+        <source>(a) have a confirmed reservation on the flight concerned and, except in the case of cancellation referred to in Article 5, present themselves for check-in,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) hayan confirmado una reserva en el vuelo de que se trate y, salvo en el caso de la cancelación a que se refiere el artículo 5, se presenten para el registro de entrada,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-023">
+        <source>- as stipulated and at the time indicated in advance and in writing (including by electronic means) by the air carrier, the tour operator or an authorised travel agent,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- según lo estipulado y en el momento indicado de antemano y por escrito (incluso por medios electrónicos) por la compañía aérea, el operador turístico o un agente de viajes autorizado,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-024">
+        <source>or, if no time is indicated,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">o, si no se indica tiempo,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-025">
+        <source>- not later than 45 minutes before the published departure time; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- a más tardar 45 minutos antes de la hora de salida publicada, o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-026">
+        <source>(b) have been transferred by an air carrier or tour operator from the flight for which they held a reservation to another flight, irrespective of the reason.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) hayan sido trasladados por una compañía aérea o un operador turístico desde el vuelo para el que tenían una reserva a otro vuelo, independientemente de la razón.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-027">
+        <source>3. This Regulation shall not apply to passengers travelling free of charge or at a reduced fare not available directly or indirectly to the public.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3) El presente Reglamento no se aplicará a los pasajeros que viajen de forma gratuita o con tarifa reducida no disponible directa o indirectamente para el público.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-028">
+        <source>However, it shall apply to passengers having tickets issued under a frequent flyer programme or other commercial programme by an air carrier or tour operator.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">No obstante, se aplicará a los pasajeros que tengan billetes expedidos en el marco de un programa de viajero frecuente u otro programa comercial por una compañía aérea o un operador turístico.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-029">
+        <source>4. This Regulation shall only apply to passengers transported by motorised fixed wing aircraft.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">4) El presente Reglamento se aplicará únicamente a los pasajeros transportados por aeronaves de ala fija motorizadas.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-030">
+        <source>5. This Regulation shall apply to any operating air carrier providing transport to passengers covered by paragraphs 1 and 2.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">5) El presente Reglamento se aplicará a toda compañía aérea operadora que proporcione transporte a los pasajeros contemplados en los apartados 1 y 2.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-031">
+        <source>Where an operating air carrier which has no contract with the passenger performs obligations under this Regulation, it shall be regarded as doing so on behalf of the person having a contract with that passenger.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Cuando una compañía aérea operadora que no tenga un contrato con el pasajero cumpla obligaciones en virtud del presente Reglamento, se considerará que lo hace en nombre de la persona que tenga un contrato con ese pasajero.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-032">
+        <source>6. This Regulation shall not affect the rights of passengers under Directive 90/314/EEC.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">6) El presente Reglamento no afectará a los derechos de los pasajeros en virtud de la Directiva 90/314/CEE.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-033">
+        <source>This Regulation shall not apply in cases where a package tour is cancelled for reasons other than cancellation of the flight.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El presente Reglamento no se aplicará en los casos en que se cancele un viaje combinado por motivos distintos de la cancelación del vuelo.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 3 (Scope)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-034">
+        <source>1. When an operating air carrier reasonably expects to deny boarding on a flight, it shall first call for volunteers to surrender their reservations in exchange for benefits under conditions to be agreed between the passenger concerned and the operating air carrier.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1. Cuando una compañía aérea operadora prevea razonablemente denegar el embarque en un vuelo, pedirá en primer lugar a los voluntarios que renuncien a sus reservas a cambio de beneficios en las condiciones que convengan el pasajero de que se trate y la compañía aérea operadora.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 4 (Denied boarding)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-035">
+        <source>Volunteers shall be assisted in accordance with Article 8, such assistance being additional to the benefits mentioned in this paragraph.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Los voluntarios recibirán asistencia de conformidad con el artículo 8, que será adicional a las prestaciones mencionadas en el presente apartado.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 4 (Denied boarding)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-036">
+        <source>2. If an insufficient number of volunteers comes forward to allow the remaining passengers with reservations to board the flight, the operating air carrier may then deny boarding to passengers against their will.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. Si un número insuficiente de voluntarios se presenta para permitir que los pasajeros restantes con reservas a bordo del vuelo, la compañía aérea operadora podrá entonces denegar el embarque a los pasajeros en contra de su voluntad.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 4 (Denied boarding)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-037">
+        <source>3. If boarding is denied to passengers against their will, the operating air carrier shall immediately compensate them in accordance with Article 7 and assist them in accordance with Articles 8 and 9.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3. Si se deniega el embarque a los pasajeros contra su voluntad, la compañía aérea operadora les indemnizará inmediatamente de conformidad con el artículo 7 y les prestará asistencia de conformidad con los artículos 8 y 9.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 4 (Denied boarding)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-038">
+        <source>(a) be offered assistance by the operating air carrier in accordance with Article 8; and</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) que la compañía aérea operadora ofrezca asistencia de conformidad con el artículo 8; y</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-039">
+        <source>(b) be offered assistance by the operating air carrier in accordance with Article 9(1)(a) and 9(2), as well as, in event of re-routing when the reasonably expected time of departure of the new flight is at least the day after the departure as it was planned for the cancelled flight, the assistance specified in Article 9(1)(b) and 9(1)(c); and</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) que la compañía aérea operadora ofrezca asistencia de conformidad con el artículo 9, apartado 1, letra a), y con el artículo 9, apartado 2, así como, en caso de cambio de ruta cuando la hora razonablemente prevista de salida del nuevo vuelo sea al menos el día posterior a la salida prevista para el vuelo cancelado, la asistencia especificada en el artículo 9, apartado 1, letra b), y en el artículo 9, apartado 1, letra c); y</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-040">
+        <source>(c) have the right to compensation by the operating air carrier in accordance with Article 7, unless:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) tendrán derecho a indemnización por parte de la compañía aérea operadora de conformidad con el artículo 7, a menos que:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-041">
+        <source>(i) they are informed of the cancellation at least two weeks before the scheduled time of departure; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">i) sean informados de la cancelación al menos dos semanas antes de la hora prevista de salida; o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-042">
+        <source>(ii) they are informed of the cancellation between two weeks and seven days before the scheduled time of departure and are offered re-routing, allowing them to depart no more than two hours before the scheduled time of departure and to reach their final destination less than four hours after the scheduled time of arrival; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">ii) se les informe de la cancelación entre dos semanas y siete días antes de la hora prevista de salida y se les ofrezca un cambio de ruta que les permita salir no más de dos horas antes de la hora prevista de salida y llegar a su destino final menos de cuatro horas después de la hora prevista de llegada; o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-043">
+        <source>(iii) they are informed of the cancellation less than seven days before the scheduled time of departure and are offered re-routing, allowing them to depart no more than one hour before the scheduled time of departure and to reach their final destination less than two hours after the scheduled time of arrival.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">iii) se les informe de la cancelación con menos de siete días de antelación a la hora prevista de salida y se les ofrezca un cambio de ruta que les permita salir no más de una hora antes de la hora prevista de salida y llegar a su destino final menos de dos horas después de la hora prevista de llegada.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-044">
+        <source>2. When passengers are informed of the cancellation, an explanation shall be given concerning possible alternative transport.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. Cuando se informe a los pasajeros de la cancelación, se explicará el posible transporte alternativo.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-045">
+        <source>3. An operating air carrier shall not be obliged to pay compensation in accordance with Article 7, if it can prove that the cancellation is caused by extraordinary circumstances which could not have been avoided even if all reasonable measures had been taken.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3. Una compañía aérea operadora no estará obligada a pagar una indemnización de conformidad con el artículo 7, si puede demostrar que la cancelación es causada por circunstancias extraordinarias que no podrían haberse evitado aun cuando se hubieran adoptado todas las medidas razonables.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-046">
+        <source>4. The burden of proof concerning the questions as to whether and when the passenger has been informed of the cancellation of the flight shall rest with the operating air carrier.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">4. La carga de la prueba relativa a la cuestión de si el pasajero ha sido informado de la cancelación del vuelo y cuándo lo ha hecho recaerá en la compañía aérea operadora.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 5 (Cancellation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-047">
+        <source>1. When an operating air carrier reasonably expects a flight to be delayed beyond its scheduled time of departure:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1. Cuando una compañía aérea operadora espere razonablemente que un vuelo se retrase más allá de la hora prevista de salida:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-048">
+        <source>(a) for two hours or more in the case of flights of 1500 kilometres or less; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) durante dos horas o más en el caso de vuelos de 1500 kilómetros o menos; o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-049">
+        <source>(b) for three hours or more in the case of all intra-Community flights of more than 1500 kilometres and of all other flights between 1500 and 3500 kilometres; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) durante tres horas o más en el caso de todos los vuelos intracomunitarios de más de 1500 kilómetros y de todos los demás vuelos entre 1500 y 3500 kilómetros, o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-050">
+        <source>(c) for four hours or more in the case of all flights not falling under (a) or (b),</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) durante cuatro horas o más en el caso de todos los vuelos no incluidos en las letras a) o b),</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-051">
+        <source>(i) the assistance specified in Article 9(1)(a) and 9(2); and</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">i) la asistencia especificada en el artículo 9, apartado 1, letra a), y en el artículo 9, apartado 2; y</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-052">
+        <source>(ii) when the reasonably expected time of departure is at least the day after the time of departure previously announced, the assistance specified in Article 9(1)(b) and 9(1)(c); and</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">ii) cuando la hora de salida razonablemente prevista sea al menos el día después de la hora de salida anunciada previamente, la asistencia especificada en el artículo 9, apartado 1, letra b), y en el artículo 9, apartado 1, letra c); y</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-053">
+        <source>(iii) when the delay is at least five hours, the assistance specified in Article 8(1)(a).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">iii) cuando el retraso sea de al menos cinco horas, la asistencia especificada en la letra a) del apartado 1 del artículo 8.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-054">
+        <source>2. In any event, the assistance shall be offered within the time limits set out above with respect to each distance bracket.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. En cualquier caso, la asistencia se ofrecerá dentro de los plazos establecidos anteriormente con respecto a cada tramo de distancia.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 6 (Delay)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-055">
+        <source>1. Where reference is made to this Article, passengers shall receive compensation amounting to:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1) Cuando se haga referencia al presente artículo, los pasajeros recibirán una indemnización equivalente a:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-056">
+        <source>(a) EUR 250 for all flights of 1500 kilometres or less;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) 250 EUR para todos los vuelos de 1500 kilómetros o menos;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-057">
+        <source>(b) EUR 400 for all intra-Community flights of more than 1500 kilometres, and for all other flights between 1500 and 3500 kilometres;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) 400 EUR para todos los vuelos intracomunitarios de más de 1500 kilómetros, y para todos los demás vuelos entre 1500 y 3500 kilómetros;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-058">
+        <source>(c) EUR 600 for all flights not falling under (a) or (b).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) 600 euros para todos los vuelos no incluidos en las letras a) o b).</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-059">
+        <source>In determining the distance, the basis shall be the last destination at which the denial of boarding or cancellation will delay the passenger's arrival after the scheduled time.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para determinar la distancia, la base será el último destino en el que la denegación de embarque o cancelación retrasará la llegada del pasajero después de la hora prevista.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-060">
+        <source>2. When passengers are offered re-routing to their final destination on an alternative flight pursuant to Article 8, the arrival time of which does not exceed the scheduled arrival time of the flight originally booked</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. Cuando se ofrezca a los pasajeros un desvío a su destino final en un vuelo alternativo de conformidad con el artículo 8, cuya hora de llegada no exceda de la hora prevista de llegada del vuelo reservado inicialmente</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-061">
+        <source>(a) by two hours, in respect of all flights of 1500 kilometres or less; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) en dos horas, respecto de todos los vuelos de 1500 kilómetros o menos; o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-062">
+        <source>(b) by three hours, in respect of all intra-Community flights of more than 1500 kilometres and for all other flights between 1500 and 3500 kilometres; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) en tres horas, para todos los vuelos intracomunitarios de más de 1500 kilómetros y para todos los demás vuelos de entre 1500 y 3500 kilómetros, o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-063">
+        <source>(c) by four hours, in respect of all flights not falling under (a) or (b),</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) en cuatro horas, respecto de todos los vuelos no comprendidos en las letras a) o b),</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-064">
+        <source>the operating air carrier may reduce the compensation provided for in paragraph 1 by 50 %.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">la compañía aérea operadora podrá reducir en un 50 % la compensación prevista en el apartado 1.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-065">
+        <source>3. The compensation referred to in paragraph 1 shall be paid in cash, by electronic bank transfer, bank orders or bank cheques or, with the signed agreement of the passenger, in travel vouchers and/or other services.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3. La compensación a que se refiere el apartado 1 se pagará en efectivo, mediante transferencia bancaria electrónica, órdenes bancarias o cheques bancarios o, con el acuerdo firmado del pasajero, en vales de viaje y/u otros servicios.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-066">
+        <source>4. The distances given in paragraphs 1 and 2 shall be measured by the great circle route method.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">4. Las distancias indicadas en los párrafos 1 y 2 se medirán por el método de la ruta de gran círculo.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 7 (Right to compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-067">
+        <source>1. Where reference is made to this Article, passengers shall be offered the choice between:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1) Cuando se haga referencia al presente artículo, se ofrecerá a los pasajeros la elección entre:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-068">
+        <source>(a) - reimbursement within seven days, by the means provided for in Article 7(3), of the full cost of the ticket at the price at which it was bought, for the part or parts of the journey not made, and for the part or parts already made if the flight is no longer serving any purpose in relation to the passenger's original travel plan, together with, when relevant,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) - el reembolso, en un plazo de siete días, por los medios previstos en el apartado 3 del artículo 7, del coste total del billete al precio al que se haya comprado, de la parte o partes del viaje que no se hayan realizado, y de la parte o partes ya realizadas si el vuelo ya no cumple ninguna función en relación con el plan de viaje original del pasajero, junto con, cuando proceda,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-069">
+        <source>- a return flight to the first point of departure, at the earliest opportunity;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- un vuelo de regreso al primer punto de partida, lo antes posible;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-070">
+        <source>(b) re-routing, under comparable transport conditions, to their final destination at the earliest opportunity; or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) la reorientación, en condiciones de transporte comparables, a su destino final lo antes posible; o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-071">
+        <source>(c) re-routing, under comparable transport conditions, to their final destination at a later date at the passenger's convenience, subject to availability of seats.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) el cambio de ruta, en condiciones de transporte comparables, a su destino final en una fecha posterior, cuando sea conveniente para el pasajero, siempre que se disponga de asientos.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-072">
+        <source>2. Paragraph 1(a) shall also apply to passengers whose flights form part of a package, except for the right to reimbursement where such right arises under Directive 90/314/EEC.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2) La letra a) del apartado 1 se aplicará también a los pasajeros cuyos vuelos formen parte de un paquete, con excepción del derecho a reembolso cuando dicho derecho se derive de la Directiva 90/314/CEE.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-073">
+        <source>3. When, in the case where a town, city or region is served by several airports, an operating air carrier offers a passenger a flight to an airport alternative to that for which the booking was made, the operating air carrier shall bear the cost of transferring the passenger from that alternative airport either to that for which the booking was made, or to another close-by destination agreed with the passenger.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3. Cuando, en el caso de que una ciudad, ciudad o región sea atendida por varios aeropuertos, una compañía aérea operadora ofrezca a un pasajero un vuelo a un aeropuerto alternativo al para el que se hizo la reserva, la compañía aérea operadora correrá con los gastos de traslado del pasajero desde ese aeropuerto alternativo a aquel para el que se hizo la reserva, o a otro destino cercano acordado con el pasajero.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 8 (Right to reimbursement or re-routing)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-074">
+        <source>1. Where reference is made to this Article, passengers shall be offered free of charge:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1) Cuando se haga referencia al presente artículo, se ofrecerá gratuitamente a los pasajeros:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-075">
+        <source>(a) meals and refreshments in a reasonable relation to the waiting time;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) comidas y refrescos en una relación razonable con el tiempo de espera;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-076">
+        <source>(b) hotel accommodation in cases</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) Alojamiento en hoteles en casos</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-077">
+        <source>- where a stay of one or more nights becomes necessary, or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- cuando sea necesaria una estancia de una o más noches, o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-078">
+        <source>- where a stay additional to that intended by the passenger becomes necessary;</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- cuando sea necesaria una estancia adicional a la prevista por el pasajero;</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-079">
+        <source>(c) transport between the airport and place of accommodation (hotel or other).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) el transporte entre el aeropuerto y el lugar de alojamiento (hotel u otro).</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-080">
+        <source>2. In addition, passengers shall be offered free of charge two telephone calls, telex or fax messages, or e-mails.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. Además, se ofrecerá gratuitamente a los pasajeros dos llamadas telefónicas, mensajes de télex o fax, o mensajes de correo electrónico.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-081">
+        <source>3. In applying this Article, the operating air carrier shall pay particular attention to the needs of persons with reduced mobility and any persons accompanying them, as well as to the needs of unaccompanied children.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3. Al aplicar el presente artículo, la compañía aérea operadora prestará especial atención a las necesidades de las personas de movilidad reducida y de las personas que las acompañen, así como a las necesidades de los menores no acompañados.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 9 (Right to care)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-082">
+        <source>1. If an operating air carrier places a passenger in a class higher than that for which the ticket was purchased, it may not request any supplementary payment.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1. Si una compañía aérea operadora coloca a un pasajero en una clase superior a la para la que se compró el billete, no podrá solicitar ningún pago suplementario.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 10 (Upgrading and downgrading)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-083">
+        <source>2. If an operating air carrier places a passenger in a class lower than that for which the ticket was purchased, it shall within seven days, by the means provided for in Article 7(3), reimburse</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. Si una compañía aérea operadora coloca a un pasajero en una clase inferior a la para la que se compró el billete, reembolsará en un plazo de siete días, por los medios previstos en el apartado 3 del artículo 7,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 10 (Upgrading and downgrading)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-084">
+        <source>(a) 30 % of the price of the ticket for all flights of 1500 kilometres or less, or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">a) el 30 % del precio del billete para todos los vuelos de 1500 kilómetros o menos, o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 10 (Upgrading and downgrading)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-085">
+        <source>(b) 50 % of the price of the ticket for all intra-Community flights of more than 1500 kilometres, except flights between the European territory of the Member States and the French overseas departments, and for all other flights between 1500 and 3500 kilometres, or</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">b) el 50 % del precio del billete para todos los vuelos intracomunitarios de más de 1500 kilómetros, excepto los vuelos entre el territorio europeo de los Estados miembros y los departamentos franceses de ultramar, y para todos los demás vuelos de entre 1500 y 3500 kilómetros, o</target>
+        <note from="secondread-demo" annotates="source">Section: Article 10 (Upgrading and downgrading)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-086">
+        <source>(c) 75 % of the price of the ticket for all flights not falling under (a) or (b), including flights between the European territory of the Member States and the French overseas departments.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">c) el 75 % del precio del billete para todos los vuelos no incluidos en las letras a) o b), incluidos los vuelos entre el territorio europeo de los Estados miembros y los departamentos franceses de ultramar.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 10 (Upgrading and downgrading)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-087">
+        <source>1. Operating air carriers shall give priority to carrying persons with reduced mobility and any persons or certified service dogs accompanying them, as well as unaccompanied children.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1. Las compañías aéreas explotadoras darán prioridad al transporte de personas de movilidad reducida y de cualquier persona o perro de servicio certificado que las acompañe, así como de niños no acompañados.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 11 (Persons with reduced mobility or special needs)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-088">
+        <source>2. In cases of denied boarding, cancellation and delays of any length, persons with reduced mobility and any persons accompanying them, as well as unaccompanied children, shall have the right to care in accordance with Article 9 as soon as possible.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. En caso de denegación de embarque, cancelación y retraso de cualquier duración, las personas con movilidad reducida y las personas que las acompañen, así como los niños no acompañados, tendrán derecho a recibir cuidados de conformidad con el artículo 9 lo antes posible.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 11 (Persons with reduced mobility or special needs)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-089">
+        <source>1. This Regulation shall apply without prejudice to a passenger's rights to further compensation.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1) El presente Reglamento se aplicará sin perjuicio de los derechos de un pasajero a una indemnización suplementaria.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 12 (Further compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-090">
+        <source>The compensation granted under this Regulation may be deducted from such compensation.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La compensación concedida en virtud del presente Reglamento podrá deducirse de dicha compensación.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 12 (Further compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-091">
+        <source>2. Without prejudice to relevant principles and rules of national law, including case-law, paragraph 1 shall not apply to passengers who have voluntarily surrendered a reservation under Article 4(1).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. Sin perjuicio de los principios y normas pertinentes de la legislación nacional, incluida la jurisprudencia, el apartado 1 no se aplicará a los pasajeros que hayan renunciado voluntariamente a una reserva en virtud del párrafo 1 del artículo 4.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 12 (Further compensation)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-092">
+        <source>In cases where an operating air carrier pays compensation or meets the other obligations incumbent on it under this Regulation, no provision of this Regulation may be interpreted as restricting its right to seek compensation from any person, including third parties, in accordance with the law applicable.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">En los casos en que una compañía aérea operadora pague una indemnización o cumpla las demás obligaciones que le incumben en virtud del presente Reglamento, ninguna disposición del presente Reglamento podrá interpretarse en el sentido de que restrinja su derecho a solicitar indemnización a cualquier persona, incluidos terceros, de conformidad con la ley aplicable.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 13 (Right of redress)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-093">
+        <source>In particular, this Regulation shall in no way restrict the operating air carrier's right to seek reimbursement from a tour operator or another person with whom the operating air carrier has a contract.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">En particular, el presente Reglamento no restringirá en modo alguno el derecho de la compañía aérea operadora a solicitar el reembolso de un operador turístico u otra persona con la que la compañía aérea operadora tenga un contrato.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 13 (Right of redress)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-094">
+        <source>Similarly, no provision of this Regulation may be interpreted as restricting the right of a tour operator or a third party, other than a passenger, with whom an operating air carrier has a contract, to seek reimbursement or compensation from the operating air carrier in accordance with applicable relevant laws.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Del mismo modo, ninguna disposición del presente Reglamento podrá interpretarse en el sentido de que restrinja el derecho de un operador turístico o de un tercero, distinto de un pasajero, con el que una compañía aérea operadora tenga un contrato, a solicitar el reembolso o la indemnización de la compañía aérea operadora de conformidad con la legislación aplicable.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 13 (Right of redress)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-095">
+        <source>2. An operating air carrier denying boarding or cancelling a flight shall provide each passenger affected with a written notice setting out the rules for compensation and assistance in line with this Regulation.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. La compañía aérea operadora que deniegue el embarque o la cancelación de un vuelo proporcionará a cada pasajero afectado una notificación por escrito en la que se establezcan las normas de compensación y asistencia de conformidad con el presente Reglamento.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 14 (Obligation to inform passengers of their rights)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-096">
+        <source>It shall also provide each passenger affected by a delay of at least two hours with an equivalent notice.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">También proporcionará a cada pasajero afectado por un retraso de al menos dos horas un aviso equivalente.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 14 (Obligation to inform passengers of their rights)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-097">
+        <source>The contact details of the national designated body referred to in Article 16 shall also be given to the passenger in written form.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Los datos de contacto del organismo nacional designado a que se refiere el artículo 16 se facilitarán también al pasajero por escrito.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 14 (Obligation to inform passengers of their rights)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-098">
+        <source>3. In respect of blind and visually impaired persons, the provisions of this Article shall be applied using appropriate alternative means.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3. Con respecto a las personas ciegas o con discapacidad visual, las disposiciones del presente artículo se aplicarán utilizando medios alternativos adecuados.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 14 (Obligation to inform passengers of their rights)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-099">
+        <source>1. Obligations vis-à-vis passengers pursuant to this Regulation may not be limited or waived, notably by a derogation or restrictive clause in the contract of carriage.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1. Las obligaciones contraídas con los pasajeros en virtud del presente Reglamento no podrán ser limitadas ni dispensadas, en particular mediante una excepción o cláusula restrictiva en el contrato de transporte.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 15 (Exclusion of waiver)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-100">
+        <source>2. If, nevertheless, such a derogation or restrictive clause is applied in respect of a passenger, or if the passenger is not correctly informed of his rights and for that reason has accepted compensation which is inferior to that provided for in this Regulation, the passenger shall still be entitled to take the necessary proceedings before the competent courts or bodies in order to obtain additional compensation.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2. No obstante, si se aplica tal excepción o cláusula restrictiva a un pasajero, o si el pasajero no es informado correctamente de sus derechos y, por ese motivo, ha aceptado una indemnización inferior a la prevista en el presente Reglamento, el pasajero seguirá estando facultado para recurrir a los tribunales u organismos competentes para obtener una indemnización adicional.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 15 (Exclusion of waiver)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-101">
+        <source>1. Each Member State shall designate a body responsible for the enforcement of this Regulation as regards flights from airports situated on its territory and flights from a third country to such airports.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">1. Cada Estado miembro designará un organismo responsable de la aplicación del presente Reglamento en lo que respecta a los vuelos desde los aeropuertos situados en su territorio y desde un tercer país a dichos aeropuertos.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 16 (Infringements)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-102">
+        <source>Where appropriate, this body shall take the measures necessary to ensure that the rights of passengers are respected.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Cuando proceda, dicho organismo adoptará las medidas necesarias para garantizar el respeto de los derechos de los pasajeros.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 16 (Infringements)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-103">
+        <source>The Member States shall inform the Commission of the body that has been designated in accordance with this paragraph.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Los Estados miembros informarán a la Comisión del organismo designado de conformidad con el presente apartado.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 16 (Infringements)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-104">
+        <source>2. Without prejudice to Article 12, each passenger may complain to any body designated under paragraph 1, or to any other competent body designated by a Member State, about an alleged infringement of this Regulation at any airport situated on the territory of a Member State or concerning any flight from a third country to an airport situated on that territory.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">2) Sin perjuicio de lo dispuesto en el artículo 12, cada pasajero podrá denunciar ante cualquier organismo designado en virtud del apartado 1 o ante cualquier otro organismo competente designado por un Estado miembro una presunta infracción del presente Reglamento en cualquier aeropuerto situado en el territorio de un Estado miembro o en relación con cualquier vuelo de un tercer país a un aeropuerto situado en dicho territorio.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 16 (Infringements)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-105">
+        <source>3. The sanctions laid down by Member States for infringements of this Regulation shall be effective, proportionate and dissuasive.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">3) Las sanciones establecidas por los Estados miembros en caso de infracción del presente Reglamento serán efectivas, proporcionadas y disuasorias.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 16 (Infringements)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-106">
+        <source>The Commission shall report to the European Parliament and the Council by 1 January 2007 on the operation and the results of this Regulation, in particular regarding:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La Comisión informará al Parlamento Europeo y al Consejo, a más tardar el 1 de enero de 2007, sobre el funcionamiento y los resultados del presente Reglamento, en particular sobre:</target>
+        <note from="secondread-demo" annotates="source">Section: Article 17 (Report)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-107">
+        <source>- the incidence of denied boarding and of cancellation of flights,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- la incidencia de denegación de embarque y de cancelación de vuelos,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 17 (Report)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-108">
+        <source>- the possible extension of the scope of this Regulation to passengers having a contract with a Community carrier or holding a flight reservation which forms part of a "package tour" to which Directive 90/314/EEC applies and who depart from a third-country airport to an airport in a Member State, on flights not operated by Community air carriers,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- la posible ampliación del ámbito de aplicación del presente Reglamento a los pasajeros que tengan un contrato con un transportista comunitario o que tengan una reserva de vuelo que forme parte de un "viaje combinado" al que se aplique la Directiva 90/314/CEE y que partan de un aeropuerto de un tercer país a un aeropuerto de un Estado miembro en vuelos no explotados por compañías aéreas comunitarias,</target>
+        <note from="secondread-demo" annotates="source">Section: Article 17 (Report)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-109">
+        <source>- the possible revision of the amounts of compensation referred to in Article 7(1).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">- la posible revisión de los importes de la compensación a que se refiere el apartado 1 del artículo 7.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 17 (Report)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-110">
+        <source>The report shall be accompanied where necessary by legislative proposals.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El informe irá acompañado, en su caso, de propuestas legislativas.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 17 (Report)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-111">
+        <source>Regulation (EEC) No 295/91 shall be repealed.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Queda derogado el Reglamento (CEE) no 295/91.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 18 (Repeal)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-112">
+        <source>This Regulation shall enter into force on 17 February 2005.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El presente Reglamento entrará en vigor el 17 de febrero de 2005.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 19 (Entry into force)</note>
+      </trans-unit>
+      <trans-unit id="eu-air-passenger-rights-113">
+        <source>This Regulation shall be binding in its entirety and directly applicable in all Member States.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El presente Reglamento será obligatorio en todos sus elementos y directamente aplicable en cada Estado miembro.</target>
+        <note from="secondread-demo" annotates="source">Section: Article 19 (Entry into force)</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

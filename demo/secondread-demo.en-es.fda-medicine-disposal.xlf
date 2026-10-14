@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="fda-medicine-disposal.html" datatype="html" source-language="en-US" target-language="es-US">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>Where and How to Dispose of Unused Medicines. Source: U.S. Food and Drug Administration, "Where and How to Dispose of Unused Medicines" / "Cómo y dónde deshacerse de los medicamentos sin utilizar" (retrieved 2026-10-14). Segmented and aligned by SecondRead; no FDA logo is reused and no endorsement is implied. MT: OPUS-MT en-es (MarianMT) (Helsinki-NLP/opus-mt-en-es), Apache-2.0 (model card front matter at the pinned revision). The Spanish targets are this machine translation, not the publisher's official Spanish (that is in demo/answer_key.en-es.json). SecondRead demo job, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="fda-medicine-disposal-001">
+        <source>Is your medicine cabinet full of expired drugs or medications you no longer use?</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">¿Su botiquín está lleno de medicamentos caducados o medicamentos que ya no usa?</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-002">
+        <source>The best way to dispose of most types of expired, unwanted or unused medicines is through a drug take-back program.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La mejor manera de deshacerse de la mayoría de los tipos de medicamentos caducados, no deseados o no utilizados es a través de un programa de devolución de medicamentos.</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-003">
+        <source>To discard of your prescription or over-the-counter medicines, you can:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para descartar sus medicamentos recetados o de venta libre, puede:</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-004">
+        <source>Drop off them at a drug take-back location.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Déjalos en un lugar de recogida de drogas.</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-005">
+        <source>Mail them using a prepaid drug mail-back envelope.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Mándalos por correo con un sobre de devolución por correo de drogas prepagado.</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-006">
+        <source>If you cannot use those options, follow these guidelines:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si no puede usar esas opciones, siga estas pautas:</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-007">
+        <source>If your medicine is not on the flush list, follow the instructions below to discard it at home.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si su medicamento no está en la lista, siga las siguientes instrucciones para desecharlo en casa.</target>
+        <note from="secondread-demo" annotates="source">Section: Where and How to Dispose of Unused Medicines (introduction)</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-008">
+        <source>The U.S. Drug Enforcement Administration sponsors National Prescription Drug Take Back Day in communities nationwide.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La Administración Antidrogas de los Estados Unidos patrocina el Día Nacional de Retraso de las Drogas Recluidas en comunidades de todo el país.</target>
+        <note from="secondread-demo" annotates="source">Section: Drug Take-Back Options</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-009">
+        <source>Many communities also have their own drug take-back events.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Muchas comunidades también tienen sus propios eventos de recuperación de drogas.</target>
+        <note from="secondread-demo" annotates="source">Section: Drug Take-Back Options</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-010">
+        <source>Check with your local law enforcement officials to find a location near you or with the DEA to find a DEA-authorized collector in your community.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Consulte con los agentes de la ley locales para encontrar una ubicación cerca de usted o con la DEA para encontrar un coleccionista autorizado por la DEA en su comunidad.</target>
+        <note from="secondread-demo" annotates="source">Section: Drug Take-Back Options</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-011">
+        <source>A prepaid drug mail-back envelope is a convenient and secure disposal option.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Un sobre de devolución por correo de medicamentos de prepago es una opción de eliminación conveniente y segura.</target>
+        <note from="secondread-demo" annotates="source">Section: Use Prepaid Drug Mail-Back Envelopes</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-012">
+        <source>These envelopes are sold at various places, including retail pharmacies and online.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Estos sobres se venden en varios lugares, incluyendo farmacias minoristas y en línea.</target>
+        <note from="secondread-demo" annotates="source">Section: Use Prepaid Drug Mail-Back Envelopes</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-013">
+        <source>Some pharmacies offer them at no cost.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Algunas farmacias las ofrecen sin costo alguno.</target>
+        <note from="secondread-demo" annotates="source">Section: Use Prepaid Drug Mail-Back Envelopes</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-014">
+        <source>To use prepaid drug mail-back envelopes:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para usar sobres de devolución de medicamentos prepagados:</target>
+        <note from="secondread-demo" annotates="source">Section: Use Prepaid Drug Mail-Back Envelopes</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-015">
+        <source>Fill the envelope with your unused or expired medicines and seal it.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Llene el sobre con sus medicamentos no utilizados o caducados y selle.</target>
+        <note from="secondread-demo" annotates="source">Section: Use Prepaid Drug Mail-Back Envelopes</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-016">
+        <source>Mail the envelope using the U.S. Postal Service.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Envíe el sobre por correo con el Servicio Postal de los EE.UU.</target>
+        <note from="secondread-demo" annotates="source">Section: Use Prepaid Drug Mail-Back Envelopes</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-017">
+        <source>When a take-back option is not easily available, there are two ways to dispose of medicines at home, depending on the drug.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Cuando una opción de devolución no está fácilmente disponible, hay dos maneras de deshacerse de los medicamentos en casa, dependiendo del medicamento.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-018">
+        <source>Flushing medicines: Because some medicines could be especially harmful to others, they have specific directions to immediately flush them down the sink or toilet when they are no longer needed, and a take-back option is not readily available.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Flushing medications: Debido a que algunos medicamentos pueden ser especialmente dañinos para otros, tienen instrucciones específicas para tirarlos inmediatamente por el fregadero o el inodoro cuando ya no son necesarios, y una opción de devolución no está fácilmente disponible.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-019">
+        <source>How will you know?</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">¿Cómo lo sabrás?</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-020">
+        <source>Check the label or the patient information leaflet with your medicine.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Compruebe la etiqueta o el prospecto de información para el paciente con su medicamento.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-021">
+        <source>Or consult the list of medicines recommended for disposal by flushing when a take-back option is not readily available.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">O consulte la lista de medicamentos recomendados para su eliminación mediante el lavado cuando no se disponga de una opción de devolución.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-022">
+        <source>Remember, don’t flush your medicine unless it is on the flush list.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Recuerde, no tire su medicamento a menos que esté en la lista de color.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-023">
+        <source>Remove the drugs from their original containers and mix them with something undesirable, such as used coffee grounds, dirt or cat litter.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Retire los medicamentos de sus envases originales y mézclelos con algo indeseable, como granos de café usados, suciedad o arena para gatos.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-024">
+        <source>This makes the medicine less appealing to children and pets – and unrecognizable to someone who might intentionally go through the trash looking for drugs.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Esto hace que el medicamento sea menos atractivo para los niños y las mascotas – e irreconocible para alguien que intencionalmente podría ir a través de la basura en busca de drogas.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-025">
+        <source>Put the mixture in something you can close (a resealable zipper storage bag, empty can or other container) to prevent the drug from leaking or spilling out.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Ponga la mezcla en algo que pueda cerrar (una bolsa de almacenamiento con cremallera resellable, lata vacía u otro recipiente) para evitar que el medicamento se escape o se derrame.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-026">
+        <source>Throw the container in the trash at home.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Tira el contenedor a la basura en casa.</target>
+        <note from="secondread-demo" annotates="source">Section: How to Dispose of Medicines at Home</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-027">
+        <source>The fentanyl patch is an example of a product that contains a powerful opioid medicine that can be dangerous to people it’s not prescribed for.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El parche de fentanilo es un ejemplo de un producto que contiene un potente medicamento opiáceo que puede ser peligroso para las personas para las que no se prescribe.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Fentanyl Patches</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-028">
+        <source>This adhesive patch delivers a strong pain medicine through the skin.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Este parche adhesivo proporciona un fuerte analgésico a través de la piel.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Fentanyl Patches</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-029">
+        <source>Even after a patch is used, a lot of the medicine remains.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Incluso después de usar un parche, queda mucho del medicamento.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Fentanyl Patches</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-030">
+        <source>That’s why the drug comes with instructions to flush used or leftover patches.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Es por eso que el medicamento viene con instrucciones para lavar los parches usados o sobrantes.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Fentanyl Patches</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-031">
+        <source>One environmental concern involves inhalers used by people who have asthma or other breathing problems, such as chronic obstructive pulmonary disease.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Una preocupación ambiental implica inhaladores utilizados por personas que tienen asma u otros problemas respiratorios, como la enfermedad pulmonar obstructiva crónica.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Inhaler Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-032">
+        <source>Read handling instructions on the labeling of inhalers and aerosol products.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Lea las instrucciones de manejo sobre el etiquetado de inhaladores y productos aerosoles.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Inhaler Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-033">
+        <source>These products could be dangerous if punctured or thrown into a fire or incinerator.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Estos productos podrían ser peligrosos si se pinchan o se lanzan a un incendio o incinerador.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Inhaler Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-034">
+        <source>To properly dispose of these products and follow local regulations and laws, contact your trash and recycling facility.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para disponer adecuadamente de estos productos y seguir las regulaciones y leyes locales, póngase en contacto con su instalación de reciclaje y basura.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Inhaler Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-035">
+        <source>Visit the FDA’s Medication Disposal Q&amp;A page for more information on how to dispose of needles, syringes and other products.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Visite la página de preguntas y respuestas sobre la eliminación de medicamentos de la FDA para obtener más información sobre cómo deshacerse de las agujas, jeringas y otros productos.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Other Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-036">
+        <source>Some drugs with uncommon dosage forms – for example sprays and lozenges – have specific disposal instructions.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Algunos medicamentos con formas de dosificación poco comunes – por ejemplo aerosoles y pastillas – tienen instrucciones específicas de eliminación.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Other Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-037">
+        <source>Review the instructions that came with your prescription or contact your health care professional to learn how to properly dispose of those medicines.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Revise las instrucciones que vienen con su receta o póngase en contacto con su profesional de la salud para aprender a deshacerse adecuadamente de esos medicamentos.</target>
+        <note from="secondread-demo" annotates="source">Section: Disposing Other Products</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-038">
+        <source>The main way drug residues enter water systems is by people taking medicines and then naturally passing them through their bodies.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La principal forma en que los residuos de drogas entran en los sistemas de agua es por personas que toman medicamentos y luego los pasan naturalmente a través de sus cuerpos.</target>
+        <note from="secondread-demo" annotates="source">Section: Flushing Drugs and the Water Supply</note>
+      </trans-unit>
+      <trans-unit id="fda-medicine-disposal-039">
+        <source>Many drugs are not completely absorbed or metabolized (broken down) by the body and can enter the environment after passing through wastewater treatment plants.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Muchas drogas no son completamente absorbidas o metabolizadas (descompuestas) por el cuerpo y pueden entrar en el medio ambiente después de pasar a través de plantas de tratamiento de aguas residuales.</target>
+        <note from="secondread-demo" annotates="source">Section: Flushing Drugs and the Water Supply</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

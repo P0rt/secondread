@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="irs-failure-to-file-penalty.html" datatype="html" source-language="en-US" target-language="es-US">
+    <header>
+      <tool tool-id="secondread-demo" tool-name="SecondRead demo builder"/>
+      <note>Failure to File Penalty. Source: Internal Revenue Service, "Failure to File Penalty" / "Multa por incumplimiento de presentar la declaración de impuestos", IRS.gov (retrieved 2026-10-14). U.S. government work. Segmented and aligned by SecondRead; no IRS seal or logo is reused and no endorsement is implied. MT: OPUS-MT en-es (MarianMT) (Helsinki-NLP/opus-mt-en-es), Apache-2.0 (model card front matter at the pinned revision). The Spanish targets are this machine translation, not the publisher's official Spanish (that is in demo/answer_key.en-es.json). SecondRead demo job, see demo/README.md.</note>
+    </header>
+    <body>
+      <trans-unit id="irs-failure-to-file-penalty-001">
+        <source>The failure to file penalty applies if you don't file your tax return by the due date (including extensions).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La falta de presentación de la sanción se aplica si usted no presenta su declaración de impuestos para la fecha de vencimiento (incluyendo extensiones).</target>
+        <note from="secondread-demo" annotates="source">Section: Failure to file penalty (introduction)</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-002">
+        <source>We send you a notice or letter if you owe the failure to file penalty.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Le enviamos un aviso o una carta si usted debe la falta de presentar la sanción.</target>
+        <note from="secondread-demo" annotates="source">Section: How you know you owe the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-003">
+        <source>The failure to file penalty amount depends on the type of tax return you file.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El hecho de no presentar la cantidad de penalización depende del tipo de declaración de impuestos que usted presente.</target>
+        <note from="secondread-demo" annotates="source">Section: Penalty amount</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-004">
+        <source>The penalty applies to individuals and businesses that fail to file forms including, but not limited to Form 1040, U.S. Individual Income Tax Return and Form 1120, U.S. Corporation Income Tax Return.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La sanción se aplica a las personas físicas y comerciales que no presenten formularios incluyendo, pero no limitado al Formulario 1040, la declaración del impuesto individual sobre la renta de los EE.UU. y el Formulario 1120, declaración del impuesto sobre la renta de las corporaciones de los EE.UU.</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-005">
+        <source>The penalty doesn’t apply if you can show the failure was due to reasonable cause.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La pena no se aplica si se puede demostrar que el fracaso se debió a una causa razonable.</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-006">
+        <source>The penalty is 5% of the tax due (less any tax paid on time and available credits) for each month or partial month the return is late.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La sanción es del 5% del impuesto adeudado (menos cualquier impuesto pagado a tiempo y créditos disponibles) por cada mes o mes parcial la devolución es tardía.</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-007">
+        <source>The penalty accrues up to a maximum of 25%.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La sanción se acumula hasta un máximo del 25%.</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-008">
+        <source>We calculate the failure to file penalty in this way:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Calculamos la falta de presentación de la sanción de esta manera:</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-009">
+        <source>Tax required to be shown on the return,</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Impuesto que debe consignarse en la declaración,</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-010">
+        <source>Less any tax paid on time (example: withholding credits or estimated tax payments),</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Menos cualquier impuesto pagado a tiempo (ejemplo: retención de créditos o pago estimado de impuestos),</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-011">
+        <source>Less available refundable credits, then</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Menos créditos reembolsables disponibles, entonces</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-012">
+        <source>Multiplied by 5% per month (up to 25%).</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Se multiplica por 5% al mes (hasta 25%).</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-013">
+        <source>If the return is more than 60 days late, the minimum penalty is the amount listed below or 100% of the underpayment, whichever is less.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si la devolución es de más de 60 días de retraso, la sanción mínima es la cantidad indicada a continuación o 100% del pago insuficiente, lo que sea menor.</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-014">
+        <source>Forms 1040 and 1120 minimum failure to file penalty</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Formularios 1040 y 1120 mínimo de incumplimiento de la pena</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-015">
+        <source>After 5 months the failure to file penalty will max out, but the failure to pay penalty continues.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Después de 5 meses la falta de presentación de la pena será máximo, pero la falta de pago de la pena continúa.</target>
+        <note from="secondread-demo" annotates="source">Section: Individuals and most business tax returns &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-016">
+        <source>The penalty applies to partnerships that fail to file a timely or complete return:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La sanción se aplica a las sociedades que no presenten una declaración oportuna o completa:</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985)</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-017">
+        <source>Form 8985, Pass-Through —Statement Transmittal/Partnership Adjustment Tracking Report (Required under Sections 6226 and 6227)</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Formulario 8985, Pase a través —Informe de seguimiento de la transmisión de declaraciones/ajuste de la asociación (requerido en las secciones 6226 y 6227)</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985)</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-018">
+        <source>The penalty doesn’t apply if the partnership can show the failure was due to reasonable cause.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La pena no se aplica si la asociación puede demostrar que el fracaso se debió a una causa razonable.</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985)</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-019">
+        <source>The penalty calculation and amount depend on the return:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El cálculo de la penalización y la cantidad dependen de la devolución:</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985) &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-020">
+        <source>Forms 1065, 1066 and 8985 failure to file base penalty rates</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Formularios 1065, 1066 y 8985</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985) &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-021">
+        <source>The partnership must consist of 10 or fewer partners.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La asociación debe estar compuesta por diez o menos socios.</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985) &gt; Small partnership penalty relief</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-022">
+        <source>Each partner is either an individual (excluding nonresident aliens), or the estate of a deceased partner.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Cada pareja es una persona (excluidos los extranjeros no residentes) o la herencia de una pareja fallecida.</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985) &gt; Small partnership penalty relief</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-023">
+        <source>Each partner's items of income, deductions and credits are allocated in the same proportion as all other items of income, deductions, and credits.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Las partidas de ingresos, deducciones y créditos de cada socio se asignan en la misma proporción que todas las demás partidas de ingresos, deducciones y créditos.</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985) &gt; Small partnership penalty relief</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-024">
+        <source>Each partner reported the partner’s share of partnership income on the partner’s timely filed income tax return.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Cada socio informó de la participación del socio en los ingresos de la asociación en la declaración de impuestos presentada oportunamente por el socio.</target>
+        <note from="secondread-demo" annotates="source">Section: Partnership returns (Forms 1065/1066/8985) &gt; Small partnership penalty relief</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-025">
+        <source>The penalty applies to S corporations that fail to file a timely or complete Form 1120-S, U.S. Income Tax Return for an S Corporation.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La sanción se aplica a las corporaciones S que no presenten un formulario 1120-S o una declaración del impuesto sobre la renta para una corporación S.</target>
+        <note from="secondread-demo" annotates="source">Section: S corporation returns (Form 1120-S)</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-026">
+        <source>The penalty doesn’t apply if the S corporation can show the failure was due to reasonable cause.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La sanción no se aplica si la corporación S puede demostrar que el fracaso se debió a una causa razonable.</target>
+        <note from="secondread-demo" annotates="source">Section: S corporation returns (Form 1120-S)</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-027">
+        <source>The penalty is charged for each month (or partial month) the failure continues, for up to 12 months.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La pena se cobra por cada mes (o mes parcial) el fracaso continúa, por un máximo de 12 meses.</target>
+        <note from="secondread-demo" annotates="source">Section: S corporation returns (Form 1120-S) &gt; How we calculate the penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-028">
+        <source>We charge interest on penalties.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Cobramos intereses por las sanciones.</target>
+        <note from="secondread-demo" annotates="source">Section: Interest on a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-029">
+        <source>The date from which we begin to charge interest varies by the type of penalty.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La fecha a partir de la cual empezamos a cobrar intereses varía según el tipo de penalización.</target>
+        <note from="secondread-demo" annotates="source">Section: Interest on a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-030">
+        <source>Interest increases the amount you owe until you pay your balance in full.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El interés aumenta la cantidad que debe hasta que pague su saldo en su totalidad.</target>
+        <note from="secondread-demo" annotates="source">Section: Interest on a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-031">
+        <source>For more information about the interest we charge on penalties, see Interest.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para obtener más información sobre el interés que cobramos por las sanciones, consulte Intereses.</target>
+        <note from="secondread-demo" annotates="source">Section: Interest on a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-032">
+        <source>Send us a payment or pay your taxes in full to stop future penalties and interest from adding up.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Envíenos un pago o pague sus impuestos en su totalidad para detener futuras penalidades e intereses de suma.</target>
+        <note from="secondread-demo" annotates="source">Section: Pay a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-033">
+        <source>We may be able to remove or reduce some penalties if you acted in good faith and can show reasonable cause for why you weren't able to meet your tax obligations.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Podemos eliminar o reducir algunas sanciones si usted actuó de buena fe y puede mostrar una causa razonable de por qué no fue capaz de cumplir con sus obligaciones tributarias.</target>
+        <note from="secondread-demo" annotates="source">Section: Remove or reduce a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-034">
+        <source>By law we cannot remove or reduce interest unless the penalty is removed or reduced.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Por ley no podemos eliminar o reducir los intereses a menos que la pena sea eliminada o reducida.</target>
+        <note from="secondread-demo" annotates="source">Section: Remove or reduce a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-035">
+        <source>For more information, see Penalty relief.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para obtener más información, consulte Alivio de la pena.</target>
+        <note from="secondread-demo" annotates="source">Section: Remove or reduce a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-036">
+        <source>If you disagree with the amount you owe, you may dispute the penalty.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si no está de acuerdo con la cantidad que debe, puede impugnar la pena.</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-037">
+        <source>Call us at the telephone number on your notice or letter or write us a letter stating why we should reconsider the penalty.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Llámenos al número de teléfono en su aviso o carta o escríbanos una carta indicando por qué debemos reconsiderar la sanción.</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-038">
+        <source>Sign and send the letter along with any supporting documents to the address on your notice or letter.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Firme y envíe la carta junto con cualquier documento de apoyo a la dirección en su aviso o carta.</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-039">
+        <source>Have this information when you call or send your letter:</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Tenga esta información cuando llame o envíe su carta:</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-040">
+        <source>The notice or letter we sent you</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">El aviso o la carta que le enviamos</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-041">
+        <source>The penalty you want us to reconsider</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">La pena que quieres que reconsideremos.</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-042">
+        <source>For each penalty, an explanation of why you think we should remove it</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Por cada pena, una explicación de por qué crees que deberíamos eliminarla</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-043">
+        <source>If you didn’t receive a notice, get telephone assistance.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si no recibió un aviso, obtenga asistencia telefónica.</target>
+        <note from="secondread-demo" annotates="source">Section: Dispute a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-044">
+        <source>You can avoid a penalty by filing and paying your tax by the due date.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Usted puede evitar una penalización al presentar y pagar su impuesto en la fecha de vencimiento.</target>
+        <note from="secondread-demo" annotates="source">Section: Avoid a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-045">
+        <source>If you can't do so, you can apply for an extension of time to file or a payment plan.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si no puede hacerlo, puede solicitar una extensión de tiempo para presentar o un plan de pago.</target>
+        <note from="secondread-demo" annotates="source">Section: Avoid a penalty</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-046">
+        <source>If you need more time to prepare your tax return, apply for an extension of time to file.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si necesita más tiempo para preparar su declaración de impuestos, solicite una extensión de tiempo para presentar.</target>
+        <note from="secondread-demo" annotates="source">Section: Apply for an extension of time to file</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-047">
+        <source>This does not grant you an extension of time to pay.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Esto no le concede una extensión de tiempo para pagar.</target>
+        <note from="secondread-demo" annotates="source">Section: Apply for an extension of time to file</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-048">
+        <source>A payment plan can help you pay over time.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Un plan de pago puede ayudarle a pagar con el tiempo.</target>
+        <note from="secondread-demo" annotates="source">Section: Apply for an extension of time to file</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-049">
+        <source>If you can't pay the full amount of your taxes or penalty on time, pay what you can now and apply for a payment plan.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si no puedes pagar la cantidad completa de tus impuestos o penalidades a tiempo, paga lo que puedas ahora y solicita un plan de pago.</target>
+        <note from="secondread-demo" annotates="source">Section: Apply for a payment plan</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-050">
+        <source>You may reduce future penalties when you set up a payment plan.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Puede reducir las sanciones futuras cuando establezca un plan de pago.</target>
+        <note from="secondread-demo" annotates="source">Section: Apply for a payment plan</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-051">
+        <source>For help with a penalty, call the phone number on your notice.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Para obtener ayuda con una penalización, llame al número de teléfono en su aviso.</target>
+        <note from="secondread-demo" annotates="source">Section: Get help</note>
+      </trans-unit>
+      <trans-unit id="irs-failure-to-file-penalty-052">
+        <source>If you didn’t receive a notice, use telephone assistance.</source>
+        <target state="needs-review-translation" state-qualifier="leveraged-mt">Si no recibió un aviso, utilice la asistencia telefónica.</target>
+        <note from="secondread-demo" annotates="source">Section: Get help</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

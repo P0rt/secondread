@@ -151,7 +151,8 @@ function goldLine(seg: Segment): HTMLElement | null {
   const g = seg.gold;
   if (!g) return null;
   const p = h('p', `gold gold-${g.label === 'Major' ? 'major' : 'ok'}`);
-  p.append(h('span', 'gold-src', `Human label${g.source ? ` (${g.source})` : ''}:`), ' ');
+  const who = g.kind === 'answer_key' ? 'Answer key' : 'Human label';
+  p.append(h('span', 'gold-src', `${who}${g.source ? ` (${g.source})` : ''}:`), ' ');
   p.append(h('strong', undefined, g.label));
   // Only a Major label lists its error spans; minor or fluency notes would just add noise.
   const majors = g.label === 'Major' ? g.spans.filter((s) => s.text) : [];
@@ -164,6 +165,7 @@ function goldLine(seg: Segment): HTMLElement | null {
       if (/[\p{L}\p{N}]/u.test(s.text)) p.append(' ', h('q', undefined, s.text));
     });
   }
+  if (g.explanation && g.label === 'Major') p.append(h('span', 'gold-why', ` ${g.explanation}`));
   return p;
 }
 
