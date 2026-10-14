@@ -227,7 +227,7 @@ kill $SRV
   therefore come from the 300-row dev files. About 10 min: same loop with `s=en-ru.dev`.
 - **Report commands** are in `docs/RESULTS.md`.
 
-## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done; rule calibration and the review line added at night, last run 23:40 CEST)
+## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done; rule calibration and the review line added at night, last run 23:45 CEST)
 
 ```sh
 # serve the shipped adapter on the app port (stop the old server first)

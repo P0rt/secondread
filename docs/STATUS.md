@@ -78,7 +78,7 @@ their logs.
 ## In flight
 
 - **Nothing on Tinker or DigitalOcean.**
-- **`:9931` serves LoRA v1 with `-cram 0`** (restarted 23:42 CEST with `nohup` from the repo root,
+- **`:9931` serves LoRA v1 with `-cram 0`** (PID 39580, restarted 23:45 CEST with `nohup` from the repo root,
   log `/tmp/claude-501/llama-9931.log`; `/lora-adapters` lists `models/secondread-lora.gguf` at
   scale 1.0):
   ```sh

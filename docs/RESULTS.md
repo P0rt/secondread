@@ -1435,7 +1435,7 @@ was not touched.
   backend re-run at the review line, without Gemma fields. `data/realdocs/scored.jsonl` is
   unchanged. It is the F1-line snapshot, with Gemma, and its risks are identical.
 
-### Ship (2026-10-14, 23:40 CEST)
+### Ship (2026-10-14, 23:45–23:56 CEST)
 
 - **Served adapter:** `models/secondread-lora.gguf` is v1 (sha256 `5337b2b7…`, byte-identical to
   `models/secondread-lora-v1.gguf`); the v2, v3a and v3b GGUFs are kept next to it. `:9931` was
@@ -1453,6 +1453,8 @@ was not touched.
   ("flush" → "lavar", 0.159), is not flagged.
 - **Checks:** `tests/test_xliff.py` 20/20, `tests/test_thresholds.py` 7/7, `canary_check.py` PASS
   (the canary is in 0 of 12 envelopes, and in 4 with the scrubbers off).
+- **Hosted demo:** App Platform rebuilt from commit `f765871` (deployment ACTIVE at 23:54 CEST). Its
+  `demo-results.json` is byte-identical to the repo's: 3 of 39 flagged at 0.4984, `dev_review`.
 
 ### Reproduce
 
