@@ -1,0 +1,15 @@
+# DigitalOcean App Platform spec for the static SecondRead demo (no backend:
+# precomputed results from ui/public/demo-results.json, VITE_DEMO_ONLY=1).
+name: secondread
+region: ams
+static_sites:
+  - name: demo
+    git:
+      repo_clone_url: https://github.com/P0rt/secondread.git
+      branch: main
+    source_dir: ui
+    environment_slug: node-js
+    build_command: npm ci && npm run build:demo
+    output_dir: dist
+    index_document: index.html
+    catchall_document: index.html
