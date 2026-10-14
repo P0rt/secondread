@@ -1,9 +1,12 @@
 """Local SecondRead API: FastAPI on 127.0.0.1:8787 (the Vite UI proxies /api here, so no CORS).
 
-    GET  /api/health   llama-server reachability, model, LoRA adapters, Sentry on/off
+    GET  /api/health   llama-server reachability, model, LoRA adapter and its version (by file sha256),
+                       the flag thresholds per language pair, Sentry on/off
     POST /api/review   one of
         application/json     {"segments": [{"src": "...", "mt": "...", "lp"?: "en-ru", "id"?: "..."}],
                               "lp"?: "en-ru", "lora_scale"?: 1.0, "threshold"?: 0.5}
+                             without "threshold", each segment uses the dev-calibrated threshold of
+                             the active adapter and its language pair (secondread/thresholds.json)
         multipart/form-data  field "xliff" = the file; optional fields "lp", "lora_scale", "threshold"
                              (what the UI sends; parsed with the stdlib, python-multipart is not needed)
         raw XLIFF body       Content-Type application/xml, text/xml, application/x-xliff+xml or
@@ -121,8 +124,13 @@ def _first(*values: Any) -> Any:
 async def health(request: Request) -> dict[str, Any]:
     llama = await request.app.state.agent.health()
     adapters = llama.get("lora_adapters") or []
+    # The version comes from the adapter file's sha256 (secondread/thresholds.json), not its name.
+    label = ", ".join(f"{a['name']} {a.get('version') or '(unknown version)'}" for a in adapters)
     return {"status": "ok" if llama["ok"] else "degraded", "offline": True,
-            "model": llama.get("base_model"), "adapter": adapters[0]["name"] if adapters else None,
+            "model": llama.get("base_model"), "adapter": label or None,
+            "adapter_version": "+".join(a.get("version") or "unknown" for a in adapters) or None,
+            "scoring": llama.get("model_label"), "thresholds": llama.get("thresholds"),
+            "threshold_source": llama.get("threshold_source"),
             "llama": llama, "sentry": {"enabled": sentry_enabled()}, "xliff": _xliff_available()}
 
 

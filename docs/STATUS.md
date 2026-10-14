@@ -1,4 +1,4 @@
-# SecondRead status, 2026-10-14 (evening)
+# SecondRead status, 2026-10-14 (evening, after the Ship phase)
 
 Commands use `py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }`. Keys are
 in `.env`; set them with `set -a && . ./.env && set +a`.
@@ -7,19 +7,31 @@ All numbers come from running the code today. Local runs used the brew llama-ser
 11429. Tinker runs used Qwen/Qwen3.5-4B. DigitalOcean runs used `gemma-4-31B-it` on serverless
 inference.
 
-**Results:** see [RESULTS.md](RESULTS.md). On en-ru test (3,573 segments), LoRA v1 running locally
-on Q4 gets AUROC 0.801 and PR-AUC 0.537. The base model gets 0.666 and 0.369, and Gemma 4 31B
-direct gets 0.794 and 0.494. On en-es test, v1 gets 0.815 and 0.517, base 0.776 and 0.413,
-Gemma direct 0.807 and 0.311.
+**Results:** see [RESULTS.md](RESULTS.md).
 
-## Spend (hard budgets: Tinker $10, DigitalOcean $5 credit)
+| Test split | v1 (shipped) AUROC / PR-AUC | v2 | Gemma 4 31B direct | base |
+|---|---|---|---|---|
+| en-ru, 3,573 segments | **0.801 / 0.537** | 0.799 / 0.504 | 0.794 / 0.494 | 0.666 / 0.369 |
+| en-es, 1,815 segments | **0.815 / 0.517** | 0.804 / 0.446 | 0.807 / 0.311 | 0.776 / 0.413 |
+
+All scores come from local Q4 runs; Gemma runs on DigitalOcean.
+
+- **v1 ships.** v2 (plus 5,095 synthetic rows) is much better on the synthetic test sets but not
+  on human labels: on en-es its PR-AUC is significantly lower.
+- **`:9931` serves v1 with `-cram 0`.**
+- **The backend uses per-pair thresholds calibrated on dev:** en-ru 0.1609, en-es 0.7019.
+- **`/api/health` names the adapter version (v1).** The backend finds it from the adapter file's
+  sha256.
+
+## Spend (budgets: Tinker about $18 available, DigitalOcean $5 credit)
 
 | | Spent | Source | Left |
 |---|---|---|---|
-| **Tinker** | **$1.33 billed** up to the 14:00 CEST bucket. **About $1.66** once the 14:00–15:00 bucket lands | `tinker -f json billing usage`; the rest is estimated from the run logs | **about $8.34** of $10 |
-| Tinker storage | 22 checkpoints, 2.83 GB, $0.28/month | `tinker billing checkpoint-storage` | ongoing |
-| **DigitalOcean** | **at most $0.77** at list price | token counts in both caches: baseline $0.348, synthetic data $0.418 | **at least $4.23** of $5 |
+| **Tinker** | **$1.661 billed** through the 12:00–13:00 UTC bucket (everything before v2), read at 18:05 CEST. **About $3.38** once v2 lands: +$1.52 training, +$0.20 dev scoring | `tinker -f json billing usage`; v2 is estimated from its token counts at $0.737/M | **about $14.6** of ~$18 |
+| Tinker storage | 22 checkpoints before v2 (2.83 GB, $0.28/month), plus 7 from v2 (the 6 periodic ones expire after 7 days) and one external-weights export | `tinker billing checkpoint-storage` | ongoing |
+| **DigitalOcean** | **at most $0.79** at list price | token counts in both caches: baseline $0.372 (10,236 calls), synthetic data $0.418 (5,626 calls) | **at least $4.21** of $5 |
 | Sentry | $0 | Developer plan | |
+| Ship phase | $0 | local only; one `tinker billing usage` read | |
 
 **Tinker bills every token of the datum, including weight-0 prompt tokens.** This answers the
 G3 question. G3 was billed for 62,820 tokens and G4 for 31,353, exactly the `num_tokens` in
@@ -34,11 +46,14 @@ their logs.
 
 ## In flight
 
-- **Nothing on Tinker or DigitalOcean.** v1 finished at 14:02 CEST, and no training or eval
-  process is alive.
-- **`:9931` still serves the base model without the LoRA,** with default flags (no `-cram 0`).
-  The integration pass used it read-only.
-- The integration pass also ran a LoRA server on `:9936` for local scoring. It has been stopped.
+- **Nothing on Tinker or DigitalOcean.**
+- **`:9931` serves LoRA v1 with `-cram 0`** (PID 22074, started 18:00 CEST with `nohup` from the
+  repo root, log `/tmp/claude-501/llama-9931.log`):
+  ```sh
+  llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931
+  ```
+- **No backend is running.** The Ship phase ran one on `:8787` for the demo rebuild and the checks,
+  then stopped it. Ports 9940–9944 are free.
 
 ## Done and verified this afternoon
 
@@ -59,18 +74,24 @@ their logs.
 | **Local test scoring** (this pass) | `probe_local.py … 100000 --workers 4`. Base on `:9931`, v1 on `:9936` | Full en-ru test, en-es test and en-es dev for both systems, 0 labels missing from the top 200. `--workers` is new in `probe_local.py`: 1 is the default and reproduces `results/base_enru_dev300.jsonl` exactly, and 4 shifts risks by at most 0.003 |
 | Regression checks (this pass) | `tests/test_xliff.py`, `canary_check.py`, `synth_llm.py --self-test` | 20/20 pass, the canary is in 0 envelopes (4 with the control), and 15 validator cases pass |
 | Repo hygiene (this pass) | Scanned tracked and untracked files, plus everything on disk except `.env`, for the three key values; checked git history; ran `git status --ignored` | 0 hits in files and 0 in history. `data/`, `models/`, `ckpt/`, `runs/` and `docs/prep/` are ignored. `docs/prep/` was never committed. No ACES or HalOmi data is on disk. The `results/*.jsonl` files hold ids, gold labels and scores only, with no WMT text or model quotes |
+| **v2 track** (evening) | `build_sft.py --synthetic rules.train llm.train` (drops the 31 en-ru `neg_insert` questions), `train_tinker.py` (run `4087b7c0…:train:0`, 310 steps, 8 min 37 s), export, local scoring of all splits and both synthetic test sets, Gemma direct on the synthetic sets | See RESULTS.md, "v2 and ablation": ties v1 on AUROC, lower PR-AUC on both test splits (en-es −0.071, significant); AUROC vs parents 0.95–1.00 on synthetic types. `models/secondread-lora-v2.gguf` |
+| **Ship phase** (evening) | `report.py` re-run on all v2-track files; `:9931` restarted; `scripts/pick_thresholds.py`; backend on `:8787`; `make_demo_results.py --api`; `npm run build` and `build:demo`; `tests/test_xliff.py`; `canary_check.py` | All v2 numbers reproduce exactly. **v1 ships** (RESULTS.md, "Ship decision"). The served adapter matches `local_v1` scores (max diff 0.0012 on 40 rows). Thresholds are in `secondread/thresholds.json` and `/api/health` reports `adapter_version: v1`. Demo results are real LoRA v1 output (`placeholder: false`). XLIFF tests pass 20/20; the canary is in 0 of 12 envelopes, with 4 hits when the scrubbers are off |
 
 ## Needs you
 
 - **Rotate `DO_MODEL_KEY`** if any agent transcript from today will be shared. Part of the
   key appeared in a process listing in one track's tool output. No file holds it.
-- **Restart `:9931`** with the LoRA and the cache fix, after checking that nothing needs the
-  base-only server:
-  ```sh
-  llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931
-  ```
+- **Review and commit the Ship-phase changes** (list in "Changed in the Ship phase" below).
+  Nothing is committed or pushed.
 - **Checkpoint cleanup.** Decide whether to delete the G3, G4 and LR-probe checkpoints on
-  Tinker. All 22 checkpoints together cost $0.28 a month, and `final` checkpoints never expire.
+  Tinker. The 22 checkpoints from before v2 cost $0.28 a month, v2 added 7, and `final`
+  checkpoints never expire.
+- **Rule confidences.** In the app's fused score the rule checks lower test AUROC by about 0.01
+  (RESULTS.md, "The app's fused score vs the model alone"). Decide whether to recalibrate them from
+  the train split before the post, or to say so in it.
+- **The post:** `docs/POST_DRAFT.md` has the v2, synthetic, spend and status placeholders filled.
+  Still open: the title, video, live demo URL, screenshots, the first user and the optional
+  agent session. Re-check the Tinker total against the bill first.
 - **G8:** check that the review traces are in Sentry's Agents dashboard and take the
   screenshot. `SENTRY_DSN` is set, and the latency track sent about 22 traces with metadata
   only.
@@ -80,12 +101,13 @@ their logs.
 
 - **Annotated-file download:** `/api/review` returns XLIFF keys as `id`, and
   `xliff.annotate()` works. But no endpoint returns the annotated file yet.
-- **Thresholds in the app:** `DEFAULT_THRESHOLD` (0.5) is still a placeholder. The
-  dev-optimal F1 thresholds for v1 are 0.253 for en-ru (from the 300 dev rows) and 0.702 for
-  en-es (from en-es dev). Put them into the server config per language pair, and better, take
-  en-ru from the full dev split.
-- **Rule confidences:** the values from 0.25 to 0.75 are set by hand. Tune them on dev plus the
-  synthetic test sets.
+- **Rule confidences:** the values from 0.25 to 0.75 are still set by hand.
+  - A rule hit is a Major unit far less often than that: 31% of the time on en-ru train, 19% on
+    en-es train, and 6–8% on test.
+  - Dev has too few hits to tune on: 16 rows in en-ru, 33 in en-es.
+  - Calibrate the confidences on the train split. The rules are not fit to it.
+  - Known false alarms (found on test): "£" vs «фунтов», "whether or not", "no doubt", "24/7"
+    vs «круглосуточно», ordinal words («втором»).
 - **Other eval sets:**
   - WMT25 en-ru OOD conversion (only `scripts/wmt25_count.py` exists);
   - ACES and HalOmi loaders (eval only, NC licenses).
@@ -99,39 +121,44 @@ their logs.
 
 ## Next steps, in order
 
-1. **Serve v1:** restart `:9931` with `--lora … -cram 0` (see "Needs you"). Then run:
-   - `make_demo_results.py --api http://127.0.0.1:8787`, which drops the placeholder banner;
-   - `bench_review.py --lora-scale 1`.
-2. **Thresholds:** score the full en-ru dev split locally, which is free and takes about
-   10 min:
-   ```sh
-   py scripts/probe_local.py data/splits/en-ru.dev.jsonl 100000 --workers 4 --lora-scale 1 --port <lora-port> \
-      --out results/local_v1_enru_dev.jsonl
-   ```
-   Then set per-pair thresholds in the server.
-3. **v2 on Tinker,** about $1.52 at the billing rate measured above.
-   - Build the data:
-     ```sh
-     py scripts/build_sft.py --synthetic data/synth/rules.train.jsonl data/synth/llm.train.jsonl \
-        --out data/sft_v2.jsonl
-     ```
-     The synth track reported 19,917 rows, 37.1% Major and 311 steps. Always pass `--out`:
-     the default is `data/sft_v1.jsonl`, which would overwrite the v1 data.
-   - Train with `--lr 2e-4`, the same as v1.
-   - Optional first: drop the 82 `neg_insert` rows whose MT is a question. In Russian, «Вы не
-     …?» can be polite with the same meaning, so these labels may be wrong.
-   - Then `fetch_adapter.py` → `export_adapter.sh` → local scoring on the same splits.
-   - Score the synthetic test sets with `report.py --by synth_type` for recall per error type:
-     - `rules.test.jsonl` (313 rows) and `llm.test.jsonl` (763 rows) for base, v1 and v2,
-       locally and free;
-     - Gemma direct on those 1,076 rows, about $0.02.
-   - Keep v1 if v2 does not beat it on en-ru and en-es test PR-AUC.
-4. **Optional:** Tinker exact eval of v1 on en-ru test, about $0.10. G5 already shows that
-   local Q4+LoRA tracks Tinker (Spearman 0.989), so this only confirms it.
-5. **G8** Sentry screenshot and a real debugging story: the `-cram 0` latency hunt is a good
-   candidate.
-6. Annotated-XLIFF download endpoint, the tester session, the static demo on DO App Platform,
-   then the post.
+Done in the Ship phase: v1 served, full en-ru dev scored, per-pair thresholds, v2 trained and
+evaluated, demo results rebuilt. What is left:
+
+1. **Rule confidences** from the train split, then check on dev (free; see "Not built yet").
+2. **G8:** the Sentry screenshot and the debugging story, the `-cram 0` latency hunt. Run the
+   backend with `.env` loaded so `SENTRY_DSN` is set.
+3. **Static demo on DO App Platform.** `ui/dist` holds the demo build from the Ship phase; both
+   builds write `ui/dist`, so rerun `npm run build:demo` before deploying. Then fill
+   `{{LIVE_DEMO_URL}}` in the post.
+4. **Annotated-XLIFF download** endpoint and button, the tester session, and the post's remaining
+   placeholders.
+5. **Optional, free:** evaluate the one-pass v1+v2 blend, with both adapters loaded at scale 0.5,
+   on dev first (RESULTS.md, "Next experiments").
+6. **Optional, about $1.6:** v2b with a capped synthetic share per pair.
+7. **Optional, about $0.10:** Tinker exact eval of v1 on en-ru test. G5 already shows local
+   tracks Tinker.
+
+## Changed in the Ship phase (not committed)
+
+- **New:**
+  - `scripts/pick_thresholds.py`;
+  - `secondread/thresholds.json`, with thresholds and stats only, no text.
+- **Backend:**
+  - `secondread/agent.py`: per-adapter, per-pair thresholds, adapter version by sha256, new
+    summary fields;
+  - `secondread/server.py`: health fields `adapter_version`, `scoring`, `thresholds` and
+    `threshold_source`.
+- **Scripts:** `scripts/make_demo_results.py` puts the version in the demo note.
+- **UI and contract:**
+  - `ui/public/demo-results.json`, rebuilt;
+  - `ui/API.md`.
+- **Docs:**
+  - `docs/RESULTS.md`, new section "Ship decision";
+  - this file, `README.md`, `docs/RUNBOOK.md`;
+  - `docs/POST_DRAFT.md` and `docs/POST_CHECKLIST.md`, still untracked.
+- **Git-ignored:**
+  - `models/secondread-lora-v1.gguf`, a copy of v1;
+  - `runs/ship/`, the fused scores.
 
 ---
 

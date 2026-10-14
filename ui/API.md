@@ -14,8 +14,11 @@ headers. In production the backend can serve `ui/dist` itself under the same ori
 Called on page load, every 8 s while the backend is down and every 30 s while it is up.
 
 ```json
-{ "status": "ok", "offline": true, "model": "Qwen3.5-4B-Q4_K_M", "adapter": "secondread-lora-v1",
-  "llama": { "ok": true, "lora_adapters": [ … ] }, "sentry": { "enabled": false } }
+{ "status": "ok", "offline": true, "model": "Qwen3.5-4B-Q4_K_M", "adapter": "secondread-lora v1",
+  "adapter_version": "v1", "scoring": "LoRA v1", "thresholds": { "en-es": 0.7019, "en-ru": 0.1609 },
+  "threshold_source": "dev_f1",
+  "llama": { "ok": true, "lora_adapters": [ { "id": 0, "name": "secondread-lora", "scale": 1.0,
+             "sha256": "5337b2b7…", "version": "v1" } ] }, "sentry": { "enabled": false } }
 ```
 
 | field            | type                   | notes                                                           |
@@ -23,7 +26,9 @@ Called on page load, every 8 s while the backend is down and every 30 s while it
 | `status`         | `"ok"` \| `"degraded"` | `degraded` = model server down: header says "rule checks only"  |
 | `offline`        | boolean                | optional, default `true`; `false` drops the "runs on this Mac" claim |
 | `model`          | string                 | optional, shown as secondary detail in the header               |
-| `adapter`        | string \| null         | optional; `null` means the base model runs without the LoRA     |
+| `adapter`        | string \| null         | optional; `null` means the base model runs without the LoRA. The backend sends the file name plus its version, e.g. `secondread-lora v1` |
+| `adapter_version`| string \| null         | not read by the UI. Found by the adapter file's sha256 in `secondread/thresholds.json`, so a renamed file keeps its version; `unknown` for a file not listed there |
+| `thresholds`     | object                 | not read by the UI. `{lp: threshold}` used when a request sends none; `threshold_source` says where they come from (`dev_f1`, `env`, `fallback`) |
 | `llama`          | object                 | optional; `base_model` / `lora_adapters[].name` are used if `model` / `adapter` are missing |
 | `sentry.enabled` | boolean                | optional; `true` adds "Sentry on, no text sent" to the header   |
 
@@ -102,10 +107,14 @@ never in the URL, so it stays out of access logs and trace URLs.
 | `timing_ms`                 | number \| object      | total wall time; an object like `{ "total": 1840, … }` is also accepted |
 | `segments[].flagged`        | boolean               | optional; the backend's verdict (`risk ≥ threshold`) |
 | `summary`                   | object                | optional; the UI reads `flagged`, `threshold`, `model_available`, `lora_active`, `xliff.skipped`, `timing_ms.total` |
+| `summary.threshold`         | number \| null        | the flag threshold. Without a `threshold` in the request it is the dev-calibrated one for the active adapter and the language pair (`secondread/thresholds.json`); `null` when a JSON request mixes pairs with different thresholds |
+| `summary.thresholds`        | object                | `{lp: threshold}` actually applied, one entry per language pair in the request |
+| `summary.threshold_source`  | string                | `request`, `env` (`SECONDREAD_THRESHOLD`), `dev_f1` (the calibration file), `fallback` (0.5: unknown adapter, a LoRA scale other than 0 or 1, or no model) or `dev_f1+fallback` |
+| `summary.adapter_version`   | string \| null        | e.g. `v1` when the LoRA is active, else `null` |
 
 `reasons` is what gets highlighted. A segment with no reasons can still rank high on `risk`.
 A `model_risk` reason only gets a chip and a note when `lora_score ≥ summary.threshold`
-(default 0.5), because the risk bar already shows lower scores. Extra fields (`issue`,
+(0.5 when the summary has none), because the risk bar already shows lower scores. Extra fields (`issue`,
 `confidence`, `model`, `meta`, `index`) are ignored.
 
 ### Errors
@@ -124,11 +133,11 @@ Same shape as the `/api/review` response, plus two demo-only fields:
 - `segments[].gold`: `{ label: "Major" | "OK", source, spans: [{ side, text, category, severity }] }`,
   the human MQM annotation, shown under each segment for comparison.
 
-The current file is real `secondread/server.py` output (`scripts/make_demo_results.py --api …`)
-for 10 consecutive segments of one WMT22 en-ru test document, scored by the base Qwen3.5-4B
-without the LoRA, so `placeholder` is true. Rerun the same command once the backend loads the
-adapter; `placeholder` turns false when `summary.lora_active` is true. Without a backend, the
-script's default mode writes a stand-in (regex checks + llama-server score) in the same format.
+The current file is real `secondread/server.py` output (`scripts/make_demo_results.py --api …`,
+2026-10-14 evening) for 10 consecutive segments of one WMT22 en-ru test document, scored with
+LoRA v1 active and the en-ru dev threshold (0.1609), so `placeholder` is false: 7 of 10 flagged,
+3 of the 4 gold Major segments among them. Without a backend, the script's default mode writes a
+stand-in (regex checks + llama-server score) in the same format.
 
 ## Tolerated variations
 

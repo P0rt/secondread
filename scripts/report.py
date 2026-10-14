@@ -1,13 +1,21 @@
 """Compare scored jsonl files (probe_local.py / eval_tinker.py output) as a markdown table.
 
-usage: PYTHONPATH=. uv run python scripts/report.py NAME=SCORED.jsonl[,DEV_SCORED.jsonl] ... \
-           [--ref data/splits/en-ru.test.jsonl ...] [--by synth_type] [--out report.md]
+usage: PYTHONPATH=. uv run python scripts/report.py NAME=SCORED.jsonl[,DEV_SCORED.jsonl[,PARENTS.jsonl]] ... \
+           [--ref data/splits/en-ru.test.jsonl ...] [--lp en-ru] [--by synth_type] [--diff A:B ...] [--out report.md]
 
   NAME=SCORED          a system's scores on the evaluation split (test, usually);
   ,DEV_SCORED          the same system's scores on dev: its F1-optimal threshold is chosen
                        there and applied unchanged to SCORED. Without it, F1 is left out.
-  --ref SPLIT.jsonl    split files used to fill in `doc`/`lp` for older scored files that
-                       lack them (e.g. results/base_enru_dev300.jsonl).
+  ,PARENTS             synthetic test sets only: the same system's scores on the split the
+                       synthetic rows were made from (e.g. results/local_v1_enru_test.jsonl).
+                       With --by, each group is also scored as AUROC of the group's rows
+                       against their own clean parents (`synth_parent`, taken from --ref).
+  --ref SPLIT.jsonl    split files used to fill in `doc`/`lp` (and `--by` values and
+                       `synth_parent`) for scored files that lack them.
+  --lp LP              keep only rows of this language pair (e.g. a synthetic test set that
+                       mixes en-ru and en-es, scored with the en-ru dev threshold).
+  --diff A:B           extra paired differences A - B (AUROC, PR-AUC, recall@k, F1 at each
+                       system's own dev threshold), on the same bootstrap replicates.
 
 All systems are compared on the ids they have in common (--all-rows to disable), and all
 CIs come from one shared document-level bootstrap (--n-boot replicates, resampling whole
@@ -31,12 +39,15 @@ def fmt(x: float | None, ci: tuple[float, float] | None = None, signed: bool = F
     return f.format(x) if ci is None else f"{f.format(x)} [{f.format(ci[0])}, {f.format(ci[1])}]"
 
 
-def parse_run(spec: str) -> tuple[str, str, str | None]:
+def parse_run(spec: str) -> tuple[str, str, str | None, str | None]:
     if "=" not in spec:
-        raise SystemExit(f"bad run spec {spec!r}: expected NAME=SCORED.jsonl[,DEV_SCORED.jsonl]")
+        raise SystemExit(f"bad run spec {spec!r}: expected NAME=SCORED.jsonl[,DEV_SCORED.jsonl[,PARENTS.jsonl]]")
     name, paths = spec.split("=", 1)
-    test, _, dev = paths.partition(",")
-    return name, test, dev or None
+    parts = paths.split(",")
+    if len(parts) > 3:
+        raise SystemExit(f"bad run spec {spec!r}: at most SCORED,DEV,PARENTS")
+    test, dev, parents = (parts + [None, None])[:3]
+    return name, test, dev or None, parents or None
 
 
 def fill_docs(rows: list[dict], ref: dict[str, dict], path: str) -> None:
@@ -59,23 +70,34 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--all-rows", action="store_true", help="do not restrict systems to common ids")
     ap.add_argument("--by", help="extra table: recall at the dev threshold per value of this field (e.g. synth_type)")
+    ap.add_argument("--lp", help="keep only rows of this language pair")
+    ap.add_argument("--diff", action="append", default=[], metavar="A:B",
+                    help="paired differences A - B between two named systems (repeatable)")
     ap.add_argument("--out", help="also write the markdown here")
     a = ap.parse_args()
 
     ref = {}
     for path in a.ref:
         for r in M.load_scored(path):
-            ref[r["id"]] = {"doc": r["doc"], "lp": r["lp"], "by": r.get(a.by) if a.by else None}
+            ref[r["id"]] = {"doc": r["doc"], "lp": r["lp"], "by": r.get(a.by) if a.by else None,
+                            "parent": r.get("synth_parent")}
 
-    runs = []
+    runs, notes = [], []
     for spec in a.runs:
-        name, test, dev = parse_run(spec)
+        name, test, dev, parents = parse_run(spec)
         rows = M.load_scored(test)
         fill_docs(rows, ref, test)
+        if a.lp:
+            rows = [r for r in rows if r.get("lp") == a.lp]
+            if not rows:
+                raise SystemExit(f"{test}: no rows with lp={a.lp}")
         dev_rows = M.load_scored(dev) if dev else None
-        runs.append({"name": name, "path": test, "rows": rows, "dev": dev, "dev_rows": dev_rows})
+        if dev_rows and a.lp and any(r.get("lp") not in (None, a.lp) for r in dev_rows):
+            notes.append(f"{name}: threshold from dev rows of another language pair than {a.lp} (`{dev}`)")
+        par = {r["id"]: r for r in M.load_scored(parents)} if parents else None
+        runs.append({"name": name, "path": test, "rows": rows, "dev": dev, "dev_rows": dev_rows,
+                     "parents": parents, "parent_rows": par})
 
-    notes = []
     if not a.all_rows and len(runs) > 1:
         common = set.intersection(*({r["id"] for r in run["rows"]} for run in runs))
         for run in runs:
@@ -138,6 +160,29 @@ def main() -> None:
                 cells.append(fmt(d, M.percentile_ci(reps), signed=True))
             out.append(f"| {run['name']} | " + " | ".join(cells) + " |")
 
+    if a.diff and shared_w is not None:
+        by_name = {run["name"]: run for run in runs}
+        out += ["", "Paired differences A − B (same bootstrap replicates; F1 at each system's own dev threshold):", "",
+                f"| A − B | ΔAUROC | ΔPR-AUC | Δ{k} | ΔF1 |", "|---|---|---|---|---|"]
+        for spec in a.diff:
+            an, _, bn = spec.partition(":")
+            if an not in by_name or bn not in by_name:
+                raise SystemExit(f"--diff {spec}: unknown system (have {sorted(by_name)})")
+            ra, rb = by_name[an], by_name[bn]
+            fns = {"auroc": M.auroc, "pr_auc": M.pr_auc, k: lambda y, s, w=None: M.recall_at(y, s, a.frac, w)}
+            cells = []
+            for key, f in fns.items():
+                d = ra["sum"][key] - rb["sum"][key]
+                reps = [f(ra["y"], ra["s"], w=w) - f(rb["y"], rb["s"], w=w) for w in shared_w]
+                cells.append(fmt(d, M.percentile_ci(reps), signed=True))
+            if ra["thr"] is not None and rb["thr"] is not None:
+                f1 = lambda run, w=None: M.prf_at(run["y"], run["s"], run["thr"], w)["f1"]
+                reps = [f1(ra, w) - f1(rb, w) for w in shared_w]
+                cells.append(fmt(f1(ra) - f1(rb), M.percentile_ci(reps), signed=True))
+            else:
+                cells.append("n/a")
+            out.append(f"| {an} − {bn} | " + " | ".join(cells) + " |")
+
     if a.by:
         # One value per id for every system: from --ref, else the first scored file that has it.
         by_id = {i: v["by"] for i, v in ref.items() if v["by"] is not None}
@@ -147,23 +192,80 @@ def main() -> None:
                     by_id.setdefault(r["id"], r[a.by])
         group = lambda r: str(by_id.get(r["id"], "(none)"))
         values = sorted({group(r) for run in runs for r in run["rows"]})
-        out += ["", f"Recall at the dev threshold by `{a.by}` (Major rows only):", "",
-                "| system | " + " | ".join(values) + " |", "|---|" + "---:|" * len(values)]
+        parent_of = {i: v["parent"] for i, v in ref.items() if v.get("parent")}
+        with_parents = any(run["parent_rows"] for run in runs)
+        out += ["", f"Recall at the dev threshold by `{a.by}` for groups of Major rows; for groups of OK rows "
+                    "(no Major row) the false-flag rate, marked `fp`. Row counts in brackets"
+                    + ("; the last column is the false-flag rate on the distinct clean parents of all rows" if with_parents else "")
+                    + ":", "",
+                "| system | " + " | ".join(values + (["clean parents"] if with_parents else [])) + " |",
+                "|---|" + "---:|" * (len(values) + with_parents)]
         for run in runs:
             cells = []
             for v in values:
-                idx = [i for i, r in enumerate(run["rows"]) if group(r) == v and r["label"] == M.POSITIVE]
-                if not idx or run["thr"] is None:
-                    cells.append("n/a" if idx else "-")
-                else:
+                rows_v = [i for i, r in enumerate(run["rows"]) if group(r) == v]
+                idx = [i for i in rows_v if run["rows"][i]["label"] == M.POSITIVE]
+                if run["thr"] is None:
+                    cells.append("n/a")
+                elif idx:
                     hit = sum(run["s"][i] >= run["thr"] for i in idx)
                     cells.append(f"{hit / len(idx):.2f} ({len(idx)})")
+                elif rows_v:
+                    hit = sum(run["s"][i] >= run["thr"] for i in rows_v)
+                    cells.append(f"fp {hit / len(rows_v):.2f} ({len(rows_v)})")
+                else:
+                    cells.append("-")
+            if with_parents:
+                par = run["parent_rows"]
+                pids = sorted({parent_of.get(r["id"]) for r in run["rows"]} & set(par or {}))
+                if run["thr"] is None or not pids:
+                    cells.append("n/a")
+                else:
+                    hit = sum(float(par[p]["risk"]) >= run["thr"] for p in pids)
+                    cells.append(f"fp {hit / len(pids):.2f} ({len(pids)})")
             out.append(f"| {run['name']} | " + " | ".join(cells) + " |")
+
+        if with_parents:
+            # Each group's rows (positives) against the distinct clean parents they were made from
+            # (negatives), all scored by the same system. For a Major group this is how well an
+            # injected error is ranked above the unedited sentence; for an OK group (meaning-
+            # preserving edit) 0.5 is ideal, and above 0.5 means the edit alone raises the risk.
+            out += ["", f"AUROC of each `{a.by}` group against its own clean parents (`synth_parent`, "
+                        "scored by the same system on the parent split); for OK groups 0.5 is ideal. "
+                        "Pair win rate (edited row riskier than its parent, ties 1/2) in brackets:", "",
+                    "| system | " + " | ".join(values) + " |", "|---|" + "---:|" * len(values)]
+            for run in runs:
+                par = run["parent_rows"]
+                if not par:
+                    out.append(f"| {run['name']} | " + " | ".join("n/a" for _ in values) + " |")
+                    continue
+                cells = []
+                for v in values:
+                    rows_v = [(i, parent_of.get(r["id"])) for i, r in enumerate(run["rows"]) if group(r) == v]
+                    rows_v = [(i, p) for i, p in rows_v if p in par]
+                    if not rows_v:
+                        cells.append("-")
+                        continue
+                    pids = sorted({p for _, p in rows_v})
+                    bad = [p for p in pids if par[p]["label"] == M.POSITIVE]
+                    if bad:
+                        raise SystemExit(f"{run['parents']}: parent {bad[0]} is labelled Major; parents must be clean")
+                    pos = np.array([run["s"][i] for i, _ in rows_v])
+                    neg = np.array([float(par[p]["risk"]) for p in pids])
+                    yy = np.r_[np.ones(len(pos), dtype=np.int64), np.zeros(len(neg), dtype=np.int64)]
+                    au = M.auroc(yy, np.r_[pos, neg])
+                    win = np.mean([1.0 if run["s"][i] > float(par[p]["risk"]) else
+                                   0.5 if run["s"][i] == float(par[p]["risk"]) else 0.0 for i, p in rows_v])
+                    cells.append(f"{au:.2f} ({win:.2f})")
+                out.append(f"| {run['name']} | " + " | ".join(cells) + " |")
 
     if notes:
         out += [""] + [f"- {n}" for n in notes]
     out += ["", "Files: " + "; ".join(f"{r['name']}: `{r['path']}`" + (f" (dev `{r['dev']}`)" if r["dev"] else "")
+                                       + (f" (parents `{r['parents']}`)" if r["parents"] else "")
                                        for r in runs)]
+    if a.lp:
+        out.append(f"Rows restricted to lp={a.lp}.")
     text = "\n".join(out)
     print(text)
     if a.out:

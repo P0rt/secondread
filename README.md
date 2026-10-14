@@ -8,10 +8,13 @@ Style, grammar and word order are out of scope; other QA tools handle those.
 The goal is a shorter re-read: the reviewer starts with the riskiest 10% of the job instead of
 reading every segment twice.
 
-> **Status (2026-10-14):** LoRA v1, trained on Tinker on human labels only, is exported to a
-> 36 MB GGUF and matches the Tinker sampler locally. Scores against the base model and two
-> Gemma 4 31B baselines are in [docs/RESULTS.md](docs/RESULTS.md). Done, in-flight and next
-> items are in [docs/STATUS.md](docs/STATUS.md).
+> **Status (2026-10-14, evening):** the app serves LoRA v1, trained on Tinker on human labels
+> only, as a 36 MB GGUF. Its flag thresholds per language pair are calibrated on dev.
+> - v2 adds 5,095 synthetic rows. It was trained and evaluated but not shipped: it is better on
+>   synthetic errors, not on human-labelled ones.
+> - Scores against the base model, v2 and two Gemma 4 31B baselines are in
+>   [docs/RESULTS.md](docs/RESULTS.md).
+> - Done, in-flight and next items are in [docs/STATUS.md](docs/STATUS.md).
 
 ## Why offline and open
 
@@ -45,6 +48,9 @@ XLIFF 1.2 / 2.0 / SDLXLIFF ─► parse_xliff ─► number_check ─► negatio
 - **Prompt:** `secondread/prompt.py` is the only definition, used for training, Tinker evaluation
   and local inference.
 - **Rule checks:** they add reasons and highlight spans for the UI.
+- **Flag thresholds:** one per adapter and language pair in `secondread/thresholds.json`, each
+  F1-optimal on the fused dev risk (`scripts/pick_thresholds.py`). The backend identifies the
+  loaded adapter by its sha256 and reports the version in `/api/health`.
 - **Write-back:** `secondread/xliff.py` can write the scores into the XLIFF: a Trados comment
   in SDLXLIFF, `<note>` in XLIFF 1.2, notes plus metadata in XLIFF 2.0.
 - **Tracing:** each review is one Sentry AI-agent trace (`invoke_agent` → `execute_tool` ×4 → `chat`).
@@ -70,7 +76,7 @@ uv run python -c "from huggingface_hub import snapshot_download as d; d('Qwen/Qw
 #    grows the server to 5-8 GB, which macOS swaps out between jobs: the first job after a few idle
 #    minutes then takes 16-33 s instead of ~9 s for the 51-segment demo
 llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931 \
-  # add  --lora models/secondread-lora.gguf  for LoRA v1 (build it with scripts/export_adapter.sh)
+  # add  --lora models/secondread-lora.gguf  for the shipped LoRA v1 (build it with scripts/export_adapter.sh)
 HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python -m secondread.server      # API on 127.0.0.1:8787
 cd ui && npm install && npm run dev                                   # UI on http://127.0.0.1:5173
 ```
@@ -106,7 +112,8 @@ py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python "$@"; }   # works in zsh and 
 py scripts/synth_rules.py                    # number/date/unit corruptions + OK variants -> data/synth/
 py scripts/synth_llm.py --per-type 20        # Gemma 4 negation/omission/paraphrase edits (DO_MODEL_KEY)
 py scripts/build_sft.py                      # v1, human labels only -> data/sft_v1.jsonl
-py scripts/build_sft.py --synthetic data/synth/rules.train.jsonl --out data/sft_v2.jsonl
+py scripts/build_sft.py --synthetic data/synth/rules.train.jsonl data/synth/llm.train.jsonl \
+   --out data/sft_v2.jsonl                   # v2 (not shipped); drops the en-ru neg_insert questions by default
 py scripts/train_tinker.py --data data/sft_v1.jsonl --log-path runs/v1 --dry-run  # checks batches, no key
 py scripts/train_tinker.py --data data/sft_v1.jsonl --log-path runs/v1 --lr 2e-4  # TINKER_API_KEY; see docs/RUNBOOK.md
 py scripts/fetch_adapter.py tinker://<run-id>/weights/final --out ckpt           # adapter files, see below
@@ -142,6 +149,7 @@ py scripts/probe_local.py data/splits/en-ru.test.jsonl 100000 --workers 4 --lora
    --out results/local_v1_enru_test.jsonl
 py scripts/report.py base=results/local_base_enru_test.jsonl,results/local_base_enru_dev.jsonl \
    v1=results/local_v1_enru_test.jsonl,results/local_v1_enru_dev.jsonl --n-boot 1000
+py scripts/pick_thresholds.py                # dev-calibrated flag thresholds -> secondread/thresholds.json
 ```
 
 Tests and checks that need no API keys (using the `py` helper above):

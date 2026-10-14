@@ -1,7 +1,7 @@
 """Build the SFT conversation file for Tinker from the train splits (+ optional synthetic data).
 
 usage: HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python scripts/build_sft.py \
-           [--synthetic FILE.jsonl ...] [--out data/sft_v1.jsonl] [--seed 0]
+           [--synthetic FILE.jsonl ...] [--out data/sft_v1.jsonl] [--seed 0] [--drop-neg-questions en-ru|none]
 
 Mix (v1):
   * en-ru: every train unit;
@@ -10,7 +10,9 @@ Mix (v1):
   * synthetic: every row of each --synthetic file (secondread/synth.py schema; needs
     src, mt, lp, label and should carry its parent's `doc`). A row whose doc is a
     dev/test doc, or whose source sentence occurs in dev/test, aborts the build
-    (private prep notes, 02-corrections.md #4).
+    (private prep notes, 02-corrections.md #4). Exception (--drop-neg-questions, on for
+    en-ru by default): neg_insert rows whose MT contains "?" are dropped, because a
+    negated Russian question is often the polite form of the same question.
 
 Each conversation is rendered with the training renderer (secondread.prompt). Rows
 longer than --max-tokens are dropped, because Tinker's max_length truncates from the
@@ -105,6 +107,26 @@ def load_synthetic(paths: list[str], splits_dir: str) -> list[dict]:
     return rows
 
 
+def drop_neg_questions(rows: list[dict], lps: set[str]) -> list[dict]:
+    """Drop synthetic neg_insert rows of the given language pairs whose MT is a question.
+
+    In Russian a negated question is often just the polite form of the same question
+    ("Не могу ли я ещё чем-нибудь помочь?" = "Can I help with anything else?"), so a
+    neg_insert edit inside a question may not change the meaning and its Major label is
+    likely wrong. "Question" means the MT contains "?"."""
+    if not lps:
+        return rows
+    kept, dropped = [], collections.Counter()
+    for r in rows:
+        if r.get("synth_type") == "neg_insert" and r["lp"] in lps and "?" in r["mt"]:
+            dropped[r["lp"]] += 1
+        else:
+            kept.append(r)
+    print(f"dropped neg_insert rows whose MT is a question ({', '.join(sorted(lps))}): {sum(dropped.values())}"
+          + (f" ({', '.join(f'{k}: {v}' for k, v in sorted(dropped.items()))})" if dropped else ""))
+    return kept
+
+
 def render(rows: list[dict], max_tokens: int):
     """Render every row; return (kept rows with n_tokens/weighted counts, dropped rows)."""
     from tinker_cookbook.renderers import TrainOnWhat
@@ -142,10 +164,19 @@ def main() -> None:
     ap.add_argument("--batch-size", type=int, default=64, help="only for the steps-per-epoch estimate")
     ap.add_argument("--epochs", type=int, nargs="*", default=[1, 2], help="epoch counts to price")
     ap.add_argument("--price", type=float, default=TRAIN_PRICE_PER_M, help="USD per 1M training tokens")
+    ap.add_argument("--drop-neg-questions", default="en-ru", metavar="LPS",
+                    help="comma-separated language pairs whose synthetic neg_insert rows are dropped when the MT "
+                         "contains '?' (a negated Russian question can be a polite form with the same meaning, "
+                         "so the Major label is noise); 'none' keeps them. Only affects --synthetic rows")
     a = ap.parse_args()
 
     rng = random.Random(a.seed)
-    rows = select_wmt(a.splits_dir, a.es_ok_ratio, rng) + load_synthetic(a.synthetic, a.splits_dir)
+    neg_q_lps = set() if a.drop_neg_questions.strip().lower() in ("", "none") else \
+        {x.strip() for x in a.drop_neg_questions.split(",") if x.strip()}
+    synthetic = load_synthetic(a.synthetic, a.splits_dir)
+    if synthetic:
+        synthetic = drop_neg_questions(synthetic, neg_q_lps)
+    rows = select_wmt(a.splits_dir, a.es_ok_ratio, rng) + synthetic
     assert all(LABEL_ALIASES[r["label"]] in LABELS for r in rows)
     ids = collections.Counter(r["id"] for r in rows)
     dup = [i for i, c in ids.items() if c > 1]

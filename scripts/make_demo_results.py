@@ -72,8 +72,9 @@ if a.api:
     for seg, r in zip(out["segments"], rows):
         seg["gold"] = gold(r)
     lora = out.get("summary", {}).get("lora_active", False)
+    version = out.get("summary", {}).get("adapter_version") or "of unknown version"
     meta.update(placeholder=not lora,
-                note="Precomputed with the SecondRead backend, fine-tuned LoRA active." if lora else
+                note=f"Precomputed with the SecondRead backend, fine-tuned LoRA {version} active." if lora else
                      "Precomputed with the SecondRead backend, but without the fine-tuned LoRA "
                      "(base Qwen3.5-4B, Q4_K_M).")
     out["meta"] = meta

@@ -31,6 +31,8 @@ import os
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 
 import asyncio
+import hashlib
+import json
 import logging
 import math
 import statistics
@@ -39,7 +41,7 @@ from collections import Counter
 from collections.abc import Iterable, Mapping
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
-from pathlib import PurePath
+from pathlib import Path, PurePath
 from typing import Any
 
 import httpx
@@ -53,7 +55,11 @@ log = logging.getLogger("secondread.agent")
 
 AGENT_NAME = "SecondRead"
 DEFAULT_LLAMA_URL = os.getenv("SECONDREAD_LLAMA_URL", "http://127.0.0.1:9931")
-DEFAULT_THRESHOLD = float(os.getenv("SECONDREAD_THRESHOLD", "0.5"))
+# Flag thresholds per adapter and language pair (scripts/pick_thresholds.py). A threshold in the
+# request wins, then SECONDREAD_THRESHOLD (one value for everything), then this file, then 0.5.
+THRESHOLDS_PATH = Path(os.getenv("SECONDREAD_THRESHOLDS", str(Path(__file__).with_name("thresholds.json"))))
+ENV_THRESHOLD = float(os.environ["SECONDREAD_THRESHOLD"]) if os.getenv("SECONDREAD_THRESHOLD") else None
+FALLBACK_THRESHOLD = 0.5
 N_PROBS = 200          # the base model can rank a label below the top 20 (02-corrections item 15)
 CONCURRENCY = 4        # matches llama-server -np 4 (parallel slots)
 LOCAL_COST_USD = 0.0   # local inference is free; set explicitly or Sentry prices by model name
@@ -157,7 +163,8 @@ class LlamaClient:
             self._info = None
             return {"ok": False, "url": self.base_url}
         base = PurePath(props.get("model_path") or "model").stem
-        loras = [{"id": a.get("id", i), "name": PurePath(a.get("path", "")).stem, "scale": a.get("scale")}
+        loras = [{"id": a.get("id", i), "name": PurePath(a.get("path", "")).stem, "scale": a.get("scale"),
+                  "sha256": await asyncio.to_thread(_file_sha256, a.get("path") or "")}
                  for i, a in enumerate(adapters if isinstance(adapters, list) else [])]
         self._info = {
             "ok": True, "url": self.base_url, "base_model": base,
@@ -192,6 +199,59 @@ class LlamaClient:
             score.p_major, score.p_ok, score.labels_in_top = probs
             score.risk = score.p_major / (score.p_major + score.p_ok)
         return score
+
+
+_SHA_CACHE: dict[tuple[str, int, int], str] = {}
+
+
+def _file_sha256(path: str) -> str | None:
+    """sha256 of an adapter file as llama-server reports its path (relative to its working
+    directory, which is normally the repo root). None when the file cannot be read here."""
+    if not path:
+        return None
+    p = Path(path)
+    for cand in ([p] if p.is_absolute() else [Path.cwd() / p, Path(__file__).resolve().parents[1] / p]):
+        try:
+            st = cand.stat()
+        except OSError:
+            continue
+        key = (str(cand.resolve()), st.st_size, st.st_mtime_ns)
+        if key not in _SHA_CACHE:
+            h = hashlib.sha256()
+            with open(cand, "rb") as f:
+                for block in iter(lambda: f.read(1 << 20), b""):
+                    h.update(block)
+            _SHA_CACHE[key] = h.hexdigest()
+        return _SHA_CACHE[key]
+    return None
+
+
+class Calibration:
+    """Known adapters (by GGUF sha256) and their flag thresholds per language pair.
+
+    Read from secondread/thresholds.json, which scripts/pick_thresholds.py writes: each
+    threshold is F1-optimal on the fused risk over the full dev split of its language pair.
+    "base" holds the thresholds for the base model (no adapter, or lora_scale 0).
+    """
+
+    def __init__(self, path: Path = THRESHOLDS_PATH):
+        try:
+            data = json.loads(Path(path).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            log.warning("no readable thresholds file; every threshold is %.2f", FALLBACK_THRESHOLD)
+            data = {}
+        self.fallback = float(data.get("fallback", FALLBACK_THRESHOLD))
+        adapters = data.get("adapters") or {}
+        self.versions = {e["sha256"]: name for name, e in adapters.items() if e.get("sha256")}
+        self.thresholds = {name: {lp: float(t) for lp, t in (e.get("thresholds") or {}).items()}
+                           for name, e in adapters.items()}
+        self.pairs = sorted({lp for t in self.thresholds.values() for lp in t})
+
+    def version(self, sha256: str | None) -> str | None:
+        return self.versions.get(sha256) if sha256 else None
+
+    def threshold(self, key: str | None, lp: str) -> float | None:
+        return self.thresholds.get(key or "", {}).get(lp)
 
 
 def _label_probs(res: Mapping[str, Any]) -> tuple[float, float, bool] | None:
@@ -356,11 +416,45 @@ def _pct(xs: list[float], q: float) -> float | None:
     return xs[min(len(xs) - 1, max(0, math.ceil(q * len(xs)) - 1))]
 
 
+@dataclass
+class ScoringModel:
+    """What scores a request: the calibration key ("base", "v1", ...; None = no calibrated
+    thresholds), the label used in reasons, and whether the LoRA is active."""
+    key: str | None
+    label: str
+    lora_active: bool
+    adapter_version: str | None
+
+
+def scoring_model(info: Mapping[str, Any], lora_scale: float | None) -> ScoringModel:
+    """Map llama-server's loaded adapters and the request's lora_scale to a ScoringModel.
+
+    Calibrated thresholds exist for the base model and for one known adapter at scale 1 (the
+    scale they were measured at). Other scales or several adapters at once fall back."""
+    if not info.get("ok"):
+        return ScoringModel(None, "unavailable", False, None)  # rule checks only: the 0.5 fallback
+    loras = list(info.get("lora_adapters") or [])
+    # No lora_scale in the request means the server's own per-adapter scale (1.0 unless changed).
+    scales = [lora_scale if lora_scale is not None else (a.get("scale") if a.get("scale") is not None else 1.0)
+              for a in loras]
+    if not any(s != 0 for s in scales):
+        return ScoringModel("base", "base model, no LoRA", False, None)
+    versions = [a.get("version") for a in loras]
+    if len(loras) == 1:
+        v = versions[0] or "unknown"
+        if scales[0] == 1.0:
+            return ScoringModel(versions[0], f"LoRA {v}", True, v)
+        return ScoringModel(None, f"LoRA {v} at scale {scales[0]:g}", True, v)
+    return ScoringModel(None, "several LoRAs", True, "+".join(v or "unknown" for v in versions))
+
+
 class ReviewAgent:
     def __init__(self, llama_url: str = DEFAULT_LLAMA_URL, *, n_probs: int = N_PROBS,
-                 concurrency: int = CONCURRENCY, timeout: float = 120.0):
+                 concurrency: int = CONCURRENCY, timeout: float = 120.0,
+                 calibration: Calibration | None = None):
         self.llama = LlamaClient(llama_url, n_probs=n_probs, timeout=timeout)
         self._slots = asyncio.Semaphore(concurrency)
+        self.calibration = calibration or Calibration()
 
     async def aclose(self) -> None:
         await self.llama.aclose()
@@ -370,22 +464,47 @@ class ReviewAgent:
         """Load the tokenizer/renderer (several seconds the first time)."""
         generation_prompt_ids("warm up", "warm up", "en-ru")
 
+    async def info(self) -> dict[str, Any]:
+        """llama-server info, with each adapter's version from the calibration file."""
+        info = await self.llama.info(refresh=True)
+        for a in info.get("lora_adapters") or []:
+            a["version"] = self.calibration.version(a.get("sha256"))
+        return info
+
+    def thresholds_for(self, model: ScoringModel, lps: Iterable[str],
+                       requested: float | None = None) -> tuple[dict[str, float], str]:
+        """({lp: threshold}, source): source is "request", "env", "dev_f1" or "fallback"."""
+        lps = sorted(set(lps))
+        if requested is not None:
+            return {lp: requested for lp in lps}, "request"
+        if ENV_THRESHOLD is not None:
+            return {lp: ENV_THRESHOLD for lp in lps}, "env"
+        found = {lp: self.calibration.threshold(model.key, lp) for lp in lps}
+        out = {lp: (t if t is not None else self.calibration.fallback) for lp, t in found.items()}
+        n_cal = sum(t is not None for t in found.values())
+        return out, "dev_f1" if n_cal and n_cal == len(found) else "dev_f1+fallback" if n_cal else "fallback"
+
     async def health(self) -> dict[str, Any]:
-        return await self.llama.info(refresh=True)
+        info = await self.info()
+        if info["ok"]:
+            model = scoring_model(info, None)
+            thr, source = self.thresholds_for(model, self.calibration.pairs)
+            info.update(adapter_version=model.adapter_version, model_label=model.label,
+                        thresholds=thr, threshold_source=source)
+        return info
 
     async def review(self, payload: bytes | Iterable[Mapping[str, Any]], *, lp: str | None = None,
                      lora_scale: float | None = None, threshold: float | None = None,
                      filename: str | None = None, include_locked: bool = False) -> ReviewResult:
         """Review raw segments or an XLIFF file (bytes). Raises ReviewError on bad input."""
-        threshold = DEFAULT_THRESHOLD if threshold is None else threshold
-        if not 0.0 <= threshold <= 1.0:
+        if threshold is not None and not 0.0 <= threshold <= 1.0:
             raise ReviewError("bad_threshold", "threshold must be in [0, 1]")
         default_lp = _norm_lp(lp)
         t_start = time.perf_counter()
         with _root_transaction(), sentry_sdk.start_span(op="gen_ai.invoke_agent",
                                                         name=f"invoke_agent {AGENT_NAME}") as agent_span:
             _set(agent_span, {"gen_ai.operation.name": "invoke_agent", "gen_ai.agent.name": AGENT_NAME,
-                              "gen_ai.provider.name": "llama.cpp", "secondread.threshold": threshold})
+                              "gen_ai.provider.name": "llama.cpp"})
 
             # 1. parse_xliff: XLIFF bytes or raw segments -> Segment list
             with _tool("parse_xliff", 0) as span:
@@ -422,12 +541,16 @@ class ReviewAgent:
             t_checked = time.perf_counter()
 
             # 4. lora_score: one llama-server call per segment, up to CONCURRENCY at a time
-            info = await self.llama.info(refresh=True)
+            info = await self.info()
             model_name = info.get("model", "unknown") if info["ok"] else "unavailable"
             lora_ids = [a["id"] for a in info.get("lora_adapters", [])] if info["ok"] else []
-            lora_active = bool(lora_ids) and lora_scale != 0
-            model_label = "LoRA" if lora_active else "base model, no LoRA"
-            agent_span.set_data("gen_ai.request.model", model_name)
+            scorer = scoring_model(info, lora_scale)
+            lora_active = scorer.lora_active
+            thresholds, threshold_source = self.thresholds_for(scorer, (s.lp for s in segs), threshold)
+            one_threshold = next(iter(thresholds.values())) if len(set(thresholds.values())) == 1 else None
+            _set(agent_span, {"gen_ai.request.model": model_name, "secondread.threshold": one_threshold,
+                              "secondread.threshold_source": threshold_source,
+                              "secondread.adapter_version": scorer.adapter_version})
             with _tool("lora_score", len(segs)) as tool_span:
                 _set(tool_span, {"gen_ai.request.model": model_name, "secondread.lora_loaded": bool(lora_ids),
                                  "secondread.lora_scale": lora_scale})
@@ -452,7 +575,7 @@ class ReviewAgent:
             with sentry_sdk.start_span(op="secondread.aggregate", name="aggregate signals") as span:
                 out = []
                 for seg, rules, score in zip(segs, rule_results, scores, strict=True):
-                    risk, flagged, reasons, codes = aggregate(score, rules, threshold, model_label)
+                    risk, flagged, reasons, codes = aggregate(score, rules, thresholds[seg.lp], scorer.label)
                     out.append(SegmentResult(
                         index=seg.index, id=seg.id, lp=seg.lp, src=seg.src, mt=seg.mt,
                         risk=round(risk, 4), flagged=flagged, reasons=reasons, issues=codes,
@@ -466,9 +589,11 @@ class ReviewAgent:
             in_tokens = sum(s.prompt_tokens for s in ok_scores)
             total_ms = (t_end - t_start) * 1000
             summary = {
-                "segments": len(out), "flagged": n_flagged, "threshold": threshold, "input": kind,
+                "segments": len(out), "flagged": n_flagged, "threshold": one_threshold,
+                "thresholds": thresholds, "threshold_source": threshold_source, "input": kind,
                 "xliff": xinfo, "model": model_name, "model_available": bool(ok_scores),
                 "lora_loaded": bool(lora_ids), "lora_scale": lora_scale, "lora_active": lora_active,
+                "adapter_version": scorer.adapter_version if lora_active else None,
                 "model_errors": dict(errors),
                 "tokens": {"input": in_tokens, "output": len(ok_scores)}, "cost_usd": LOCAL_COST_USD,
                 "timing_ms": {

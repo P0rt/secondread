@@ -1,0 +1,196 @@
+{
+ "method": "F1-optimal threshold on the fused risk (noisy-OR of the model risk and the number/negation rule checks, as secondread.agent.aggregate) over the full dev split of each language pair, rounded to 4 decimals; scripts/pick_thresholds.py",
+ "generated": "2026-10-14",
+ "fallback": 0.5,
+ "adapters": {
+  "base": {
+   "sha256": null,
+   "file": null,
+   "description": "Qwen3.5-4B Q4_K_M without an adapter (also any adapter at lora_scale 0)",
+   "thresholds": {
+    "en-ru": 0.3668,
+    "en-es": 0.7506
+   },
+   "stats": {
+    "en-ru": {
+     "model_only_dev_threshold": 0.3668,
+     "dev": {
+      "n": 2972,
+      "major_rate": 0.2702,
+      "precision": 0.3133,
+      "recall": 0.7659,
+      "f1": 0.4447,
+      "flag_rate": 0.6605,
+      "auroc_fused": 0.6023,
+      "pr_auc_fused": 0.3808,
+      "recall_at_10_fused": 0.1856
+     },
+     "test": {
+      "n": 3573,
+      "major_rate": 0.2024,
+      "precision": 0.2496,
+      "recall": 0.7815,
+      "f1": 0.3783,
+      "flag_rate": 0.6336,
+      "auroc_fused": 0.6552,
+      "pr_auc_fused": 0.3469,
+      "recall_at_10_fused": 0.2116
+     },
+     "dev_rule_hit_rate": 0.0054
+    },
+    "en-es": {
+     "model_only_dev_threshold": 0.7506,
+     "dev": {
+      "n": 1650,
+      "major_rate": 0.0576,
+      "precision": 0.3223,
+      "recall": 0.4105,
+      "f1": 0.3611,
+      "flag_rate": 0.0733,
+      "auroc_fused": 0.8084,
+      "pr_auc_fused": 0.3129,
+      "recall_at_10_fused": 0.4737
+     },
+     "test": {
+      "n": 1815,
+      "major_rate": 0.0926,
+      "precision": 0.3175,
+      "recall": 0.5179,
+      "f1": 0.3937,
+      "flag_rate": 0.151,
+      "auroc_fused": 0.7754,
+      "pr_auc_fused": 0.4036,
+      "recall_at_10_fused": 0.4583
+     },
+     "dev_rule_hit_rate": 0.02
+    }
+   }
+  },
+  "v1": {
+   "sha256": "5337b2b7b17a3b603c300d8cd07503091127b53f075dfc6a680457fb7105073a",
+   "file": "models/secondread-lora-v1.gguf",
+   "description": "LoRA v1: rank 16 MLP-only, 1 epoch on 14,791 human-labelled WMT units (data/sft_v1.jsonl), Tinker run 479fd56b-2a66-539a-ae24-5b020ba97bbb:train:0",
+   "thresholds": {
+    "en-ru": 0.1609,
+    "en-es": 0.7019
+   },
+   "stats": {
+    "en-ru": {
+     "model_only_dev_threshold": 0.1609,
+     "dev": {
+      "n": 2972,
+      "major_rate": 0.2702,
+      "precision": 0.4629,
+      "recall": 0.6376,
+      "f1": 0.5364,
+      "flag_rate": 0.3721,
+      "auroc_fused": 0.7381,
+      "pr_auc_fused": 0.5448,
+      "recall_at_10_fused": 0.2403
+     },
+     "test": {
+      "n": 3573,
+      "major_rate": 0.2024,
+      "precision": 0.3675,
+      "recall": 0.769,
+      "f1": 0.4973,
+      "flag_rate": 0.4235,
+      "auroc_fused": 0.7903,
+      "pr_auc_fused": 0.5115,
+      "recall_at_10_fused": 0.2752
+     },
+     "dev_rule_hit_rate": 0.0054
+    },
+    "en-es": {
+     "model_only_dev_threshold": 0.7019,
+     "dev": {
+      "n": 1650,
+      "major_rate": 0.0576,
+      "precision": 0.5294,
+      "recall": 0.3789,
+      "f1": 0.4417,
+      "flag_rate": 0.0412,
+      "auroc_fused": 0.8759,
+      "pr_auc_fused": 0.4305,
+      "recall_at_10_fused": 0.5474
+     },
+     "test": {
+      "n": 1815,
+      "major_rate": 0.0926,
+      "precision": 0.7123,
+      "recall": 0.3095,
+      "f1": 0.4315,
+      "flag_rate": 0.0402,
+      "auroc_fused": 0.804,
+      "pr_auc_fused": 0.4857,
+      "recall_at_10_fused": 0.5
+     },
+     "dev_rule_hit_rate": 0.02
+    }
+   }
+  },
+  "v2": {
+   "sha256": "9dda3f68f2734a7771231695c8928f9a36b03cb7f19f30821f51f27b128ed6f7",
+   "file": "models/secondread-lora-v2.gguf",
+   "description": "LoRA v2: as v1 plus 1,109 rule and 3,986 Gemma 4 synthetic rows (data/sft_v2.jsonl), Tinker run 4087b7c0-b94b-5bbc-87a9-10ac847ad928:train:0",
+   "thresholds": {
+    "en-ru": 0.0827,
+    "en-es": 0.5717
+   },
+   "stats": {
+    "en-ru": {
+     "model_only_dev_threshold": 0.0827,
+     "dev": {
+      "n": 2972,
+      "major_rate": 0.2702,
+      "precision": 0.4229,
+      "recall": 0.7235,
+      "f1": 0.5338,
+      "flag_rate": 0.4623,
+      "auroc_fused": 0.7361,
+      "pr_auc_fused": 0.5229,
+      "recall_at_10_fused": 0.2379
+     },
+     "test": {
+      "n": 3573,
+      "major_rate": 0.2024,
+      "precision": 0.3374,
+      "recall": 0.8396,
+      "f1": 0.4814,
+      "flag_rate": 0.5035,
+      "auroc_fused": 0.7907,
+      "pr_auc_fused": 0.483,
+      "recall_at_10_fused": 0.2656
+     },
+     "dev_rule_hit_rate": 0.0054
+    },
+    "en-es": {
+     "model_only_dev_threshold": 0.5717,
+     "dev": {
+      "n": 1650,
+      "major_rate": 0.0576,
+      "precision": 0.3551,
+      "recall": 0.5158,
+      "f1": 0.4206,
+      "flag_rate": 0.0836,
+      "auroc_fused": 0.8753,
+      "pr_auc_fused": 0.4009,
+      "recall_at_10_fused": 0.5579
+     },
+     "test": {
+      "n": 1815,
+      "major_rate": 0.0926,
+      "precision": 0.4194,
+      "recall": 0.4643,
+      "f1": 0.4407,
+      "flag_rate": 0.1025,
+      "auroc_fused": 0.7959,
+      "pr_auc_fused": 0.4314,
+      "recall_at_10_fused": 0.4524
+     },
+     "dev_rule_hit_rate": 0.02
+    }
+   }
+  }
+ }
+}

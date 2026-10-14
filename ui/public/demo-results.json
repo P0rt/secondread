@@ -7,14 +7,14 @@
    "lp": "en-ru",
    "src": "Amazing.",
    "mt": "Удивительно.",
-   "risk": 0.3885,
+   "risk": 0.0415,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
-     "message": "Model (base model, no LoRA): P(Major) 39%",
-     "confidence": 0.38850881719699704,
+     "message": "Model (LoRA v1): P(Major) 4%",
+     "confidence": 0.04151832886464157,
      "spans": []
     }
    ],
@@ -36,15 +36,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.38850881719699704
+    "lora_score": 0.04151832886464157
    },
    "model": {
-    "risk": 0.38850881719699704,
-    "p_major": 0.34540397182629173,
-    "p_ok": 0.5436465632897528,
+    "risk": 0.04151832886464157,
+    "p_major": 0.04149540682236648,
+    "p_ok": 0.957952498647292,
     "labels_in_top": true,
     "prompt_tokens": 45,
-    "latency_ms": 537.1768749901094,
+    "latency_ms": 444.6047500241548,
     "error": null
    },
    "meta": {},
@@ -60,14 +60,14 @@
    "lp": "en-ru",
    "src": "But good on you.",
    "mt": "Но у тебя всё хорошо.",
-   "risk": 0.678,
+   "risk": 0.6144,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
-     "message": "Model (base model, no LoRA): P(Major) 68%",
-     "confidence": 0.6780005647114591,
+     "message": "Model (LoRA v1): P(Major) 61%",
+     "confidence": 0.6144242657668278,
      "spans": []
     }
    ],
@@ -91,15 +91,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.6780005647114591
+    "lora_score": 0.6144242657668278
    },
    "model": {
-    "risk": 0.6780005647114591,
-    "p_major": 0.6109750191250619,
-    "p_ok": 0.29016732636115217,
+    "risk": 0.6144242657668278,
+    "p_major": 0.6132650463359522,
+    "p_ok": 0.3848482778026559,
     "labels_in_top": true,
     "prompt_tokens": 50,
-    "latency_ms": 538.4076249902137,
+    "latency_ms": 492.88083298597485,
     "error": null
    },
    "meta": {},
@@ -124,18 +124,20 @@
    "lp": "en-ru",
    "src": "Yeah, when I was 16 I applied and got offered a job at a restaurant.",
    "mt": "Когда мне было 16 лет, я подала заявление и мне предложили работу в ресторане.",
-   "risk": 0.305,
-   "flagged": false,
+   "risk": 0.2112,
+   "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
-     "issue": "model_score",
-     "message": "Model (base model, no LoRA): P(Major) 30%",
-     "confidence": 0.3049501174135043,
+     "issue": "model_high",
+     "message": "Model (LoRA v1): P(Major) 21%",
+     "confidence": 0.2111984403533456,
      "spans": []
     }
    ],
-   "issues": [],
+   "issues": [
+    "model_high"
+   ],
    "signals": {
     "number_check": {
      "flagged": false,
@@ -153,15 +155,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.3049501174135043
+    "lora_score": 0.2111984403533456
    },
    "model": {
-    "risk": 0.3049501174135043,
-    "p_major": 0.2706156550685228,
-    "p_ok": 0.6167939231398867,
+    "risk": 0.2111984403533456,
+    "p_major": 0.21095131518582858,
+    "p_ok": 0.7878785759482936,
     "labels_in_top": true,
     "prompt_tokens": 80,
-    "latency_ms": 539.1955000231974,
+    "latency_ms": 493.4689580113627,
     "error": null
    },
    "meta": {},
@@ -177,14 +179,14 @@
    "lp": "en-ru",
    "src": "Dishwasher.",
    "mt": "Посудомоечная машина.",
-   "risk": 0.4602,
+   "risk": 0.0157,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
-     "message": "Model (base model, no LoRA): P(Major) 46%",
-     "confidence": 0.46020880237336653,
+     "message": "Model (LoRA v1): P(Major) 2%",
+     "confidence": 0.015704255586001685,
      "spans": []
     }
    ],
@@ -206,15 +208,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.46020880237336653
+    "lora_score": 0.015704255586001685
    },
    "model": {
-    "risk": 0.46020880237336653,
-    "p_major": 0.4266378239019038,
-    "p_ok": 0.5004149002130369,
+    "risk": 0.015704255586001685,
+    "p_major": 0.015701952025115855,
+    "p_ok": 0.9841513641111878,
     "labels_in_top": true,
     "prompt_tokens": 49,
-    "latency_ms": 536.5527090034448,
+    "latency_ms": 491.69879202963784,
     "error": null
    },
    "meta": {},
@@ -239,14 +241,14 @@
    "lp": "en-ru",
    "src": "First shift they had me close.",
    "mt": "В первую же смену они были рядом со мной.",
-   "risk": 0.6583,
+   "risk": 0.52,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
-     "message": "Model (base model, no LoRA): P(Major) 66%",
-     "confidence": 0.6582617807348923,
+     "message": "Model (LoRA v1): P(Major) 52%",
+     "confidence": 0.5199517110717421,
      "spans": []
     }
    ],
@@ -270,15 +272,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.6582617807348923
+    "lora_score": 0.5199517110717421
    },
    "model": {
-    "risk": 0.6582617807348923,
-    "p_major": 0.5683255947201666,
-    "p_ok": 0.29504762753448155,
+    "risk": 0.5199517110717421,
+    "p_major": 0.5188423965815308,
+    "p_ok": 0.4790241081984521,
     "labels_in_top": true,
     "prompt_tokens": 57,
-    "latency_ms": 476.5582919935696,
+    "latency_ms": 445.79795899335295,
     "error": null
    },
    "meta": {},
@@ -303,14 +305,14 @@
    "lp": "en-ru",
    "src": "Saturday.",
    "mt": "Суббота.",
-   "risk": 0.3999,
+   "risk": 0.0123,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
-     "message": "Model (base model, no LoRA): P(Major) 40%",
-     "confidence": 0.39993890010772376,
+     "message": "Model (LoRA v1): P(Major) 1%",
+     "confidence": 0.012302748559040386,
      "spans": []
     }
    ],
@@ -332,15 +334,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.39993890010772376
+    "lora_score": 0.012302748559040386
    },
    "model": {
-    "risk": 0.39993890010772376,
-    "p_major": 0.36909226279676055,
-    "p_ok": 0.5537793625873803,
+    "risk": 0.012302748559040386,
+    "p_major": 0.01230108911774968,
+    "p_ok": 0.9875640270973186,
     "labels_in_top": true,
     "prompt_tokens": 44,
-    "latency_ms": 476.5269170165993,
+    "latency_ms": 399.0413750289008,
     "error": null
    },
    "meta": {},
@@ -356,18 +358,20 @@
    "lp": "en-ru",
    "src": "We were working till past 1am.",
    "mt": "Мы работали до часу ночи.",
-   "risk": 0.2566,
-   "flagged": false,
+   "risk": 0.4826,
+   "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
-     "issue": "model_score",
-     "message": "Model (base model, no LoRA): P(Major) 26%",
-     "confidence": 0.256575058883599,
+     "issue": "model_high",
+     "message": "Model (LoRA v1): P(Major) 48%",
+     "confidence": 0.4825872295724044,
      "spans": []
     }
    ],
-   "issues": [],
+   "issues": [
+    "model_high"
+   ],
    "signals": {
     "number_check": {
      "flagged": false,
@@ -385,15 +389,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.256575058883599
+    "lora_score": 0.4825872295724044
    },
    "model": {
-    "risk": 0.256575058883599,
-    "p_major": 0.22750773718377493,
-    "p_ok": 0.6592025228613718,
+    "risk": 0.4825872295724044,
+    "p_major": 0.4815221950136177,
+    "p_ok": 0.5162708784588602,
     "labels_in_top": true,
     "prompt_tokens": 54,
-    "latency_ms": 476.4328339952044,
+    "latency_ms": 433.2683749962598,
     "error": null
    },
    "meta": {},
@@ -409,14 +413,14 @@
    "lp": "en-ru",
    "src": "I quit the next day.",
    "mt": "Я уволилась на следующий день.",
-   "risk": 0.5199,
+   "risk": 0.1988,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
-     "message": "Model (base model, no LoRA): P(Major) 52%",
-     "confidence": 0.5199160051275099,
+     "message": "Model (LoRA v1): P(Major) 20%",
+     "confidence": 0.1987892357766493,
      "spans": []
     }
    ],
@@ -440,15 +444,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.5199160051275099
+    "lora_score": 0.1987892357766493
    },
    "model": {
-    "risk": 0.5199160051275099,
-    "p_major": 0.47538312365567936,
-    "p_ok": 0.43896288409819073,
+    "risk": 0.1987892357766493,
+    "p_major": 0.19854788613841934,
+    "p_ok": 0.8002380157375698,
     "labels_in_top": true,
     "prompt_tokens": 53,
-    "latency_ms": 476.0991249931976,
+    "latency_ms": 433.1760830245912,
     "error": null
    },
    "meta": {},
@@ -464,14 +468,14 @@
    "lp": "en-ru",
    "src": "Best way to lose a new young worker, by shocking them with that.",
    "mt": "Лучший способ потерять нового молодого работника — шокировать его этим.",
-   "risk": 0.6946,
+   "risk": 0.1678,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
-     "message": "Model (base model, no LoRA): P(Major) 69%",
-     "confidence": 0.6946009605321762,
+     "message": "Model (LoRA v1): P(Major) 17%",
+     "confidence": 0.16777239751128756,
      "spans": []
     }
    ],
@@ -495,15 +499,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.6946009605321762
+    "lora_score": 0.16777239751128756
    },
    "model": {
-    "risk": 0.6946009605321762,
-    "p_major": 0.6289132272461003,
-    "p_ok": 0.27651775108749066,
+    "risk": 0.16777239751128756,
+    "p_major": 0.1675749607372689,
+    "p_ok": 0.8312482260506212,
     "labels_in_top": true,
     "prompt_tokens": 69,
-    "latency_ms": 361.81133397622034,
+    "latency_ms": 400.659832987003,
     "error": null
    },
    "meta": {},
@@ -519,7 +523,7 @@
    "lp": "en-ru",
    "src": "Same happened to my friend after I had been working with Pizza Hut for a couple years (didn't make me close until months after I started working and trained up), got him a job there on the spot.",
    "mt": "Тоже самое произошло с моим другом, когда я проработал пару лет в Pizza Hut (прошло несколько месяцев после того, как я начал работать и прошел обучение), и сразу же нашел ему там работу.",
-   "risk": 0.9009,
+   "risk": 0.8964,
    "flagged": true,
    "reasons": [
     {
@@ -538,8 +542,8 @@
     {
      "code": "model_risk",
      "issue": "model_high",
-     "message": "Model (base model, no LoRA): P(Major) 60%",
-     "confidence": 0.6035754596215485,
+     "message": "Model (LoRA v1): P(Major) 59%",
+     "confidence": 0.5856909097414214,
      "spans": []
     }
    ],
@@ -566,15 +570,15 @@
      "src_count": 1,
      "mt_count": 0
     },
-    "lora_score": 0.6035754596215485
+    "lora_score": 0.5856909097414214
    },
    "model": {
-    "risk": 0.6035754596215485,
-    "p_major": 0.5464183676099955,
-    "p_ok": 0.35888412423188387,
+    "risk": 0.5856909097414214,
+    "p_major": 0.584389320063944,
+    "p_ok": 0.4133883649644064,
     "labels_in_top": true,
     "prompt_tokens": 125,
-    "latency_ms": 362.57954203756526,
+    "latency_ms": 400.5491249845363,
     "error": null
    },
    "meta": {},
@@ -596,15 +600,20 @@
  ],
  "summary": {
   "segments": 10,
-  "flagged": 5,
-  "threshold": 0.5,
+  "flagged": 7,
+  "threshold": 0.1609,
+  "thresholds": {
+   "en-ru": 0.1609
+  },
+  "threshold_source": "dev_f1",
   "input": "segments",
   "xliff": null,
-  "model": "Qwen3.5-4B-Q4_K_M",
+  "model": "Qwen3.5-4B-Q4_K_M+secondread-lora",
   "model_available": true,
-  "lora_loaded": false,
+  "lora_loaded": true,
   "lora_scale": null,
-  "lora_active": false,
+  "lora_active": true,
+  "adapter_version": "v1",
   "model_errors": {},
   "tokens": {
    "input": 626,
@@ -612,28 +621,28 @@
   },
   "cost_usd": 0.0,
   "timing_ms": {
-   "total": 1382.4,
-   "per_segment": 138.2,
-   "parse": 0.1,
-   "checks": 0.6,
-   "model": 1381.6,
-   "model_call_p50": 476.5,
-   "model_call_p95": 539.2
+   "total": 1295.3,
+   "per_segment": 129.5,
+   "parse": 0.0,
+   "checks": 0.4,
+   "model": 1294.8,
+   "model_call_p50": 438.9,
+   "model_call_p95": 493.5
   }
  },
  "timing_ms": {
-  "total": 1382.4,
-  "per_segment": 138.2,
-  "parse": 0.1,
-  "checks": 0.6,
-  "model": 1381.6,
-  "model_call_p50": 476.5,
-  "model_call_p95": 539.2
+  "total": 1295.3,
+  "per_segment": 129.5,
+  "parse": 0.0,
+  "checks": 0.4,
+  "model": 1294.8,
+  "model_call_p50": 438.9,
+  "model_call_p95": 493.5
  },
  "meta": {
-  "placeholder": true,
+  "placeholder": false,
   "title": "Restaurant job thread (WMT22 en-ru, social domain)",
-  "note": "Precomputed with the SecondRead backend, but without the fine-tuned LoRA (base Qwen3.5-4B, Q4_K_M).",
+  "note": "Precomputed with the SecondRead backend, fine-tuned LoRA v1 active.",
   "attribution": "Source text and MT output: WMT22 General MT test set, en-ru, system comet_bestmbr. Human MQM labels: Unbabel raters, released by Google in google/wmt-mqm-human-evaluation (Apache-2.0). WMT data is provided for research purposes.",
   "lp": "en-ru",
   "doc": "t1_hkc5no1",

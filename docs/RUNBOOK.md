@@ -150,7 +150,9 @@ lora file". The smoke test, scale 0 → 1:
 | wrong number (Major) | 0.847 | 0.826 |
 | faithful (OK) | 0.259 | 0.003 |
 
-`:9931` was **not** restarted. It still serves the base model only.
+`:9931` was not restarted at export time. **Ship phase (2026-10-14, 18:00 CEST):** it now serves
+v1 with `-cram 0` (command below), started with `nohup` from the repo root, log
+`/tmp/claude-501/llama-9931.log`.
 
 `export_adapter.sh` defaults to port 9932. Pass a free port: 9931 is the app's server, and
 9932 was in use by another job on 2026-10-14. The script runs a smoke test on that port (adapter
@@ -224,6 +226,29 @@ kill $SRV
 - **The full en-ru dev split has not been scored locally yet.** The en-ru F1 thresholds
   therefore come from the 300-row dev files. About 10 min: same loop with `s=en-ru.dev`.
 - **Report commands** are in `docs/RESULTS.md`.
+
+## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done)
+
+```sh
+# serve the shipped adapter on the app port (stop the old server first)
+nohup llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 \
+  --host 127.0.0.1 --port 9931 > /tmp/claude-501/llama-9931.log 2>&1 < /dev/null &
+curl -s http://127.0.0.1:9931/health; curl -s http://127.0.0.1:9931/lora-adapters
+# thresholds per adapter and pair from the full dev splits (fused risk, F1-optimal)
+py scripts/pick_thresholds.py --fused-dir runs/ship          # -> secondread/thresholds.json
+# backend (no keys needed; without .env Sentry stays off), demo results, UI builds
+py -m secondread.server &                                    # 127.0.0.1:8787
+curl -s http://127.0.0.1:8787/api/health                     # adapter "secondread-lora v1", thresholds
+py scripts/make_demo_results.py --api http://127.0.0.1:8787  # ui/public/demo-results.json, placeholder false
+kill %1
+(cd ui && npm run build && npm run build:demo)               # both write ui/dist; the last one wins
+py tests/test_xliff.py && py scripts/canary_check.py
+```
+
+`models/secondread-lora.gguf` is v1 (sha256 `5337b2b7…`), `models/secondread-lora-v1.gguf` is a
+copy, and `models/secondread-lora-v2.gguf` (sha256 `9dda3f68…`) is kept. To switch adapters,
+restart `:9931` with the other `--lora`. The backend recognises v1 and v2 by hash and applies
+their own thresholds. An unknown file gets the 0.5 fallback.
 
 ## Results so far (2026-10-14)
 
