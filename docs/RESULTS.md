@@ -553,6 +553,10 @@ better on the synthetic error types.
 
 ### Flag thresholds per adapter and language pair
 
+> **Since the review pass (2026-10-14, night) these are the `f1` operating point.** The backend now
+> flags at the `review` point by default (dev recall of Major ≥ 0.60); see "Review operating
+> point" below. `SECONDREAD_OPERATING_POINT=f1` restores these values.
+
 The backend flags a segment when its **fused** risk reaches the threshold of the active adapter
 for the segment's language pair. At ship time the fused risk was the noisy-OR of the model risk
 and the two rule checks (replaced since; see "Rule calibration"). `scripts/pick_thresholds.py` picks each threshold this way:
@@ -893,3 +897,573 @@ py scripts/pick_thresholds.py --fused-dir runs/rulecal/app   # app fusion == run
 
 `runs/rulecal/` is git-ignored. Without the train score files, `calibrate_rules.py` still fits
 and writes the shipped `logodds_rules` weights; it skips the two candidates that need them.
+
+---
+
+## Review operating point (2026-10-14, night)
+
+**Verdict: the app now flags at a recall-oriented "review" line by default.** For v1 it finds 60%
+of the dev Majors in both pairs. On en-es that costs 3× the flags of the F1 line (10% of segments
+instead of 3%) at half the precision (0.34 instead of 0.63). On en-ru the F1 line already found 64%,
+so the review line sits slightly *above* it and flags a little less (35% instead of 37%). Only dev
+was used. No test split and no real document was scored for this section.
+
+**Why:** at the F1 line, en-es is precise and quiet, and its recall is low: 0.35 on dev and 0.30 on
+test. REALDOCS.md shows the same on real documents (2 of 9 verified majors). A post-editor reading a
+flag list wants more of the majors in it, and can afford more flags.
+
+### The rule, fixed before any number was computed
+
+For each language pair, on the **full** dev split of that pair, using the app's combined score
+(model log-odds plus the train-calibrated rule weights, `secondread.agent.aggregate`, the same
+fusion `scripts/pick_thresholds.py` uses for the F1 line):
+1. choose the **highest** threshold whose dev recall of Major is ≥ 0.60
+   (`metrics.max_threshold_at_recall`), stored rounded *down* to 4 decimals, so the stored value
+   still has recall ≥ 0.60. For v1 the stored value flags exactly the same rows as the exact one
+   on both pairs; for base en-ru it adds one OK row;
+2. report dev precision and flag rate at it, with a 95% document-bootstrap CI for recall
+   (1,000 replicates, seed 0 for en-ru and seed 1 for en-es, recall at the fixed threshold);
+3. if a pair's recall CI is wider than ±0.15 (read as hi − lo > 0.30), also report the threshold
+   the same rule gives on en-ru + en-es dev pooled, but still use the per-pair one.
+
+Model and threshold selection use dev only. The review mode of `pick_thresholds.py` opens no test
+file (`tests/test_thresholds.py` checks this).
+
+### v1, dev
+
+| Pair | Point | Threshold | dev n (docs, Major) | Flagged | Recall [95% CI] | Precision [95% CI] | Flag rate [95% CI] | F1 |
+|---|---|---:|---|---:|---|---|---|---:|
+| en-ru | **review** | **0.1857** | 2,972 (31, 803) | 1,027 | **0.600** [0.466, 0.705] | 0.469 [0.330, 0.575] | 34.6% [26.7%, 42.2%] | 0.527 |
+| | f1 (before) | 0.1609 | | 1,102 | 0.638 | 0.465 | 37.1% | 0.538 |
+| en-es | **review** | **0.4984** | 1,650 (12, 95) | 167 | **0.600** [0.500, 0.673] | 0.341 [0.312, 0.433] | 10.1% [6.8%, 18.4%] | 0.435 |
+| | f1 (before) | 0.7019 | | 52 | 0.347 | 0.635 | 3.1% | 0.449 |
+
+- **Rows:** en-ru flags 1,027 rows at the review line, 482 of the 803 Majors. en-es flags 167,
+  57 of the 95. 0.60 × 95 = 57 exactly, and the next distinct score up gives 56 (0.589).
+- **Recall CIs:** en-ru ±0.119 and en-es ±0.087, both within ±0.15. So the pooled threshold was
+  not required and is not reported. The asymmetric reading (largest distance from the point
+  estimate) gives 0.134 and 0.100, also within ±0.15.
+- **The CI is for recall at the fixed threshold.** It does not include the uncertainty of the
+  threshold itself, which is chosen on the same rows. Re-picking the threshold on each bootstrap
+  replicate gives en-ru [0.096, 0.314] and en-es [0.426, 0.533]. Expect the recall on new data
+  to move more than the recall CI suggests, especially on en-ru, where many rows sit at low risk.
+- **Rule weights barely matter here.** The model-only threshold under the same rule is the same
+  for en-ru (0.1857) and 0.4960 for en-es.
+- **The F1 counts** are from the F1 block of `secondread/thresholds.json`, computed when that line
+  was picked. They have no CIs.
+
+### Other adapters, same rule (dev, for the record)
+
+| Adapter | Pair | Review threshold | Recall [95% CI] | Precision | Flag rate | F1 threshold | F1-line recall / precision / flag rate |
+|---|---|---:|---|---:|---:|---:|---|
+| base | en-ru | 0.4431 | 0.600 [0.501, 0.703] | 0.317 | 51.1% | 0.3668 | 0.766 / 0.314 / 66.0% |
+| base | en-es | 0.6183 | 0.600 [0.509, 0.735] | 0.213 | 16.2% | 0.7345 | 0.421 / 0.313 / 7.8% |
+| v2 | en-ru | 0.1403 | 0.600 [0.489, 0.704] | 0.441 | 36.7% | 0.0827 | 0.724 / 0.424 / 46.1% |
+| v2 | en-es | 0.4704 | 0.600 [0.511, 0.679] | 0.310 | 11.2% | 0.5717 | 0.516 / 0.366 / 8.1% |
+
+All recall CIs are within ±0.15, so the pooled report was not triggered for any adapter. These
+values make the base model (`lora_scale` 0) and v2 work at the review point too.
+
+### Not measured yet
+
+> **Measured since:** the test splits and the real documents at the review line are in "v3 — test
+> and real documents" below. The static demo was rebuilt at the review line in the Ship phase
+> (same section, "Ship").
+
+- **Test.** The review line has not been applied to either test split. Under the integrity rules
+  each final candidate's test split is scored once and reported whatever the outcome. That run
+  belongs to the Ship phase, together with the v3 candidate.
+- **Real documents.** REALDOCS.md, `data/realdocs/scored.jsonl` and the en-es demo answer key are
+  all at the F1 line (0.7019). They are evaluation only and were not looked at for this choice.
+- **The static demo.** `ui/public/demo-results.json` was built through the backend at the F1
+  line. It needs `make_demo_results.py --api` and `npm run build:demo` again before it shows the
+  review line.
+
+### In the app
+
+- **`secondread/thresholds.json`:** each adapter has a `review` block and an `f1` block, each with
+  `thresholds` and `stats`. The review stats are dev only: counts, recall, precision and flag rate
+  with CIs, the re-picked threshold CI and the model-only threshold. The top level holds
+  `default_operating_point: "review"` and each point's method, date and rule-calibration sha256.
+  The older one-point format still loads, as the `f1` point.
+- **Choosing the point:** a request's `operating_point` (`review` or `f1`, in a JSON body,
+  multipart field or query), then `SECONDREAD_OPERATING_POINT`, then the file's default, then
+  `review`. A `threshold` in the request or `SECONDREAD_THRESHOLD` still overrides any point.
+  - An unknown point is refused: a 400 `bad_operating_point` for a request, a start-up error for
+    the variable.
+  - A point with no value for the adapter or the pair falls back to 0.5, and the source says so
+    (`dev_review+fallback`).
+- **`/api/health`:**
+  - `operating_point` and `operating_point_source` (`file` here);
+  - `thresholds` and `threshold_source` (`dev_review`) at that point;
+  - `operating_points`, the thresholds each point would apply to the loaded adapter.
+
+  Review summaries carry `operating_point` as well.
+- **Checked through a backend on `:9970`** against the served v1 on `:9931`:
+  - **Health:** `review` from the file: en-es 0.4984, en-ru 0.1857.
+  - **30 en-es and 30 en-ru dev rows, at both points:** every risk is within 0.0017 of the
+    fused dev file. The flag counts match that file at each threshold: en-ru 14 at review and 16 at
+    F1, en-es 13 and 1.
+  - **Switching:** `?operating_point=f1` and the multipart field both switch the point, and
+    `"recall"` returns a 400.
+  - **The variable:** `SECONDREAD_OPERATING_POINT=f1` gives `operating_point_source: env` and the
+    F1 thresholds. An unknown value stops the start-up.
+- **Other checks:** `tests/test_thresholds.py` 7/7, `tests/test_xliff.py` 20/20,
+  `scripts/canary_check.py` PASS (the canary is in 0 envelopes, and in 4 with the scrubbers off).
+
+### Reproduce
+
+```sh
+py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }
+py scripts/pick_thresholds.py --target-recall 0.60   # review blocks of base, v1, v2; the f1 blocks are kept
+py tests/test_thresholds.py
+```
+
+---
+
+## v3 (wrong-sense synthetic) — dev selection (2026-10-14, night)
+
+**Verdict: keep v1.** Neither candidate passes the selection rule that was fixed before their dev
+scores existed. On the full en-ru dev split both lose about 0.035 PR-AUC against v1, more than
+the 0.01 margin. v3a also loses 0.0105 AUROC on en-ru and 0.020 PR-AUC on en-es. Both candidates
+are clearly better than v1 on the held-out synthetic sense set. That set comes from the same
+generator as their training rows, and the gain does not show up on human labels: on dev, the
+real mistranslations are not ranked any higher. This is the v2 pattern again.
+
+**What was scored:** the full en-ru and en-es dev splits for v3a and v3b, and the synthetic sense
+test set for v1, v3a and v3b. v1's dev scores were reused. No test split and no real document was
+scored. The one exception is the 380 clean parents of the sense test rows. They are gold-OK units
+from test documents, and the "AUROC vs clean parents" column needs their scores. No Major unit
+of a test split was scored, and no human-label test metric was computed. The selection uses dev
+only.
+
+### The candidates
+
+Everything except the training rows is as in v1: Qwen3.5-4B, LoRA rank 16 MLP-only, LR 2e-4
+with linear decay, batch 64, 1 epoch, seed 0. Both runs score the same 200 en-ru dev rows during
+training.
+
+| | v1 (shipped) | v3a | v3b |
+|---|---|---|---|
+| Data | `data/sft_v1.jsonl`, 14,791 human rows | `data/sft_v3a.jsonl` (sha `9945949ac643b8cd`), 16,258 rows: v1's 14,791 human rows plus 1,467 wrong-sense rows (`data/synth/sense.v3a.train.jsonl`, `scripts/subsample_synth.py`) | `data/sft_v3b.jsonl` (sha `2b677b743e808c21`), 17,830 rows: the same human rows plus 1,613 wrong-sense rows and 1,426 v2 synthetic rows (`data/synth/mix_v3b/`, `scripts/mix_synth.py`) |
+| Synthetic share | 0% | en-ru 8.5%, en-es 12.0% (cap 12% per pair; Major:OK about 3:1) | wrong-sense: en-ru 8.6%, en-es 12.0% (cap 12%). v2 types: 8.0% in both (cap 8%). All synthetic: en-ru 16.6%, en-es 20.0% |
+| Steps, tokens | 231, 1,452,983 | 254, 1,607,700 | 278, 1,768,395 |
+| Tinker run | `479fd56b-…:train:0` | `abc2567b-8635-5c1b-9e87-20f536e95a06:train:0` | `7df264ae-f959-55df-aa64-e32f372a36e7:train:0` |
+| Cost (estimated from token counts) | $1.07 + $0.15 | ≈ $1.36 | ≈ $1.48 |
+| GGUF (sha256) | `models/secondread-lora.gguf` (`5337b2b7…`) | `models/secondread-lora-v3a.gguf` (`eac1fb1a…`) | `models/secondread-lora-v3b.gguf` (`64f78f05…`) |
+| 200 en-ru dev rows at the end of training (AUROC / PR-AUC) | 0.739 / 0.528 | 0.728 / 0.482 | 0.733 / 0.506 |
+
+The wrong-sense rows come from `scripts/synth_sense.py` (Gemma 4 31B on train documents): the
+types `wrong_sense`, `false_friend` and `antonym_term` are Major, and `synonym_ok` is OK.
+`scripts/verify_synth.py sense` reports 0 problems on the train file, including the checks for
+real-document stories and integrity words.
+
+### The selection rule, fixed before any v3a or v3b dev score was computed
+
+1. On each pair's full dev split, take the **model-only** AUROC and PR-AUC (point estimates) of
+   v1, v3a and v3b.
+2. A candidate is **eligible** only if, on **both** pairs, its PR-AUC ≥ v1's − 0.01 **and** its
+   AUROC ≥ v1's − 0.01.
+3. Among the eligible candidates, pick the one with the highest mean of (ΔPR-AUC en-ru,
+   ΔPR-AUC en-es) against v1.
+4. If no candidate is eligible, or the best mean ΔPR-AUC is not above 0, keep v1.
+
+The rule names the PR-AUC as model-only and does not say which AUROC. `scripts/select_v3.py`
+uses model-only for both and also applies the rule to the app's combined score. Both readings
+give the same decision.
+
+### Dev results, full splits
+
+1,000 document-bootstrap replicates (seed 0), shared by the three systems of a pair, so the
+differences are paired. "Model" is the adapter alone. "App" is the score the backend ranks by:
+the model log-odds plus the train-calibrated rule weights (`secondread.agent.aggregate`).
+
+| Pair (rows, docs, Major) | System | Model AUROC [95% CI] | Model PR-AUC [95% CI] | Model recall@10% [95% CI] | App AUROC / PR-AUC / recall@10% |
+|---|---|---|---|---|---|
+| **en-ru dev** (2,972, 31, 803) | **v1** | **0.739** [0.676, 0.798] | **0.546** [0.398, 0.644] | **0.239** [0.183, 0.314] | 0.739 / 0.546 / 0.239 |
+| | v3a | 0.728 [0.670, 0.785] | 0.510 [0.369, 0.614] | 0.235 [0.182, 0.293] | 0.728 / 0.510 / 0.235 |
+| | v3b | 0.739 [0.690, 0.793] | 0.511 [0.365, 0.613] | 0.228 [0.171, 0.295] | 0.739 / 0.511 / 0.228 |
+| **en-es dev** (1,650, 12, 95) | **v1** | 0.869 [0.832, 0.886] | **0.453** [0.371, 0.548] | **0.600** [0.369, 0.639] | 0.872 / 0.450 / 0.589 |
+| | v3a | 0.869 [0.824, 0.886] | 0.433 [0.335, 0.574] | 0.558 [0.408, 0.607] | 0.871 / 0.434 / 0.568 |
+| | v3b | 0.866 [0.804, 0.890] | 0.452 [0.362, 0.561] | 0.579 [0.400, 0.625] | 0.866 / 0.450 / 0.568 |
+
+| Pair | Candidate − v1 | ΔAUROC (model) | ΔPR-AUC (model) | Δrecall@10% (model) | ΔAUROC / ΔPR-AUC (app) |
+|---|---|---|---|---|---|
+| en-ru dev | v3a − v1 | −0.011 [−0.031, +0.016] | **−0.036** [−0.067, −0.005] | −0.004 [−0.037, +0.013] | −0.011 / −0.036 |
+| en-ru dev | v3b − v1 | +0.000 [−0.031, +0.044] | −0.035 [−0.074, +0.011] | −0.011 [−0.046, +0.010] | +0.000 / −0.035 |
+| en-es dev | v3a − v1 | −0.000 [−0.023, +0.008] | −0.020 [−0.053, +0.049] | −0.042 [−0.084, +0.133] | −0.001 / −0.016 |
+| en-es dev | v3b − v1 | −0.003 [−0.036, +0.007] | −0.001 [−0.045, +0.040] | −0.021 [−0.089, +0.112] | −0.006 / +0.000 |
+
+On en-ru the rule checks barely fire on dev, so the app's score equals the model's to three
+decimals.
+
+### Applying the rule
+
+| Candidate | ΔPR-AUC en-ru | ΔPR-AUC en-es | ΔAUROC en-ru | ΔAUROC en-es | Eligible | Mean ΔPR-AUC |
+|---|---:|---:|---:|---:|---|---:|
+| v3a | **−0.0357** | **−0.0196** | **−0.0105** | −0.0001 | no: fails 3 of 4 conditions | −0.0277 |
+| v3b | **−0.0353** | −0.0007 | +0.0004 | −0.0028 | no: fails en-ru PR-AUC | −0.0180 |
+| app-score reading | v3a −0.0357, v3b −0.0352 | v3a −0.0163, v3b +0.0003 | v3a −0.0105, v3b +0.0004 | v3a −0.0013, v3b −0.0059 | no, no | −0.0260, −0.0174 |
+
+Bold: a condition that fails (below −0.01). No candidate is eligible, and neither mean ΔPR-AUC is
+above 0, so **v1 is kept**.
+
+- **en-ru PR-AUC decides it.** It is the larger dev split (803 Majors), and the drop is the same
+  for both candidates. For v3a the CI excludes 0; for v3b it just includes 0.
+- **v3b ties v1 on ranking.** Its AUROC is equal on en-ru and its en-es PR-AUC is within 0.001.
+  It loses at the top of the en-ru ranking, which is what PR-AUC measures.
+- **The 200-row curve during training pointed the same way:** v3a 0.728 / 0.482 and v3b 0.733 /
+  0.506, against v1's 0.739 / 0.528.
+
+### Review thresholds (threshold rule, dev only)
+
+The rule from "Review operating point": the highest threshold whose dev recall of Major is
+≥ 0.60 on the app's score, rounded down to 4 decimals. Recall, precision and flag rate are at
+that fixed threshold, with document-bootstrap CIs (1,000 replicates, seed 0 for en-ru and 1 for
+en-es). v1's values reproduce `secondread/thresholds.json` exactly.
+
+| System | Pair | Review threshold | Recall [95% CI] | Precision [95% CI] | Flag rate [95% CI] | Flagged / Majors caught | Threshold re-picked per replicate |
+|---|---|---:|---|---|---|---|---|
+| **v1** | en-ru | **0.1857** | 0.600 [0.466, 0.705] | **0.469** [0.330, 0.575] | **34.6%** [26.7%, 42.2%] | 1,027 / 482 of 803 | [0.096, 0.314] |
+| v3a | en-ru | 0.1763 | 0.600 [0.473, 0.719] | 0.440 [0.305, 0.551] | 36.8% [30.7%, 43.1%] | 1,095 / 482 | [0.104, 0.346] |
+| v3b | en-ru | 0.3205 | 0.600 [0.483, 0.716] | 0.462 [0.337, 0.572] | 35.1% [28.6%, 42.0%] | 1,043 / 482 | [0.175, 0.470] |
+| **v1** | en-es | **0.4984** | 0.600 [0.500, 0.673] | **0.341** [0.312, 0.433] | **10.1%** [6.8%, 18.4%] | 167 / 57 of 95 | [0.425, 0.533] |
+| v3a | en-es | 0.5941 | 0.600 [0.508, 0.659] | 0.297 [0.239, 0.403] | 11.6% [9.7%, 18.1%] | 192 / 57 | [0.548, 0.681] |
+| v3b | en-es | 0.6457 | 0.600 [0.470, 0.657] | 0.315 [0.252, 0.493] | 11.0% [8.5%, 18.6%] | 181 / 57 | [0.499, 0.674] |
+
+- **Same recall, more flags.** At the review line, both candidates need more flags than v1 for the
+  same 60% of dev Majors: en-ru 1,095 and 1,043 against 1,027, and en-es 192 and 181 against 167.
+- **Pooled threshold:** not triggered. The widest recall CI is ±0.123 (v3a en-ru).
+- **The thresholds differ, the rule does not.** v3b's en-ru line is 0.3205 against v1's 0.1857
+  because v3b's risks are higher overall. The number on its own means nothing.
+- **In the app:** `scripts/pick_thresholds.py --target-recall 0.60 --adapters v3a v3b` wrote these
+  as `review` blocks for v3a and v3b in `secondread/thresholds.json`. The backend now recognises
+  both GGUFs by sha256. Base, v1, v2 and the operating-point metadata are unchanged, and the
+  default stays `review`. The candidates have no `f1` block, because the F1 mode also reads test
+  for information. If one were served at `f1`, it would get the 0.5 fallback.
+
+### Real mistranslations on dev (descriptive)
+
+The point of v3 was wrong-sense errors, which are most of the real Majors. The dev Majors are
+split by whether they carry a major or critical mistranslation (or `wrong_term`) span. For each
+split: the share in the riskiest 10% of all dev rows, and the share flagged at each system's own
+review line (app score).
+
+| Pair | System | Mistranslation Majors in top 10% | at the review line | Other Majors in top 10% | at the review line |
+|---|---|---:|---:|---:|---:|
+| en-ru (696 + 107) | v1 | **0.254** | 0.598 | 0.140 | **0.617** |
+| | v3a | 0.246 | 0.601 | 0.168 | 0.598 |
+| | v3b | 0.236 | **0.608** | **0.178** | 0.551 |
+| en-es (73 + 22) | v1 | 0.630 (46) | 0.630 (46) | **0.455** (10) | **0.500** (11) |
+| | v3a | 0.630 (46) | **0.671** (49) | 0.364 (8) | 0.364 (8) |
+| | v3b | 0.630 (46) | **0.671** (49) | 0.364 (8) | 0.364 (8) |
+
+- **The real mistranslations do not move up the ranking.** In the riskiest 10%, en-ru goes from
+  0.254 to 0.246 and 0.236, and en-es stays at 46 of 73 for all three systems.
+- **At the review line, en-es swaps majors rather than gaining them.** Recall is fixed at 57 of
+  95, so the 3 extra mistranslations (46 → 49) are paid for with 3 of the 22 other Majors
+  (11 → 8). en-es dev has 12 documents, so this is about 3 units.
+
+### Held-out synthetic sense set (descriptive)
+
+- **The set:** `data/synth/sense.test.jsonl`, 420 rows. The same generator, prompts and
+  validators as the v3 training rows made it, from clean units of the **test** documents. It is
+  in-distribution for v3a and v3b and out-of-distribution for v1. No train-split sentence is in
+  it.
+- **Columns:**
+  - **flagged:** the share flagged at each system's own review threshold. For the Major types
+    that is recall; for `synonym_ok`, a meaning-preserving edit, it is the false-flag rate.
+  - **AUROC vs parents:** the edited rows against their own clean parents. The parents are the
+    unedited units the edits were made from (380 distinct, all gold OK), scored by the same
+    system. For `synonym_ok`, 0.5 is ideal.
+  - **All three:** on the app's score. The model-only AUROCs agree to within 0.01.
+- **CIs:** 1,000 document-bootstrap replicates, for the pooled Major row only.
+- **Check:** v1's re-scored parents match its earlier test-split scores to within 0.0013.
+
+en-ru (review thresholds: v1 0.1857, v3a 0.1763, v3b 0.3205):
+
+| Type | n | flagged: v1 | v3a | v3b | AUROC vs parents: v1 | v3a | v3b |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| antonym_term | 66 | 0.94 | 0.97 | **1.00** | 0.91 | 0.96 | **0.98** |
+| false_friend | 31 | 0.74 | **0.84** | **0.84** | 0.84 | **0.88** | 0.86 |
+| wrong_sense | 65 | 0.91 | **0.95** | **0.95** | 0.88 | **0.92** | **0.92** |
+| **all Major types** | 162 | 0.89 | 0.94 | **0.95** | 0.87 [0.83, 0.92] | **0.93** [0.89, 0.96] | 0.92 [0.89, 0.95] |
+| synonym_ok (OK: false-flag rate) | 64 | 0.44 | 0.41 | 0.38 | 0.50 | 0.52 | 0.51 |
+| clean parents (false-flag rate) | 207 | 0.42 | 0.43 | 0.36 | | | |
+
+en-es (review thresholds: v1 0.4984, v3a 0.5941, v3b 0.6457):
+
+| Type | n | flagged: v1 | v3a | v3b | AUROC vs parents: v1 | v3a | v3b |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| antonym_term | 58 | 0.71 | 0.91 | **0.93** | 0.92 | 0.95 | **0.97** |
+| false_friend | 22 | 0.27 | 0.50 | **0.59** | 0.88 | **0.90** | **0.90** |
+| wrong_sense | 60 | 0.52 | **0.77** | 0.75 | 0.85 | 0.90 | **0.91** |
+| **all Major types** | 140 | 0.56 | 0.79 | **0.80** | 0.87 [0.81, 0.91] | 0.91 [0.87, 0.94] | **0.92** [0.87, 0.95] |
+| synonym_ok (OK: false-flag rate) | 54 | 0.09 | 0.13 | 0.15 | 0.52 | 0.52 | 0.51 |
+| clean parents (false-flag rate) | 173 | 0.08 | 0.12 | 0.11 | | | |
+
+- **v3 learned the synthetic types.** At the review line, en-es recall on the sense errors rises
+  from 0.56 to 0.79–0.80, and false friends from 0.27 to 0.50–0.59. Against their parents, AUROC
+  rises from 0.87 to 0.91–0.93 on both pairs.
+- **It did not learn an "edited text" shortcut.** Synonym edits stay at 0.51–0.52 against their
+  parents.
+- **The cost on clean text is small but real.** On en-es the clean parents are flagged at
+  0.11–0.12 instead of 0.08. On dev the same shows up as 181–192 flags instead of 167.
+- **The gain is in-distribution.** The training rows and these test rows come from one generator.
+  On human-labelled dev the candidates are lower (the tables above), so the synthetic gain does
+  not carry over to the real wrong-sense errors in WMT MQM. v2 showed the same for omissions and
+  additions.
+
+### What this means for the Ship phase
+
+- **v1 is the only final candidate.** Its test splits are scored once at its review line
+  (0.1857 / 0.4984) and reported whatever the outcome (integrity rule 3).
+- **v3a and v3b are not final candidates,** so their test splits are not scored. Their GGUFs and
+  review thresholds stay on disk and in `secondread/thresholds.json`, as v2's do.
+- **Real documents:** v3 was not scored on them. A later look would be evaluation after the
+  decision. It could not change the decision and would have to be reported as post-selection.
+
+### Spend of this phase
+
+$0. Local GPU only, 22:54–23:26 CEST: llama-servers on `:9970` (v3a), `:9971` (v3b) and `:9972`
+(v1), all with `-cram 0 -np 4` and all stopped. 11,644 rows were scored: 2 × 4,622 dev, 3 × 420
+sense and 3 × 380 parents. `:9931` (v1, PID 22074) was not touched.
+
+### Files
+
+- **Scores** (`results/`; ids, labels and scores only):
+  - `local_{v3a,v3b}_{enru,enes}_dev.jsonl`;
+  - `local_{v1,v3a,v3b}_synth_sense_test.jsonl`;
+  - `local_{v1,v3a,v3b}_synth_sense_parents.jsonl`.
+- **Parents file:** `data/synth/sense.test.parents.jsonl`, the 380 clean parents (git-ignored).
+- **Analysis:** `scripts/select_v3.py`. It holds the rule, reads no test split, and writes every
+  number above to `runs/v3_select/select.json` (git-ignored).
+- **Threshold script:** `scripts/pick_thresholds.py`, with `v3a` and `v3b` added to `SYSTEMS`.
+- **Thresholds file:** `secondread/thresholds.json`, with new `review` blocks for v3a and v3b.
+
+### Reproduce
+
+```sh
+py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }
+# one server per adapter, own port, -cram 0; stop it afterwards
+llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora-v3a.gguf -c 16384 -np 4 -cram 0 \
+   --host 127.0.0.1 --port 9970 &
+for s in data/splits/en-ru.dev:enru_dev data/splits/en-es.dev:enes_dev \
+         data/synth/sense.test:synth_sense_test data/synth/sense.test.parents:synth_sense_parents; do
+  py scripts/probe_local.py ${s%%:*}.jsonl 100000 --workers 4 --lora-scale 1 --port 9970 --out results/local_v3a_${s#*:}.jsonl
+done
+# (same for v3b on another port; v1 needs only the two sense files, its dev scores exist)
+# sense.test.parents.jsonl = the units of data/splits/{en-ru,en-es}.test.jsonl whose id is a synth_parent
+# of data/synth/sense.test.jsonl (380 rows, all OK)
+py scripts/select_v3.py                                         # dev selection + descriptive tables
+py scripts/pick_thresholds.py --target-recall 0.60 --adapters v3a v3b   # review blocks; others kept
+py tests/test_thresholds.py
+```
+
+---
+
+## v3 — test and real documents (2026-10-14, night)
+
+**Verdict: v1 stays.** The v3 dev selection kept v1, so v1 is the only final candidate. Its test
+splits were evaluated once, at both operating points. v3a and v3b were scored on neither the test
+splits nor the real documents.
+
+- **en-ru test, review line (0.1857):** v1 finds 74% of the Majors, against 60% on dev. It flags
+  38% of the segments, at precision 0.39. That is a little stricter than the F1 line (0.1609):
+  2.5 points less recall for 3.4 points fewer flags.
+- **en-es test, review line (0.4984): it misses the target set on dev.** It finds 48% of the
+  Majors [0.42, 0.58], below the 0.60 it was set for on dev. It flags 8.2% of the segments, at
+  precision 0.54.
+  - Against the F1 line (0.7019): +18 points of recall [+11, +26] for +4.6 points of flags.
+    Precision falls from 0.77 to 0.54. F1 rises from 0.436 to 0.511, though the CI of that
+    difference includes 0.
+- **Against Gemma 4 31B direct:** the same picture as the main table.
+  - Ranking is tied on en-ru. On en-es, v1 is ahead on PR-AUC by +0.203.
+  - At the review lines on en-es, v1 flags 8% of the segments and Gemma 32%. v1's recall is
+    0.27 lower and its precision 0.33 higher.
+- **Real documents, review line:** v1 catches 3 of the 9 verified majors in the three public
+  OPUS-MT documents (2 at the F1 line). It raises 3 false flags, all on minor errors (1 at the F1
+  line), and flags 2.9% of the segments.
+  - **Official Spanish (control):** 0 flags on the same three pages. Over all five documents it
+    raises 2 flags in 348 segments, both on correct translations. The F1 line raised none.
+  - **Wrong-sense misses:** tax "return", "flush" → "lavar" and "paperless" → "impresa" stay well
+    below both lines (0.05–0.28).
+
+### What was evaluated, and what was reused
+
+- **No test row was re-scored.**
+  - **v1:** `results/local_v1_{enru,enes}_test.jsonl`, from the v1 GGUF (sha256 `5337b2b7…`, the
+    file `:9931` serves). The v3 phase re-scored 380 gold-OK test units with v1 for the sense
+    set, and they match these files within 0.0013.
+  - **Gemma:** `results/gemma_direct_{enru,enes}_test.jsonl`.
+  - **Check:** `scripts/final_test.py` confirms that each file has exactly the ids and gold labels
+    of the current split.
+  - **App score:** computed from these files with the shipped rule calibration (`fbc71fcd…`), as
+    the backend does.
+- **First test run of the review line.** This is the only time it has met test. The F1-line test
+  numbers were already reported (see "Rule calibration", "Test, run once after the choice") and
+  reproduce exactly here.
+- **Real documents: re-run end to end through the backend at its default (review) line.**
+  - Command: `scripts/realdocs_score.py --no-gemma`, on its own llama-server with v1 on `:9973`
+    (`-cram 0`, 23:33–23:38 CEST, then stopped).
+  - Result: 1,104 segments, 57 flagged. Every risk equals the 19:58 snapshot
+    `data/realdocs/scored.jsonl` (largest difference 0.0).
+  - Gemma's real-document scores come from that snapshot. No Gemma call was made.
+
+### Test, main table
+
+1,000 document-bootstrap replicates (seed 0) over the rows sorted by id, the same replicates as
+`scripts/report.py`. So the model-only rows reproduce the main table at the top of this file. The
+replicates are shared within a pair, so every difference is paired.
+
+**System names:**
+- "v1, app" is the score the backend ranks and flags by: model log-odds plus the calibrated
+  rule weights.
+- "v1, model" is the adapter alone.
+
+| Pair, split | System | AUROC [95% CI] | PR-AUC [95% CI] | recall@10% [95% CI] |
+|---|---|---|---|---|
+| **en-ru test** (3,573 rows, 33 docs, 723 Major) | **v1, app** | 0.799 [0.742, 0.848] | 0.533 [0.404, 0.633] | 0.303 [0.246, 0.379] |
+| | v1, model | 0.801 [0.743, 0.851] | 0.537 [0.407, 0.635] | 0.303 [0.246, 0.380] |
+| | Gemma direct | 0.794 [0.754, 0.840] | 0.494 [0.390, 0.588] | 0.307 [0.254, 0.385] |
+| **en-es test** (1,815 rows, 25 docs, 168 Major) | **v1, app** | 0.813 [0.775, 0.851] | 0.514 [0.439, 0.590] | 0.524 [0.425, 0.596] |
+| | v1, model | 0.815 [0.776, 0.853] | 0.517 [0.442, 0.591] | 0.518 [0.437, 0.602] |
+| | Gemma direct | 0.807 [0.767, 0.843] | 0.311 [0.282, 0.368] | 0.458 [0.367, 0.558] |
+
+At each system's operating points. Every threshold was fixed on dev before this run.
+
+| Pair | System | Line | Threshold | Flagged (Major) | Recall [95% CI] | Precision [95% CI] | Flag rate [95% CI] | F1 [95% CI] |
+|---|---|---|---:|---:|---|---|---|---|
+| en-ru | **v1, app** | **review** | 0.1857 | 1,373 (538) | **0.744** [0.626, 0.835] | 0.392 [0.307, 0.466] | 38.4% [27.6%, 48.1%] | 0.513 [0.427, 0.580] |
+| | v1, app | f1 | 0.1609 | 1,494 (556) | 0.769 [0.643, 0.862] | 0.372 [0.293, 0.443] | 41.8% [30.6%, 51.7%] | 0.502 [0.415, 0.572] |
+| | Gemma direct | review ¹ | 0.1212 | 1,328 (523) | 0.723 [0.605, 0.821] | 0.394 [0.301, 0.485] | 37.2% [29.7%, 44.3%] | 0.510 [0.417, 0.582] |
+| | Gemma direct | f1 ¹ | 0.9714 | 1,163 (489) | 0.676 [0.565, 0.776] | 0.420 [0.323, 0.513] | 32.5% [25.8%, 39.3%] | 0.519 [0.428, 0.589] |
+| en-es | **v1, app** | **review** | 0.4984 | 149 (81) | **0.482** [0.421, 0.581] | 0.544 [0.404, 0.664] | 8.2% [6.0%, 12.4%] | 0.511 [0.437, 0.563] |
+| | v1, app | f1 | 0.7019 | 66 (51) | 0.304 [0.240, 0.375] | 0.773 [0.611, 0.907] | 3.6% [2.7%, 5.0%] | 0.436 [0.355, 0.508] |
+| | Gemma direct | review ¹ | 0.1212 | 580 (126) | 0.750 [0.653, 0.836] | 0.217 [0.174, 0.278] | 32.0% [27.6%, 37.6%] | 0.337 [0.284, 0.402] |
+| | Gemma direct | f1 ¹ | 0.9714 | 488 (119) | 0.708 [0.621, 0.796] | 0.244 [0.200, 0.307] | 26.9% [22.7%, 32.0%] | 0.363 [0.315, 0.420] |
+
+1. **Where Gemma's lines come from:** its en-ru dev run (2,972 rows), by the same two rules,
+   with no rule fusion.
+   - The F1 line is the 0.971 of the main table.
+   - The review line is the highest threshold with dev recall ≥ 0.60 (`recall_threshold`, as in
+     `pick_thresholds.py`). The review rule was written for the adapters, so applying it to
+     Gemma is this pass's choice. It uses dev only.
+   - Gemma has no en-es dev run, so the en-ru dev values serve en-es too.
+   - Gemma's risks are saturated, so its two lines flag similar sets.
+
+Paired differences (95% CI excluding 0 in bold). At the lines, each system uses its own threshold.
+
+| Pair | A − B | ΔAUROC | ΔPR-AUC | Δrecall@10% |
+|---|---|---|---|---|
+| en-ru | v1 app − Gemma direct | +0.004 [−0.055, +0.046] | +0.039 [−0.052, +0.104] | −0.004 [−0.056, +0.040] |
+| en-ru | v1 app − v1 model | **−0.002** [−0.004, −0.000] | **−0.004** [−0.008, −0.000] | +0.000 [−0.006, +0.004] |
+| en-es | v1 app − Gemma direct | +0.006 [−0.017, +0.040] | **+0.203** [+0.099, +0.280] | +0.065 [−0.017, +0.124] |
+| en-es | v1 app − v1 model | −0.002 [−0.004, +0.001] | −0.003 [−0.013, +0.006] | +0.006 [−0.030, +0.016] |
+
+| Pair | A − B | Line | ΔRecall | ΔPrecision | ΔFlag rate | ΔF1 |
+|---|---|---|---|---|---|---|
+| en-ru | v1 app − Gemma direct | review | +0.021 [−0.135, +0.145] | −0.002 [−0.046, +0.047] | +1.3 pt [−6.3, +8.5] | +0.003 [−0.054, +0.057] |
+| en-ru | v1 app − Gemma direct | f1 | +0.093 [−0.052, +0.207] | **−0.048** [−0.092, −0.001] | **+9.3 pt** [+1.9, +16.2] | −0.017 [−0.077, +0.036] |
+| en-ru | v1 app, review − f1 | | **−0.025** [−0.042, −0.013] | **+0.020** [+0.008, +0.034] | **−3.4 pt** [−4.7, −2.2] | **+0.012** [+0.001, +0.024] |
+| en-es | v1 app − Gemma direct | review | **−0.268** [−0.357, −0.153] | **+0.326** [+0.194, +0.454] | **−23.7 pt** [−29.4, −17.0] | **+0.174** [+0.088, +0.244] |
+| en-es | v1 app − Gemma direct | f1 | **−0.405** [−0.509, −0.313] | **+0.529** [+0.345, +0.682] | **−23.3 pt** [−28.5, −18.4] | +0.073 [−0.045, +0.176] |
+| en-es | v1 app, review − f1 | | **+0.179** [+0.110, +0.260] | **−0.229** [−0.315, −0.135] | **+4.6 pt** [+3.1, +7.6] | +0.075 [−0.016, +0.159] |
+
+- **No "vs v1" deltas:** the selected model is v1, so they are 0 by construction. v3a and v3b
+  have no test numbers, because they were not final candidates (integrity rule 3).
+- **What changed for the app:** the rule weights cost 0.002 AUROC, as reported in "Rule
+  calibration". Nothing else moved.
+
+### The review line, dev against test
+
+| Pair | Threshold | Recall, dev → test | Precision, dev → test | Flag rate, dev → test | Major rate, dev / test |
+|---|---:|---|---|---|---|
+| en-ru | 0.1857 | 0.600 → 0.744 [0.626, 0.835] | 0.469 → 0.392 | 34.6% → 38.4% | 0.270 / 0.202 |
+| en-es | 0.4984 | 0.600 → **0.482** [0.421, 0.581] | 0.341 → 0.544 | 10.1% → 8.2% | 0.058 / 0.093 |
+
+- **en-es falls short of the target, and the whole CI is below 0.60.** The dev section warned
+  about this:
+  - en-es dev has 12 documents and 95 Majors;
+  - the threshold itself is uncertain: re-picked on each dev replicate, it spans [0.425, 0.533].
+  - The test split has more Majors (9.3% against 5.8%), which is why precision is higher there
+    at the same line.
+- **en-ru does the opposite:** test recall exceeds the target.
+- **The line is not moved.** Changing it now would be a choice made on test.
+- **What it means for the app:** on en-es the default line finds 18 points more of the Majors
+  than the F1 line (0.30 → 0.48) and still flags under 10% of a job. A reader who works through the flags gets about half
+  of the en-es Majors. The riskiest-10% view gets 52%. The README's "60% of the dev Majors" holds
+  on dev only. On en-es test it is 48%.
+
+### Real documents (evaluation only)
+
+Per-document counts are in `docs/REALDOCS.md`, which this pass updated. `scripts/realdocs_eval.py`
+applies both v1 lines from `secondread/thresholds.json` to the fused risks. The labels are those of
+`demo/answer_key.en-es.json`: our adjudication against the official Spanish for the three public
+documents, MQM for WMT24.
+
+| Set | Segments | Major | v1, F1 line (0.7019): caught / false / flag rate | **v1, review line (0.4984) = the selected model**: caught / false / flag rate | Major in the riskiest 10% | Gemma ≥ 0.971: caught / flagged |
+|---|---:|---:|---|---|---:|---|
+| 3 public OPUS-MT documents (IRS, FDA, EU 261) | 204 | 9 | 2 / 1 / 1.5% | **3** / 3 / 2.9% | 3 of 20 | 8 / 48 |
+| Official Spanish of the same 3 pages (control) | 204 | – | 0 flags | **0 flags** | – | not run |
+| Official Spanish of all 5 documents (control) | 348 | – | 0 flags | 2 flags (0.6%) | – | not run |
+| WMT24 *Stormfall* (MQM labels) | 31 | 21 | 14 / 0 / 45% | 16 / 2 / 58% | 3 of 3 | 19 / 24 |
+| WMT24 *Forever Snow* (MQM labels) | 29 | 18 | 8 / 0 / 28% | 12 / 1 / 45% | 3 of 3 | 18 / 27 |
+
+- **Gained at the review line:** FDA-022, "flush list" → "lista de color", at 0.635.
+- **New false flags:** FDA-005 (0.555) and EU-073 (0.599), both minor errors in our reading:
+  "drogas" for medicines, and "una ciudad, ciudad o región".
+- **Official-Spanish flags:** both are NIDDK, at 0.539 and 0.608. Both translations are correct;
+  one uses "la persona" for "you".
+- **Still missed:** the tax "return" errors (0.08–0.28), "flush" → "lavar" (0.159) and
+  "paperless" → "impresa" (0.054). These wrong-sense errors were the target of v3, and v3 did not
+  carry over to human labels on dev.
+
+### Spend of this phase
+
+$0. No Tinker or DigitalOcean call was made. Local GPU only: llama-server on `:9973` (v1, `-cram 0
+-np 4`) for the 1,104 real-document segments, 23:33–23:38 CEST, then stopped. `:9931` (PID 22074)
+was not touched.
+
+### Files
+
+- `scripts/final_test.py` (new): the test run above. It reuses and verifies the score files, takes
+  Gemma's lines from en-ru dev, and writes `runs/ship_test/test.json` (git-ignored).
+- `scripts/realdocs_eval.py` (new): per-document counts at fixed lines. It writes
+  `runs/realdocs_review/eval.json` (git-ignored).
+- `runs/realdocs_review/scored.jsonl` and `scored_summary.json` (git-ignored): the end-to-end
+  backend re-run at the review line, without Gemma fields. `data/realdocs/scored.jsonl` is
+  unchanged. It is the F1-line snapshot, with Gemma, and its risks are identical.
+
+### Ship (2026-10-14, 23:40 CEST)
+
+- **Served adapter:** `models/secondread-lora.gguf` is v1 (sha256 `5337b2b7…`, byte-identical to
+  `models/secondread-lora-v1.gguf`); the v2, v3a and v3b GGUFs are kept next to it. `:9931` was
+  restarted with it (`-c 16384 -np 4 -cram 0`). `/lora-adapters` lists it at scale 1.0.
+- **Check against the selected model's dev scores:** 40 en-ru dev rows (`probe_local.py … 40
+  --workers 4`) match `results/local_v1_enru_dev.jsonl` to within 0.00044 (mean |difference|
+  0.00007).
+- **Backend:** `/api/health` reports `adapter_version: v1`, `operating_point: review` (source
+  `file`), thresholds en-es 0.4984 and en-ru 0.1857 (`dev_review`), and the `f1` point at 0.7019 /
+  0.1609.
+- **Static demo** (`ui/public/demo-results.json`, rebuilt through the backend): the FDA page, 39
+  segments, **3 flagged at 0.4984** (segments 8 and 22, both verified majors, and 5, a minor
+  error). At the F1 line the same page had 1 flag. Every risk is within 0.0007 of the F1-line
+  build. The riskiest 10% (4 segments) are 8, 22, 5 and 36. The third major, segment 30
+  ("flush" → "lavar", 0.159), is not flagged.
+- **Checks:** `tests/test_xliff.py` 20/20, `tests/test_thresholds.py` 7/7, `canary_check.py` PASS
+  (the canary is in 0 of 12 envelopes, and in 4 with the scrubbers off).
+
+### Reproduce
+
+```sh
+py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }
+py scripts/final_test.py                                    # test tables above; scores nothing new
+llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora-v1.gguf -c 16384 -np 4 -cram 0 \
+   --host 127.0.0.1 --port 9973 &
+SECONDREAD_LLAMA_URL=http://127.0.0.1:9973 py scripts/realdocs_score.py --no-gemma \
+   --out runs/realdocs_review/scored.jsonl --summary runs/realdocs_review/scored_summary.json
+kill %1
+py scripts/realdocs_eval.py                                 # both lines on data/realdocs/scored.jsonl
+py scripts/realdocs_eval.py --scored runs/realdocs_review/scored.jsonl --out runs/realdocs_review/eval_rescored.json
+```

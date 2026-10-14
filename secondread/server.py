@@ -1,17 +1,21 @@
 """Local SecondRead API: FastAPI on 127.0.0.1:8787 (the Vite UI proxies /api here, so no CORS).
 
     GET  /api/health   llama-server reachability, model, LoRA adapter and its version (by file sha256),
-                       the flag thresholds per language pair, Sentry on/off
+                       the active operating point and the flag thresholds per language pair, Sentry on/off
     POST /api/review   one of
         application/json     {"segments": [{"src": "...", "mt": "...", "lp"?: "en-ru", "id"?: "..."}],
-                              "lp"?: "en-ru", "lora_scale"?: 1.0, "threshold"?: 0.5}
+                              "lp"?: "en-ru", "lora_scale"?: 1.0, "threshold"?: 0.5,
+                              "operating_point"?: "review" | "f1"}
                              without "threshold", each segment uses the dev-calibrated threshold of
-                             the active adapter and its language pair (secondread/thresholds.json)
-        multipart/form-data  field "xliff" = the file; optional fields "lp", "lora_scale", "threshold"
-                             (what the UI sends; parsed with the stdlib, python-multipart is not needed)
+                             the active adapter and its language pair at the operating point
+                             (secondread/thresholds.json): "review" (dev recall of Major >= 0.60, the
+                             default; SECONDREAD_OPERATING_POINT changes it) or "f1" (F1-optimal)
+        multipart/form-data  field "xliff" = the file; optional fields "lp", "lora_scale", "threshold",
+                             "operating_point" (what the UI sends; parsed with the stdlib, python-multipart
+                             is not needed)
         raw XLIFF body       Content-Type application/xml, text/xml, application/x-xliff+xml or
                              application/octet-stream
-        Query parameters work for every form: ?lp=en-ru&lora_scale=1&threshold=0.5
+        Query parameters work for every form: ?lp=en-ru&lora_scale=1&threshold=0.5&operating_point=f1
         &filename=job.sdlxliff&include_locked=false (body fields win over query parameters).
     Response and error shapes: ui/API.md. Errors are {"detail": "...", "code": "..."}.
 
@@ -63,6 +67,7 @@ class ReviewIn(BaseModel):
     lp: str | None = None
     lora_scale: float | None = None
     threshold: float | None = Field(default=None, ge=0.0, le=1.0)
+    operating_point: str | None = None
 
 
 @asynccontextmanager
@@ -129,8 +134,12 @@ async def health(request: Request) -> dict[str, Any]:
     return {"status": "ok" if llama["ok"] else "degraded", "offline": True,
             "model": llama.get("base_model"), "adapter": label or None,
             "adapter_version": "+".join(a.get("version") or "unknown" for a in adapters) or None,
-            "scoring": llama.get("model_label"), "thresholds": llama.get("thresholds"),
-            "threshold_source": llama.get("threshold_source"),
+            "scoring": llama.get("model_label"),
+            # which flag line a request without "threshold"/"operating_point" gets, and its values
+            "operating_point": llama.get("operating_point"),
+            "operating_point_source": llama.get("operating_point_source"),
+            "thresholds": llama.get("thresholds"), "threshold_source": llama.get("threshold_source"),
+            "operating_points": llama.get("operating_points"),
             "rule_calibration": RULES.describe(),
             "llama": llama, "sentry": {"enabled": sentry_enabled()}, "xliff": _xliff_available()}
 
@@ -147,12 +156,15 @@ def _xliff_available() -> bool:
     "application/json": {"schema": ReviewIn.model_json_schema()},
     "multipart/form-data": {"schema": {"type": "object", "required": ["xliff"], "properties": {
         "xliff": {"type": "string", "format": "binary"}, "lp": {"type": "string"},
-        "lora_scale": {"type": "number"}, "threshold": {"type": "number"}}}},
+        "lora_scale": {"type": "number"}, "threshold": {"type": "number"},
+        "operating_point": {"type": "string", "enum": ["review", "f1"]}}}},
     "application/xml": {"schema": {"type": "string", "format": "binary"}}}}})
 async def review(request: Request,
                  lp: str | None = Query(None, description="language pair, e.g. en-ru (XLIFF: overrides the file)"),
                  lora_scale: float | None = Query(None, description="per-request LoRA scale (0 = base model)"),
                  threshold: float | None = Query(None, ge=0.0, le=1.0),
+                 operating_point: str | None = Query(None, description="review (default) or f1: which "
+                                                     "dev-calibrated flag line to use without a threshold"),
                  filename: str | None = Query(None, description="original file name; helps detect .sdlxliff"),
                  include_locked: bool = Query(False, description="also score locked segments")):
     agent: ReviewAgent = request.app.state.agent
@@ -170,15 +182,18 @@ async def review(request: Request,
                               errors=json.loads(e.json(include_input=False, include_url=False)))
             result = await agent.review([s.model_dump() for s in req.segments], lp=_first(req.lp, lp),
                                         lora_scale=_first(req.lora_scale, lora_scale),
-                                        threshold=_first(req.threshold, threshold))
+                                        threshold=_first(req.threshold, threshold),
+                                        operating_point=_first(req.operating_point, operating_point))
         elif ctype in XML_TYPES or ctype.endswith("+xml"):
             result = await agent.review(body, lp=lp, lora_scale=lora_scale, threshold=threshold,
-                                        filename=filename, include_locked=include_locked)
+                                        operating_point=operating_point, filename=filename,
+                                        include_locked=include_locked)
         elif ctype == "multipart/form-data":
             data, fname, form = _multipart(raw_ctype, body)
             result = await agent.review(data, lp=_first(form.get("lp") or None, lp),
                                         lora_scale=_first(_opt_float(form.get("lora_scale"), "lora_scale"), lora_scale),
                                         threshold=_first(_opt_float(form.get("threshold"), "threshold"), threshold),
+                                        operating_point=_first(form.get("operating_point") or None, operating_point),
                                         filename=fname or filename, include_locked=include_locked)
         else:
             return _error(415, "unsupported_media_type", "use application/json or an XML content type")

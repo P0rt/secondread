@@ -49,17 +49,23 @@ import sentry_sdk
 
 from secondread import checks
 from secondread.prompt import LABEL_IDS, LANG, generation_prompt_ids
-from secondread.rulecal import RuleCalibration
+from secondread.rulecal import RULE_CALIBRATION_PATH, RuleCalibration
 from secondread.telemetry import SafeError
 
 log = logging.getLogger("secondread.agent")
 
 AGENT_NAME = "SecondRead"
 DEFAULT_LLAMA_URL = os.getenv("SECONDREAD_LLAMA_URL", "http://127.0.0.1:9931")
-# Flag thresholds per adapter and language pair (scripts/pick_thresholds.py). A threshold in the
-# request wins, then SECONDREAD_THRESHOLD (one value for everything), then this file, then 0.5.
+# Flag thresholds per adapter, operating point and language pair (scripts/pick_thresholds.py).
+# A threshold in the request wins, then SECONDREAD_THRESHOLD (one value for everything), then this
+# file's threshold at the active operating point, then 0.5. The operating point is the request's
+# "operating_point", else SECONDREAD_OPERATING_POINT, else the file's default_operating_point,
+# else "review".
 THRESHOLDS_PATH = Path(os.getenv("SECONDREAD_THRESHOLDS", str(Path(__file__).with_name("thresholds.json"))))
 ENV_THRESHOLD = float(os.environ["SECONDREAD_THRESHOLD"]) if os.getenv("SECONDREAD_THRESHOLD") else None
+ENV_OPERATING_POINT = os.getenv("SECONDREAD_OPERATING_POINT", "").strip().lower() or None
+OPERATING_POINTS = ("review", "f1")
+DEFAULT_OPERATING_POINT = "review"
 FALLBACK_THRESHOLD = 0.5
 N_PROBS = 200          # the base model can rank a label below the top 20 (02-corrections item 15)
 CONCURRENCY = 4        # matches llama-server -np 4 (parallel slots)
@@ -228,11 +234,17 @@ def _file_sha256(path: str) -> str | None:
 
 
 class Calibration:
-    """Known adapters (by GGUF sha256) and their flag thresholds per language pair.
+    """Known adapters (by GGUF sha256) and their flag thresholds per operating point and
+    language pair.
 
-    Read from secondread/thresholds.json, which scripts/pick_thresholds.py writes: each
-    threshold is F1-optimal on the fused risk over the full dev split of its language pair.
-    "base" holds the thresholds for the base model (no adapter, or lora_scale 0).
+    Read from secondread/thresholds.json, which scripts/pick_thresholds.py writes. Every
+    threshold is picked on the fused risk over the full dev split of its language pair, at one
+    of two operating points:
+      "review"  the highest threshold whose dev recall of Major is at least the target (0.60):
+                the re-read list finds most majors and costs more flags (the default);
+      "f1"      the F1-optimal threshold.
+    "base" holds the thresholds for the base model (no adapter, or lora_scale 0). A file in the
+    older one-point format (adapter-level "thresholds") is read as the "f1" point.
     """
 
     def __init__(self, path: Path = THRESHOLDS_PATH):
@@ -244,15 +256,41 @@ class Calibration:
         self.fallback = float(data.get("fallback", FALLBACK_THRESHOLD))
         adapters = data.get("adapters") or {}
         self.versions = {e["sha256"]: name for name, e in adapters.items() if e.get("sha256")}
-        self.thresholds = {name: {lp: float(t) for lp, t in (e.get("thresholds") or {}).items()}
-                           for name, e in adapters.items()}
-        self.pairs = sorted({lp for t in self.thresholds.values() for lp in t})
+        # operating point -> calibration key ("base", "v1", ...) -> lp -> threshold
+        self.points: dict[str, dict[str, dict[str, float]]] = {}
+        for name, e in adapters.items():
+            blocks = {p: e[p] for p in OPERATING_POINTS if isinstance(e.get(p), Mapping)}
+            if not blocks and e.get("thresholds"):
+                blocks = {"f1": e}
+            for p, b in blocks.items():
+                self.points.setdefault(p, {})[name] = {lp: float(t) for lp, t in (b.get("thresholds") or {}).items()}
+        meta = data.get("operating_points") or {}
+        self.targets = {p: meta[p].get("target_recall") for p in meta if isinstance(meta[p], Mapping)}
+        default = data.get("default_operating_point")
+        self.default_from_file = default in OPERATING_POINTS
+        self.default_point = default if self.default_from_file else next(
+            (p for p in (DEFAULT_OPERATING_POINT, *OPERATING_POINTS) if p in self.points), DEFAULT_OPERATING_POINT)
+        self.pairs = sorted({lp for by_key in self.points.values() for t in by_key.values() for lp in t})
+        self._warn_if_stale(meta)
+
+    @staticmethod
+    def _warn_if_stale(meta: Mapping[str, Any]) -> None:
+        """Thresholds were picked on the fused risk of one rule calibration; say so if it changed."""
+        try:
+            current = hashlib.sha256(RULE_CALIBRATION_PATH.read_bytes()).hexdigest()
+        except OSError:
+            return
+        for p, m in meta.items():
+            sha = ((m or {}).get("rule_calibration") or {}).get("sha256") if isinstance(m, Mapping) else None
+            if sha and sha != current:
+                log.warning("the %s thresholds were picked with another rule calibration; "
+                            "re-run scripts/pick_thresholds.py", p)
 
     def version(self, sha256: str | None) -> str | None:
         return self.versions.get(sha256) if sha256 else None
 
-    def threshold(self, key: str | None, lp: str) -> float | None:
-        return self.thresholds.get(key or "", {}).get(lp)
+    def threshold(self, key: str | None, lp: str, point: str = DEFAULT_OPERATING_POINT) -> float | None:
+        return self.points.get(point, {}).get(key or "", {}).get(lp)
 
 
 def _label_probs(res: Mapping[str, Any]) -> tuple[float, float, bool] | None:
@@ -469,13 +507,28 @@ def scoring_model(info: Mapping[str, Any], lora_scale: float | None) -> ScoringM
     return ScoringModel(None, "several LoRAs", True, "+".join(v or "unknown" for v in versions))
 
 
+def _check_point(point: str, where: str) -> str:
+    if point not in OPERATING_POINTS:
+        raise ReviewError("bad_operating_point", f"{where} must be one of: {', '.join(OPERATING_POINTS)}")
+    return point
+
+
 class ReviewAgent:
     def __init__(self, llama_url: str = DEFAULT_LLAMA_URL, *, n_probs: int = N_PROBS,
                  concurrency: int = CONCURRENCY, timeout: float = 120.0,
-                 calibration: Calibration | None = None):
+                 calibration: Calibration | None = None, operating_point: str | None = None):
         self.llama = LlamaClient(llama_url, n_probs=n_probs, timeout=timeout)
         self._slots = asyncio.Semaphore(concurrency)
         self.calibration = calibration or Calibration()
+        # The operating point used when a request names none: argument, env, the file's default, "review".
+        if operating_point:
+            self.operating_point, self.operating_point_source = _check_point(operating_point, "operating_point"), "argument"
+        elif ENV_OPERATING_POINT:
+            self.operating_point = _check_point(ENV_OPERATING_POINT, "SECONDREAD_OPERATING_POINT")
+            self.operating_point_source = "env"
+        else:
+            self.operating_point = self.calibration.default_point
+            self.operating_point_source = "file" if self.calibration.default_from_file else "default"
 
     async def aclose(self) -> None:
         await self.llama.aclose()
@@ -492,34 +545,48 @@ class ReviewAgent:
             a["version"] = self.calibration.version(a.get("sha256"))
         return info
 
-    def thresholds_for(self, model: ScoringModel, lps: Iterable[str],
-                       requested: float | None = None) -> tuple[dict[str, float], str]:
-        """({lp: threshold}, source): source is "request", "env", "dev_f1" or "fallback"."""
+    def thresholds_for(self, model: ScoringModel, lps: Iterable[str], requested: float | None = None,
+                       point: str | None = None) -> tuple[dict[str, float], str]:
+        """({lp: threshold}, source) at operating point `point` (default: the agent's). The source
+        is "request", "env", "dev_<point>" (e.g. "dev_review"), "dev_<point>+fallback" or "fallback"."""
         lps = sorted(set(lps))
         if requested is not None:
             return {lp: requested for lp in lps}, "request"
         if ENV_THRESHOLD is not None:
             return {lp: ENV_THRESHOLD for lp in lps}, "env"
-        found = {lp: self.calibration.threshold(model.key, lp) for lp in lps}
+        tag = f"dev_{point or self.operating_point}"
+        found = {lp: self.calibration.threshold(model.key, lp, point or self.operating_point) for lp in lps}
         out = {lp: (t if t is not None else self.calibration.fallback) for lp, t in found.items()}
         n_cal = sum(t is not None for t in found.values())
-        return out, "dev_f1" if n_cal and n_cal == len(found) else "dev_f1+fallback" if n_cal else "fallback"
+        return out, tag if n_cal and n_cal == len(found) else f"{tag}+fallback" if n_cal else "fallback"
 
     async def health(self) -> dict[str, Any]:
         info = await self.info()
+        info.update(operating_point=self.operating_point, operating_point_source=self.operating_point_source)
         if info["ok"]:
             model = scoring_model(info, None)
             thr, source = self.thresholds_for(model, self.calibration.pairs)
+            points: dict[str, dict[str, Any]] = {}
+            for p in OPERATING_POINTS:  # what each point would apply to the loaded adapter
+                t, src = self.thresholds_for(model, self.calibration.pairs, point=p)
+                points[p] = {"thresholds": t, "source": src}
+                if self.calibration.targets.get(p) is not None:
+                    points[p]["target_recall"] = self.calibration.targets[p]
             info.update(adapter_version=model.adapter_version, model_label=model.label,
-                        thresholds=thr, threshold_source=source)
+                        thresholds=thr, threshold_source=source, operating_points=points)
         return info
 
     async def review(self, payload: bytes | Iterable[Mapping[str, Any]], *, lp: str | None = None,
                      lora_scale: float | None = None, threshold: float | None = None,
-                     filename: str | None = None, include_locked: bool = False) -> ReviewResult:
-        """Review raw segments or an XLIFF file (bytes). Raises ReviewError on bad input."""
+                     operating_point: str | None = None, filename: str | None = None,
+                     include_locked: bool = False) -> ReviewResult:
+        """Review raw segments or an XLIFF file (bytes). Raises ReviewError on bad input.
+
+        Without `threshold`, segments are flagged at the dev-calibrated thresholds of
+        `operating_point` ("review" or "f1"; default: the agent's operating point)."""
         if threshold is not None and not 0.0 <= threshold <= 1.0:
             raise ReviewError("bad_threshold", "threshold must be in [0, 1]")
+        point = _check_point(operating_point.strip().lower(), "operating_point") if operating_point else self.operating_point
         default_lp = _norm_lp(lp)
         t_start = time.perf_counter()
         with _root_transaction(), sentry_sdk.start_span(op="gen_ai.invoke_agent",
@@ -567,10 +634,11 @@ class ReviewAgent:
             lora_ids = [a["id"] for a in info.get("lora_adapters", [])] if info["ok"] else []
             scorer = scoring_model(info, lora_scale)
             lora_active = scorer.lora_active
-            thresholds, threshold_source = self.thresholds_for(scorer, (s.lp for s in segs), threshold)
+            thresholds, threshold_source = self.thresholds_for(scorer, (s.lp for s in segs), threshold, point)
             one_threshold = next(iter(thresholds.values())) if len(set(thresholds.values())) == 1 else None
             _set(agent_span, {"gen_ai.request.model": model_name, "secondread.threshold": one_threshold,
                               "secondread.threshold_source": threshold_source,
+                              "secondread.operating_point": point,
                               "secondread.adapter_version": scorer.adapter_version})
             with _tool("lora_score", len(segs)) as tool_span:
                 _set(tool_span, {"gen_ai.request.model": model_name, "secondread.lora_loaded": bool(lora_ids),
@@ -611,7 +679,8 @@ class ReviewAgent:
             total_ms = (t_end - t_start) * 1000
             summary = {
                 "segments": len(out), "flagged": n_flagged, "threshold": one_threshold,
-                "thresholds": thresholds, "threshold_source": threshold_source, "input": kind,
+                "thresholds": thresholds, "threshold_source": threshold_source, "operating_point": point,
+                "input": kind,
                 "xliff": xinfo, "model": model_name, "model_available": bool(ok_scores),
                 "lora_loaded": bool(lora_ids), "lora_scale": lora_scale, "lora_active": lora_active,
                 "adapter_version": scorer.adapter_version if lora_active else None,

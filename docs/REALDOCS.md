@@ -7,15 +7,26 @@ English, and checked every MT segment against the publisher's own Spanish. The d
 from them are in [`demo/`](../demo/README.md) (`secondread-demo.en-es.*`,
 `answer_key.en-es.json`).
 
-**Short version.** The three public documents give 204 segments with 9 major errors. At its
-en-es threshold, SecondRead raises 3 flags. 2 of them are major errors and the third is a
-minor one. It misses 7 of the 9 majors, including the most instructive ones: tax "return"
-rendered as "refund" and fentanyl patches to be "washed". It raises no flags at all on the
-publishers' own Spanish (348 segments). Gemma 4 31B catches 8 of the 9, but flags 48 of the 204
-segments to do it. On the WMT24 document, all 14 SecondRead flags are human-labelled Major,
-and they cover 14 of its 21 Majors. SecondRead v1 for en-es is precise and quiet, and its recall
-is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at this threshold
-(`secondread/thresholds.json`).
+**Short version.** The three public documents give 204 segments with 9 major errors. SecondRead
+v1 is scored at two flag lines, both picked on WMT dev (`secondread/thresholds.json`): the app's
+default `review` line (en-es 0.4984) and the older F1 line (0.7019). The v3 dev selection kept
+v1, so v1 at the review line is also the selected model. v3a and v3b were not scored on these
+documents.
+
+- **At the review line:** SecondRead raises 6 flags, 3 on major errors and 3 on minor ones. It
+  misses 6 of the 9 majors, including the most instructive ones: tax "return" rendered as "refund"
+  and fentanyl patches to be "washed".
+- **At the F1 line:** 3 flags, 2 of them major, and 7 of the 9 majors missed.
+- **On the publishers' own Spanish:** no flag on these three pages at either line. Over the
+  official Spanish of all five documents (348 segments), the review line raises 2 flags, both on
+  correct translations; the F1 line raises none.
+- **Gemma 4 31B:** catches 8 of the 9, but flags 48 of the 204 segments to do it.
+- **On the WMT24 document:** the review line raises 18 flags. 16 of them are human-labelled
+  Major, and they cover 16 of its 21 Majors. At the F1 line all 14 flags are Major.
+
+SecondRead v1 for en-es is precise and quiet at both lines, and its recall is low. This matches
+the WMT en-es test numbers (RESULTS.md, "v3 — test and real documents"): precision 0.54 and
+recall 0.48 at the review line, and 0.77 and 0.30 at the F1 line.
 
 ## The documents
 
@@ -45,7 +56,7 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
   261/2004 is the best-known text, and its MT is almost clean, so it tests whether SecondRead
   stays quiet. NIDDK had no verified major in the OPUS-MT output, and Ready.gov had one.
 - **Why this WMT24 document:** *Stormfall* beat the other WMT24 candidate, *Forever Snow* (8
-  of 18 Majors caught, also no false flags), on recall.
+  of 18 Majors caught at the F1 line, also no false flags), on recall.
 
 ## Results per document
 
@@ -53,27 +64,46 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
 
 - **Major:** verified major meaning errors, labelled by our adjudication against the
   official Spanish. For the WMT24 row they are WMT24 human MQM labels.
-- **SecondRead:** flagged at the v1 en-es threshold 0.7019. "False" means a flag on a segment
-  that is not Major.
+- **SecondRead:** flagged at two v1 en-es lines, both picked on WMT dev before these documents
+  were scored at them:
+  - the **F1 line**, 0.7019, where this page was first written;
+  - the **review line**, 0.4984, the app's default since the review pass. This is also the
+    selected model's column, because the v3 dev selection kept v1.
+
+  "False" means a flag on a segment that is not Major. "Flag rate" is the share of the job's
+  segments flagged.
 - **Gemma:** Gemma 4 31B direct (same classifier prompt, `scripts/baseline_gemma.py`) at 0.971,
   the repo's Gemma threshold. That threshold is F1-optimal on en-ru dev, because there is no
   en-es dev run.
 - **top 10%:** the Majors among the riskiest 10% of the document's segments by SecondRead
-  risk. A post-editor with a 10% review budget would read those.
+  risk. A post-editor with a 10% review budget would read those. This count does not depend on
+  a line.
 
-| Job | Segments | Major | SecondRead caught | SecondRead false | top 10% | Gemma caught | Gemma flags (false) |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| IRS, failure to file penalty | 52 | 5 | **1** | 1 (a minor error) | 1 of 5 | 4 | 24 (20) |
-| FDA, medicine disposal | 39 | 3 | **1** | 0 | 2 of 4 | 3 | 16 (13) |
-| EU 261/2004, Articles 1-19 | 113 | 1 | 0 | 0 | 0 of 11 | 1 | 8 (7) |
-| **3 public documents** | **204** | **9** | **2** | **1** | 3 | **8** | **48 (40)** |
-| Official Spanish of the same 3 pages (control) | 204 | – | – | **0 flags** | – | not run | – |
-| WMT24 *Stormfall*, MQM labels | 31 | 21 | **14** | **0** | 3 of 3 | 19 | 24 (5) |
-| WMT24 *Stormfall*, our labels (28 read) | 28 | 7 | 6 | 8 (all minor) | – | 7 | – |
+| Job | Segments | Major | F1 line (0.7019): caught / false | **Review line (0.4984): caught / false** | Flag rate, F1 → review | top 10% | Gemma caught | Gemma flags (false) |
+|---|---:|---:|---|---|---|---:|---:|---:|
+| IRS, failure to file penalty | 52 | 5 | **1** / 1 (minor) | **1** / 1 (minor) | 3.8% → 3.8% | 1 of 5 | 4 | 24 (20) |
+| FDA, medicine disposal | 39 | 3 | **1** / 0 | **2** / 1 (minor) | 2.6% → 7.7% | 2 of 4 | 3 | 16 (13) |
+| EU 261/2004, Articles 1-19 | 113 | 1 | 0 / 0 | 0 / 1 (minor) | 0.0% → 0.9% | 0 of 11 | 1 | 8 (7) |
+| **3 public documents** | **204** | **9** | **2** / **1** | **3** / **3** (all minor) | 1.5% → 2.9% | 3 of 20 | **8** | **48 (40)** |
+| Official Spanish of the same 3 pages (control) | 204 | – | **0 flags** | **0 flags** | 0% → 0% | – | not run | – |
+| Official Spanish of all 5 documents (control) | 348 | – | 0 flags | 2 flags (both correct) | 0% → 0.6% | – | not run | – |
+| WMT24 *Stormfall*, MQM labels | 31 | 21 | **14** / **0** | **16** / 2 | 45% → 58% | 3 of 3 | 19 | 24 (5) |
+| WMT24 *Stormfall*, our labels (28 read) | 28 | 7 | 6 / 8 (all minor) | 7 / 11 (all minor) | 50% → 64% | – | 7 | – |
 
-- **SecondRead:** 3 flags on 204 public-document segments (1.5%), and 0 on all 348 segments
-  of the five publishers' official Spanish. Most misses sit well below the threshold:
-  0.05-0.32. The exception is FDA "lista de color" at 0.635.
+- **SecondRead, review line:** 6 flags on 204 public-document segments (2.9%).
+  - **One more catch than the F1 line:** FDA-022 "lista de color" (0.635).
+  - **Two more false flags,** both minor errors: FDA-005 (0.555), "drogas" for medicines, and
+    EU-073 (0.599), "una ciudad, ciudad o región".
+  - **Official Spanish:** the three chosen pages get no flag. Over all five documents there are
+    2 flags in 348 segments, both NIDDK and both correct translations: NIDDK-023 (0.539), which
+    renders "you" as "la persona", and NIDDK-032 (0.608), "hipoglucemia inconsciente".
+- **SecondRead, F1 line:** 3 flags (1.5%), and none on the 348 official-Spanish segments.
+- **The misses sit well below both lines:** 0.05–0.32. The wrong-sense errors are among them
+  (tax "return", "flush" → "lavar", "paperless" → "impresa").
+- **On *Stormfall*:**
+  - The review line adds 2 MQM Majors (-05 at 0.695 and -28 at 0.697) and 2 MQM-OK flags:
+    -13 (0.508, minor in our reading) and -29 (0.620), which our reading calls major.
+  - Under our labels, its 11 false flags are all minor errors.
 - **Gemma at 0.971:** it flags 24% of the public-document segments. 34 of its 40 extra flags
   are real but minor errors (calques, "pena" for "multa", word order), and 6 are fine. It also
   misses one major, IRS-019, where Gemma's risk is 0.010.
@@ -87,7 +117,8 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
 ## Five examples
 
 "Official ES" is the publisher's translation, or the WMT24 human reference for the WMT row.
-"Risk" is SecondRead's fused risk (threshold 0.7019) / Gemma's risk.
+"Risk" is SecondRead's fused risk / Gemma's risk. The "caught" and "missed" in the five headings
+hold at both lines (review 0.4984, F1 0.7019).
 
 **1. Caught. IRS-022: business partner becomes romantic partner.**
 
@@ -151,10 +182,12 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
 - **EU-011, missed:** an antonym in a legal definition. In the definition of "ticket",
   "something equivalent in **paperless** form" became "en forma **impresa**" (printed form).
   The official Spanish has "en forma no impresa". Risk 0.054 / 1.000.
-- **FDA-022, near miss:** "don't flush your medicine unless it is on the flush list" became
-  "… a menos que esté en la **lista de color**" (colour list). Risk 0.635, just under 0.7019.
-- **IRS-015, the one false flag:** "la falta de presentación de la pena será máximo" (risk
-  0.836). It garbles both penalty names, but the contrast survives, so we call it minor.
+- **FDA-022, caught at the review line only:** "don't flush your medicine unless it is on the
+  flush list" became "… a menos que esté en la **lista de color**" (colour list). Risk 0.635:
+  above the review line 0.4984, under the F1 line 0.7019.
+- **IRS-015, a false flag at both lines:** "la falta de presentación de la pena será máximo"
+  (risk 0.836). It garbles both penalty names, but the contrast survives, so we call it minor.
+  The review line adds two more minor ones, FDA-005 and EU-073 (see the table notes).
 - **WMT24 Stormfall-12, caught:** "You make a good point, Specialist" became "**Hacemos un
   buen especialista**" (we make a good specialist). Risk 0.953.
 - **WMT24 Stormfall-09 and -16, missed:** short untranslated greetings ("Morning", "Morning
@@ -165,21 +198,31 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
 
 - **NLLB-200** (`facebook/nllb-200-distilled-600M`, CC-BY-NC-4.0, research only, never in
   `demo/`). We translated the same five documents with NLLB-200 and labelled the review pool
-  (below). Over the five documents that pool holds 15 verified majors. SecondRead caught 3 of
-  them, and these are its most striking real-document catches:
+  (below). Over the five documents that pool holds 15 verified majors. At the F1 line
+  SecondRead caught 3 of them, and these are its most striking real-document catches:
   - "denied boarding" → "aborto negado" (denied abortion), EU-015, 0.757
   - "not low-calorie or reduced-sugar soda" fused into "sodano baja en calorías o reducida
     en azúcar", NIDDK-070, 0.919, read as advice to treat a low with diet soda
   - "De-clutter drains" → "Desordenar los desagües" (make the drains messy), Ready-023,
     0.920
 
-  It missed all 7 IRS majors in the NLLB output. Its one false flag was a minor error.
-- **The two documents not chosen (OPUS-MT):** NIDDK *Low Blood Glucose* had 0 majors in the
-  pool, 0 SecondRead flags and 5 Gemma flags. Ready.gov *Hurricanes* had 1 major ("storm
-  surge" → "la oleada de tormentas", risk 0.144, missed), 0 SecondRead flags and 7 Gemma
-  flags.
-- **WMT24 *Forever Snow*:** 29 segments, 18 MQM Majors. SecondRead flagged 8, all Major.
-  Gemma flagged 27.
+  At the F1 line it missed all 7 IRS majors in the NLLB output, and its one false flag was a
+  minor error.
+  - **At the review line** it catches 7 of the 15 with 14 flags (4.0% of the 348 segments). The
+    new catches are IRS-008, IRS-015, FDA-004 and NIDDK-067, so 2 of the 7 IRS majors are now
+    caught.
+  - Its 7 false flags are all minor errors in our reading. Every flag at either line is in the
+    labelled pool.
+- **The two documents not chosen (OPUS-MT):**
+  - **NIDDK *Low Blood Glucose*:** 0 majors in the pool and 5 Gemma flags. SecondRead flags
+    nothing at the F1 line and 1 segment at the review line, a minor error.
+  - **Ready.gov *Hurricanes*:** 1 major ("storm surge" → "la oleada de tormentas", risk 0.144,
+    missed at both lines) and 7 Gemma flags. SecondRead flags nothing at the F1 line and 3
+    segments at the review line, all minor errors.
+- **WMT24 *Forever Snow*:** 29 segments, 18 MQM Majors, 27 Gemma flags.
+  - **F1 line:** SecondRead flags 8, all Major.
+  - **Review line:** 13 flags, 12 of them Major. The other, -07 (0.529), is a minor error in our
+    reading.
 
 ## Limitations
 
@@ -204,19 +247,28 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
   commercial MT and LLM translation make less often, so the error mix does not transfer.
   OPUS training data very likely includes EU legislation (JRC-Acquis, DGT), which would
   explain why its EU 261/2004 output is so close to the official text.
-- **Thresholds:**
-  - SecondRead: the en-es threshold (0.7019) was picked for F1 on WMT dev, where Majors are
-    6% of segments. At that operating point, precision is high and recall is low. A
-    review-budget reading (top 10% by risk) catches 3 of the 9 majors.
-  - Gemma: its 0.971 is an en-ru number.
+- **Thresholds:** both SecondRead lines were picked on WMT en-es dev, where Majors are 6% of
+  segments. Nothing on this page chose them.
+  - **Review line (0.4984):** the app's default, the highest threshold with dev recall ≥ 0.60
+    (RESULTS.md, "Review operating point"). On WMT en-es test it reaches only 0.48, and here
+    3 of 9.
+  - **F1 line (0.7019):** precision is high and recall is low.
+  - **Review budget:** reading the riskiest 10% catches 3 of the 9 majors.
+  - **Gemma:** its 0.971 is an en-ru number.
 - **Segment-level, no context:** the MT ran one sentence at a time, and SecondRead scores one
   segment at a time.
 - **Snapshot:**
   - **Source of the numbers:** `data/realdocs/scored.jsonl`, scored 2026-10-14 19:58 with
-    LoRA v1, rule calibration `fbc71fcd…` and threshold 0.7019. No new Gemma calls were made
+    LoRA v1, rule calibration `fbc71fcd…` and threshold 0.7019 (its `flagged` field; the risks do
+    not depend on the line). No new Gemma calls were made
     for this page ($0 DigitalOcean spend).
   - **End-to-end check:** the five job files went through the backend (`secondread.agent`)
     at about 20:45 and gave the same flags. Every risk was within 0.02 of the snapshot.
+  - **Review-line re-run (23:33–23:38):** `scripts/realdocs_score.py --no-gemma` ran through the
+    backend at its default review line, on its own v1 llama-server. All 1,104 segments came back
+    with risks identical to the snapshot (largest difference 0.0), and 57 were flagged.
+    `scripts/realdocs_eval.py` applies both lines to the snapshot's risks and prints every count
+    on this page.
   - **If the rules or thresholds change:** re-run the commands below and update this page.
 
 ## Reproduce and publish
@@ -225,10 +277,13 @@ is low. This matches the WMT test numbers: precision 0.77 and recall 0.30 at thi
 # 1. (only if agent/checks/thresholds changed) re-score; every Gemma row is cached, so expect $0 new spend
 set -a; . ./.env; set +a
 HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python scripts/realdocs_score.py --gemma-cap 0.05
-# 2. rebuild the demo jobs and the answer key; prints the per-document numbers in the table above
+# 2. rebuild the demo jobs and the answer key; prints the per-document numbers at the snapshot's line (F1)
 PYTHONPATH=. uv run --frozen python scripts/make_realdocs_demo.py
-# 3. static demo: precompute one whole document through the backend (FDA recommended: 1 true flag,
-#    0 false flags, and two visible misses with their labels)
+# 2b. the tables above at both lines (F1 and review, from secondread/thresholds.json)
+PYTHONPATH=. uv run --frozen python scripts/realdocs_eval.py
+# 3. static demo: precompute one whole document through the backend (FDA recommended: at the default
+#    review line 2 true flags, 1 minor false flag and one visible miss; at the F1 line 1 true flag,
+#    0 false flags and two misses)
 HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python -m secondread.server &        # :8787
 PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8787 \
     --answer-key demo/answer_key.en-es.json --doc fda-medicine-disposal --n 0

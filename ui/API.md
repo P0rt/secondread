@@ -15,8 +15,12 @@ Called on page load, every 8 s while the backend is down and every 30 s while it
 
 ```json
 { "status": "ok", "offline": true, "model": "Qwen3.5-4B-Q4_K_M", "adapter": "secondread-lora v1",
-  "adapter_version": "v1", "scoring": "LoRA v1", "thresholds": { "en-es": 0.7019, "en-ru": 0.1609 },
-  "threshold_source": "dev_f1",
+  "adapter_version": "v1", "scoring": "LoRA v1", "operating_point": "review",
+  "operating_point_source": "file", "thresholds": { "en-es": 0.4984, "en-ru": 0.1857 },
+  "threshold_source": "dev_review",
+  "operating_points": {
+    "review": { "thresholds": { "en-es": 0.4984, "en-ru": 0.1857 }, "source": "dev_review", "target_recall": 0.6 },
+    "f1":     { "thresholds": { "en-es": 0.7019, "en-ru": 0.1609 }, "source": "dev_f1" } },
   "llama": { "ok": true, "lora_adapters": [ { "id": 0, "name": "secondread-lora", "scale": 1.0,
              "sha256": "5337b2b7…", "version": "v1" } ] }, "sentry": { "enabled": false } }
 ```
@@ -28,7 +32,10 @@ Called on page load, every 8 s while the backend is down and every 30 s while it
 | `model`          | string                 | optional, shown as secondary detail in the header               |
 | `adapter`        | string \| null         | optional; `null` means the base model runs without the LoRA. The backend sends the file name plus its version, e.g. `secondread-lora v1` |
 | `adapter_version`| string \| null         | not read by the UI. Found by the adapter file's sha256 in `secondread/thresholds.json`, so a renamed file keeps its version; `unknown` for a file not listed there |
-| `thresholds`     | object                 | not read by the UI. `{lp: threshold}` used when a request sends none; `threshold_source` says where they come from (`dev_f1`, `env`, `fallback`) |
+| `operating_point`| `"review"` \| `"f1"`  | not read by the UI. The flag line a request without `threshold` or `operating_point` gets. `review` (default): the highest threshold with dev recall of Major ≥ 0.60; `f1`: the F1-optimal one. Both are picked on the fused dev risk (`scripts/pick_thresholds.py`) |
+| `operating_point_source` | string         | not read by the UI. `env` (`SECONDREAD_OPERATING_POINT`), `file` (`default_operating_point` in `secondread/thresholds.json`), `default` (built-in `review`) or `argument` |
+| `thresholds`     | object                 | not read by the UI. `{lp: threshold}` at the active operating point, used when a request sends none; `threshold_source` says where they come from (`dev_review`, `dev_f1`, `env`, `fallback`, or `dev_<point>+fallback` when some pairs have no calibrated value) |
+| `operating_points` | object               | not read by the UI. `{point: {thresholds, source, target_recall?}}`: what each operating point would apply to the loaded adapter |
 | `rule_calibration` | object               | not read by the UI. `{method, fitted_as, generated, pairs}` of `secondread/rule_calibration.json`, the train-measured weights of the rule findings in `risk` |
 | `llama`          | object                 | optional; `base_model` / `lora_adapters[].name` are used if `model` / `adapter` are missing |
 | `sentry.enabled` | boolean                | optional; `true` adds "Sentry on, no text sent" to the header   |
@@ -47,6 +54,10 @@ Content-Type: application/json
 ```
 
 - `lp`: `"en-ru"` or `"en-es"` (the language pairs the model was trained on).
+- `operating_point` (optional): `"review"` or `"f1"`, the dev-calibrated flag line to use; any
+  other value is a 400 `bad_operating_point`. Default: the server's (`GET /api/health`). A
+  `threshold` in the request overrides both. The multipart form and the query string
+  (`?operating_point=f1`) take the same field; the UI does not send it yet.
 - `id`: opaque string, not necessarily unique. Pasted pairs are numbered `"1"`, `"2"`, … in paste
   order, unless the paste has three columns whose first looks like an id (`A7`, `12`, `seg-3`), in
   which case that id is sent. The UI keys segments by position, never by id.
@@ -110,9 +121,10 @@ never in the URL, so it stays out of access logs and trace URLs.
 | `timing_ms`                 | number \| object      | total wall time; an object like `{ "total": 1840, … }` is also accepted |
 | `segments[].flagged`        | boolean               | optional; the backend's verdict (`risk ≥ threshold`) |
 | `summary`                   | object                | optional; the UI reads `flagged`, `threshold`, `model_available`, `lora_active`, `xliff.skipped`, `timing_ms.total` |
-| `summary.threshold`         | number \| null        | the flag threshold. Without a `threshold` in the request it is the dev-calibrated one for the active adapter and the language pair (`secondread/thresholds.json`); `null` when a JSON request mixes pairs with different thresholds |
+| `summary.threshold`         | number \| null        | the flag threshold. Without a `threshold` in the request it is the dev-calibrated one for the active adapter, operating point and language pair (`secondread/thresholds.json`); `null` when a JSON request mixes pairs with different thresholds |
+| `summary.operating_point`   | `"review"` \| `"f1"`  | the operating point of this review (the request's, else the server's). With `threshold_source` `request` or `env`, the threshold did not come from it |
 | `summary.thresholds`        | object                | `{lp: threshold}` actually applied, one entry per language pair in the request |
-| `summary.threshold_source`  | string                | `request`, `env` (`SECONDREAD_THRESHOLD`), `dev_f1` (the calibration file), `fallback` (0.5: unknown adapter, a LoRA scale other than 0 or 1, or no model) or `dev_f1+fallback` |
+| `summary.threshold_source`  | string                | `request`, `env` (`SECONDREAD_THRESHOLD`), `dev_review` or `dev_f1` (the calibration file at that operating point), `fallback` (0.5: unknown adapter, a LoRA scale other than 0 or 1, no model, or no value for that point) or `dev_<point>+fallback` |
 | `summary.adapter_version`   | string \| null        | e.g. `v1` when the LoRA is active, else `null` |
 
 `reasons` is what gets highlighted. A segment with no reasons can still rank high on `risk`, and

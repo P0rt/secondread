@@ -46,7 +46,7 @@
     "p_ok": 0.9833421707357292,
     "labels_in_top": true,
     "prompt_tokens": 73,
-    "latency_ms": 772.025374986697,
+    "latency_ms": 550.0437080045231,
     "error": null
    },
    "meta": {},
@@ -64,14 +64,14 @@
    "lp": "en-es",
    "src": "The best way to dispose of most types of expired, unwanted or unused medicines is through a drug take-back program.",
    "mt": "La mejor manera de deshacerse de la mayoría de los tipos de medicamentos caducados, no deseados o no utilizados es a través de un programa de devolución de medicamentos.",
-   "risk": 0.018,
+   "risk": 0.0181,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 2%",
-     "confidence": 0.018043573068220572,
+     "confidence": 0.018054154125182194,
      "spans": []
     }
    ],
@@ -95,15 +95,15 @@
      "src_count": 0,
      "mt_count": 2
     },
-    "lora_score": 0.018043573068220572
+    "lora_score": 0.018054154125182194
    },
    "model": {
-    "risk": 0.018043573068220572,
-    "p_major": 0.018041150304213986,
-    "p_ok": 0.9818245767334728,
+    "risk": 0.018054154125182194,
+    "p_major": 0.018051726109840703,
+    "p_ok": 0.9818137887558984,
     "labels_in_top": true,
     "prompt_tokens": 99,
-    "latency_ms": 846.2629169807769,
+    "latency_ms": 597.5420830072835,
     "error": null
    },
    "meta": {},
@@ -121,14 +121,14 @@
    "lp": "en-es",
    "src": "To discard of your prescription or over-the-counter medicines, you can:",
    "mt": "Para descartar sus medicamentos recetados o de venta libre, puede:",
-   "risk": 0.0391,
+   "risk": 0.039,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 4%",
-     "confidence": 0.03908201888507117,
+     "confidence": 0.03904507120535924,
      "spans": []
     }
    ],
@@ -152,15 +152,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.03908201888507117
+    "lora_score": 0.03904507120535924
    },
    "model": {
-    "risk": 0.03908201888507117,
-    "p_major": 0.039068582663783734,
-    "p_ok": 0.96058762186017,
+    "risk": 0.03904507120535924,
+    "p_major": 0.039031658118988476,
+    "p_ok": 0.960624813595451,
     "labels_in_top": true,
     "prompt_tokens": 68,
-    "latency_ms": 848.0169579852372,
+    "latency_ms": 598.0580830364488,
     "error": null
    },
    "meta": {},
@@ -185,7 +185,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 19%",
-     "confidence": 0.19283249914515488,
+     "confidence": 0.19283190075670364,
      "spans": []
     }
    ],
@@ -209,15 +209,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.19283249914515488
+    "lora_score": 0.19283190075670364
    },
    "model": {
-    "risk": 0.19283249914515488,
-    "p_major": 0.19261414214847902,
-    "p_ok": 0.8062534916910249,
+    "risk": 0.19283190075670364,
+    "p_major": 0.1926135451531331,
+    "p_ok": 0.8062540923969108,
     "labels_in_top": true,
     "prompt_tokens": 60,
-    "latency_ms": 846.7111249919981,
+    "latency_ms": 598.822082974948,
     "error": null
    },
    "meta": {},
@@ -236,17 +236,19 @@
    "src": "Mail them using a prepaid drug mail-back envelope.",
    "mt": "Mándalos por correo con un sobre de devolución por correo de drogas prepagado.",
    "risk": 0.555,
-   "flagged": false,
+   "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
-     "issue": "model_score",
+     "issue": "model_high",
      "message": "Model (LoRA v1): P(Major) 55%",
      "confidence": 0.554967503097515,
      "spans": []
     }
    ],
-   "issues": [],
+   "issues": [
+    "model_high"
+   ],
    "signals": {
     "number_check": {
      "flagged": false,
@@ -274,7 +276,7 @@
     "p_ok": 0.4442956272523439,
     "labels_in_top": true,
     "prompt_tokens": 67,
-    "latency_ms": 612.077874946408,
+    "latency_ms": 576.0045840288512,
     "error": null
    },
    "meta": {},
@@ -331,7 +333,7 @@
     "p_ok": 0.9693197013658882,
     "labels_in_top": true,
     "prompt_tokens": 63,
-    "latency_ms": 535.7306249788962,
+    "latency_ms": 529.0938750258647,
     "error": null
    },
    "meta": {},
@@ -356,7 +358,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 3%",
-     "confidence": 0.03331058390568043,
+     "confidence": 0.03332656097564938,
      "spans": []
     }
    ],
@@ -380,15 +382,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.03331058390568043
+    "lora_score": 0.03332656097564938
    },
    "model": {
-    "risk": 0.03331058390568043,
-    "p_major": 0.033301343246061384,
-    "p_ok": 0.9664212476384091,
+    "risk": 0.03332656097564938,
+    "p_major": 0.03331731372848343,
+    "p_ok": 0.9664052124819855,
     "labels_in_top": true,
     "prompt_tokens": 79,
-    "latency_ms": 535.7485000276938,
+    "latency_ms": 561.866708972957,
     "error": null
    },
    "meta": {},
@@ -406,14 +408,14 @@
    "lp": "en-es",
    "src": "The U.S. Drug Enforcement Administration sponsors National Prescription Drug Take Back Day in communities nationwide.",
    "mt": "La Administración Antidrogas de los Estados Unidos patrocina el Día Nacional de Retraso de las Drogas Recluidas en comunidades de todo el país.",
-   "risk": 0.7999,
+   "risk": 0.7998,
    "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_high",
      "message": "Model (LoRA v1): P(Major) 80%",
-     "confidence": 0.799874379279432,
+     "confidence": 0.799751020784377,
      "spans": []
     }
    ],
@@ -439,15 +441,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.799874379279432
+    "lora_score": 0.799751020784377
    },
    "model": {
-    "risk": 0.799874379279432,
-    "p_major": 0.7990958705885746,
-    "p_ok": 0.19993084071631975,
+    "risk": 0.799751020784377,
+    "p_major": 0.7989728998419052,
+    "p_ok": 0.2000541461733551,
     "labels_in_top": true,
     "prompt_tokens": 93,
-    "latency_ms": 664.384291972965,
+    "latency_ms": 561.6995000164025,
     "error": null
    },
    "meta": {},
@@ -479,7 +481,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 22%",
-     "confidence": 0.22270147498965803,
+     "confidence": 0.22270113449935802,
      "spans": []
     }
    ],
@@ -503,15 +505,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.22270147498965803
+    "lora_score": 0.22270113449935802
    },
    "model": {
-    "risk": 0.22270147498965803,
-    "p_major": 0.2224127124001864,
-    "p_ok": 0.7762906523194005,
+    "risk": 0.22270113449935802,
+    "p_major": 0.22241239423647677,
+    "p_ok": 0.7762910687542693,
     "labels_in_top": true,
     "prompt_tokens": 62,
-    "latency_ms": 468.324167013634,
+    "latency_ms": 574.8947079991922,
     "error": null
    },
    "meta": {},
@@ -529,14 +531,14 @@
    "lp": "en-es",
    "src": "Check with your local law enforcement officials to find a location near you or with the DEA to find a DEA-authorized collector in your community.",
    "mt": "Consulte con los agentes de la ley locales para encontrar una ubicación cerca de usted o con la DEA para encontrar un coleccionista autorizado por la DEA en su comunidad.",
-   "risk": 0.152,
+   "risk": 0.1523,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 15%",
-     "confidence": 0.15199191389453032,
+     "confidence": 0.15229997156200795,
      "spans": []
     }
    ],
@@ -560,15 +562,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.15199191389453032
+    "lora_score": 0.15229997156200795
    },
    "model": {
-    "risk": 0.15199191389453032,
-    "p_major": 0.15184835610050598,
-    "p_ok": 0.8472071344822104,
+    "risk": 0.15229997156200795,
+    "p_major": 0.1521558171866338,
+    "p_ok": 0.8468976667116513,
     "labels_in_top": true,
     "prompt_tokens": 100,
-    "latency_ms": 615.863166982308,
+    "latency_ms": 574.9337080051191,
     "error": null
    },
    "meta": {},
@@ -586,14 +588,14 @@
    "lp": "en-es",
    "src": "A prepaid drug mail-back envelope is a convenient and secure disposal option.",
    "mt": "Un sobre de devolución por correo de medicamentos de prepago es una opción de eliminación conveniente y segura.",
-   "risk": 0.1175,
+   "risk": 0.1174,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 12%",
-     "confidence": 0.11752841874555323,
+     "confidence": 0.11739711801054056,
      "spans": []
     }
    ],
@@ -617,15 +619,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.11752841874555323
+    "lora_score": 0.11739711801054056
    },
    "model": {
-    "risk": 0.11752841874555323,
-    "p_major": 0.11744054736045388,
-    "p_ok": 0.8818117918947046,
+    "risk": 0.11739711801054056,
+    "p_major": 0.11730916086998264,
+    "p_ok": 0.881941611703923,
     "labels_in_top": true,
     "prompt_tokens": 73,
-    "latency_ms": 615.6590419705026,
+    "latency_ms": 574.6872500167228,
     "error": null
    },
    "meta": {},
@@ -650,7 +652,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 2%",
-     "confidence": 0.019530104899918323,
+     "confidence": 0.019530141423160223,
      "spans": []
     }
    ],
@@ -674,15 +676,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.019530104899918323
+    "lora_score": 0.019530141423160223
    },
    "model": {
-    "risk": 0.019530104899918323,
-    "p_major": 0.01952738102767586,
+    "risk": 0.019530141423160223,
+    "p_major": 0.019527418273234887,
     "p_ok": 0.9803331485364807,
     "labels_in_top": true,
     "prompt_tokens": 71,
-    "latency_ms": 614.3935829750262,
+    "latency_ms": 574.6753339772113,
     "error": null
    },
    "meta": {},
@@ -707,7 +709,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 1%",
-     "confidence": 0.014106799810434771,
+     "confidence": 0.014106852864572146,
      "spans": []
     }
    ],
@@ -731,15 +733,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.014106799810434771
+    "lora_score": 0.014106852864572146
    },
    "model": {
-    "risk": 0.014106799810434771,
-    "p_major": 0.014105164722558985,
+    "risk": 0.014106852864572146,
+    "p_major": 0.014105218529594912,
     "p_ok": 0.9857789274955374,
     "labels_in_top": true,
     "prompt_tokens": 56,
-    "latency_ms": 535.8643750078045,
+    "latency_ms": 490.71254197042435,
     "error": null
    },
    "meta": {},
@@ -757,14 +759,14 @@
    "lp": "en-es",
    "src": "To use prepaid drug mail-back envelopes:",
    "mt": "Para usar sobres de devolución de medicamentos prepagados:",
-   "risk": 0.0424,
+   "risk": 0.0422,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 4%",
-     "confidence": 0.0423733987701717,
+     "confidence": 0.042204225948441934,
      "spans": []
     }
    ],
@@ -788,15 +790,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.0423733987701717
+    "lora_score": 0.042204225948441934
    },
    "model": {
-    "risk": 0.0423733987701717,
-    "p_major": 0.0423584042375413,
-    "p_ok": 0.9572877291134385,
+    "risk": 0.042204225948441934,
+    "p_major": 0.042189301150421604,
+    "p_ok": 0.9574570660631706,
     "labels_in_top": true,
     "prompt_tokens": 58,
-    "latency_ms": 533.8816249859519,
+    "latency_ms": 490.74820801615715,
     "error": null
    },
    "meta": {},
@@ -814,14 +816,14 @@
    "lp": "en-es",
    "src": "Fill the envelope with your unused or expired medicines and seal it.",
    "mt": "Llene el sobre con sus medicamentos no utilizados o caducados y selle.",
-   "risk": 0.018,
+   "risk": 0.0179,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 2%",
-     "confidence": 0.018018649279176752,
+     "confidence": 0.017893434585133344,
      "spans": []
     }
    ],
@@ -845,15 +847,15 @@
      "src_count": 0,
      "mt_count": 1
     },
-    "lora_score": 0.018018649279176752
+    "lora_score": 0.017893434585133344
    },
    "model": {
-    "risk": 0.018018649279176752,
-    "p_major": 0.01801621115128125,
-    "p_ok": 0.981848477491151,
+    "risk": 0.017893434585133344,
+    "p_major": 0.017891024854646772,
+    "p_ok": 0.9819743039353568,
     "labels_in_top": true,
     "prompt_tokens": 68,
-    "latency_ms": 534.0620420174673,
+    "latency_ms": 491.16566602606326,
     "error": null
    },
    "meta": {},
@@ -910,7 +912,7 @@
     "p_ok": 0.9769443864813339,
     "labels_in_top": true,
     "prompt_tokens": 67,
-    "latency_ms": 581.935791997239,
+    "latency_ms": 491.1782499984838,
     "error": null
    },
    "meta": {},
@@ -935,7 +937,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 21%",
-     "confidence": 0.20886264441275995,
+     "confidence": 0.20886328213715197,
      "spans": []
     }
    ],
@@ -959,15 +961,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.20886264441275995
+    "lora_score": 0.20886328213715197
    },
    "model": {
-    "risk": 0.20886264441275995,
-    "p_major": 0.2085934472797974,
-    "p_ok": 0.7901176811092957,
+    "risk": 0.20886328213715197,
+    "p_major": 0.20859409380399235,
+    "p_ok": 0.7901170806523065,
     "labels_in_top": true,
     "prompt_tokens": 92,
-    "latency_ms": 659.764832991641,
+    "latency_ms": 662.4768339679576,
     "error": null
    },
    "meta": {},
@@ -992,7 +994,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 17%",
-     "confidence": 0.1708303399341435,
+     "confidence": 0.17083520939668434,
      "spans": []
     }
    ],
@@ -1016,15 +1018,15 @@
      "src_count": 2,
      "mt_count": 2
     },
-    "lora_score": 0.1708303399341435
+    "lora_score": 0.17083520939668434
    },
    "model": {
-    "risk": 0.1708303399341435,
-    "p_major": 0.1706306225552563,
-    "p_ok": 0.8282002796195903,
+    "risk": 0.17083520939668434,
+    "p_major": 0.17063526031048867,
+    "p_ok": 0.828194318867587,
     "labels_in_top": true,
     "prompt_tokens": 132,
-    "latency_ms": 661.1370409955271,
+    "latency_ms": 662.5555410282686,
     "error": null
    },
    "meta": {},
@@ -1049,7 +1051,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 1%",
-     "confidence": 0.01205382286963211,
+     "confidence": 0.012055234284791785,
      "spans": []
     }
    ],
@@ -1073,15 +1075,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.01205382286963211
+    "lora_score": 0.012055234284791785
    },
    "model": {
-    "risk": 0.01205382286963211,
-    "p_major": 0.01205196450166566,
-    "p_ok": 0.9877938630016461,
+    "risk": 0.012055234284791785,
+    "p_major": 0.012053372555915516,
+    "p_ok": 0.9877921942051869,
     "labels_in_top": true,
     "prompt_tokens": 50,
-    "latency_ms": 661.2808330100961,
+    "latency_ms": 662.8188749891706,
     "error": null
    },
    "meta": {},
@@ -1106,7 +1108,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 1%",
-     "confidence": 0.012214070328418472,
+     "confidence": 0.012214047316494512,
      "spans": []
     }
    ],
@@ -1130,15 +1132,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.012214070328418472
+    "lora_score": 0.012214047316494512
    },
    "model": {
-    "risk": 0.012214070328418472,
-    "p_major": 0.01221281894151171,
+    "risk": 0.012214047316494512,
+    "p_major": 0.012212795647430413,
     "p_ok": 0.9876847265226035,
     "labels_in_top": true,
     "prompt_tokens": 70,
-    "latency_ms": 660.8513329993002,
+    "latency_ms": 662.7354999654926,
     "error": null
    },
    "meta": {},
@@ -1156,14 +1158,14 @@
    "lp": "en-es",
    "src": "Or consult the list of medicines recommended for disposal by flushing when a take-back option is not readily available.",
    "mt": "O consulte la lista de medicamentos recomendados para su eliminación mediante el lavado cuando no se disponga de una opción de devolución.",
-   "risk": 0.205,
+   "risk": 0.2048,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
-     "message": "Model (LoRA v1): P(Major) 21%",
-     "confidence": 0.20501067829050104,
+     "message": "Model (LoRA v1): P(Major) 20%",
+     "confidence": 0.20477701128097636,
      "spans": []
     }
    ],
@@ -1187,15 +1189,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.20501067829050104
+    "lora_score": 0.20477701128097636
    },
    "model": {
-    "risk": 0.20501067829050104,
-    "p_major": 0.20474773867199408,
-    "p_ok": 0.7939696958504441,
+    "risk": 0.20477701128097636,
+    "p_major": 0.20451445956431177,
+    "p_ok": 0.7942034057125462,
     "labels_in_top": true,
     "prompt_tokens": 85,
-    "latency_ms": 619.48274995666,
+    "latency_ms": 648.017291969154,
     "error": null
    },
    "meta": {},
@@ -1213,18 +1215,20 @@
    "lp": "en-es",
    "src": "Remember, don’t flush your medicine unless it is on the flush list.",
    "mt": "Recuerde, no tire su medicamento a menos que esté en la lista de color.",
-   "risk": 0.6342,
-   "flagged": false,
+   "risk": 0.6349,
+   "flagged": true,
    "reasons": [
     {
      "code": "model_risk",
-     "issue": "model_score",
+     "issue": "model_high",
      "message": "Model (LoRA v1): P(Major) 63%",
-     "confidence": 0.6341827553847048,
+     "confidence": 0.6349050270652071,
      "spans": []
     }
    ],
-   "issues": [],
+   "issues": [
+    "model_high"
+   ],
    "signals": {
     "number_check": {
      "flagged": false,
@@ -1244,15 +1248,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.6341827553847048
+    "lora_score": 0.6349050270652071
    },
    "model": {
-    "risk": 0.6341827553847048,
-    "p_major": 0.6330218955769515,
-    "p_ok": 0.36514762291295266,
+    "risk": 0.6349050270652071,
+    "p_major": 0.6337441210240946,
+    "p_ok": 0.36442740701297466,
     "labels_in_top": true,
     "prompt_tokens": 71,
-    "latency_ms": 698.4023749828339,
+    "latency_ms": 648.2983750174753,
     "error": null
    },
    "meta": {},
@@ -1284,7 +1288,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 14%",
-     "confidence": 0.13723996574916192,
+     "confidence": 0.13723928823082213,
      "spans": []
     }
    ],
@@ -1308,15 +1312,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.13723996574916192
+    "lora_score": 0.13723928823082213
    },
    "model": {
-    "risk": 0.13723996574916192,
-    "p_major": 0.13713412972218633,
-    "p_ok": 0.8620946953041255,
+    "risk": 0.13723928823082213,
+    "p_major": 0.137133459469675,
+    "p_ok": 0.8620954146922988,
     "labels_in_top": true,
     "prompt_tokens": 98,
-    "latency_ms": 698.6600829986855,
+    "latency_ms": 648.038416984491,
     "error": null
    },
    "meta": {},
@@ -1334,14 +1338,14 @@
    "lp": "en-es",
    "src": "This makes the medicine less appealing to children and pets – and unrecognizable to someone who might intentionally go through the trash looking for drugs.",
    "mt": "Esto hace que el medicamento sea menos atractivo para los niños y las mascotas – e irreconocible para alguien que intencionalmente podría ir a través de la basura en busca de drogas.",
-   "risk": 0.2026,
+   "risk": 0.2027,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 20%",
-     "confidence": 0.20256671718290328,
+     "confidence": 0.20270416240659425,
      "spans": []
     }
    ],
@@ -1365,15 +1369,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.20256671718290328
+    "lora_score": 0.20270416240659425
    },
    "model": {
-    "risk": 0.20256671718290328,
-    "p_major": 0.20231891355321152,
-    "p_ok": 0.7964577678624821,
+    "risk": 0.20270416240659425,
+    "p_major": 0.20245619319895933,
+    "p_ok": 0.7963205008526529,
     "labels_in_top": true,
     "prompt_tokens": 105,
-    "latency_ms": 737.1464170282707,
+    "latency_ms": 648.1409579864703,
     "error": null
    },
    "meta": {},
@@ -1398,7 +1402,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 4%",
-     "confidence": 0.03714657412892803,
+     "confidence": 0.03714670643782849,
      "spans": []
     }
    ],
@@ -1422,15 +1426,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.03714657412892803
+    "lora_score": 0.03714670643782849
    },
    "model": {
-    "risk": 0.03714657412892803,
-    "p_major": 0.03713763372722573,
-    "p_ok": 0.9626216872354215,
+    "risk": 0.03714670643782849,
+    "p_major": 0.037137766541991184,
+    "p_ok": 0.9626215688959361,
     "labels_in_top": true,
     "prompt_tokens": 114,
-    "latency_ms": 764.5618750248104,
+    "latency_ms": 650.3954580402933,
     "error": null
    },
    "meta": {},
@@ -1448,14 +1452,14 @@
    "lp": "en-es",
    "src": "Throw the container in the trash at home.",
    "mt": "Tira el contenedor a la basura en casa.",
-   "risk": 0.0327,
+   "risk": 0.0328,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 3%",
-     "confidence": 0.03272012198608196,
+     "confidence": 0.032818673598048353,
      "spans": []
     }
    ],
@@ -1479,15 +1483,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.03272012198608196
+    "lora_score": 0.032818673598048353
    },
    "model": {
-    "risk": 0.03272012198608196,
-    "p_major": 0.032711582335874206,
-    "p_ok": 0.967027426882631,
+    "risk": 0.032818673598048353,
+    "p_major": 0.03281009197343878,
+    "p_ok": 0.9669284219983727,
     "labels_in_top": true,
     "prompt_tokens": 59,
-    "latency_ms": 685.2818339830264,
+    "latency_ms": 650.4149999818765,
     "error": null
    },
    "meta": {},
@@ -1512,7 +1516,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 2%",
-     "confidence": 0.02467057481686646,
+     "confidence": 0.024670296358875275,
      "spans": []
     }
    ],
@@ -1536,15 +1540,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.02467057481686646
+    "lora_score": 0.024670296358875275
    },
    "model": {
-    "risk": 0.02467057481686646,
-    "p_major": 0.02466599081930774,
-    "p_ok": 0.9751482008810175,
+    "risk": 0.024670296358875275,
+    "p_major": 0.024665714421823637,
+    "p_ok": 0.9751485587030312,
     "labels_in_top": true,
     "prompt_tokens": 103,
-    "latency_ms": 684.5329999923706,
+    "latency_ms": 650.7951670209877,
     "error": null
    },
    "meta": {},
@@ -1569,7 +1573,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 1%",
-     "confidence": 0.007811511808673413,
+     "confidence": 0.007811541374509914,
      "spans": []
     }
    ],
@@ -1593,15 +1597,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.007811511808673413
+    "lora_score": 0.007811541374509914
    },
    "model": {
-    "risk": 0.007811511808673413,
-    "p_major": 0.007811013646419874,
+    "risk": 0.007811541374509914,
+    "p_major": 0.007811043443129105,
     "p_ok": 0.9921252135185975,
     "labels_in_top": true,
     "prompt_tokens": 69,
-    "latency_ms": 600.8060420281254,
+    "latency_ms": 650.894624995999,
     "error": null
    },
    "meta": {},
@@ -1658,7 +1662,7 @@
     "p_ok": 0.9649468064923381,
     "labels_in_top": true,
     "prompt_tokens": 66,
-    "latency_ms": 612.3445419943891,
+    "latency_ms": 547.7312500006519,
     "error": null
    },
    "meta": {},
@@ -1683,7 +1687,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 16%",
-     "confidence": 0.158770582644114,
+     "confidence": 0.15883834598988686,
      "spans": []
     }
    ],
@@ -1707,15 +1711,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.158770582644114
+    "lora_score": 0.15883834598988686
    },
    "model": {
-    "risk": 0.158770582644114,
-    "p_major": 0.15861746799712795,
-    "p_ok": 0.8404181553253028,
+    "risk": 0.15883834598988686,
+    "p_major": 0.15868506200229923,
+    "p_ok": 0.8403499066217294,
     "labels_in_top": true,
     "prompt_tokens": 73,
-    "latency_ms": 613.1617089849897,
+    "latency_ms": 547.816000005696,
     "error": null
    },
    "meta": {},
@@ -1747,7 +1751,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 1%",
-     "confidence": 0.012871717106101417,
+     "confidence": 0.012877076520746511,
      "spans": []
     }
    ],
@@ -1771,15 +1775,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.012871717106101417
+    "lora_score": 0.012877076520746511
    },
    "model": {
-    "risk": 0.012871717106101417,
-    "p_major": 0.012870222193479492,
-    "p_ok": 0.9870136384748678,
+    "risk": 0.012877076520746511,
+    "p_major": 0.012875580909916043,
+    "p_ok": 0.9870082738743544,
     "labels_in_top": true,
     "prompt_tokens": 92,
-    "latency_ms": 613.3997919969261,
+    "latency_ms": 548.0550410575233,
     "error": null
    },
    "meta": {},
@@ -1804,7 +1808,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 4%",
-     "confidence": 0.04295698345505316,
+     "confidence": 0.04295721915805542,
      "spans": []
     }
    ],
@@ -1828,15 +1832,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.04295698345505316
+    "lora_score": 0.04295721915805542
    },
    "model": {
-    "risk": 0.04295698345505316,
-    "p_major": 0.04294333261909164,
-    "p_ok": 0.956738888178004,
+    "risk": 0.04295721915805542,
+    "p_major": 0.04294356810496923,
+    "p_ok": 0.9567386493813173,
     "labels_in_top": true,
     "prompt_tokens": 71,
-    "latency_ms": 655.438958958257,
+    "latency_ms": 548.108917020727,
     "error": null
    },
    "meta": {},
@@ -1861,7 +1865,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 3%",
-     "confidence": 0.030557713787976684,
+     "confidence": 0.03055794002222848,
      "spans": []
     }
    ],
@@ -1885,15 +1889,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.030557713787976684
+    "lora_score": 0.03055794002222848
    },
    "model": {
-    "risk": 0.030557713787976684,
-    "p_major": 0.030551621532547188,
-    "p_ok": 0.9692490096445178,
+    "risk": 0.03055794002222848,
+    "p_major": 0.0305518473396817,
+    "p_ok": 0.9692487713361075,
     "labels_in_top": true,
     "prompt_tokens": 79,
-    "latency_ms": 666.3628329988569,
+    "latency_ms": 651.1244589928538,
     "error": null
    },
    "meta": {},
@@ -1918,7 +1922,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 6%",
-     "confidence": 0.058902242631064104,
+     "confidence": 0.05888448091458051,
      "spans": []
     }
    ],
@@ -1942,15 +1946,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.058902242631064104
+    "lora_score": 0.05888448091458051
    },
    "model": {
-    "risk": 0.058902242631064104,
-    "p_major": 0.05887988013575096,
-    "p_ok": 0.9407404654688603,
+    "risk": 0.05888448091458051,
+    "p_major": 0.058862110637022846,
+    "p_ok": 0.9407579882887006,
     "labels_in_top": true,
     "prompt_tokens": 89,
-    "latency_ms": 707.2797080036253,
+    "latency_ms": 651.2827079859562,
     "error": null
    },
    "meta": {},
@@ -1975,7 +1979,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 8%",
-     "confidence": 0.0801680905544964,
+     "confidence": 0.08018664899027184,
      "spans": []
     }
    ],
@@ -1999,15 +2003,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.0801680905544964
+    "lora_score": 0.08018664899027184
    },
    "model": {
-    "risk": 0.0801680905544964,
-    "p_major": 0.08012724028180317,
-    "p_ok": 0.9193632019576129,
+    "risk": 0.08018664899027184,
+    "p_major": 0.0801457540245829,
+    "p_ok": 0.9193442487850633,
     "labels_in_top": true,
     "prompt_tokens": 103,
-    "latency_ms": 707.5447500101291,
+    "latency_ms": 651.2935000355355,
     "error": null
    },
    "meta": {},
@@ -2032,7 +2036,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 38%",
-     "confidence": 0.37921448148259795,
+     "confidence": 0.3792122294165143,
      "spans": []
     }
    ],
@@ -2056,15 +2060,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.37921448148259795
+    "lora_score": 0.3792122294165143
    },
    "model": {
-    "risk": 0.37921448148259795,
-    "p_major": 0.3784820674959389,
-    "p_ok": 0.6195865347794921,
+    "risk": 0.3792122294165143,
+    "p_major": 0.3784797890145893,
+    "p_ok": 0.6195887321323896,
     "labels_in_top": true,
     "prompt_tokens": 84,
-    "latency_ms": 712.9502920433879,
+    "latency_ms": 651.2891669990495,
     "error": null
    },
    "meta": {},
@@ -2082,14 +2086,14 @@
    "lp": "en-es",
    "src": "Review the instructions that came with your prescription or contact your health care professional to learn how to properly dispose of those medicines.",
    "mt": "Revise las instrucciones que vienen con su receta o póngase en contacto con su profesional de la salud para aprender a deshacerse adecuadamente de esos medicamentos.",
-   "risk": 0.0512,
+   "risk": 0.0513,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 5%",
-     "confidence": 0.05123875082003859,
+     "confidence": 0.05134929008175074,
      "spans": []
     }
    ],
@@ -2113,15 +2117,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.05123875082003859
+    "lora_score": 0.05134929008175074
    },
    "model": {
-    "risk": 0.05123875082003859,
-    "p_major": 0.051219480455969614,
-    "p_ok": 0.9484044298899976,
+    "risk": 0.05134929008175074,
+    "p_major": 0.051329919628023295,
+    "p_ok": 0.9482928511308986,
     "labels_in_top": true,
     "prompt_tokens": 96,
-    "latency_ms": 717.0977920177393,
+    "latency_ms": 553.8109170156531,
     "error": null
    },
    "meta": {},
@@ -2146,7 +2150,7 @@
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 4%",
-     "confidence": 0.0428614219683958,
+     "confidence": 0.0428598544440776,
      "spans": []
     }
    ],
@@ -2170,15 +2174,15 @@
      "src_count": 0,
      "mt_count": 0
     },
-    "lora_score": 0.0428614219683958
+    "lora_score": 0.0428598544440776
    },
    "model": {
-    "risk": 0.0428614219683958,
-    "p_major": 0.04284807714140708,
-    "p_ok": 0.9568405746490408,
+    "risk": 0.0428598544440776,
+    "p_major": 0.042846503940527365,
+    "p_ok": 0.9568420040181813,
     "labels_in_top": true,
     "prompt_tokens": 95,
-    "latency_ms": 561.7613749927841,
+    "latency_ms": 553.7612499902025,
     "error": null
    },
    "meta": {},
@@ -2196,14 +2200,14 @@
    "lp": "en-es",
    "src": "Many drugs are not completely absorbed or metabolized (broken down) by the body and can enter the environment after passing through wastewater treatment plants.",
    "mt": "Muchas drogas no son completamente absorbidas o metabolizadas (descompuestas) por el cuerpo y pueden entrar en el medio ambiente después de pasar a través de plantas de tratamiento de aguas residuales.",
-   "risk": 0.0841,
+   "risk": 0.0842,
    "flagged": false,
    "reasons": [
     {
      "code": "model_risk",
      "issue": "model_score",
      "message": "Model (LoRA v1): P(Major) 8%",
-     "confidence": 0.08412258050203285,
+     "confidence": 0.08415374390929112,
      "spans": []
     }
    ],
@@ -2227,15 +2231,15 @@
      "src_count": 1,
      "mt_count": 1
     },
-    "lora_score": 0.08412258050203285
+    "lora_score": 0.08415374390929112
    },
    "model": {
-    "risk": 0.08412258050203285,
-    "p_major": 0.08407192778374449,
-    "p_ok": 0.9153259423483168,
+    "risk": 0.08415374390929112,
+    "p_major": 0.0841030423084195,
+    "p_ok": 0.9152944699291077,
     "labels_in_top": true,
     "prompt_tokens": 106,
-    "latency_ms": 561.5342499804683,
+    "latency_ms": 548.6477090162225,
     "error": null
    },
    "meta": {},
@@ -2250,12 +2254,13 @@
  ],
  "summary": {
   "segments": 39,
-  "flagged": 1,
-  "threshold": 0.7019,
+  "flagged": 3,
+  "threshold": 0.4984,
   "thresholds": {
-   "en-es": 0.7019
+   "en-es": 0.4984
   },
-  "threshold_source": "dev_f1",
+  "threshold_source": "dev_review",
+  "operating_point": "review",
   "input": "segments",
   "xliff": null,
   "model": "Qwen3.5-4B-Q4_K_M+secondread-lora",
@@ -2271,23 +2276,23 @@
   },
   "cost_usd": 0.0,
   "timing_ms": {
-   "total": 6469.1,
-   "per_segment": 165.9,
+   "total": 5944.5,
+   "per_segment": 152.4,
    "parse": 0.1,
-   "checks": 2.1,
-   "model": 6466.7,
-   "model_call_p50": 659.8,
-   "model_call_p95": 846.7
+   "checks": 2.0,
+   "model": 5942.2,
+   "model_call_p50": 576.0,
+   "model_call_p95": 662.7
   }
  },
  "timing_ms": {
-  "total": 6469.1,
-  "per_segment": 165.9,
+  "total": 5944.5,
+  "per_segment": 152.4,
   "parse": 0.1,
-  "checks": 2.1,
-  "model": 6466.7,
-  "model_call_p50": 659.8,
-  "model_call_p95": 846.7
+  "checks": 2.0,
+  "model": 5942.2,
+  "model_call_p50": 576.0,
+  "model_call_p95": 662.7
  },
  "meta": {
   "placeholder": false,

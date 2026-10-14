@@ -1,72 +1,176 @@
 {
- "method": "F1-optimal threshold on the fused risk (the model risk plus the train-calibrated log-odds weights of the number/negation rule checks in secondread/rule_calibration.json, as secondread.agent.aggregate) over the full dev split of each language pair, rounded to 4 decimals; scripts/pick_thresholds.py",
- "generated": "2026-10-14",
+ "default_operating_point": "review",
  "fallback": 0.5,
- "rule_calibration": {
-  "file": "secondread/rule_calibration.json",
-  "sha256": "fbc71fcd6a51f05692005e96a222c50683c5faebc0157dece7593c5e5c45f5d7"
+ "operating_points": {
+  "review": {
+   "method": "Highest threshold whose dev recall of Major is at least 0.60, on the fused risk (the model risk plus the train-calibrated log-odds weights of the number/negation rule checks in secondread/rule_calibration.json, as secondread.agent.aggregate) over the full dev split of each language pair, rounded down to 4 decimals; dev precision, recall and flag rate at it with 95% document-bootstrap CIs (1000 replicates, seed 0); if a pair's recall CI is wider than +-0.15, the same rule on all pairs' dev pooled is reported too but not used; reads no test file; scripts/pick_thresholds.py --target-recall 0.6",
+   "target_recall": 0.6,
+   "n_boot": 1000,
+   "seed": 0,
+   "ci_half_width_limit": 0.15,
+   "generated": "2026-10-14",
+   "rule_calibration": {
+    "file": "secondread/rule_calibration.json",
+    "sha256": "fbc71fcd6a51f05692005e96a222c50683c5faebc0157dece7593c5e5c45f5d7"
+   }
+  },
+  "f1": {
+   "method": "F1-optimal threshold on the fused risk (the model risk plus the train-calibrated log-odds weights of the number/negation rule checks in secondread/rule_calibration.json, as secondread.agent.aggregate) over the full dev split of each language pair, rounded to 4 decimals; scripts/pick_thresholds.py",
+   "generated": "2026-10-14",
+   "rule_calibration": {
+    "file": "secondread/rule_calibration.json",
+    "sha256": "fbc71fcd6a51f05692005e96a222c50683c5faebc0157dece7593c5e5c45f5d7"
+   }
+  }
  },
  "adapters": {
   "base": {
    "sha256": null,
    "file": null,
    "description": "Qwen3.5-4B Q4_K_M without an adapter (also any adapter at lora_scale 0)",
-   "thresholds": {
-    "en-ru": 0.3668,
-    "en-es": 0.7345
-   },
-   "stats": {
-    "en-ru": {
-     "model_only_dev_threshold": 0.3668,
-     "dev": {
-      "n": 2972,
-      "major_rate": 0.2702,
-      "precision": 0.3136,
-      "recall": 0.7659,
-      "f1": 0.445,
-      "flag_rate": 0.6598,
-      "auroc_fused": 0.6021,
-      "pr_auc_fused": 0.3792,
-      "recall_at_10_fused": 0.188
-     },
-     "test": {
-      "n": 3573,
-      "major_rate": 0.2024,
-      "precision": 0.2503,
-      "recall": 0.7815,
-      "f1": 0.3792,
-      "flag_rate": 0.6317,
-      "auroc_fused": 0.6621,
-      "pr_auc_fused": 0.366,
-      "recall_at_10_fused": 0.2282
-     },
-     "dev_rule_hit_rate": 0.0054
+   "review": {
+    "thresholds": {
+     "en-ru": 0.4431,
+     "en-es": 0.6183
     },
-    "en-es": {
-     "model_only_dev_threshold": 0.7506,
-     "dev": {
-      "n": 1650,
-      "major_rate": 0.0576,
-      "precision": 0.3125,
-      "recall": 0.4211,
-      "f1": 0.3587,
-      "flag_rate": 0.0776,
-      "auroc_fused": 0.8034,
-      "pr_auc_fused": 0.3252,
-      "recall_at_10_fused": 0.4632
+    "stats": {
+     "en-ru": {
+      "exact_threshold": 0.443167,
+      "model_only_threshold": 0.4431,
+      "dev": {
+       "n": 2972,
+       "n_docs": 31,
+       "majors": 803,
+       "major_rate": 0.2702,
+       "flagged": 1519,
+       "majors_flagged": 482,
+       "recall": 0.6002,
+       "recall_ci": [
+        0.5011,
+        0.7031
+       ],
+       "recall_ci_half_width": 0.101,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.3173,
+       "precision_ci": [
+        0.2196,
+        0.4207
+       ],
+       "flag_rate": 0.5111,
+       "flag_rate_ci": [
+        0.4535,
+        0.5688
+       ],
+       "f1": 0.4152,
+       "threshold_bootstrap_ci": [
+        0.3926,
+        0.5043
+       ],
+       "auroc_fused": 0.6021,
+       "pr_auc_fused": 0.3792,
+       "recall_at_10_fused": 0.188
+      },
+      "dev_rule_hit_rate": 0.0054
      },
-     "test": {
-      "n": 1815,
-      "major_rate": 0.0926,
-      "precision": 0.3145,
-      "recall": 0.5298,
-      "f1": 0.3947,
-      "flag_rate": 0.1559,
-      "auroc_fused": 0.7754,
-      "pr_auc_fused": 0.4003,
-      "recall_at_10_fused": 0.4345
+     "en-es": {
+      "exact_threshold": 0.618344,
+      "model_only_threshold": 0.6141,
+      "dev": {
+       "n": 1650,
+       "n_docs": 12,
+       "majors": 95,
+       "major_rate": 0.0576,
+       "flagged": 268,
+       "majors_flagged": 57,
+       "recall": 0.6,
+       "recall_ci": [
+        0.5093,
+        0.7347
+       ],
+       "recall_ci_half_width": 0.1127,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.2127,
+       "precision_ci": [
+        0.1639,
+        0.2579
+       ],
+       "flag_rate": 0.1624,
+       "flag_rate_ci": [
+        0.1096,
+        0.3382
+       ],
+       "f1": 0.314,
+       "threshold_bootstrap_ci": [
+        0.5699,
+        0.7109
+       ],
+       "auroc_fused": 0.8034,
+       "pr_auc_fused": 0.3252,
+       "recall_at_10_fused": 0.4632
+      },
+      "dev_rule_hit_rate": 0.02
+     }
+    },
+    "pooled": null
+   },
+   "f1": {
+    "thresholds": {
+     "en-ru": 0.3668,
+     "en-es": 0.7345
+    },
+    "stats": {
+     "en-ru": {
+      "model_only_dev_threshold": 0.3668,
+      "dev": {
+       "n": 2972,
+       "major_rate": 0.2702,
+       "precision": 0.3136,
+       "recall": 0.7659,
+       "f1": 0.445,
+       "flag_rate": 0.6598,
+       "auroc_fused": 0.6021,
+       "pr_auc_fused": 0.3792,
+       "recall_at_10_fused": 0.188
+      },
+      "test": {
+       "n": 3573,
+       "major_rate": 0.2024,
+       "precision": 0.2503,
+       "recall": 0.7815,
+       "f1": 0.3792,
+       "flag_rate": 0.6317,
+       "auroc_fused": 0.6621,
+       "pr_auc_fused": 0.366,
+       "recall_at_10_fused": 0.2282
+      },
+      "dev_rule_hit_rate": 0.0054
      },
-     "dev_rule_hit_rate": 0.02
+     "en-es": {
+      "model_only_dev_threshold": 0.7506,
+      "dev": {
+       "n": 1650,
+       "major_rate": 0.0576,
+       "precision": 0.3125,
+       "recall": 0.4211,
+       "f1": 0.3587,
+       "flag_rate": 0.0776,
+       "auroc_fused": 0.8034,
+       "pr_auc_fused": 0.3252,
+       "recall_at_10_fused": 0.4632
+      },
+      "test": {
+       "n": 1815,
+       "major_rate": 0.0926,
+       "precision": 0.3145,
+       "recall": 0.5298,
+       "f1": 0.3947,
+       "flag_rate": 0.1559,
+       "auroc_fused": 0.7754,
+       "pr_auc_fused": 0.4003,
+       "recall_at_10_fused": 0.4345
+      },
+      "dev_rule_hit_rate": 0.02
+     }
     }
    }
   },
@@ -74,62 +178,149 @@
    "sha256": "5337b2b7b17a3b603c300d8cd07503091127b53f075dfc6a680457fb7105073a",
    "file": "models/secondread-lora-v1.gguf",
    "description": "LoRA v1: rank 16 MLP-only, 1 epoch on 14,791 human-labelled WMT units (data/sft_v1.jsonl), Tinker run 479fd56b-2a66-539a-ae24-5b020ba97bbb:train:0",
-   "thresholds": {
-    "en-ru": 0.1609,
-    "en-es": 0.7019
-   },
-   "stats": {
-    "en-ru": {
-     "model_only_dev_threshold": 0.1609,
-     "dev": {
-      "n": 2972,
-      "major_rate": 0.2702,
-      "precision": 0.4646,
-      "recall": 0.6376,
-      "f1": 0.5375,
-      "flag_rate": 0.3708,
-      "auroc_fused": 0.7388,
-      "pr_auc_fused": 0.5461,
-      "recall_at_10_fused": 0.2391
-     },
-     "test": {
-      "n": 3573,
-      "major_rate": 0.2024,
-      "precision": 0.3722,
-      "recall": 0.769,
-      "f1": 0.5016,
-      "flag_rate": 0.4181,
-      "auroc_fused": 0.7988,
-      "pr_auc_fused": 0.5334,
-      "recall_at_10_fused": 0.3029
-     },
-     "dev_rule_hit_rate": 0.0054
+   "review": {
+    "thresholds": {
+     "en-ru": 0.1857,
+     "en-es": 0.4984
     },
-    "en-es": {
-     "model_only_dev_threshold": 0.7019,
-     "dev": {
-      "n": 1650,
-      "major_rate": 0.0576,
-      "precision": 0.6346,
-      "recall": 0.3474,
-      "f1": 0.449,
-      "flag_rate": 0.0315,
-      "auroc_fused": 0.8721,
-      "pr_auc_fused": 0.4498,
-      "recall_at_10_fused": 0.5895
+    "stats": {
+     "en-ru": {
+      "exact_threshold": 0.185737,
+      "model_only_threshold": 0.1857,
+      "dev": {
+       "n": 2972,
+       "n_docs": 31,
+       "majors": 803,
+       "major_rate": 0.2702,
+       "flagged": 1027,
+       "majors_flagged": 482,
+       "recall": 0.6002,
+       "recall_ci": [
+        0.4664,
+        0.7049
+       ],
+       "recall_ci_half_width": 0.1192,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.4693,
+       "precision_ci": [
+        0.3302,
+        0.5752
+       ],
+       "flag_rate": 0.3456,
+       "flag_rate_ci": [
+        0.2674,
+        0.4215
+       ],
+       "f1": 0.5268,
+       "threshold_bootstrap_ci": [
+        0.096,
+        0.3141
+       ],
+       "auroc_fused": 0.7388,
+       "pr_auc_fused": 0.5461,
+       "recall_at_10_fused": 0.2391
+      },
+      "dev_rule_hit_rate": 0.0054
      },
-     "test": {
-      "n": 1815,
-      "major_rate": 0.0926,
-      "precision": 0.7727,
-      "recall": 0.3036,
-      "f1": 0.4359,
-      "flag_rate": 0.0364,
-      "auroc_fused": 0.8131,
-      "pr_auc_fused": 0.5142,
-      "recall_at_10_fused": 0.5238
+     "en-es": {
+      "exact_threshold": 0.498496,
+      "model_only_threshold": 0.496,
+      "dev": {
+       "n": 1650,
+       "n_docs": 12,
+       "majors": 95,
+       "major_rate": 0.0576,
+       "flagged": 167,
+       "majors_flagged": 57,
+       "recall": 0.6,
+       "recall_ci": [
+        0.5,
+        0.6733
+       ],
+       "recall_ci_half_width": 0.0867,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.3413,
+       "precision_ci": [
+        0.3118,
+        0.4334
+       ],
+       "flag_rate": 0.1012,
+       "flag_rate_ci": [
+        0.0677,
+        0.1845
+       ],
+       "f1": 0.4351,
+       "threshold_bootstrap_ci": [
+        0.4255,
+        0.533
+       ],
+       "auroc_fused": 0.8721,
+       "pr_auc_fused": 0.4498,
+       "recall_at_10_fused": 0.5895
+      },
+      "dev_rule_hit_rate": 0.02
+     }
+    },
+    "pooled": null
+   },
+   "f1": {
+    "thresholds": {
+     "en-ru": 0.1609,
+     "en-es": 0.7019
+    },
+    "stats": {
+     "en-ru": {
+      "model_only_dev_threshold": 0.1609,
+      "dev": {
+       "n": 2972,
+       "major_rate": 0.2702,
+       "precision": 0.4646,
+       "recall": 0.6376,
+       "f1": 0.5375,
+       "flag_rate": 0.3708,
+       "auroc_fused": 0.7388,
+       "pr_auc_fused": 0.5461,
+       "recall_at_10_fused": 0.2391
+      },
+      "test": {
+       "n": 3573,
+       "major_rate": 0.2024,
+       "precision": 0.3722,
+       "recall": 0.769,
+       "f1": 0.5016,
+       "flag_rate": 0.4181,
+       "auroc_fused": 0.7988,
+       "pr_auc_fused": 0.5334,
+       "recall_at_10_fused": 0.3029
+      },
+      "dev_rule_hit_rate": 0.0054
      },
-     "dev_rule_hit_rate": 0.02
+     "en-es": {
+      "model_only_dev_threshold": 0.7019,
+      "dev": {
+       "n": 1650,
+       "major_rate": 0.0576,
+       "precision": 0.6346,
+       "recall": 0.3474,
+       "f1": 0.449,
+       "flag_rate": 0.0315,
+       "auroc_fused": 0.8721,
+       "pr_auc_fused": 0.4498,
+       "recall_at_10_fused": 0.5895
+      },
+      "test": {
+       "n": 1815,
+       "major_rate": 0.0926,
+       "precision": 0.7727,
+       "recall": 0.3036,
+       "f1": 0.4359,
+       "flag_rate": 0.0364,
+       "auroc_fused": 0.8131,
+       "pr_auc_fused": 0.5142,
+       "recall_at_10_fused": 0.5238
+      },
+      "dev_rule_hit_rate": 0.02
+     }
     }
    }
   },
@@ -137,63 +328,330 @@
    "sha256": "9dda3f68f2734a7771231695c8928f9a36b03cb7f19f30821f51f27b128ed6f7",
    "file": "models/secondread-lora-v2.gguf",
    "description": "LoRA v2: as v1 plus 1,109 rule and 3,986 Gemma 4 synthetic rows (data/sft_v2.jsonl), Tinker run 4087b7c0-b94b-5bbc-87a9-10ac847ad928:train:0",
-   "thresholds": {
-    "en-ru": 0.0827,
-    "en-es": 0.5717
-   },
-   "stats": {
-    "en-ru": {
-     "model_only_dev_threshold": 0.0827,
-     "dev": {
-      "n": 2972,
-      "major_rate": 0.2702,
-      "precision": 0.4238,
-      "recall": 0.7235,
-      "f1": 0.5345,
-      "flag_rate": 0.4613,
-      "auroc_fused": 0.7369,
-      "pr_auc_fused": 0.5236,
-      "recall_at_10_fused": 0.2366
-     },
-     "test": {
-      "n": 3573,
-      "major_rate": 0.2024,
-      "precision": 0.3399,
-      "recall": 0.8396,
-      "f1": 0.4839,
-      "flag_rate": 0.4999,
-      "auroc_fused": 0.7973,
-      "pr_auc_fused": 0.4995,
-      "recall_at_10_fused": 0.2863
-     },
-     "dev_rule_hit_rate": 0.0054
+   "review": {
+    "thresholds": {
+     "en-ru": 0.1403,
+     "en-es": 0.4704
     },
-    "en-es": {
-     "model_only_dev_threshold": 0.5717,
-     "dev": {
-      "n": 1650,
-      "major_rate": 0.0576,
-      "precision": 0.3657,
-      "recall": 0.5158,
-      "f1": 0.4279,
-      "flag_rate": 0.0812,
-      "auroc_fused": 0.8755,
-      "pr_auc_fused": 0.4202,
-      "recall_at_10_fused": 0.5579
+    "stats": {
+     "en-ru": {
+      "exact_threshold": 0.140344,
+      "model_only_threshold": 0.1403,
+      "dev": {
+       "n": 2972,
+       "n_docs": 31,
+       "majors": 803,
+       "major_rate": 0.2702,
+       "flagged": 1092,
+       "majors_flagged": 482,
+       "recall": 0.6002,
+       "recall_ci": [
+        0.4888,
+        0.7036
+       ],
+       "recall_ci_half_width": 0.1074,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.4414,
+       "precision_ci": [
+        0.313,
+        0.5514
+       ],
+       "flag_rate": 0.3674,
+       "flag_rate_ci": [
+        0.2965,
+        0.4364
+       ],
+       "f1": 0.5087,
+       "threshold_bootstrap_ci": [
+        0.0885,
+        0.2175
+       ],
+       "auroc_fused": 0.7369,
+       "pr_auc_fused": 0.5236,
+       "recall_at_10_fused": 0.2366
+      },
+      "dev_rule_hit_rate": 0.0054
      },
-     "test": {
-      "n": 1815,
-      "major_rate": 0.0926,
-      "precision": 0.475,
-      "recall": 0.4524,
-      "f1": 0.4634,
-      "flag_rate": 0.0882,
-      "auroc_fused": 0.8025,
-      "pr_auc_fused": 0.4432,
-      "recall_at_10_fused": 0.4821
+     "en-es": {
+      "exact_threshold": 0.470401,
+      "model_only_threshold": 0.4704,
+      "dev": {
+       "n": 1650,
+       "n_docs": 12,
+       "majors": 95,
+       "major_rate": 0.0576,
+       "flagged": 184,
+       "majors_flagged": 57,
+       "recall": 0.6,
+       "recall_ci": [
+        0.5111,
+        0.6786
+       ],
+       "recall_ci_half_width": 0.0837,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.3098,
+       "precision_ci": [
+        0.2553,
+        0.4167
+       ],
+       "flag_rate": 0.1115,
+       "flag_rate_ci": [
+        0.0892,
+        0.1827
+       ],
+       "f1": 0.4086,
+       "threshold_bootstrap_ci": [
+        0.3309,
+        0.5388
+       ],
+       "auroc_fused": 0.8755,
+       "pr_auc_fused": 0.4202,
+       "recall_at_10_fused": 0.5579
+      },
+      "dev_rule_hit_rate": 0.02
+     }
+    },
+    "pooled": null
+   },
+   "f1": {
+    "thresholds": {
+     "en-ru": 0.0827,
+     "en-es": 0.5717
+    },
+    "stats": {
+     "en-ru": {
+      "model_only_dev_threshold": 0.0827,
+      "dev": {
+       "n": 2972,
+       "major_rate": 0.2702,
+       "precision": 0.4238,
+       "recall": 0.7235,
+       "f1": 0.5345,
+       "flag_rate": 0.4613,
+       "auroc_fused": 0.7369,
+       "pr_auc_fused": 0.5236,
+       "recall_at_10_fused": 0.2366
+      },
+      "test": {
+       "n": 3573,
+       "major_rate": 0.2024,
+       "precision": 0.3399,
+       "recall": 0.8396,
+       "f1": 0.4839,
+       "flag_rate": 0.4999,
+       "auroc_fused": 0.7973,
+       "pr_auc_fused": 0.4995,
+       "recall_at_10_fused": 0.2863
+      },
+      "dev_rule_hit_rate": 0.0054
      },
-     "dev_rule_hit_rate": 0.02
+     "en-es": {
+      "model_only_dev_threshold": 0.5717,
+      "dev": {
+       "n": 1650,
+       "major_rate": 0.0576,
+       "precision": 0.3657,
+       "recall": 0.5158,
+       "f1": 0.4279,
+       "flag_rate": 0.0812,
+       "auroc_fused": 0.8755,
+       "pr_auc_fused": 0.4202,
+       "recall_at_10_fused": 0.5579
+      },
+      "test": {
+       "n": 1815,
+       "major_rate": 0.0926,
+       "precision": 0.475,
+       "recall": 0.4524,
+       "f1": 0.4634,
+       "flag_rate": 0.0882,
+       "auroc_fused": 0.8025,
+       "pr_auc_fused": 0.4432,
+       "recall_at_10_fused": 0.4821
+      },
+      "dev_rule_hit_rate": 0.02
+     }
     }
+   }
+  },
+  "v3a": {
+   "sha256": "eac1fb1ad062190f12557ca04d6103922820c531efb495462ed48d0c48e1258d",
+   "file": "models/secondread-lora-v3a.gguf",
+   "description": "LoRA v3a (candidate): as v1 plus 1,467 Gemma 4 wrong-sense/false-friend/antonym/synonym rows (data/synth/sense.v3a.train.jsonl, at most 12% of each pair; data/sft_v3a.jsonl), Tinker run abc2567b-8635-5c1b-9e87-20f536e95a06:train:0",
+   "review": {
+    "thresholds": {
+     "en-ru": 0.1763,
+     "en-es": 0.5941
+    },
+    "stats": {
+     "en-ru": {
+      "exact_threshold": 0.176389,
+      "model_only_threshold": 0.1763,
+      "dev": {
+       "n": 2972,
+       "n_docs": 31,
+       "majors": 803,
+       "major_rate": 0.2702,
+       "flagged": 1095,
+       "majors_flagged": 482,
+       "recall": 0.6002,
+       "recall_ci": [
+        0.4735,
+        0.7194
+       ],
+       "recall_ci_half_width": 0.123,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.4402,
+       "precision_ci": [
+        0.3047,
+        0.5512
+       ],
+       "flag_rate": 0.3684,
+       "flag_rate_ci": [
+        0.3068,
+        0.4311
+       ],
+       "f1": 0.5079,
+       "threshold_bootstrap_ci": [
+        0.1044,
+        0.3461
+       ],
+       "auroc_fused": 0.7283,
+       "pr_auc_fused": 0.5105,
+       "recall_at_10_fused": 0.2354
+      },
+      "dev_rule_hit_rate": 0.0054
+     },
+     "en-es": {
+      "exact_threshold": 0.594119,
+      "model_only_threshold": 0.5941,
+      "dev": {
+       "n": 1650,
+       "n_docs": 12,
+       "majors": 95,
+       "major_rate": 0.0576,
+       "flagged": 192,
+       "majors_flagged": 57,
+       "recall": 0.6,
+       "recall_ci": [
+        0.5077,
+        0.6587
+       ],
+       "recall_ci_half_width": 0.0755,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.2969,
+       "precision_ci": [
+        0.2391,
+        0.4025
+       ],
+       "flag_rate": 0.1164,
+       "flag_rate_ci": [
+        0.0969,
+        0.181
+       ],
+       "f1": 0.3972,
+       "threshold_bootstrap_ci": [
+        0.5481,
+        0.6811
+       ],
+       "auroc_fused": 0.8708,
+       "pr_auc_fused": 0.4335,
+       "recall_at_10_fused": 0.5684
+      },
+      "dev_rule_hit_rate": 0.02
+     }
+    },
+    "pooled": null
+   }
+  },
+  "v3b": {
+   "sha256": "64f78f05932399acdfe328903557b1f50db357cfc746899f1db93201bdb56ae3",
+   "file": "models/secondread-lora-v3b.gguf",
+   "description": "LoRA v3b (candidate): as v1 plus 1,613 wrong-sense rows (at most 12% per pair) and 1,426 v2 synthetic rows (at most 8% per pair) (data/synth/mix_v3b/; data/sft_v3b.jsonl), Tinker run 7df264ae-f959-55df-aa64-e32f372a36e7:train:0",
+   "review": {
+    "thresholds": {
+     "en-ru": 0.3205,
+     "en-es": 0.6457
+    },
+    "stats": {
+     "en-ru": {
+      "exact_threshold": 0.320596,
+      "model_only_threshold": 0.3205,
+      "dev": {
+       "n": 2972,
+       "n_docs": 31,
+       "majors": 803,
+       "major_rate": 0.2702,
+       "flagged": 1043,
+       "majors_flagged": 482,
+       "recall": 0.6002,
+       "recall_ci": [
+        0.483,
+        0.7155
+       ],
+       "recall_ci_half_width": 0.1163,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.4621,
+       "precision_ci": [
+        0.3367,
+        0.572
+       ],
+       "flag_rate": 0.3509,
+       "flag_rate_ci": [
+        0.2859,
+        0.4199
+       ],
+       "f1": 0.5222,
+       "threshold_bootstrap_ci": [
+        0.1755,
+        0.4699
+       ],
+       "auroc_fused": 0.7392,
+       "pr_auc_fused": 0.5109,
+       "recall_at_10_fused": 0.2279
+      },
+      "dev_rule_hit_rate": 0.0054
+     },
+     "en-es": {
+      "exact_threshold": 0.645768,
+      "model_only_threshold": 0.6457,
+      "dev": {
+       "n": 1650,
+       "n_docs": 12,
+       "majors": 95,
+       "major_rate": 0.0576,
+       "flagged": 181,
+       "majors_flagged": 57,
+       "recall": 0.6,
+       "recall_ci": [
+        0.4705,
+        0.6569
+       ],
+       "recall_ci_half_width": 0.0932,
+       "recall_ci_wider_than_limit": false,
+       "precision": 0.3149,
+       "precision_ci": [
+        0.252,
+        0.493
+       ],
+       "flag_rate": 0.1097,
+       "flag_rate_ci": [
+        0.0853,
+        0.1857
+       ],
+       "f1": 0.413,
+       "threshold_bootstrap_ci": [
+        0.4989,
+        0.6743
+       ],
+       "auroc_fused": 0.8662,
+       "pr_auc_fused": 0.4502,
+       "recall_at_10_fused": 0.5684
+      },
+      "dev_rule_hit_rate": 0.02
+     }
+    },
+    "pooled": null
    }
   }
  }

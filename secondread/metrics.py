@@ -135,6 +135,25 @@ def best_f1_threshold(y, s, w=None) -> float:
     return float(uniq[int(np.argmax(f1))])
 
 
+def max_threshold_at_recall(y, s, target: float, w=None) -> float:
+    """Highest threshold (one of the observed scores) whose recall for `risk >= t` is at least
+    `target`: the strictest flag line that still finds that share of the Major rows.
+
+    Recall can only fall as the threshold rises, so this is the first distinct score, from the
+    top, at which the cumulative Major mass reaches target * P. Ties at that score are all
+    flagged, as in `prf_at`. Pick it on dev and apply it unchanged elsewhere."""
+    if not 0.0 < target <= 1.0:
+        raise ValueError("target recall must be in (0, 1]")
+    y, s, w = _prep(y, s, w)
+    uniq, pos, _ = _groups_desc(y, s, w)
+    P = pos.sum()
+    if P == 0:
+        return float("inf")
+    # the tolerance lets a recall of exactly `target` qualify despite float products like 0.6 * 95
+    reached = np.cumsum(pos) >= target * P - 1e-9 * max(1.0, P)
+    return float(uniq[int(np.argmax(reached))])  # the lowest score always qualifies (TP = P)
+
+
 # ---------------------------------------------------------------- bootstrap
 def bootstrap_weights(groups: Sequence[str], n_boot: int = 1000, seed: int = 0) -> np.ndarray:
     """(n_boot, n_rows) row weights for a cluster bootstrap: each replicate draws as many

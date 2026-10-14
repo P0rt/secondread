@@ -8,12 +8,19 @@ Style, grammar and word order are out of scope; other QA tools handle those.
 The goal is a shorter re-read: the reviewer starts with the riskiest 10% of the job instead of
 reading every segment twice.
 
-> **Status (2026-10-14, evening):** the app serves LoRA v1, trained on Tinker on human labels
-> only, as a 36 MB GGUF. Its flag thresholds per language pair are calibrated on dev.
-> - v2 adds 5,095 synthetic rows. It was trained and evaluated but not shipped: it is better on
->   synthetic errors, not on human-labelled ones.
-> - Scores against the base model, v2 and two Gemma 4 31B baselines are in
->   [docs/RESULTS.md](docs/RESULTS.md).
+> **Status (2026-10-14, night):** the app serves LoRA v1, trained on Tinker on human labels
+> only, as a 36 MB GGUF. By default it flags at the `review` line: per language pair, the highest
+> threshold that finds 60% of the dev Majors.
+> - **On test, measured once:** the review line finds 74% of the en-ru Majors (precision 0.39,
+>   38% of segments flagged). On en-es it finds 48% [0.42, 0.58], below the 60% it was set for
+>   on dev (precision 0.54, 8% flagged). The line was not moved after seeing test.
+> - **Not shipped:** v2 (5,095 synthetic rows) and v3a/v3b (wrong-sense synthetic rows). Each is
+>   better on its own kind of synthetic error, not on human-labelled ones. v3a and v3b lose about
+>   0.035 PR-AUC on en-ru dev, so the selection rule, fixed before their scores existed, kept v1.
+> - Scores against the base model, v2, v3 and two Gemma 4 31B baselines are in
+>   [docs/RESULTS.md](docs/RESULTS.md). On real public documents (IRS, FDA, EU 261/2004, in
+>   [docs/REALDOCS.md](docs/REALDOCS.md)) the review line catches 3 of 9 verified majors and
+>   flags 2.9% of the segments.
 > - The rule checks' weights in the app's score are measured on the train split. They no longer
 >   pull the ranking below the model's (AUROC −0.002 against the model alone, was −0.010).
 > - Done, in-flight and next items are in [docs/STATUS.md](docs/STATUS.md).
@@ -54,9 +61,20 @@ XLIFF 1.2 / 2.0 / SDLXLIFF ─► parse_xliff ─► number_check ─► negatio
   (`scripts/calibrate_rules.py` → `secondread/rule_calibration.json`). A finding is a real Major
   error in only 10–50% of hits, so the weights are small. The ranking is close to the model
   alone, but every finding is still shown (RESULTS.md, "Rule calibration").
-- **Flag thresholds:** one per adapter and language pair in `secondread/thresholds.json`, each
-  F1-optimal on the fused dev risk (`scripts/pick_thresholds.py`). The backend identifies the
-  loaded adapter by its sha256 and reports the version in `/api/health`.
+- **Flag thresholds:** one per adapter, language pair and operating point in
+  `secondread/thresholds.json` (`scripts/pick_thresholds.py`), all picked on the fused risk of the
+  full dev split:
+  - **`review`, the default:** the highest threshold that still finds 60% of the dev Majors
+    (`--target-recall 0.60`). For v1 that is en-ru 0.1857 (35% of dev segments flagged, precision
+    0.47) and en-es 0.4984 (10% flagged, precision 0.34). The 60% holds on dev only: on test the
+    same lines find 74% of the en-ru Majors and 48% of the en-es ones (RESULTS.md, "v3 — test and
+    real documents");
+  - **`f1`:** the F1-optimal threshold, en-ru 0.1609 and en-es 0.7019 for v1. On en-es it flags 3%
+    of dev and finds 35% of the Majors (30% on test).
+
+  `SECONDREAD_OPERATING_POINT=f1`, or `"operating_point"` in a request, switches the point. The
+  backend identifies the loaded adapter by its sha256 and reports the version and the active
+  operating point in `/api/health`.
 - **Write-back:** `secondread/xliff.py` can write the scores into the XLIFF: a Trados comment
   in SDLXLIFF, `<note>` in XLIFF 1.2, notes plus metadata in XLIFF 2.0.
 - **Tracing:** each review is one Sentry AI-agent trace (`invoke_agent` → `execute_tool` ×4 → `chat`).
@@ -98,7 +116,9 @@ curl -H 'content-type: application/json' http://127.0.0.1:8787/api/review \
 ```
 
 The API contract is in [ui/API.md](ui/API.md). `npm run build:demo` builds a static demo
-that needs no backend. It loads `ui/public/demo-results.json`.
+that needs no backend. It loads `ui/public/demo-results.json`: the FDA medicine-disposal page
+(39 segments, OPUS-MT en-es) run through the backend at the review line. It flags 3 segments,
+2 of them verified majors, and misses the third major (docs/REALDOCS.md, example 5).
 
 ## Reproducing the data and the model
 
@@ -156,13 +176,15 @@ py scripts/probe_local.py data/splits/en-ru.test.jsonl 100000 --workers 4 --lora
 py scripts/report.py base=results/local_base_enru_test.jsonl,results/local_base_enru_dev.jsonl \
    v1=results/local_v1_enru_test.jsonl,results/local_v1_enru_dev.jsonl --n-boot 1000
 py scripts/calibrate_rules.py                # rule weights from the train split -> secondread/rule_calibration.json
-py scripts/pick_thresholds.py                # dev-calibrated flag thresholds -> secondread/thresholds.json
+py scripts/pick_thresholds.py                # F1 flag thresholds (dev-calibrated) -> secondread/thresholds.json
+py scripts/pick_thresholds.py --target-recall 0.60   # review thresholds (dev recall >= 0.60), dev only
 ```
 
 Tests and checks that need no API keys (using the `py` helper above):
 
 ```sh
 py tests/test_xliff.py              # XLIFF parser/writer, 20 tests
+py tests/test_thresholds.py         # operating points: threshold rule, thresholds file, backend choice
 py scripts/canary_check.py          # Sentry privacy: a canary in the segment text must reach no envelope
 py scripts/bench_review.py data/splits/en-ru.dev.jsonl 100   # latency + ranking via the running API
 ```

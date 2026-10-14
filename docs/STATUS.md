@@ -1,4 +1,4 @@
-# SecondRead status, 2026-10-14 (night, after the rule calibration)
+# SecondRead status, 2026-10-14 (night, after the v3 selection and the Ship phase)
 
 Commands use `py() { HF_HUB_OFFLINE=1 PYTHONPATH=. uv run --frozen python "$@"; }`. Keys are
 in `.env`; set them with `set -a && . ./.env && set +a`.
@@ -14,29 +14,55 @@ inference.
 | en-ru, 3,573 segments | **0.801 / 0.537** | 0.799 / 0.504 | 0.794 / 0.494 | 0.666 / 0.369 |
 | en-es, 1,815 segments | **0.815 / 0.517** | 0.804 / 0.446 | 0.807 / 0.311 | 0.776 / 0.413 |
 
-All scores come from local Q4 runs; Gemma runs on DigitalOcean.
+All scores come from local Q4 runs; Gemma runs on DigitalOcean. v3a and v3b have no test numbers:
+they were not final candidates.
 
-- **v1 ships.** v2 (plus 5,095 synthetic rows) is much better on the synthetic test sets but not
-  on human labels: on en-es its PR-AUC is significantly lower.
-- **`:9931` serves v1 with `-cram 0`.**
-- **The backend uses per-pair thresholds calibrated on dev:** en-ru 0.1609, en-es 0.7019.
-- **`/api/health` names the adapter version (v1).** The backend finds it from the adapter file's
-  sha256.
+- **v1 ships, again.** Neither v2 nor v3 beat it on human labels.
+  - v2 (plus 5,095 synthetic rows) is much better on the synthetic test sets, but on en-es test its
+    PR-AUC is significantly lower.
+  - v3a and v3b (plus wrong-sense synthetic rows) failed the dev selection rule fixed before their
+    scores existed: both lose about 0.035 PR-AUC on en-ru dev (RESULTS.md, "v3 (wrong-sense
+    synthetic) — dev selection"). They gain on the synthetic sense set, which comes from their own
+    generator.
+- **`:9931` serves v1 with `-cram 0`** (restarted in the Ship phase; 40 en-ru dev rows match the
+  selected model's dev scores to within 0.00044).
+- **The backend flags at the `review` operating point by default** (RESULTS.md, "Review operating
+  point"): per pair, the highest threshold with dev recall of Major ≥ 0.60 on the app's fused score.
+  - v1: en-ru 0.1857 and en-es 0.4984. The F1 line is kept as the `f1` point (en-ru 0.1609, en-es
+    0.7019): `SECONDREAD_OPERATING_POINT=f1`, or `"operating_point": "f1"` in a request.
+  - **Measured once on test** (RESULTS.md, "v3 — test and real documents"):
+
+    | Pair | Line | Recall [95% CI] | Precision | Flag rate | F1 |
+    |---|---|---|---|---|---|
+    | en-ru | review 0.1857 | 0.744 [0.626, 0.835] | 0.392 | 38.4% | 0.513 |
+    | en-ru | f1 0.1609 | 0.769 | 0.372 | 41.8% | 0.502 |
+    | en-es | review 0.4984 | **0.482** [0.421, 0.581] | 0.544 | 8.2% | 0.511 |
+    | en-es | f1 0.7019 | 0.304 | 0.773 | 3.6% | 0.436 |
+
+  - **en-es misses its dev target:** the whole recall CI is below 0.60. The line was not moved,
+    because moving it now would be a choice made on test. en-ru overshoots (0.744).
+  - **Real documents** (REALDOCS.md): at the review line v1 catches 3 of the 9 verified majors in
+    the IRS, FDA and EU 261 pages (2 at the F1 line), with 3 false flags, all on minor errors, and
+    2.9% of segments flagged. The official Spanish of the same pages gets no flag.
+- **The static demo is at the review line:** the FDA page, 39 segments, 3 flagged (2 verified
+  majors and 1 minor error), rebuilt through the backend.
+- **`/api/health` names the adapter version (v1) and the active operating point.** The backend
+  finds the version from the adapter file's sha256.
 - **The rule checks are calibrated on train** (RESULTS.md, "Rule calibration").
   - The app's score is the model log-odds plus each finding's train-measured weight
     (`secondread/rule_calibration.json`).
   - On test, AUROC is now −0.002 against v1 alone on both pairs; it was −0.010 and −0.011.
-  - The findings are still shown as reasons. The thresholds are unchanged.
+  - The findings are still shown as reasons.
 
 ## Spend (budgets: Tinker about $18 available, DigitalOcean $5 credit)
 
 | | Spent | Source | Left |
 |---|---|---|---|
-| **Tinker** | **$1.661 billed** through the 12:00–13:00 UTC bucket (everything before v2), read at 18:05 CEST. **About $3.38** once v2 lands: +$1.52 training, +$0.20 dev scoring | `tinker -f json billing usage`; v2 is estimated from its token counts at $0.737/M | **about $14.6** of ~$18 |
-| Tinker storage | 22 checkpoints before v2 (2.83 GB, $0.28/month), plus 7 from v2 (the 6 periodic ones expire after 7 days) and one external-weights export | `tinker billing checkpoint-storage` | ongoing |
-| **DigitalOcean** | **at most $0.79** at list price | token counts in both caches: baseline $0.372 (10,236 calls), synthetic data $0.418 (5,626 calls) | **at least $4.21** of $5 |
+| **Tinker** | **$3.424 billed** through the 20:00–21:00 UTC bucket, read at 23:55 CEST: v1 and everything before it, v2 ($1.716), and $0.043 of DeepSeek-V3.1 sampling for the real-document gold set. **About $6.27** once v3 lands: v3a ≈ $1.36 and v3b ≈ $1.48, not in the bill yet | `tinker -f json billing usage`; v3 is estimated from its token counts at $0.737/M (RESULTS.md, "The candidates") | **about $11.7** of ~$18 |
+| Tinker storage | 22 checkpoints before v2 (2.83 GB, $0.28/month), plus those of v2, v3a and v3b (periodic ones expire after 7 days, `final` never) and their external-weights exports | `tinker billing checkpoint-storage` | ongoing |
+| **DigitalOcean** | **at most $1.60** at list price | token counts in the caches: baseline $0.372 (10,236 calls), synthetic data $0.418 (5,626 calls), wrong-sense data for v3 $0.807 (7,101 calls, `data/synth/sense.report.json`) | **at least $3.40** of $5 |
 | Sentry | $0 | Developer plan | |
-| Ship phase | $0 | local only; one `tinker billing usage` read | |
+| Ship phases | $0 | local only; one `tinker billing usage` read each | |
 
 **Tinker bills every token of the datum, including weight-0 prompt tokens.** This answers the
 G3 question. G3 was billed for 62,820 tokens and G4 for 31,353, exactly the `num_tokens` in
@@ -52,14 +78,17 @@ their logs.
 ## In flight
 
 - **Nothing on Tinker or DigitalOcean.**
-- **`:9931` serves LoRA v1 with `-cram 0`** (PID 22074, started 18:00 CEST with `nohup` from the
-  repo root, log `/tmp/claude-501/llama-9931.log`):
+- **`:9931` serves LoRA v1 with `-cram 0`** (restarted 23:42 CEST with `nohup` from the repo root,
+  log `/tmp/claude-501/llama-9931.log`; `/lora-adapters` lists `models/secondread-lora.gguf` at
+  scale 1.0):
   ```sh
   llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lora.gguf -c 16384 -np 4 -cram 0 --host 127.0.0.1 --port 9931
   ```
-- **No backend is running.** The Ship phase and the rule-calibration pass each ran one on `:8787`
-  for the demo rebuild and the checks, then stopped it. The calibration pass scored train on its
-  own llama-server on `:9950` and stopped it. Ports 9940–9944 and 9950 are free.
+- **No backend is running** once the Ship phase ends. It ran one on `:8787` (Sentry off) for the
+  demo rebuild, the checks and the video capture. The v3 phases used their own llama-servers on
+  `:9970`–`:9973` and stopped them.
+- **The static demo on App Platform** builds from `main` (`deploy/app.yaml`,
+  `npm ci && npm run build:demo`).
 
 ## Done and verified this afternoon
 
@@ -82,26 +111,27 @@ their logs.
 | Repo hygiene (this pass) | Scanned tracked and untracked files, plus everything on disk except `.env`, for the three key values; checked git history; ran `git status --ignored` | 0 hits in files and 0 in history. `data/`, `models/`, `ckpt/`, `runs/` and `docs/prep/` are ignored. `docs/prep/` was never committed. No ACES or HalOmi data is on disk. The `results/*.jsonl` files hold ids, gold labels and scores only, with no WMT text or model quotes |
 | **v2 track** (evening) | `build_sft.py --synthetic rules.train llm.train` (drops the 31 en-ru `neg_insert` questions), `train_tinker.py` (run `4087b7c0…:train:0`, 310 steps, 8 min 37 s), export, local scoring of all splits and both synthetic test sets, Gemma direct on the synthetic sets | See RESULTS.md, "v2 and ablation": ties v1 on AUROC, lower PR-AUC on both test splits (en-es −0.071, significant); AUROC vs parents 0.95–1.00 on synthetic types. `models/secondread-lora-v2.gguf` |
 | **Ship phase** (evening) | `report.py` re-run on all v2-track files; `:9931` restarted; `scripts/pick_thresholds.py`; backend on `:8787`; `make_demo_results.py --api`; `npm run build` and `build:demo`; `tests/test_xliff.py`; `canary_check.py` | All v2 numbers reproduce exactly. **v1 ships** (RESULTS.md, "Ship decision"). The served adapter matches `local_v1` scores (max diff 0.0012 on 40 rows). Thresholds are in `secondread/thresholds.json` and `/api/health` reports `adapter_version: v1`. Demo results are real LoRA v1 output (`placeholder: false`). XLIFF tests pass 20/20; the canary is in 0 of 12 envelopes, with 4 hits when the scrubbers are off |
+| **Review operating point** (night) | `pick_thresholds.py --target-recall 0.60`, backend checks on `:9970` | RESULTS.md, "Review operating point". v1: en-ru 0.1857, en-es 0.4984, the new backend default |
+| **v3 track** (night) | `synth_sense.py` (7,101 Gemma calls), `train_tinker.py` for v3a and v3b, export, full dev splits and the synthetic sense set scored locally, `select_v3.py` | RESULTS.md, "v3 (wrong-sense synthetic) — dev selection". Neither candidate is eligible; **v1 kept** |
+| **Test and real documents** (night) | `final_test.py`, `realdocs_score.py --no-gemma` on `:9973`, `realdocs_eval.py` | RESULTS.md, "v3 — test and real documents"; REALDOCS.md rewritten for both lines. en-es review-line recall 0.482 on test |
+| **Ship phase** (night) | `:9931` restarted with v1; 40 en-ru dev rows; backend on `:8787`; `make_demo_results.py --api … --doc fda-medicine-disposal --n 0`; `npm run build` and `build:demo`; `tests/test_xliff.py`, `tests/test_thresholds.py`, `canary_check.py` | Max difference 0.00044 against `results/local_v1_enru_dev.jsonl`. `/api/health`: `adapter_version: v1`, `operating_point: review`. Demo: 3 of 39 flagged at 0.4984 (was 1 at the F1 line). Tests 20/20 and 7/7; the canary is in 0 of 12 envelopes (4 with the scrubbers off). RESULTS.md, "v3 — test and real documents", "Ship" |
 
 ## Needs you
 
-- **Review and commit the rule-calibration changes** (list in "Changed in the rule-calibration
-  pass" below). Nothing is committed or pushed.
+- **en-es review line on test:** it finds 48% of the Majors, not 60%. Decide how to present it
+  (README and RESULTS.md say it plainly). Any new line must be picked on new dev data or
+  reported as test-informed.
 - **Rule-only mode no longer flags.** With llama-server down, a segment's risk is now the largest
   train P(Major | finding), at most 0.47, so nothing reaches the 0.5 fallback threshold. The
   findings are still listed and sort first. Decide whether that mode should flag every finding,
   for example with a lower rules-only threshold.
 - **Rotate `DO_MODEL_KEY`** if any agent transcript from today will be shared. Part of the
   key appeared in a process listing in one track's tool output. No file holds it.
-- **Checkpoint cleanup.** Decide whether to delete the G3, G4 and LR-probe checkpoints on
-  Tinker. The 22 checkpoints from before v2 cost $0.28 a month, v2 added 7, and `final`
-  checkpoints never expire.
-- **Rule confidences: done** (RESULTS.md, "Rule calibration"). The post can say this: the rules
-  are explanations, and with measured weights they cost the ranking about 0.002 AUROC instead of
-  0.010.
-- **The post:** `docs/POST_DRAFT.md` has the v2, synthetic, spend and status placeholders filled.
-  Still open: the title, video, live demo URL, screenshots, the first user and the optional
-  agent session. Re-check the Tinker total against the bill first.
+- **Checkpoint cleanup.** Decide whether to delete the G3, G4, LR-probe and v3 checkpoints on
+  Tinker. `final` checkpoints never expire.
+- **The post:** `docs/POST_DRAFT.md` still needs the title, video, live demo URL, screenshots,
+  the first user and the optional agent session, and its numbers should now describe the review
+  line. Re-check the Tinker total against the bill first (v3 is not billed yet).
 - **G8:** check that the review traces are in Sentry's Agents dashboard and take the
   screenshot. `SENTRY_DSN` is set, and the latency track sent about 22 traces with metadata
   only.
@@ -121,31 +151,78 @@ their logs.
 - **`pyproject.toml` gaps:**
   - `httpx` and `numpy` are imported directly but only installed transitively;
   - `pytest` is absent.
-- **No `LICENSE` file.** `prompts/gemba_mqm.txt` is CC BY-SA 4.0 and must stay outside the
-  code license; its header already says so.
+- **Licence:** MIT in `LICENSE`, third-party notes in `NOTICE`. `prompts/gemba_mqm.txt` is
+  CC BY-SA 4.0 and stays outside the code licence; its header says so.
+- **The real-document gold set** (`docs/REALDOCS_GOLD.md`, 1,440 units) has not been scored. It
+  has its own scoring protocol and script (`scripts/gold_score.py`).
 - **Sentry span limit:** Sentry keeps about 1,000 spans per transaction, so jobs over about
   990 segments lose some `chat` spans.
 
 ## Next steps, in order
 
-Done in the Ship phase: v1 served, full en-ru dev scored, per-pair thresholds, v2 trained and
-evaluated, demo results rebuilt. What is left:
+Done: v1 served and calibrated at two operating points, v2 and v3 trained and rejected on dev,
+the review line measured once on test and on the real documents, the static demo rebuilt at the
+review line and redeployed. What is left:
 
-1. ~~Rule confidences from the train split~~: done (RESULTS.md, "Rule calibration").
-2. **G8:** the Sentry screenshot and the debugging story, the `-cram 0` latency hunt. Run the
+1. **G8:** the Sentry screenshot and the debugging story, the `-cram 0` latency hunt. Run the
    backend with `.env` loaded so `SENTRY_DSN` is set.
-3. **Static demo on DO App Platform.** `ui/dist` holds the demo build from the Ship phase; both
-   builds write `ui/dist`, so rerun `npm run build:demo` before deploying. Then fill
-   `{{LIVE_DEMO_URL}}` in the post.
-4. **Annotated-XLIFF download** endpoint and button, the tester session, and the post's remaining
+2. **Score the real-document gold set** (1,440 units, `docs/REALDOCS_GOLD.md`, section 6) with
+   v1 at both lines, once, with its own scorer.
+3. **Annotated-XLIFF download** endpoint and button, the tester session, and the post's remaining
    placeholders.
-5. **Optional, free:** evaluate the one-pass v1+v2 blend, with both adapters loaded at scale 0.5,
+4. **Optional, free:** evaluate the one-pass v1+v2 blend, with both adapters loaded at scale 0.5,
    on dev first (RESULTS.md, "Next experiments").
-6. **Optional, about $1.6:** v2b with a capped synthetic share per pair.
-7. **Optional, about $0.10:** Tinker exact eval of v1 on en-ru test. G5 already shows local
+5. **Optional, about $0.10:** Tinker exact eval of v1 on en-ru test. G5 already shows local
    tracks Tinker.
 
-## Changed in the rule-calibration pass (not committed)
+## Changed in the v3 and Ship passes (committed together with the review operating point pass)
+
+- **v3 data and selection:** `scripts/synth_sense.py` (wrong-sense generator, with the
+  real-document integrity word list), `scripts/subsample_synth.py`, `scripts/mix_synth.py`,
+  `scripts/verify_synth.py sense` (integrity checks), `scripts/select_v3.py`.
+- **Test and real documents:** `scripts/final_test.py`, `scripts/realdocs_eval.py`.
+- **Thresholds:** `scripts/pick_thresholds.py` lists v3a and v3b; `secondread/thresholds.json` has
+  their `review` blocks. v1's blocks and the default point are unchanged.
+- **Scores** (`results/`, ids, labels and scores only): `local_{v3a,v3b}_{enru,enes}_dev.jsonl`,
+  `local_{v1,v3a,v3b}_synth_sense_{test,parents}.jsonl`.
+- **Real-document gold set (separate track, not scored yet):** `docs/REALDOCS_GOLD.md`,
+  `docs/ANNOTATION_PROTOCOL.md`, `scripts/gold_*.py`.
+- **Demo:** `ui/public/demo-results.json`, the FDA page through the backend at the review line.
+- **Small fixes:** `scripts/export_adapter.sh` starts its check server with `-cram 0`.
+- **Docs:** `README.md`, `docs/RESULTS.md` (v3 sections and "Ship"), `docs/REALDOCS.md`,
+  `docs/RUNBOOK.md`, this file.
+
+## Changed in the review operating point pass (committed with the Ship phase)
+
+- **Thresholds:**
+  - `scripts/pick_thresholds.py` has a new `--target-recall R` mode, the `review` point. It takes
+    the highest threshold with dev recall ≥ R on the fused score, rounded down, with
+    document-bootstrap CIs. It reads dev only, and reports the pooled threshold when a recall CI
+    is wider than ±0.15.
+  - The F1 mode is unchanged and now writes the `f1` point. `--skip-test` leaves out its test
+    statistics, and each mode keeps the other's blocks.
+  - `secondread/metrics.py` has the new `max_threshold_at_recall`.
+  - `secondread/thresholds.json`, new layout:
+    - `default_operating_point: "review"`;
+    - `operating_points` with each point's method;
+    - `review` and `f1` blocks per adapter. The `f1` values are moved over unchanged.
+- **Backend:**
+  - `secondread/agent.py`:
+    - the operating point comes from the request, then `SECONDREAD_OPERATING_POINT`, then the
+      file, then `review`;
+    - `threshold_source` is `dev_review` or `dev_f1`;
+    - the summary has `operating_point`;
+    - an unknown point is refused;
+    - it warns when a point's rule-calibration sha256 is stale.
+  - `secondread/server.py`:
+    - `operating_point` is accepted in JSON, multipart and the query string;
+    - `/api/health` has `operating_point`, `operating_point_source` and `operating_points`.
+- **Tests:** `tests/test_thresholds.py` (new, 7 tests). Among them: the review mode opens no test
+  file.
+- **Docs:** `ui/API.md`, `README.md`, `docs/RUNBOOK.md`, `docs/RESULTS.md` (new section "Review
+  operating point" and a note in "Ship decision"), this file.
+
+## Changed in the rule-calibration pass (committed in b52bd19)
 
 - **New:**
   - `secondread/rulecal.py`: the combination, logit(risk) = logit(model) + the strongest weight

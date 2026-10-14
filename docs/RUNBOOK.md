@@ -227,7 +227,7 @@ kill $SRV
   therefore come from the 300-row dev files. About 10 min: same loop with `s=en-ru.dev`.
 - **Report commands** are in `docs/RESULTS.md`.
 
-## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done; rule calibration added at night)
+## 7. Ship: serve, calibrate, rebuild the demo (2026-10-14, evening, done; rule calibration and the review line added at night, last run 23:40 CEST)
 
 ```sh
 # serve the shipped adapter on the app port (stop the old server first)
@@ -236,21 +236,32 @@ nohup llama-server -m models/Qwen3.5-4B-Q4_K_M.gguf --lora models/secondread-lor
 curl -s http://127.0.0.1:9931/health; curl -s http://127.0.0.1:9931/lora-adapters
 # rule weights from the train splits (RESULTS.md, "Rule calibration"); needs no server
 py scripts/calibrate_rules.py                                # -> secondread/rule_calibration.json
-# thresholds per adapter and pair from the full dev splits (fused risk, F1-optimal)
-py scripts/pick_thresholds.py --fused-dir runs/rulecal/app   # -> secondread/thresholds.json
+# thresholds per adapter and pair from the full dev splits (fused risk), one block per operating point;
+# each run rewrites only its own point and keeps the other
+py scripts/pick_thresholds.py --fused-dir runs/rulecal/app   # "f1": F1-optimal (reads test for information)
+py scripts/pick_thresholds.py --target-recall 0.60           # "review", the backend default: highest
+                                                             # threshold with dev recall >= 0.60; dev only
+py tests/test_thresholds.py                                  # rule, file and backend choice, no server
 # backend (no keys needed; without .env Sentry stays off), demo results, UI builds
 py -m secondread.server &                                    # 127.0.0.1:8787
-curl -s http://127.0.0.1:8787/api/health                     # adapter "secondread-lora v1", thresholds
-py scripts/make_demo_results.py --api http://127.0.0.1:8787  # ui/public/demo-results.json, placeholder false
+curl -s http://127.0.0.1:8787/api/health                     # adapter "secondread-lora v1", operating_point, thresholds
+py scripts/make_demo_results.py --api http://127.0.0.1:8787 \
+   --answer-key demo/answer_key.en-es.json --doc fda-medicine-disposal --n 0   # ui/public/demo-results.json (FDA page)
 kill %1
 (cd ui && npm run build && npm run build:demo)               # both write ui/dist; the last one wins
 py tests/test_xliff.py && py scripts/canary_check.py
 ```
 
 `models/secondread-lora.gguf` is v1 (sha256 `5337b2b7…`), `models/secondread-lora-v1.gguf` is a
-copy, and `models/secondread-lora-v2.gguf` (sha256 `9dda3f68…`) is kept. To switch adapters,
-restart `:9931` with the other `--lora`. The backend recognises v1 and v2 by hash and applies
-their own thresholds. An unknown file gets the 0.5 fallback.
+copy. `models/secondread-lora-v2.gguf` (`9dda3f68…`), `-v3a.gguf` (`eac1fb1a…`) and `-v3b.gguf`
+(`64f78f05…`) are kept. To switch adapters, restart `:9931` with the other `--lora`. The backend
+recognises all four by hash and applies their own thresholds. v3a and v3b have only a `review`
+block, so at `f1` they get the 0.5 fallback, as does an unknown file.
+
+The backend flags at the `review` operating point unless told otherwise:
+`SECONDREAD_OPERATING_POINT=f1 py -m secondread.server` switches the server's default, and a request
+can send `"operating_point": "f1"` (JSON or multipart field, or `?operating_point=f1`). An unknown value
+is refused: a 400 `bad_operating_point` for a request, a start-up error for the variable.
 
 ## Results so far (2026-10-14)
 

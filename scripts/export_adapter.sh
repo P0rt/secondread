@@ -167,7 +167,7 @@ if ((VERIFY)); then
     die "port $PORT is already in use; pick a free one with --port (9931 is the app's server)"
   fi
   # -lv 4 makes libllama log the adapter load ("loaded N tensors from lora file").
-  llama-server -m "$BASE_GGUF" --lora "$TMP/lora.gguf" -c 4096 -np 1 \
+  llama-server -m "$BASE_GGUF" --lora "$TMP/lora.gguf" -c 4096 -np 1 -cram 0 \
     --host 127.0.0.1 --port "$PORT" -lv 4 >"$TMP/server.log" 2>&1 &
   SERVER_PID=$!
   for _ in $(seq 1 120); do
