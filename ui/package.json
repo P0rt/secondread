@@ -16,5 +16,8 @@
   },
   "dependencies": {
     "@sentry/browser": "11.7.0"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
