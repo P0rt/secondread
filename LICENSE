@@ -19,13 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-Third-party material in this repository keeps its own licence and is NOT
-covered by the MIT licence above:
-
-- prompts/gemba_mqm.txt: adapted from GEMBA-MQM (Kocmi & Federmann, 2023),
-  CC BY-SA 4.0. See the header of that file.
-- demo/ and results/: segments and labels derived from WMT General MT test
-  sets (research use) and Google's MQM human evaluation
-  (google/wmt-mqm-human-evaluation). See demo/README.md and README.md.

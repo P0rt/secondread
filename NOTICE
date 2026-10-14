@@ -1,0 +1,11 @@
+SecondRead
+Copyright (c) 2026 Sergei Parfenov. Code licensed under the MIT licence (see LICENSE).
+
+Third-party material in this repository keeps its own licence and is NOT
+covered by the MIT licence above:
+
+- prompts/gemba_mqm.txt: adapted from GEMBA-MQM (Kocmi & Federmann, 2023),
+  CC BY-SA 4.0. See the header of that file.
+- demo/ and results/: segments and labels derived from WMT General MT test
+  sets (research use) and Google's MQM human evaluation
+  (google/wmt-mqm-human-evaluation). See demo/README.md and README.md.
