@@ -2,7 +2,8 @@
 SDLXLIFF for the IRS page), demo/answer_key.en-es.json, and the per-document numbers quoted in
 docs/REALDOCS.md.
 
-usage: PYTHONPATH=. uv run --frozen python scripts/make_realdocs_demo.py [--out demo] [--check-only]
+usage: PYTHONPATH=. uv run --frozen python scripts/make_realdocs_demo.py [--out demo]
+           [--wmt-out data/demo_wmt] [--check-only]
 
 Inputs (data/ is git-ignored; see docs/REALDOCS.md for how each was made)
   data/realdocs/scored.jsonl               SecondRead v1 (backend agent), rule checks and Gemma 4
@@ -11,9 +12,12 @@ Inputs (data/ is git-ignored; see docs/REALDOCS.md for how each was made)
   data/realdocs/adjudication_fill.jsonl    the rest of each chosen marian document, same rule
   data/realdocs/wmt24_*/aligned.jsonl      WMT24 en-es MT with human MQM gold labels
 
-Only MT whose licence allows public display goes into demo/: Helsinki-NLP/opus-mt-en-es
-(Apache-2.0) for the government documents and the WMT24 submission MSLC for the WMT24
-document. NLLB-200 (CC-BY-NC-4.0) output is never written here.
+Only openly reusable text goes into demo/ (committed): the three public documents, with MT by
+Helsinki-NLP/opus-mt-en-es (Apache-2.0), and their answer key demo/answer_key.en-es.json.
+The WMT24 document (WMT test data is released for research use only; MT by the WMT24
+submission MSLC) is written with its own answer key, answer_key.en-es.wmt24.json, to the
+git-ignored data/demo_wmt/ and is not redistributed. NLLB-200 (CC-BY-NC-4.0) output is never
+written anywhere.
 
 Every file is parsed back with secondread.xliff and must give the same segments in the same
 order; the answer key records each segment's key in each file. The build is deterministic.
@@ -122,8 +126,8 @@ DOCS = {
         "licence": "NOT openly licensed: WMT24 test data \"can be freely used for research "
                    "purposes\" (cite Kocmi et al., 2024); copyright in the story stays with its "
                    "AO3 author. MQM annotations: google/wmt-mqm-human-evaluation, Apache-2.0. "
-                   "Shown as a clearly attributed research/demo excerpt, the same footing as the "
-                   "en-ru WMT22 demo; not for commercial material.",
+                   "Generated locally from the WMT24 data for research use (data/demo_wmt/, "
+                   "git-ignored); not redistributed and not for commercial material.",
         "licence_evidence": "https://www2.statmt.org/wmt24/translation-task.html",
         "attribution": "Source text, MT and reference: WMT24 General MT test set, en-es (Kocmi "
                        "et al., 2024), system MSLC (Larkin, Lo and Knowles, NRC Canada, 2024). "
@@ -307,16 +311,22 @@ def stats(rows: list[dict], label_of) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("--out", default=str(ROOT / "demo"))
+    ap.add_argument("--out", default=str(ROOT / "demo"),
+                    help="public jobs and answer_key.en-es.json (committed)")
+    ap.add_argument("--wmt-out", default=str(ROOT / "data" / "demo_wmt"),
+                    help="WMT-derived jobs and answer_key.en-es.wmt24.json (git-ignored, research "
+                         "use only, never committed)")
     ap.add_argument("--check-only", action="store_true", help="print the numbers, write nothing")
     args = ap.parse_args()
     docs = collect()
-    out = Path(args.out)
 
-    key_docs, key_segs, summary = [], [], {}
+    # two answer keys: the public documents (demo/) and the WMT document (data/demo_wmt/)
+    keyset = {False: (Path(args.out), [], []), True: (Path(args.wmt_out), [], [])}
+    summary = {}
     for doc_id, rows in docs.items():
         meta = DOCS[doc_id]
         mt = MSLC if meta.get("wmt") else MARIAN
+        out, key_docs, key_segs = keyset[bool(meta.get("wmt"))]
         files = {"xliff12": (f"secondread-demo.{LP}.{doc_id}.xlf", build_xliff12, False)}
         if meta.get("sdlxliff"):
             files["sdlxliff"] = (f"secondread-demo.{LP}.{doc_id}.sdlxliff", build_sdlxliff, True)
@@ -378,20 +388,30 @@ def main() -> None:
                        **({"reference_es": r["ref_es"]} if meta.get("wmt") else {"official_es": r["ref_es"]}))
             key_segs.append(seg)
 
-    key = {
-        "description": "Answer key for the SecondRead en-es demo jobs (real documents with their "
-                       "official Spanish, plus one WMT24 document). label 'Major' = a meaning "
-                       "error that would mislead a reader; see each document's 'labels' and "
-                       "'label_rule'. Explanations quote the MT and the official Spanish.",
-        "lp": LP,
-        "documents": key_docs,
-        "counts": {"segments": len(key_segs), "Major": sum(s["label"] == "Major" for s in key_segs)},
-        "segments": key_segs,
+    descriptions = {
+        False: "Answer key for the SecondRead en-es demo jobs (real public documents with their "
+               "official Spanish). label 'Major' = a meaning error that would mislead a reader; "
+               "see each document's 'labels' and 'label_rule'. Explanations quote the MT and the "
+               "official Spanish.",
+        True: "Answer key for the SecondRead WMT24 en-es demo job, generated locally from the "
+              "WMT24 test data (research use only; not redistributed). label 'Major' = at least "
+              "one major or critical MQM meaning error; see 'label_rule'.",
     }
-    if not args.check_only:
-        p = out / f"answer_key.{LP}.json"
-        p.write_text(json.dumps(key, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-        print(f"{p}: {len(key_segs)} segments, {key['counts']['Major']} Major")
+    names = {False: f"answer_key.{LP}.json", True: f"answer_key.{LP}.wmt24.json"}
+    for wmt, (out, key_docs, key_segs) in keyset.items():
+        if not key_docs:
+            continue
+        key = {
+            "description": descriptions[wmt],
+            "lp": LP,
+            "documents": key_docs,
+            "counts": {"segments": len(key_segs), "Major": sum(s["label"] == "Major" for s in key_segs)},
+            "segments": key_segs,
+        }
+        if not args.check_only:
+            p = out / names[wmt]
+            p.write_text(json.dumps(key, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            print(f"{p}: {len(key_segs)} segments, {key['counts']['Major']} Major")
     for doc_id, st in summary.items():
         print(f"\n{doc_id}: {st['segments']} segments, {st['major']} Major | SecondRead "
               f"(thr {st['threshold']}): {st['sr_flagged']} flagged, {st['sr_caught']} Major caught, "

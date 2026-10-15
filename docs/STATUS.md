@@ -335,8 +335,8 @@ The local numbers in this section used `:9931` with the base Q4_K_M model and **
 | LLM synthetic data (offline) | `synth_llm.py --self-test`, `--dry-run --per-type 2` | 15 validator cases pass. The dry run plans 40 calls (worst case $0.0067) and writes no files |
 | Metrics refactor | `probe_local.py data/splits/en-ru.dev.jsonl 30` | Risks identical to `results/base_enru_dev300.jsonl` (max difference 0.0) |
 | Baseline (a), local | `report.py base=results/base_enru_dev300.jsonl --n-boot 300` | Base model on 300 en-ru dev rows, 30 docs, Major rate 0.247: AUROC 0.565 [0.479, 0.666], PR-AUC 0.332 [0.223, 0.462], recall@10% 0.149 [0.077, 0.238] |
-| G10 XLIFF | `py tests/test_xliff.py`, with the Okapi SDLXLIFF sample | 20/20 pass. `make_demo_xliff.py` rebuilds `demo/` byte for byte |
-| Backend, files | `POST /api/review` (multipart) with the three `demo/` files, plus a raw XML body | HTTP 200 for each: 51 segments, 18 flagged, 161–178 ms per segment |
+| G10 XLIFF | `py tests/test_xliff.py`, with the Okapi SDLXLIFF sample | 20/20 pass. `make_demo_xliff.py` rebuilds the en-ru demo byte for byte (now written to the git-ignored `data/demo_wmt/`) |
+| Backend, files | `POST /api/review` (multipart) with the three en-ru demo files (now in `data/demo_wmt/`), plus a raw XML body | HTTP 200 for each: 51 segments, 18 flagged, 161–178 ms per segment |
 | Backend, JSON | `POST /api/review` with 3 pairs | Dropped "not" → `negation_dropped` with a span. 5 → 7 → `number_changed` with spans on both sides. "before 5 p.m." vs "до 17:00" is correctly not a number issue |
 | Backend, errors | Invalid JSON; a non-XLIFF file | 422 `bad_request` with field errors; 400 `xliff_invalid` |
 | Write-back | `xliff.annotate()` fed with the response `id`s, then reparse, in all 3 formats | All 51 ids match the file keys. Text is unchanged after the round trip and all 51 risks are stored |

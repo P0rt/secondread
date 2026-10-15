@@ -24,8 +24,9 @@ The WMT test sets tell us how SecondRead ranks errors in news, social and litera
 post-editor works on other things, such as tax rules, medicine leaflets and regulations. So we
 took public documents that already have an official Spanish version, machine-translated the
 English, and checked every MT segment against the publisher's own Spanish. The demo jobs built
-from them are in [`demo/`](../demo/README.md) (`secondread-demo.en-es.*`,
-`answer_key.en-es.json`).
+from the three public documents are in [`demo/`](../demo/README.md) (`secondread-demo.en-es.*`,
+`answer_key.en-es.json`). The WMT24 job and its answer key are generated locally from the WMT
+data into the git-ignored `data/demo_wmt/` and are not redistributed.
 
 **Short version of the first pass.** The three public documents give 204 segments with 9 major
 errors. SecondRead v1 is scored at two flag lines, both picked on WMT dev
@@ -55,7 +56,7 @@ recall 0.48 at the review line, and 0.77 and 0.30 at the F1 line.
 | `irs-failure-to-file-penalty`: *Failure to File Penalty* | IRS | U.S. government work: "is not subject to copyright and may be freely copied. Credit is requested." ([IRS](https://www.irs.gov/about-irs/use-of-content-from-irsgov)) | OPUS-MT en-es | 52 |
 | `fda-medicine-disposal`: *Where and How to Dispose of Unused Medicines* | FDA | public domain: "may be republished, reprinted" without permission ([FDA](https://www.fda.gov/about-fda/about-website/website-policies)) | OPUS-MT en-es | 39 |
 | `eu-air-passenger-rights`: Regulation (EC) No 261/2004, Articles 1-19 | EU (EUR-Lex) | "you can re-use the legal documents published in EUR-Lex for commercial or non-commercial purposes", under Decision 2011/833/EU, with the source acknowledged ([legal notice](https://eur-lex.europa.eu/content/legal-notice/legal-notice.html)) | OPUS-MT en-es | 113 |
-| `wmt24_the_other_side_stormfall`: *The Other Side: Stormfall* | WMT24 test set (story from AO3) | **research use only** (WMT24 terms); MQM labels Apache-2.0 | MSLC (WMT24 submission) | 31 |
+| `wmt24_the_other_side_stormfall`: *The Other Side: Stormfall* (local job in `data/demo_wmt/`, not in the repository) | WMT24 test set (story from AO3) | **research use only** (WMT24 terms); MQM labels Apache-2.0 | MSLC (WMT24 submission) | 31 |
 
 - **Official Spanish:** <https://www.irs.gov/es/payments/failure-to-file-penalty>,
   <https://www.fda.gov/consumers/articulos-para-el-consumidor-en-espanol/como-y-donde-deshacerse-de-los-medicamentos-sin-utilizar>,
@@ -313,4 +314,7 @@ PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8
 `make_demo_results.py --answer-key` carries the document's attribution into `meta` and its
 labels into `gold`, with `source: "checked against the official Spanish"`. The UI prints
 `gold` as "Human label (…)", which is wrong for these labels. Change that wording, or pass the
-WMT24 document instead (`--doc wmt24_the_other_side_stormfall`), whose labels are human MQM.
+WMT24 document instead (`--answer-key data/demo_wmt/answer_key.en-es.wmt24.json --doc
+wmt24_the_other_side_stormfall`), whose labels are human MQM. That run writes
+`data/demo_wmt/demo-results.json` unless `--out` is given; keep WMT text out of the committed
+`ui/public/`.

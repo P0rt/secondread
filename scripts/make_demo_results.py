@@ -1,25 +1,32 @@
 """Build ui/public/demo-results.json: a small precomputed /api/review response for the static demo.
 
 usage:
-  # placeholder (now): simple rule checks + base-model score from a llama-server WITHOUT the LoRA
-  HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python scripts/make_demo_results.py --port 9931
-  # real: send the same segments to the backend and store its answer (placeholder stays true
-  # until the backend reports the LoRA as active)
-  PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8787
-  # en-es real document: a whole document of demo/answer_key.en-es.json (see docs/REALDOCS.md)
+  # the committed demo: a whole public document of demo/answer_key.en-es.json (see docs/REALDOCS.md)
   PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8787 \
       --answer-key demo/answer_key.en-es.json --doc fda-medicine-disposal --n 0
+  # WMT22 en-ru slice, placeholder: simple rule checks + base-model score from a llama-server
+  # WITHOUT the LoRA
+  HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python scripts/make_demo_results.py --port 9931
+  # WMT22 en-ru slice, real: send the same segments to the backend and store its answer
+  # (placeholder stays true until the backend reports the LoRA as active)
+  PYTHONPATH=. uv run python scripts/make_demo_results.py --api http://127.0.0.1:8787
+
+WMT text (a WMT split, or a WMT document of data/demo_wmt/answer_key.en-es.wmt24.json) is for
+research use only, so without --out those runs write data/demo_wmt/demo-results.json
+(git-ignored) instead of ui/public/demo-results.json. Pass --out ui/public/demo-results.json to
+use one in a local UI build; do not commit it.
 
 The output follows the response shape in ui/API.md, plus two demo-only extras the UI understands:
   meta  - provenance, attribution and a `placeholder` flag shown as a banner
   gold  - the human MQM label for each segment (WMT22, Unbabel raters), shown under the segment
 
-The segments are 10 consecutive units of one public WMT22 en-ru test document (one MT system,
-one rater), in document order. Only a 10-segment slice is stored, with attribution.
+Without --answer-key the segments are 10 consecutive units of one WMT22 en-ru test document (one
+MT system, one rater), in document order, with attribution.
 """
 import argparse
 import json
 import math
+import os
 import re
 import time
 import urllib.request
@@ -32,7 +39,8 @@ ap.add_argument("--system", default="comet_bestmbr")  # its #10 drops a negated 
 ap.add_argument("--n", type=int, default=10)
 ap.add_argument("--port", type=int, default=9931, help="llama-server for the placeholder model score")
 ap.add_argument("--api", help="SecondRead backend base URL; if set, use its real /api/review output")
-ap.add_argument("--out", default="ui/public/demo-results.json")
+ap.add_argument("--out", help="default: ui/public/demo-results.json for a public answer-key "
+                "document, data/demo_wmt/demo-results.json (git-ignored) for WMT text")
 ap.add_argument("--answer-key", help="take the segments from a demo answer key (e.g. "
                 "demo/answer_key.en-es.json) instead of a WMT split: --doc is then its doc_id, "
                 "--n 0 keeps the whole document, and the key's labels and attribution are used")
@@ -176,6 +184,10 @@ else:
     out = {"lp": lp, "segments": segments, "timing_ms": round((time.perf_counter() - t0) * 1000)}
     out["meta"] = meta
 
+if a.out is None:  # WMT text never lands in the committed ui/public/ by default
+    wmt = kdoc is None or "wmt_doc" in kdoc
+    a.out = "data/demo_wmt/demo-results.json" if wmt else "ui/public/demo-results.json"
+os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
 with open(a.out, "w", encoding="utf-8") as f:
     json.dump(out, f, ensure_ascii=False, indent=1)
     f.write("\n")

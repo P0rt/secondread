@@ -111,12 +111,16 @@ HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python -m secondread.server      # API on 1
 cd ui && npm install && npm run dev                                   # UI on http://127.0.0.1:5173
 ```
 
-Open the UI and drop in `demo/secondread-demo.en-ru.sdlxliff`: 51 segments of public WMT22
-text with known errors. `demo/answer_key.json` has the human labels. Or call the API
-directly:
+Open the UI and drop in `demo/secondread-demo.en-es.irs-failure-to-file-penalty.sdlxliff`: 52
+segments of a public IRS page, machine-translated by OPUS-MT, with known errors.
+`demo/answer_key.en-es.json` has the labels. The 51-segment WMT22 en-ru demo job
+(`secondread-demo.en-ru.*` and its `answer_key.json`) and the WMT24 en-es job are generated
+locally from the WMT data into the git-ignored `data/demo_wmt/` (`scripts/make_demo_xliff.py`,
+`scripts/make_realdocs_demo.py`) and are not redistributed. Or call the API directly:
 
 ```sh
-curl -F xliff=@demo/secondread-demo.en-ru.xliff20.xlf -F lp=en-ru http://127.0.0.1:8787/api/review
+curl -F xliff=@demo/secondread-demo.en-es.irs-failure-to-file-penalty.xlf -F lp=en-es http://127.0.0.1:8787/api/review
+curl -F xliff=@data/demo_wmt/secondread-demo.en-ru.xliff20.xlf -F lp=en-ru http://127.0.0.1:8787/api/review  # local WMT22 job
 curl -H 'content-type: application/json' http://127.0.0.1:8787/api/review \
   -d '{"lp":"en-ru","segments":[{"src":"The fee is 5 dollars.","mt":"Плата составляет 7 долларов."}]}'
 ```
@@ -208,8 +212,11 @@ All keys go in `.env`, which is git-ignored. The checker itself needs none.
 
 ## Data and attribution
 
-No WMT or MQM data is committed except the small demo slice in `demo/` and
-`ui/public/demo-results.json`. `.gitignore` keeps `data/` out apart from the split manifests.
+No WMT text is committed. `demo/` and `ui/public/demo-results.json` hold only public IRS, FDA
+and EUR-Lex documents with OPUS-MT output (see `demo/README.md`); `results/` holds segment ids,
+MQM-derived labels and scores, no text. The WMT-derived demo files are generated locally from
+the WMT data into `data/demo_wmt/` and are not redistributed. `.gitignore` keeps `data/` out
+apart from the split manifests.
 
 - **Source texts and MT outputs:** WMT22 and WMT24 General Machine Translation test sets.
   WMT releases them for research purposes; for any other use, ask the original data owners.

@@ -642,7 +642,9 @@ little.** They still supply the reasons and highlighted spans the UI shows.
 The backend ran on `:8787` temporarily with `.env` not loaded, so Sentry was off. It was stopped
 afterwards.
 
-- **Demo job,** `demo/secondread-demo.en-ru.xliff20.xlf`: 51 segments, 14 of them gold Major.
+- **Demo job,** `secondread-demo.en-ru.xliff20.xlf` (generated locally into the git-ignored
+  `data/demo_wmt/` by `scripts/make_demo_xliff.py`; WMT-derived demo files are not
+  redistributed): 51 segments, 14 of them gold Major.
   - v1 gets AUROC 0.905, PR-AUC 0.724 and recall@10% 0.286. The base model got 0.728 and 0.570 in
     the morning pass.
   - At 0.1609 it flags 23 segments: precision 0.57, recall 0.93.
@@ -1406,8 +1408,9 @@ Paired differences (95% CI excluding 0 in bold). At the lines, each system uses 
 
 Per-document counts are in `docs/REALDOCS.md`, which this pass updated. `scripts/realdocs_eval.py`
 applies both v1 lines from `secondread/thresholds.json` to the fused risks. The labels are those of
-`demo/answer_key.en-es.json`: our adjudication against the official Spanish for the three public
-documents, MQM for WMT24.
+`demo/answer_key.en-es.json` (our adjudication against the official Spanish) for the three public
+documents, and MQM for WMT24, whose answer key `answer_key.en-es.wmt24.json` is generated locally
+into the git-ignored `data/demo_wmt/` from the WMT data and is not redistributed.
 
 | Set | Segments | Major | v1, F1 line (0.7019): caught / false / flag rate | **v1, review line (0.4984) = the selected model**: caught / false / flag rate | Major in the riskiest 10% | Gemma ≥ 0.971: caught / flagged |
 |---|---:|---:|---|---|---:|---|

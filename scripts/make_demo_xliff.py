@@ -3,7 +3,11 @@ Trados SDLXLIFF, plus a gold answer key.
 
 usage: HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python scripts/make_demo_xliff.py
            [--split data/splits/en-ru.test.jsonl] [--system eTranslation] [--docs DOC,DOC,...]
-           [--out demo]
+           [--out data/demo_wmt]
+
+WMT releases its test sets for research use only, so this job is generated locally into the
+git-ignored data/demo_wmt/ and is not redistributed with the repository (demo/ holds only
+openly reusable documents, see demo/README.md).
 
 One MT system, whole documents, segments in document order. WMT22 MQM documents are
 10-segment excerpts, so ~50 segments takes five of them. All documents come from the held-out
@@ -150,7 +154,8 @@ def main() -> None:
     ap.add_argument("--split", default="data/splits/en-ru.test.jsonl")
     ap.add_argument("--system", default="eTranslation")
     ap.add_argument("--docs", default=",".join(DEFAULT_DOCS))
-    ap.add_argument("--out", default="demo")
+    ap.add_argument("--out", default="data/demo_wmt",
+                    help="output folder; keep it git-ignored (WMT text, research use only)")
     args = ap.parse_args()
 
     rows = [json.loads(line) for line in open(args.split, encoding="utf-8")]

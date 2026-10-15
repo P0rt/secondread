@@ -18,7 +18,8 @@ npm run preview      # serve dist/ (same /api proxy)
 
 `/?demo` opens the demo in a normal build too.
 
-The demo data is a 10-segment slice of the public WMT22 en-ru test set, scored by the real
-backend with the base model (no LoRA yet), so the page labels it as placeholder scores.
-Regenerate it with `scripts/make_demo_results.py --api http://127.0.0.1:8787` once the adapter
-is loaded.
+The demo data is the FDA medicine-disposal page (U.S. government work, public domain; 39
+segments machine-translated by OPUS-MT en-es), scored by the real backend with LoRA v1 at the
+review line. Regenerate it with `scripts/make_demo_results.py --api http://127.0.0.1:8787
+--answer-key demo/answer_key.en-es.json --doc fda-medicine-disposal --n 0`. WMT-derived demo
+results are written to the git-ignored `data/demo_wmt/` instead and are not redistributed.

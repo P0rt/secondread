@@ -149,11 +149,13 @@ Same shape as the `/api/review` response, plus two demo-only fields:
 - `segments[].gold`: `{ label: "Major" | "OK", source, spans: [{ side, text, category, severity }] }`,
   the human MQM annotation, shown under each segment for comparison.
 
-The current file is real `secondread/server.py` output (`scripts/make_demo_results.py --api …`,
-2026-10-14 evening) for 10 consecutive segments of one WMT22 en-ru test document, scored with
-LoRA v1 active and the en-ru dev threshold (0.1609), so `placeholder` is false: 7 of 10 flagged,
-3 of the 4 gold Major segments among them. Without a backend, the script's default mode writes a
-stand-in (regex checks + llama-server score) in the same format.
+The current file is real `secondread/server.py` output (`scripts/make_demo_results.py --api …
+--answer-key demo/answer_key.en-es.json --doc fda-medicine-disposal --n 0`) for the whole FDA
+medicine-disposal page (39 segments, OPUS-MT en-es), scored with LoRA v1 active at the en-es
+review line (0.4984), so `placeholder` is false: 3 flagged, 2 of the 3 answer-key Major segments
+among them. Its `gold` labels come from the answer key (`source: "checked against the official
+Spanish"`), not from human MQM. Runs on WMT text (the script's WMT22 mode, with or without a
+backend) write `data/demo_wmt/demo-results.json`, which is git-ignored and not redistributed.
 
 ## Tolerated variations
 

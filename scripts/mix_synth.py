@@ -15,7 +15,8 @@ are found by a fixed-point iteration from the pool sizes downwards.
 
 Before sampling, every pool row is dropped if (integrity rule 1, docs/REALDOCS.md):
   * its document belongs to a real-document story (data/realdocs/*/aligned.jsonl docs and the
-    WMT ids in demo/answer_key.en-es.json, matched per story, i.e. every chunk), or
+    WMT ids in the demo answer keys, demo/answer_key.en-es.json and the locally generated
+    data/demo_wmt/answer_key.en-es.wmt24.json, matched per story, i.e. every chunk), or
   * its source or MT contains a word of the integrity list (same regex as scripts/synth_sense.py
     FORBIDDEN_RE and scripts/verify_synth.py), or
   * it is an en-ru neg_insert row whose MT contains "?" (build_sft.py drops these by default with
@@ -57,9 +58,9 @@ def real_stories() -> set[str]:
     out = set()
     for f in Path("data/realdocs").glob("*/aligned.jsonl"):
         out |= {story(r["doc"]) for r in rj(f) if r.get("doc")}
-    key = Path("demo/answer_key.en-es.json")
-    if key.exists():
-        out |= {story(m) for m in re.findall(r'"(test-en-[^"\s]+)"', key.read_text(encoding="utf-8"))}
+    for key in (Path("demo/answer_key.en-es.json"), Path("data/demo_wmt/answer_key.en-es.wmt24.json")):
+        if key.exists():
+            out |= {story(m) for m in re.findall(r'"(test-en-[^"\s]+)"', key.read_text(encoding="utf-8"))}
     return out
 
 

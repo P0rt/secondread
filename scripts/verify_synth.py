@@ -32,9 +32,9 @@ story = lambda d: re.sub(r"_chunk_\d+.*$", "", d)  # noqa: E731
 real_stories = set()
 for f in Path("data/realdocs").glob("*/aligned.jsonl"):
     real_stories |= {story(r["doc"]) for r in rj(f) if r.get("doc")}
-key = Path("demo/answer_key.en-es.json")
-if key.exists():
-    real_stories |= {story(m) for m in re.findall(r'"(test-en-[^"\s]+)"', key.read_text(encoding="utf-8"))}
+for key in (Path("demo/answer_key.en-es.json"), Path("data/demo_wmt/answer_key.en-es.wmt24.json")):
+    if key.exists():
+        real_stories |= {story(m) for m in re.findall(r'"(test-en-[^"\s]+)"', key.read_text(encoding="utf-8"))}
 
 problems = 0
 present = {}

@@ -20,11 +20,13 @@ runs/
 
 # data: WMT/MQM text, WMT25, synthetic data and any NC-licensed eval sets (ACES CC BY-NC-SA,
 # HalOmi CC BY-NC) are never committed; only the doc -> split manifests are.
-# The demo slice in demo/ and ui/public/ is committed on purpose, with attribution.
+# demo/ and ui/public/ hold only openly reusable documents (IRS, FDA, EUR-Lex) with attribution.
+# WMT-derived demo files (research use only) are generated locally into data/demo_wmt/.
 data/*
 !data/splits/
 data/splits/*
 !data/splits/*.docs.json
+data/demo_wmt/
 
 # internal notes (kept outside the public history)
 docs/prep/

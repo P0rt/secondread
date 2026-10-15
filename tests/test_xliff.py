@@ -4,6 +4,8 @@ Runs under pytest, or without it (pytest is not a project dependency yet):
     HF_HUB_OFFLINE=1 PYTHONPATH=. uv run python tests/test_xliff.py
 Set SECONDREAD_OKAPI_SDLXLIFF=/path/to/test.txt_en-US_fr-FR.sdlxliff to also check the real
 Okapi sample (Apache-2.0, okapi/filters/xliff test resources); it is skipped otherwise.
+The WMT-derived demo jobs are checked only when they were generated locally into data/demo_wmt/
+(scripts/make_demo_xliff.py, scripts/make_realdocs_demo.py); they are not in the repository.
 """
 import json
 import os
@@ -19,6 +21,7 @@ from secondread.xliff import SDL_NS, SR_NS, XLIFF12_NS, XLIFF2_NS, XliffError  #
 
 FIX = Path(__file__).parent / "fixtures"
 DEMO = Path(__file__).resolve().parents[1] / "demo"
+DEMO_WMT = Path(__file__).resolve().parents[1] / "data" / "demo_wmt"  # local, git-ignored
 NOW = datetime(2026, 10, 14, 12, 0, tzinfo=timezone.utc)
 FIXTURES = ["sample12.xlf", "sample20.xlf", "trados_like.sdlxliff"]
 SDL = f"{{{SDL_NS}}}"
@@ -371,13 +374,54 @@ def test_reannotating_a_saved_file():
 
 # -- demo and real-world samples -----------------------------------------------------------------
 
-def test_demo_files_agree():
-    key_path = DEMO / "answer_key.json"
+def check_per_document_key(key: dict, folder: Path) -> None:
+    """An en-es style answer key (one job file per document) agrees with its job files."""
+    gold_of = {}
+    for g in key["segments"]:
+        gold_of.setdefault(g["doc_id"], []).append(g)
+    assert list(gold_of) == [d["doc_id"] for d in key["documents"]]
+    for d in key["documents"]:
+        gold = gold_of[d["doc_id"]]
+        assert len(gold) == d["counts"]["segments"]
+        assert sum(g["label"] == "Major" for g in gold) == d["counts"]["Major"]
+        for fmt, name in d["files"].items():
+            doc = xliff.load(folder / name)
+            assert doc.format == fmt and doc.lp == key["lp"], (name, doc.format, doc.lp)
+            assert [(s.src, s.tgt) for s in doc.segments] == [(g["src"], g["mt"]) for g in gold], name
+            assert [s.key for s in doc.segments] == [g["keys"][fmt] for g in gold], name
+            assert all(s.origin == "mt" for s in doc.segments if fmt == "sdlxliff")
+    assert len(key["segments"]) == key["counts"]["segments"]
+    assert sum(g["label"] == "Major" for g in key["segments"]) == key["counts"]["Major"]
+
+
+def test_enes_demo_files_agree():
+    """The committed en-es jobs (public IRS, FDA and EU documents) match their answer key."""
+    key = json.loads((DEMO / "answer_key.en-es.json").read_text(encoding="utf-8"))
+    assert [d["doc_id"] for d in key["documents"]] == [
+        "irs-failure-to-file-penalty", "fda-medicine-disposal", "eu-air-passenger-rights"]
+    assert key["counts"] == {"segments": 204, "Major": 9}
+    check_per_document_key(key, DEMO)
+    # WMT test data is research-use only: none of it belongs in the committed demo/ folder
+    assert not any("wmt_doc" in d or "mqm" in g for d in key["documents"] for g in key["segments"])
+    assert not [p.name for p in DEMO.iterdir() if "wmt" in p.name or ".en-ru." in p.name
+                or p.name == "answer_key.json"]
+
+
+def test_wmt24_demo_files_agree():
+    key_path = DEMO_WMT / "answer_key.en-es.wmt24.json"
     if not key_path.exists():
-        print("  (skipped: run scripts/make_demo_xliff.py first)")
+        print("  (skipped: run scripts/make_realdocs_demo.py to generate data/demo_wmt/ locally)")
+        return
+    check_per_document_key(json.loads(key_path.read_text(encoding="utf-8")), DEMO_WMT)
+
+
+def test_wmt22_demo_files_agree():
+    key_path = DEMO_WMT / "answer_key.json"
+    if not key_path.exists():
+        print("  (skipped: run scripts/make_demo_xliff.py to generate data/demo_wmt/ locally)")
         return
     key = json.loads(key_path.read_text(encoding="utf-8"))
-    parsed = {fmt: xliff.load(DEMO / name) for fmt, name in key["files"].items()}
+    parsed = {fmt: xliff.load(DEMO_WMT / name) for fmt, name in key["files"].items()}
     texts = {fmt: [(s.src, s.tgt) for s in d.segments] for fmt, d in parsed.items()}
     assert texts["xliff12"] == texts["xliff20"] == texts["sdlxliff"]
     assert len(texts["xliff12"]) == key["counts"]["segments"] == len(key["segments"])

@@ -6,6 +6,12 @@ covered by the MIT licence above:
 
 - prompts/gemba_mqm.txt: adapted from GEMBA-MQM (Kocmi & Federmann, 2023),
   CC BY-SA 4.0. See the header of that file.
-- demo/ and results/: segments and labels derived from WMT General MT test
-  sets (research use) and Google's MQM human evaluation
-  (google/wmt-mqm-human-evaluation). See demo/README.md and README.md.
+- demo/ and ui/public/demo-results.json: public IRS and FDA pages (U.S.
+  government works) and EU Regulation 261/2004 (EUR-Lex, reuse under
+  Decision 2011/833/EU), with OPUS-MT en-es output (Apache-2.0). See
+  demo/README.md for sources and attribution.
+- results/ and data/splits/: segment ids and labels derived from WMT General
+  MT test sets and Google's MQM human evaluation
+  (google/wmt-mqm-human-evaluation, Apache-2.0); no WMT text. WMT-derived demo
+  files are generated locally into data/demo_wmt/ and are not redistributed.
+  See README.md.

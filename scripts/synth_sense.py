@@ -31,7 +31,8 @@ with their label are moved to the rejects file (reason `verify_disagree`, full r
 Integrity (pre-registered, see the task notes in docs/STATUS.md): the real-document words of the
 evaluation set must never reach a generation prompt. Parents whose source or MT contains any of
 them are excluded, every prompt is asserted free of them, and outputs containing them are rejected.
-Documents of data/realdocs and demo/answer_key.en-es.json (and other chunks of the same WMT story)
+Documents of data/realdocs and the demo answer keys (demo/answer_key.en-es.json and the locally
+generated data/demo_wmt/answer_key.en-es.wmt24.json; and other chunks of the same WMT story)
 are excluded too. Parents come from secondread.synth.source_pool(lp, split): train documents ->
 sense.train, test documents -> held-out sense.test.
 
@@ -161,12 +162,14 @@ def build_messages(parent: dict, synth_type: str, slot: int) -> list[dict]:
 # --------------------------------------------------------------------------- integrity: real documents
 
 def realdoc_docs() -> set[str]:
-    """WMT document ids used by the real-document evaluation (data/realdocs, demo answer key)."""
+    """WMT document ids used by the real-document evaluation (data/realdocs, demo answer keys)."""
     docs: set[str] = set()
     for f in Path("data/realdocs").glob("*/aligned.jsonl"):
         docs.update(r["doc"] for r in read_jsonl(f) if r.get("doc"))
-    key = Path("demo/answer_key.en-es.json")
-    if key.exists():
+    for key in (Path("demo/answer_key.en-es.json"), Path("data/demo_wmt/answer_key.en-es.wmt24.json")):
+        if not key.exists():
+            continue
+
         def walk(x):
             if isinstance(x, dict):
                 for v in x.values():
