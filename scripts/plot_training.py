@@ -1,6 +1,7 @@
 """Plot a Tinker training run from its metrics.jsonl: training label NLL by step, and dev AUROC.
 
 usage: python3 scripts/plot_training.py [--run runs/v1] [--out tinker-v1-training.png] [--window 15]
+                                        [--layout desktop|mobile]
 
 Reads <run>/metrics.jsonl (one row per step from train_tinker.py, plus a final dev-only row at
 step == total steps), <run>/config.json (price per million tokens) and <run>/checkpoints.jsonl
@@ -15,6 +16,10 @@ the last point is after the final update). Two panels, not two y-axes on one plo
 Needs matplotlib, which is not a project dependency: run it with any python3 that has it.
 The output is an opaque RGB PNG laid out at 1100 x 940 px and saved at 2x (2200 x 1880), so the
 text stays readable when DEV shrinks the image to its ~800 px column.
+
+`--layout mobile` draws the same two panels for phones: 800 px wide (saved at 2x, 1600 px), with
+larger type, the title and notes wrapped onto several lines, and taller panels. The blog serves it
+as `<name>-mobile.png` below 720 px; the data and every number are the same as the desktop chart.
 """
 from __future__ import annotations
 
@@ -76,7 +81,7 @@ def rolling_median(y: list[float], window: int) -> list[float]:
     return [statistics.median(y[max(0, i - h): i + h + 1]) for i in range(len(y))]
 
 
-def style_axes(ax) -> None:
+def style_axes(ax, tick: float = 17) -> None:
     ax.set_facecolor(SURFACE)
     for side in ("top", "right", "left"):
         ax.spines[side].set_visible(False)
@@ -84,8 +89,16 @@ def style_axes(ax) -> None:
     ax.spines["bottom"].set_linewidth(px(1))
     ax.grid(axis="y", color=GRID, linewidth=px(1), linestyle="-")
     ax.set_axisbelow(True)
-    ax.tick_params(axis="both", labelcolor=INK_2, labelsize=px(17), length=0, pad=px(10))
+    ax.tick_params(axis="both", labelcolor=INK_2, labelsize=px(tick), length=0, pad=px(10))
     ax.tick_params(axis="x", length=px(6), width=px(1), color=AXIS)
+
+
+# Marks and type in layout px. Desktop is the original 1100 px chart; mobile is 800 px wide
+# with type about 1.4x larger, so ~10 CSS px survives a ~340 px phone column.
+SIZES = {
+    "desktop": dict(tick=17, label=17, note=15, xlabel=16, dot=6.5, mark=11, devdot=12, lw=2.5, base_dx=64),
+    "mobile": dict(tick=24, label=24, note=21, xlabel=22, dot=8.5, mark=15, devdot=16, lw=3.5, base_dx=88),
+}
 
 
 def main() -> None:
@@ -94,6 +107,8 @@ def main() -> None:
     ap.add_argument("--out", default="tinker-v1-training.png")
     ap.add_argument("--window", type=int, default=15, help="rolling-median window in steps")
     ap.add_argument("--ymax", type=float, default=1.6, help="top of the label NLL axis; higher points are marked off scale")
+    ap.add_argument("--layout", choices=sorted(SIZES), default="desktop",
+                    help="desktop: 1100 px wide; mobile: 800 px wide, larger type, for <name>-mobile.png")
     a = ap.parse_args()
 
     run = Path(a.run)
@@ -127,85 +142,124 @@ def main() -> None:
         "axes.unicode_minus": False,
         "text.parse_math": False,  # "$1.07" is text, not mathtext
     })
-    W, H = 1100, 940  # layout pixels
+    S = SIZES[a.layout]
+
+    # Every string on the chart, computed once for both layouts. -----------------------------
+    left = n_data - rows_seen  # the partial last batch is not a step
+    rows_s = f"{n_data:,} training rows: {n_steps} steps of {batch}" + (f", {left} left over" if left else "") + "."
+    auroc_s = f"Dev AUROC {dev_y[0]:.3f} → {dev_y[-1]:.3f}."
+    nll_s = (f"Cross-entropy on the Major/OK label token, per batch of {batch}.",
+             f"Dots: each step.  Line: {a.window}-step rolling median.")
+    dev_n = cfg.get("dev_n")
+    dev_split = Path(cfg.get("dev_split") or "dev").name.split(".")[0]
+    dev_s = (f"{dev_n} {dev_split} dev rows, exact p(Major) from Tinker.",
+             f"Scored before the first step, every {cfg.get('eval_every')} steps and after the last one.")
+    dev_cost = DEV_COST.get(key)
+    cost_s = f"${cost:.2f} training" + (f" + ≈${dev_cost:.2f} dev scoring" if dev_cost is not None else "")
+    dur = DURATION.get(key)
+    lr = f"{cfg.get('lr'):.0e}".replace("e-0", "e-")
+    run_s = (f"Tinker run {short_id}", f"{n_steps} steps", f"{tokens:,} tokens", cost_s) + ((dur,) if dur else ())
+    hyper_s = f"LR {lr}, {cfg.get('lr_schedule')} decay, LoRA rank {cfg.get('rank')}, seed {cfg.get('seed')}."
+    source_s = f"Plotted from {key}/metrics.jsonl."
+
+    if a.layout == "desktop":
+        W, H = 1100, 940  # layout pixels
+        L, R = 72, 74  # left / right margins (the right one holds the end labels)
+        TX = L
+        texts = [
+            (30, TITLE, 30, INK),
+            (76, f"{rows_s}  {auroc_s}", 19, INK_2),
+            (136, "Training label NLL", 22, INK),
+            (166, "  ".join(nll_s), 17, INK_2),
+            (586, "Dev AUROC", 22, INK),
+            (616, "  ".join(dev_s), 17, INK_2),
+            (884, "  ·  ".join(run_s), 16, INK_2),
+            (910, f"{hyper_s}  {source_s}", 16, MUTED),
+        ]
+        panels = ((212, 318), (660, 150))
+    else:
+        # One column, top to bottom. Each block is (lines, size, color, gap after); the text is
+        # broken by hand at clause boundaries so no line runs past the right margin.
+        W = 800
+        L, R, TX = 80, 92, 32
+        y = 34
+        texts = []
+
+        def block(lines, size, color, after, lead=1.32):
+            nonlocal y
+            for line in lines:
+                texts.append((y, line, size, color))
+                y += size * lead
+            y += after
+
+        block(["SecondRead v1 on Tinker:", TITLE.split(": ", 1)[1]], 36, INK, 12, lead=1.25)
+        block([rows_s, auroc_s], 25, INK_2, 44)
+        block(["Training label NLL"], 31, INK, 6)
+        block(nll_s, 23, INK_2, 34)
+        p1 = (y, 430)
+        y += 430 + 96  # x tick labels
+        block(["Dev AUROC"], 31, INK, 6)
+        scored, rest = dev_s[1].split(", ", 1)
+        block([dev_s[0], scored + ",", rest], 23, INK_2, 30)
+        p2 = (y, 250)
+        y += 250 + 128  # x tick labels and axis title
+        block(["  ·  ".join(run_s[:3]), "  ·  ".join(run_s[3:])], 21, INK_2, 2)
+        block([hyper_s, source_s], 21, MUTED, 0)
+        H = round(y + 26)
+        panels = (p1, p2)
+
     fig = plt.figure(figsize=(W / DPI, H / DPI), dpi=DPI, facecolor=SURFACE)
-    L, R = 72, 74  # left / right margins (the right one holds the end labels)
 
     def axes(top: float, height: float):
         return fig.add_axes(((L) / W, 1 - (top + height) / H, (W - L - R) / W, height / H))
 
-    def text(x: float, top: float, s: str, size: float, color: str, **kw):
-        return fig.text(x / W, 1 - top / H, s, ha="left", va="top", fontsize=px(size), color=color, **kw)
-
-    text(L, 30, TITLE, 30, INK)
-    left = n_data - rows_seen  # the partial last batch is not a step
-    text(L, 76, f"{n_data:,} training rows: {n_steps} steps of {batch}" + (f", {left} left over" if left else "") + ".  "
-                f"Dev AUROC {dev_y[0]:.3f} → {dev_y[-1]:.3f}.", 19, INK_2)
+    for top, s, size, color in texts:
+        fig.text(TX / W, 1 - top / H, s, ha="left", va="top", fontsize=px(size), color=color)
 
     # Top: training label NLL. -------------------------------------------------------------
-    text(L, 136, "Training label NLL", 22, INK)
-    text(L, 166, f"Cross-entropy on the Major/OK label token, per batch of {batch}.  "
-                 f"Dots: each step.  Line: {a.window}-step rolling median.", 17, INK_2)
-    ax1 = axes(212, 318)
-    style_axes(ax1)
+    ax1 = axes(*panels[0])
+    style_axes(ax1, S["tick"])
     ymax = a.ymax
     inside = [(x, y) for x, y in zip(steps, nll) if y <= ymax]
     off = [(x, y) for x, y in zip(steps, nll) if y > ymax]
-    ax1.scatter([x for x, _ in inside], [y for _, y in inside], s=dot(6.5),
+    ax1.scatter([x for x, _ in inside], [y for _, y in inside], s=dot(S["dot"]),
                 color=LOSS, alpha=0.30, linewidths=0, zorder=2)
     for x, y in off:
-        ax1.scatter([x], [ymax], marker="^", s=dot(11), color=LOSS, alpha=0.6, linewidths=0, zorder=3, clip_on=False)
+        ax1.scatter([x], [ymax], marker="^", s=dot(S["mark"]), color=LOSS, alpha=0.6, linewidths=0, zorder=3, clip_on=False)
         ax1.annotate(f"step {x}: {y:.2f}, off scale", (x, ymax), xytext=(px(12), 0), textcoords="offset points",
-                     ha="left", va="center", fontsize=px(15), color=MUTED,
+                     ha="left", va="center", fontsize=px(S["note"]), color=MUTED,
                      bbox=dict(boxstyle="square,pad=0.15", fc=SURFACE, ec="none"))
-    ax1.plot(steps, smooth, color=LOSS, linewidth=px(2.5), solid_capstyle="round",
+    ax1.plot(steps, smooth, color=LOSS, linewidth=px(S["lw"]), solid_capstyle="round",
              solid_joinstyle="round", zorder=4)
-    ax1.scatter([steps[-1]], [smooth[-1]], s=dot(11), color=LOSS, edgecolors=SURFACE, linewidths=px(2), zorder=5)
+    ax1.scatter([steps[-1]], [smooth[-1]], s=dot(S["mark"]), color=LOSS, edgecolors=SURFACE, linewidths=px(2), zorder=5)
     ax1.annotate(f"{smooth[-1]:.2f}", (steps[-1], smooth[-1]), xytext=(px(12), 0), textcoords="offset points",
-                 ha="left", va="center", fontsize=px(17), color=INK)
+                 ha="left", va="center", fontsize=px(S["label"]), color=INK)
     ax1.set_ylim(0, ymax)
     ax1.set_yticks([0, 0.4, 0.8, 1.2, 1.6])
     ax1.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: "0" if v == 0 else f"{v:.1f}"))
 
     # Bottom: dev AUROC. --------------------------------------------------------------------
-    dev_n = cfg.get("dev_n")
-    dev_split = Path(cfg.get("dev_split") or "dev").name.split(".")[0]
-    text(L, 586, "Dev AUROC", 22, INK)
-    text(L, 616, f"{dev_n} {dev_split} dev rows, exact p(Major) from Tinker.  Scored before the first step, "
-                 f"every {cfg.get('eval_every')} steps and after the last one.", 17, INK_2)
-    ax2 = axes(660, 150)
-    style_axes(ax2)
-    ax2.plot(dev_x, dev_y, color=AUROC, linewidth=px(2.5), solid_capstyle="round", solid_joinstyle="round", zorder=3)
-    ax2.scatter(dev_x, dev_y, s=dot(12), color=AUROC, edgecolors=SURFACE, linewidths=px(2), zorder=4)
+    ax2 = axes(*panels[1])
+    style_axes(ax2, S["tick"])
+    ax2.plot(dev_x, dev_y, color=AUROC, linewidth=px(S["lw"]), solid_capstyle="round", solid_joinstyle="round", zorder=3)
+    ax2.scatter(dev_x, dev_y, s=dot(S["devdot"]), color=AUROC, edgecolors=SURFACE, linewidths=px(2), zorder=4)
     ax2.annotate(f"{dev_y[0]:.3f}", (dev_x[0], dev_y[0]), xytext=(px(12), px(-14)), textcoords="offset points",
-                 ha="left", va="center", fontsize=px(17), color=INK)
-    ax2.annotate("base model", (dev_x[0], dev_y[0]), xytext=(px(64), px(-14)), textcoords="offset points",
-                 ha="left", va="center", fontsize=px(15), color=MUTED)
+                 ha="left", va="center", fontsize=px(S["label"]), color=INK)
+    ax2.annotate("base model", (dev_x[0], dev_y[0]), xytext=(px(S["base_dx"]), px(-14)), textcoords="offset points",
+                 ha="left", va="center", fontsize=px(S["note"]), color=MUTED)
     ax2.annotate(f"{dev_y[-1]:.3f}", (dev_x[-1], dev_y[-1]), xytext=(px(12), 0), textcoords="offset points",
-                 ha="left", va="center", fontsize=px(17), color=INK)
+                 ha="left", va="center", fontsize=px(S["label"]), color=INK)
     ax2.set_ylim(0.5, 0.8)
     ax2.set_yticks([0.5, 0.6, 0.7, 0.8])
     ax2.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.1f}"))
     ax2.annotate("0.5 = chance", (1.0, 0.5), xycoords=ax2.get_yaxis_transform(), xytext=(0, px(6)),
-                 textcoords="offset points", ha="right", va="bottom", fontsize=px(15), color=MUTED)
+                 textcoords="offset points", ha="right", va="bottom", fontsize=px(S["note"]), color=MUTED)
 
     ticks = sorted(set(list(range(0, total_steps, 50)) + [total_steps]))
     for ax in (ax1, ax2):
         ax.set_xticks(ticks)
         ax.set_xlim(-3, total_steps + 3)
-    ax2.set_xlabel("Training step", fontsize=px(16), color=INK_2, labelpad=px(8))
-
-    # Footnote. -----------------------------------------------------------------------------
-    dev_cost = DEV_COST.get(key)
-    cost_s = f"${cost:.2f} training" + (f" + ≈${dev_cost:.2f} dev scoring" if dev_cost is not None else "")
-    dur = DURATION.get(key)
-    lr = f"{cfg.get('lr'):.0e}".replace("e-0", "e-")
-    line1 = (f"Tinker run {short_id}  ·  {n_steps} steps  ·  {tokens:,} tokens  ·  {cost_s}"
-             + (f"  ·  {dur}" if dur else ""))
-    line2 = (f"LR {lr}, {cfg.get('lr_schedule')} decay, LoRA rank {cfg.get('rank')}, seed {cfg.get('seed')}.  "
-             f"Plotted from {key}/metrics.jsonl.")
-    text(L, 884, line1, 16, INK_2)
-    text(L, 910, line2, 16, MUTED)
+    ax2.set_xlabel("Training step", fontsize=px(S["xlabel"]), color=INK_2, labelpad=px(8))
 
     fig.savefig(a.out, dpi=DPI * 2, facecolor=SURFACE)
     from PIL import Image  # ships with matplotlib; drop the (fully opaque) alpha channel
